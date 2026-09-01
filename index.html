@@ -4,195 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>VNR Choicez</title>
+    <title>VNR CHOICEZ</title>
 
     <style>
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f7f7f5;
-            color: #111;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7f7;
+            color: #171717;
         }
 
-        /* HEADER */
         header {
             background: #111;
             color: white;
             text-align: center;
-            padding: 55px 20px;
+            padding: 45px 20px 40px;
         }
 
         header h1 {
-            font-size: 38px;
-            letter-spacing: 3px;
-            margin-bottom: 12px;
+            margin: 0;
+            font-size: 34px;
+            letter-spacing: 2px;
         }
 
         header p {
+            margin: 12px 0 0;
             font-size: 15px;
-            color: #d0d0d0;
-            letter-spacing: 1px;
+            color: #d6d6d6;
         }
 
-        /* SEARCH */
         .search-box {
-            max-width: 650px;
-            margin: -25px auto 40px;
+            max-width: 700px;
+            margin: 25px auto 10px;
             padding: 0 20px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 17px 20px;
-            border: none;
-            border-radius: 14px;
-            font-size: 15px;
+            padding: 15px 18px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 14px;
             outline: none;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+            background: white;
         }
 
-        /* MAIN */
         .container {
             max-width: 1100px;
             margin: auto;
-            padding: 0 20px 60px;
+            padding: 15px 20px 50px;
         }
 
-        .section-title {
-            font-size: 25px;
-            margin-bottom: 22px;
-        }
-
-        /* CATEGORIES */
         .categories {
             display: flex;
             gap: 10px;
             overflow-x: auto;
-            padding-bottom: 35px;
+            padding: 15px 0 25px;
         }
 
         .category {
             background: white;
             border: 1px solid #e5e5e5;
-            padding: 11px 17px;
-            border-radius: 30px;
+            border-radius: 999px;
+            padding: 10px 15px;
+            font-size: 13px;
             white-space: nowrap;
-            font-size: 14px;
         }
 
-        /* PRODUCTS */
+        .section-title {
+            font-size: 23px;
+            margin: 10px 0 20px;
+        }
+
         .products {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 22px;
         }
 
         .product {
             background: white;
-            border-radius: 18px;
+            border-radius: 16px;
             overflow: hidden;
+            border: 1px solid #e8e8e8;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
-        }
-
-        .product:hover {
-            transform: translateY(-4px);
         }
 
         .product img {
             width: 100%;
-            height: 230px;
-            object-fit: cover;
+            height: 300px;
+            object-fit: contain;
             display: block;
+            background: #fafafa;
+            padding: 10px;
         }
 
         .product-content {
-            padding: 18px;
+            padding: 20px;
         }
 
         .product h3 {
-            font-size: 17px;
-            margin-bottom: 8px;
+            margin: 0 0 9px;
+            font-size: 18px;
         }
 
         .product p {
+            margin: 0 0 15px;
             color: #666;
             font-size: 14px;
             line-height: 1.5;
         }
 
         .price {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            margin-top: 12px;
+            margin-bottom: 16px;
         }
 
         .button {
             display: block;
+            width: 100%;
+            padding: 13px;
             text-align: center;
+            text-decoration: none;
             background: #111;
             color: white;
-            padding: 13px;
-            border-radius: 11px;
-            text-decoration: none;
-            margin-top: 15px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: bold;
         }
 
-        /* FOOTER */
-        footer {
-            background: #111;
-            color: #aaa;
-            text-align: center;
-            padding: 35px 20px;
-            font-size: 13px;
+        .button:hover {
+            opacity: 0.85;
         }
 
-        /* MOBILE */
-        @media (max-width: 600px) {
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            background: #111;
+            color: #aaa;
+            font-size: 12px;
+        }
 
-            header {
-                padding: 45px 20px;
-            }
-
+        @media (max-width: 650px) {
             header h1 {
-                font-size: 30px;
+                font-size: 28px;
             }
 
             .products {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
+                grid-template-columns: 1fr;
             }
 
             .product img {
-                height: 170px;
-            }
-
-            .product-content {
-                padding: 13px;
-            }
-
-            .product h3 {
-                font-size: 15px;
-            }
-
-            .product p {
-                font-size: 12px;
-            }
-
-            .price {
-                font-size: 16px;
-            }
-
-            .button {
-                padding: 11px 5px;
-                font-size: 12px;
+                height: 280px;
             }
         }
     </style>
@@ -200,79 +168,20 @@
 
 <body>
 
-    <header>
-        <h1>VNR CHOICEZ</h1>
-        <p>Things worth knowing. Things worth buying.</p>
-    </header>
+<header>
+    <h1>VNR CHOICEZ</h1>
+    <p>Things worth knowing. Things worth buying.</p>
+</header>
 
-    <div class="search-box">
-        <input type="text" placeholder="Search products...">
-    </div>
-
-    <main class="container">
-
-        <div class="categories">
-            <div class="category">🔥 Trending</div>
-            <div class="category">📱 Gadget</div>
-            <div class="category">💰 Under RM20</div>
-            <div class="category">✨ Lifestyle</div>
-        </div>
-
-        <h2 class="section-title">🔥 Trending Finds</h2>
-
-        <div class="products">
-
-<div class="product">
-<img src="./GOOJODOQ%20HEADPHONE.jpg" alt="GOOJODOQ HEADPHONE">
-
-    <div class="product-content">
-        <h3>GOOJODOQ HEADPHONE</h3>
-
-        <p>
-            Headphone dengan bass yang padu untuk kegunaan harian.
-        </p>
-
-        <div class="price">
-            RM32.00
-        </div>
-
-        <a href="https://s.shopee.com.my/6AkgD0jriI"
-           class="button"
-           target="_blank"
-           rel="noopener noreferrer">
-            View on Shopee →
-        </a>
-    </div>
+<div class="search-box">
+    <input type="text" placeholder="Search products...">
 </div>
-            <div class="product">
-                <img src="https://via.placeholder.com/600x600" alt="Product">
 
-                <div class="product-content">
-                    <h3>Another Product</h3>
+<main class="container">
 
-                    <p>
-                        Short description of the product goes here.
-                    </p>
-
-                    <div class="price">
-                        RM19.90
-                    </div>
-
-                    <a href="#" class="button">
-                        View on Shopee →
-                    </a>
-                </div>
-            </div>
-
-        </div>
-
-    </main>
-
-    <footer>
-        © 2026 VNR Choicez
-        <br><br>
-        Affiliate links may earn us a commission.
-    </footer>
-
-</body>
-</html>
+    <div class="categories">
+        <div class="category">🔥 Trending</div>
+        <div class="category">📱 Gadget</div>
+        <div class="category">💰 Under RM20</div>
+        <div class="category">✨ Lifestyle</div>
+    </div>
