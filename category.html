@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,140 +105,41 @@
             padding: 12px 20px 50px;
         }
 
-        /* CATEGORIES */
-        .categories {
-            display: flex;
-            gap: 9px;
-            overflow-x: auto;
-            padding: 12px 0 24px;
-            scrollbar-width: none;
-        }
-
-        .categories::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category {
-            background: white;
-            border: 1px solid #e3e3e3;
-            border-radius: 999px;
-            padding: 9px 14px;
-            font-size: 13px;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-
-        .category:hover {
-            background: #111;
-            color: white;
-            border-color: #111;
-        }
-
         /* SECTION */
         .section-title {
             font-size: 22px;
-            margin: 5px 0 18px;
+            margin: 5px 0 10px;
         }
 
-        /* PRODUCT GRID */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        /* PRODUCT CARD */
-        .product {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #e7e7e7;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
-            min-width: 0;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .product:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.08);
-        }
-
-        /* PRODUCT IMAGE */
-        .product-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fafafa;
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            padding: 5px;
-            transition: transform 0.25s;
-        }
-
-        .product:hover .product-image img {
-            transform: scale(1.03);
-        }
-
-        /* PRODUCT DETAILS */
-        .product-content {
-            padding: 13px;
-        }
-
-        .product h3 {
-            margin: 0 0 7px;
-            font-size: 15px;
-            line-height: 1.3;
-            min-height: 39px;
-        }
-
-        .product p {
-            margin: 0 0 10px;
+        .section-description {
             color: #666;
-            font-size: 12px;
-            line-height: 1.45;
-            min-height: 35px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0 0 24px;
         }
 
-        .price {
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 11px;
-        }
-
-        /* BUTTON */
-        .button {
-            display: block;
-            width: 100%;
-            padding: 10px 5px;
+        /* COMING SOON */
+        .coming-soon {
+            background: white;
+            border: 1px solid #e7e7e7;
+            border-radius: 12px;
+            padding: 45px 25px;
             text-align: center;
-            text-decoration: none;
-            background: #111;
-            color: white;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .button:hover {
-            opacity: 0.85;
-        }
-
-        /* NO RESULTS */
-        .no-results {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
             color: #777;
-            font-size: 14px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .coming-soon strong {
+            display: block;
+            color: #171717;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .coming-soon p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
         /* FOOTER */
@@ -256,10 +158,6 @@
 
         /* TABLET */
         @media (max-width: 950px) {
-
-            .products {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
 
             .nav {
                 justify-content: flex-start;
@@ -290,44 +188,8 @@
                 padding: 0 10px;
             }
 
-            .products {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 9px;
-            }
-
-            .product {
-                border-radius: 9px;
-            }
-
-            .product-image {
-                aspect-ratio: 1 / 1;
-            }
-
-            .product-image img {
-                padding: 3px;
-            }
-
-            .product-content {
-                padding: 10px;
-            }
-
-            .product h3 {
-                font-size: 13px;
-                min-height: 34px;
-            }
-
-            .product p {
-                font-size: 11px;
-                min-height: 32px;
-            }
-
-            .price {
-                font-size: 16px;
-            }
-
-            .button {
-                padding: 9px 4px;
-                font-size: 11px;
+            .section-title {
+                font-size: 20px;
             }
         }
     </style>
@@ -375,153 +237,15 @@
 
 <main class="container">
 
-    <h2 class="section-title">🔥 Trending Finds</h2>
+    <h2 class="section-title" id="categoryTitle"></h2>
 
-    <div class="products" id="productGrid">
+    <p class="section-description" id="categoryDescription"></p>
 
-        <!-- PRODUCT 1 -->
-        <div class="product" data-search="goojodoq headphone headphone audio bass">
-
-            <div class="product-image">
-                <img
-                    src="./GOOJODOQ%20HEADPHONE.jpg"
-                    alt="GOOJODOQ HEADPHONE"
-                >
-            </div>
-
-            <div class="product-content">
-
-                <h3>GOOJODOQ HEADPHONE</h3>
-
-                <p>
-                    Powerful sound, clean design, and made for everyday listening.
-                </p>
-
-                <div class="price">
-                    RM32.00
-                </div>
-
-                <a
-                    href="https://s.shopee.com.my/6AkgD0jriI"
-                    class="button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View on Shopee →
-                </a>
-
-            </div>
-        </div>
-
-
-        <!-- PRODUCT 2 -->
-        <div class="product" data-search="ugreen dots earbuds earphones audio">
-
-            <div class="product-image">
-                <img
-                    src="./UGREEN%20DOTS.jpg"
-                    alt="UGREEN DOTS EARBUDS"
-                >
-            </div>
-
-            <div class="product-content">
-
-                <h3>UGREEN DOTS EARBUDS</h3>
-
-                <p>
-                    Compact, stylish, and ready for everyday listening.
-                </p>
-
-                <div class="price">
-                    RM37.75
-                </div>
-
-                <a
-                    href="https://s.shopee.com.my/9pdysERJH3"
-                    class="button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View on Shopee →
-                </a>
-
-            </div>
-        </div>
-
-
-        <!-- PRODUCT 3 -->
-        <div class="product" data-search="goojodoq fan cooling portable fan">
-
-            <div class="product-image">
-                <img
-                    src="./GOOJODOQ%20FAN.jpg"
-                    alt="GOOJODOQ FAN"
-                >
-            </div>
-
-            <div class="product-content">
-
-                <h3>GOOJODOQ FAN</h3>
-
-                <p>
-                    Compact cooling with a simple design for everyday use.
-                </p>
-
-                <div class="price">
-                    RM32.00
-                </div>
-
-                <a
-                    href="https://s.shopee.com.my/40gBdw1BVA"
-                    class="button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View on Shopee →
-                </a>
-
-            </div>
-        </div>
-
-
-        <!-- PRODUCT 4 -->
-        <div class="product" data-search="goojodoq mini power bank powerbank charger charging">
-
-            <div class="product-image">
-                <img
-                    src="./GOOJODOQ%20POWERBANK.jpg"
-                    alt="GOOJODOQ MINI POWER BANK"
-                >
-            </div>
-
-            <div class="product-content">
-
-                <h3>GOOJODOQ MINI POWER BANK</h3>
-
-                <p>
-                    Small, practical, and convenient for everyday charging.
-                </p>
-
-                <div class="price">
-                    RM24.96
-                </div>
-
-                <a
-                    href="https://s.shopee.com.my/7Kwdd36t9S"
-                    class="button"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View on Shopee →
-                </a>
-
-            </div>
-        </div>
-
-    </div>
-
-    <div class="no-results" id="noResults">
-        No products found. Try another search.
+    <div class="coming-soon">
+        <strong id="comingSoonTitle">More products are coming soon.</strong>
+        <p id="comingSoonText">
+            We are currently curating more finds for this category.
+        </p>
     </div>
 
 </main>
@@ -535,38 +259,71 @@
 </footer>
 
 <script>
-    const searchInput = document.getElementById("searchInput");
-    const products = document.querySelectorAll(".product");
-    const noResults = document.getElementById("noResults");
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type");
 
-    searchInput.addEventListener("input", function () {
+    const categoryTitle = document.getElementById("categoryTitle");
+    const categoryDescription = document.getElementById("categoryDescription");
+    const comingSoonTitle = document.getElementById("comingSoonTitle");
+    const comingSoonText = document.getElementById("comingSoonText");
 
-        const searchTerm = this.value.toLowerCase().trim();
-        let visibleProducts = 0;
+    const categories = {
+        "Trending": {
+            title: "🔥 Trending Finds",
+            description: "Discover products currently featured in our trending finds."
+        },
 
-        products.forEach(function (product) {
+        "Gadget & Tech": {
+            title: "📱 Gadget & Tech",
+            description: "Useful gadgets, tech accessories, and everyday tech finds."
+        },
 
-            const searchData = product
-                .getAttribute("data-search")
-                .toLowerCase();
+        "Accessories": {
+            title: "👜 Accessories",
+            description: "Simple and useful accessories worth checking out."
+        },
 
-            if (searchData.includes(searchTerm)) {
-                product.style.display = "";
-                visibleProducts++;
-            } else {
-                product.style.display = "none";
-            }
+        "Fashion": {
+            title: "👕 Fashion",
+            description: "Fashion finds and everyday pieces worth discovering."
+        },
 
-        });
+        "Cookery": {
+            title: "🍳 Cookery",
+            description: "Useful kitchen and cookery finds for everyday use."
+        },
 
-        if (visibleProducts === 0) {
-            noResults.style.display = "block";
-        } else {
-            noResults.style.display = "none";
+        "Fragrance": {
+            title: "🌸 Fragrance",
+            description: "Fragrance finds selected for those who enjoy discovering something new."
+        },
+
+        "Lifestyle": {
+            title: "✨ Lifestyle",
+            description: "Interesting and useful finds for everyday life."
         }
+    };
 
-    });
+    const selectedCategory = categories[type];
+
+    if (selectedCategory) {
+
+        categoryTitle.textContent = selectedCategory.title;
+        categoryDescription.textContent = selectedCategory.description;
+
+        document.title = selectedCategory.title.replace(
+            /[\u{1F300}-\u{1FAFF}]\s*/gu,
+            ""
+        ) + " | VNR CHOICEZ";
+
+    } else {
+
+        categoryTitle.textContent = "VNR CHOICEZ";
+        categoryDescription.textContent = "Explore our latest product categories.";
+
+    }
 </script>
 
 </body>
 </html>
+```
