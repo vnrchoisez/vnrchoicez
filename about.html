@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us - VNR CHOICEZ</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f6f6;
+            color: #171717;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 42px 20px 38px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 34px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            color: #d2d2d2;
+            font-size: 15px;
+        }
+
+        .nav {
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #171717;
+            background: white;
+            border: 1px solid #e3e3e3;
+            border-radius: 999px;
+            padding: 9px 14px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .nav a:hover {
+            background: #111;
+            color: white;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            padding: 45px 20px 65px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 25px;
+            text-decoration: none;
+            color: #555;
+            font-size: 13px;
+        }
+
+        .about-card {
+            background: white;
+            border: 1px solid #e7e7e7;
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+        }
+
+        .about-card h2 {
+            margin-top: 0;
+            font-size: 27px;
+        }
+
+        .about-card h3 {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .about-card p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f6f6f6;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            background: #111;
+            color: #aaa;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        @media (max-width: 950px) {
+            .nav {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 650px) {
+            header h1 {
+                font-size: 27px;
+            }
+
+            .container {
+                padding: 30px 10px 50px;
+            }
+
+            .about-card {
+                padding: 24px;
+            }
+
+            .about-card h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>VNR CHOICEZ</h1>
+    <p>Things worth knowing. Things worth buying.</p>
+</header>
+
+<nav class="nav">
+
+    <a href="index.html">🏠 Home</a>
+
+    <a href="category.html?type=Trending">🔥 Trending</a>
+
+    <a href="category.html?type=Gadget%20%26%20Tech">📱 Gadget &amp; Tech</a>
+
+    <a href="category.html?type=Accessories">👜 Accessories</a>
+
+    <a href="category.html?type=Fashion">👕 Fashion</a>
+
+    <a href="category.html?type=Cookery">🍳 Cookery</a>
+
+    <a href="category.html?type=Fragrance">🌸 Fragrance</a>
+
+    <a href="category.html?type=Lifestyle">✨ Lifestyle</a>
+
+    <a href="about.html">ABOUT US</a>
+
+</nav>
+
+<main class="container">
+
+    <a href="index.html" class="back">← Back to Home</a>
+
+    <div class="about-card">
+
+        <h2>About VNR CHOICEZ</h2>
+
+        <p>
+            VNR CHOICEZ is a curated platform created to share products
+            that are worth knowing and worth buying.
+        </p>
+
+        <p>
+            Instead of scrolling through thousands of products,
+            our goal is to make discovering useful and interesting finds
+            simpler, easier, and more enjoyable.
+        </p>
+
+        <h3>Our Purpose</h3>
+
+        <p>
+            We want to help people discover products that may be useful
+            in their everyday lives — from gadgets and accessories to
+            fashion, fragrance, cookery, and lifestyle finds.
+        </p>
+
+        <h3>Our Goal</h3>
+
+        <p>
+            Our goal is to build a simple place where great finds can be
+            discovered without unnecessary clutter. Every product featured
+            on VNR CHOICEZ is selected with the idea that it should bring
+            value, usefulness, or something interesting to the people
+            browsing our website.
+        </p>
+
+        <div class="highlight">
+            Things worth knowing.<br>
+            Things worth buying.
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+    <strong>@2026 VNR CHOICEZ</strong>
+    <br>
+    Things worth knowing. Things worth buying.
+    <br>
+    Curated finds, useful products, and things worth sharing.
+</footer>
+
+</body>
+</html>
