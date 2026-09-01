@@ -1,10 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>VNR CHOICEZ</title>
 
     <style>
@@ -19,7 +17,6 @@
             color: #171717;
         }
 
-        /* HEADER */
         header {
             background: #111;
             color: white;
@@ -27,273 +24,211 @@
             padding: 42px 20px 38px;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 34px;
+        .logo {
+            font-size: 42px;
+            font-weight: 800;
             letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
-        header p {
-            margin: 10px 0 0;
+        .tagline {
             font-size: 15px;
-            color: #d2d2d2;
+            color: #d6d6d6;
         }
 
-        /* NAVIGATION */
-        .nav {
+        nav {
             background: white;
             border-bottom: 1px solid #e5e5e5;
-            padding: 12px 20px;
             display: flex;
             justify-content: center;
-            gap: 9px;
+            gap: 10px;
+            padding: 14px 15px;
             overflow-x: auto;
-            scrollbar-width: none;
+            white-space: nowrap;
         }
 
-        .nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .nav a {
+        nav a {
             text-decoration: none;
             color: #171717;
-            background: #fff;
-            border: 1px solid #e3e3e3;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 9px 15px;
+            border: 1px solid #dedede;
             border-radius: 999px;
-            padding: 9px 14px;
-            font-size: 13px;
-            white-space: nowrap;
-            transition: 0.2s;
+            background: white;
+            transition: 0.2s ease;
         }
 
-        .nav a:hover {
-            background: #111;
+        nav a:hover {
+            background: #171717;
             color: white;
-            border-color: #111;
+            border-color: #171717;
         }
 
-        .about-link {
-            font-weight: bold;
-        }
-
-        /* SEARCH */
-        .search-box {
+        .search-container {
             max-width: 850px;
-            margin: 22px auto 8px;
+            margin: 28px auto 0;
             padding: 0 20px;
         }
 
-        .search-box input {
+        #searchInput {
             width: 100%;
-            padding: 14px 17px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 14px;
+            padding: 15px 18px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            font-size: 15px;
             outline: none;
             background: white;
         }
 
-        .search-box input:focus {
-            border-color: #111;
+        #searchInput:focus {
+            border-color: #999;
         }
 
-        /* MAIN */
         .container {
             max-width: 1250px;
-            margin: auto;
-            padding: 12px 20px 50px;
+            margin: 0 auto;
+            padding: 35px 20px 60px;
         }
 
-        /* CATEGORIES */
-        .categories {
-            display: flex;
-            gap: 9px;
-            overflow-x: auto;
-            padding: 12px 0 24px;
-            scrollbar-width: none;
-        }
-
-        .categories::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category {
-            background: white;
-            border: 1px solid #e3e3e3;
-            border-radius: 999px;
-            padding: 9px 14px;
-            font-size: 13px;
-            white-space: nowrap;
-            cursor: pointer;
-        }
-
-        .category:hover {
-            background: #111;
-            color: white;
-            border-color: #111;
-        }
-
-        /* SECTION */
         .section-title {
-            font-size: 22px;
-            margin: 5px 0 18px;
+            font-size: 28px;
+            margin: 0 0 24px;
+            font-weight: 800;
         }
 
-        /* PRODUCT GRID */
-        .products {
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
 
-        /* PRODUCT CARD */
         .product {
             background: white;
+            border: 1px solid #e7e7e7;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #e7e7e7;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
-            min-width: 0;
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .product:hover {
             transform: translateY(-3px);
-            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
-        /* PRODUCT IMAGE */
         .product-image {
             width: 100%;
             aspect-ratio: 1 / 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #fafafa;
-            overflow: hidden;
-        }
-
-        .product-image img {
-            width: 100%;
-            height: 100%;
             object-fit: contain;
             display: block;
             padding: 5px;
-            transition: transform 0.25s;
+            background: white;
         }
 
-        .product:hover .product-image img {
-            transform: scale(1.03);
+        .product-info {
+            padding: 16px;
         }
 
-        /* PRODUCT DETAILS */
-        .product-content {
-            padding: 13px;
+        .product-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px;
+            line-height: 1.35;
         }
 
-        .product h3 {
-            margin: 0 0 7px;
-            font-size: 15px;
-            line-height: 1.3;
-            min-height: 39px;
-        }
-
-        .product p {
-            margin: 0 0 10px;
+        .product-description {
+            font-size: 13px;
             color: #666;
-            font-size: 12px;
-            line-height: 1.45;
-            min-height: 35px;
+            line-height: 1.5;
+            margin-bottom: 12px;
         }
 
-        .price {
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 11px;
+        .product-price {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 14px;
         }
 
-        /* BUTTON */
-        .button {
+        .buy-button {
             display: block;
             width: 100%;
-            padding: 10px 5px;
             text-align: center;
             text-decoration: none;
             background: #111;
             color: white;
+            padding: 11px 14px;
             border-radius: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            transition: 0.2s;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s ease;
         }
 
-        .button:hover {
-            opacity: 0.85;
+        .buy-button:hover {
+            background: #333;
         }
 
-        /* NO RESULTS */
-        .no-results {
+        #noResults {
             display: none;
             text-align: center;
-            padding: 40px 20px;
             color: #777;
-            font-size: 14px;
+            padding: 40px 10px;
+            font-size: 15px;
         }
 
-        /* FOOTER */
         footer {
-            text-align: center;
-            padding: 32px 20px;
             background: #111;
-            color: #aaa;
-            font-size: 12px;
-            line-height: 1.6;
-        }
-
-        footer strong {
             color: white;
+            text-align: center;
+            padding: 35px 20px;
         }
 
-        /* TABLET */
-        @media (max-width: 950px) {
+        footer .footer-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
-            .products {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
+        footer .footer-text {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 6px;
+        }
 
-            .nav {
-                justify-content: flex-start;
+        @media (max-width: 1000px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* PHONE */
-        @media (max-width: 650px) {
-
+        @media (max-width: 700px) {
             header {
-                padding: 32px 15px;
+                padding: 32px 15px 30px;
             }
 
-            header h1 {
-                font-size: 27px;
+            .logo {
+                font-size: 32px;
             }
 
-            header p {
+            .tagline {
                 font-size: 13px;
             }
 
+            nav {
+                justify-content: flex-start;
+            }
+
             .container {
-                padding-left: 10px;
-                padding-right: 10px;
+                padding: 28px 12px 50px;
             }
 
-            .search-box {
-                padding: 0 10px;
+            .section-title {
+                font-size: 24px;
             }
 
-            .products {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 9px;
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
 
             .product {
@@ -301,34 +236,28 @@
             }
 
             .product-image {
-                aspect-ratio: 1 / 1;
-            }
-
-            .product-image img {
                 padding: 3px;
             }
 
-            .product-content {
-                padding: 10px;
+            .product-info {
+                padding: 12px;
             }
 
-            .product h3 {
-                font-size: 13px;
-                min-height: 34px;
+            .product-name {
+                font-size: 14px;
             }
 
-            .product p {
-                font-size: 11px;
-                min-height: 32px;
+            .product-description {
+                font-size: 12px;
             }
 
-            .price {
+            .product-price {
                 font-size: 16px;
             }
 
-            .button {
-                padding: 9px 4px;
-                font-size: 11px;
+            .buy-button {
+                font-size: 13px;
+                padding: 10px;
             }
         }
     </style>
@@ -337,307 +266,256 @@
 <body>
 
 <header>
-    <h1>VNR CHOICEZ</h1>
-    <p>Things worth knowing. Things worth buying.</p>
+    <div class="logo">VNR CHOICEZ</div>
+    <div class="tagline">Things worth knowing. Things worth buying.</div>
 </header>
 
-<!-- NAVIGATION -->
-<nav class="nav">
-
-    <a href="index.html">🏠 Home</a>
-
-    <a href="category.html?type=Trending">🔥 Trending</a>
-
-    <a href="category.html?type=Gadget%20%26%20Tech">📱 Gadget &amp; Tech</a>
-
-    <a href="category.html?type=Accessories">👜 Accessories</a>
-
-    <a href="category.html?type=Fashion">👕 Fashion</a>
-
-    <a href="category.html?type=Cookery">🍳 Cookery</a>
-
-    <a href="category.html?type=Fragrance">🌸 Fragrance</a>
-
-    <a href="category.html?type=Lifestyle">✨ Lifestyle</a>
-
-    <a href="about.html" class="about-link">ABOUT US</a>
-
+<nav>
+    <a href="index.html">Home</a>
+    <a href="category.html?type=Trending">Trending</a>
+    <a href="category.html?type=Gadget%20%26%20Tech">Gadget &amp; Tech</a>
+    <a href="category.html?type=Accessories">Accessories</a>
+    <a href="category.html?type=Fashion">Fashion</a>
+    <a href="category.html?type=Cookery">Cookery</a>
+    <a href="category.html?type=Fragrance">Fragrance</a>
+    <a href="category.html?type=Lifestyle">Lifestyle</a>
+    <a href="about.html">ABOUT US</a>
 </nav>
 
-<!-- SEARCH -->
-<div class="search-box">
+<div class="search-container">
     <input
         type="text"
         id="searchInput"
         placeholder="Search products..."
-        autocomplete="off"
     >
 </div>
 
 <main class="container">
 
-    <h2 class="section-title">🔥 Trending Finds</h2>
+    <!-- HOME = ALL PRODUCTS -->
+    <h2 class="section-title">🏠 Home</h2>
 
-    <div class="products" id="productGrid">
+    <div class="product-grid">
 
         <!-- PRODUCT 1 -->
-        <div class="product" data-search="goojodoq headphone audio bass wireless headphones gadget tech">
+        <div class="product" data-search="goojodoq headphone gadget tech">
+            <img
+                class="product-image"
+                src="./GOOJODOQ%20HEADPHONE.jpg"
+                alt="GOOJODOQ HEADPHONE"
+            >
 
-            <div class="product-image">
-                <img
-                    src="./GOOJODOQ%20HEADPHONE.jpg"
-                    alt="GOOJODOQ HEADPHONE"
-                >
-            </div>
+            <div class="product-info">
+                <h3 class="product-name">GOOJODOQ HEADPHONE</h3>
 
-            <div class="product-content">
-
-                <h3>GOOJODOQ HEADPHONE</h3>
-
-                <p>
+                <div class="product-description">
                     Powerful sound, clean design, and made for everyday listening.
-                </p>
+                </div>
 
-                <div class="price">
+                <div class="product-price">
                     RM32.00
                 </div>
 
                 <a
+                    class="buy-button"
                     href="https://s.shopee.com.my/6AkgD0jriI"
-                    class="button"
                     target="_blank"
-                    rel="noopener noreferrer"
                 >
-                    View on Shopee →
+                    View on Shopee
                 </a>
-
             </div>
         </div>
 
-
         <!-- PRODUCT 2 -->
-        <div class="product" data-search="ugreen dots earbuds earphones audio wireless gadget tech">
+        <div class="product" data-search="ugreen dots earbuds gadget tech">
+            <img
+                class="product-image"
+                src="./UGREEN%20DOTS.jpg"
+                alt="UGREEN DOTS EARBUDS"
+            >
 
-            <div class="product-image">
-                <img
-                    src="./UGREEN%20DOTS.jpg"
-                    alt="UGREEN DOTS EARBUDS"
-                >
-            </div>
+            <div class="product-info">
+                <h3 class="product-name">UGREEN DOTS EARBUDS</h3>
 
-            <div class="product-content">
-
-                <h3>UGREEN DOTS EARBUDS</h3>
-
-                <p>
+                <div class="product-description">
                     Compact, stylish, and ready for everyday listening.
-                </p>
+                </div>
 
-                <div class="price">
+                <div class="product-price">
                     RM37.75
                 </div>
 
                 <a
+                    class="buy-button"
                     href="https://s.shopee.com.my/3qMlQzrAsV"
-                    class="button"
                     target="_blank"
-                    rel="noopener noreferrer"
                 >
-                    View on Shopee →
+                    View on Shopee
                 </a>
-
             </div>
         </div>
 
-
         <!-- PRODUCT 3 -->
-        <div class="product" data-search="goojodoq mini turbo fan portable fan cooling gadget tech">
+        <div class="product" data-search="goojodoq mini turbo fan gadget tech">
+            <img
+                class="product-image"
+                src="./GOOJODOQ%20FAN.jpg"
+                alt="GOOJODOQ MINI TURBO FAN"
+            >
 
-            <div class="product-image">
-                <img
-                    src="./GOOJODOQ%20FAN.jpg"
-                    alt="GOOJODOQ MINI TURBO FAN"
-                >
-            </div>
+            <div class="product-info">
+                <h3 class="product-name">GOOJODOQ MINI TURBO FAN</h3>
 
-            <div class="product-content">
-
-                <h3>GOOJODOQ MINI TURBO FAN</h3>
-
-                <p>
+                <div class="product-description">
                     Compact cooling with a simple design for everyday use.
-                </p>
+                </div>
 
-                <div class="price">
+                <div class="product-price">
                     RM32.00
                 </div>
 
                 <a
+                    class="buy-button"
                     href="https://s.shopee.com.my/40gBdw1BVA"
-                    class="button"
                     target="_blank"
-                    rel="noopener noreferrer"
                 >
-                    View on Shopee →
+                    View on Shopee
                 </a>
-
             </div>
         </div>
 
-
         <!-- PRODUCT 4 -->
-        <div class="product" data-search="tmc portable mini fan portable fan cooling gadget tech">
+        <div class="product" data-search="tmc portable mini fan gadget tech">
+            <img
+                class="product-image"
+                src="./TMC%20MINIFAN.jpg"
+                alt="TMC PORTABLE MINI FAN"
+            >
 
-            <div class="product-image">
-                <img
-                    src="./TMC%20MINIFAN.jpg"
-                    alt="TMC PORTABLE MINI FAN"
-                >
-            </div>
+            <div class="product-info">
+                <h3 class="product-name">TMC PORTABLE MINI FAN</h3>
 
-            <div class="product-content">
-
-                <h3>TMC PORTABLE MINI FAN</h3>
-
-                <p>
+                <div class="product-description">
                     Portable cooling in a compact design for everyday use.
-                </p>
+                </div>
 
-                <div class="price">
+                <div class="product-price">
                     RM19.90
                 </div>
 
                 <a
+                    class="buy-button"
                     href="https://s.shopee.com.my/5LBZEA6AC2"
-                    class="button"
                     target="_blank"
-                    rel="noopener noreferrer"
                 >
-                    View on Shopee →
+                    View on Shopee
                 </a>
-
             </div>
         </div>
 
-
         <!-- PRODUCT 5 -->
-        <div class="product" data-search="ugreen 100w 5a charger wire cable charging gadget tech">
+        <div class="product" data-search="ugreen 100w 5a charger wire gadget tech">
+            <img
+                class="product-image"
+                src="./UGREEN%20CHARGER.jpg"
+                alt="UGREEN 100W 5A CHARGER WIRE"
+            >
 
-            <div class="product-image">
-                <img
-                    src="./UGREEN%20CHARGER.jpg"
-                    alt="UGREEN 100W 5A CHARGER WIRE"
-                >
-            </div>
+            <div class="product-info">
+                <h3 class="product-name">UGREEN 100W 5A CHARGER WIRE</h3>
 
-            <div class="product-content">
-
-                <h3>UGREEN 100W 5A CHARGER WIRE</h3>
-
-                <p>
+                <div class="product-description">
                     High-power charging cable designed for convenient everyday use.
-                </p>
+                </div>
 
-                <div class="price">
+                <div class="product-price">
                     RM22.46
                 </div>
 
                 <a
+                    class="buy-button"
                     href="https://s.shopee.com.my/AUtfOiYtb1"
-                    class="button"
                     target="_blank"
-                    rel="noopener noreferrer"
                 >
-                    View on Shopee →
+                    View on Shopee
                 </a>
-
             </div>
         </div>
 
-
         <!-- PRODUCT 6 -->
-        <div class="product" data-search="ugreen pd20w ios charger set charger cable iphone charging gadget tech">
+        <div class="product" data-search="ugreen pd20w ios charger set gadget tech">
+            <img
+                class="product-image"
+                src="./UGREEN%20PD20W.jpg"
+                alt="UGREEN PD20W IOS CHARGER SET"
+            >
 
-            <div class="product-image">
-                <img
-                    src="./UGREEN%20PD20W.jpg"
-                    alt="UGREEN PD20W IOS CHARGER SET"
-                >
-            </div>
+            <div class="product-info">
+                <h3 class="product-name">UGREEN PD20W IOS CHARGER SET</h3>
 
-            <div class="product-content">
-
-                <h3>UGREEN PD20W IOS CHARGER SET</h3>
-
-                <p>
+                <div class="product-description">
                     Practical charging set for fast and convenient everyday charging.
-                </p>
+                </div>
 
-                <div class="price">
+                <div class="product-price">
                     RM66.62
                 </div>
 
                 <a
+                    class="buy-button"
                     href="https://s.shopee.com.my/50YiqhvwmT"
-                    class="button"
                     target="_blank"
-                    rel="noopener noreferrer"
                 >
-                    View on Shopee →
+                    View on Shopee
                 </a>
-
             </div>
         </div>
 
-
         <!-- PRODUCT 7 -->
-        <div class="product" data-search="jeep earbuds earphones wireless audio gadget tech">
+        <div class="product" data-search="jeep earbuds gadget tech">
+            <img
+                class="product-image"
+                src="./JEEP%20EARBUDS.jpg"
+                alt="JEEP EARBUDS"
+            >
 
-            <div class="product-image">
-                <img
-                    src="./JEEP%20EARBUDS.jpg"
-                    alt="JEEP EARBUDS"
-                >
-            </div>
+            <div class="product-info">
+                <h3 class="product-name">JEEP EARBUDS</h3>
 
-            <div class="product-content">
-
-                <h3>JEEP EARBUDS</h3>
-
-                <p>
+                <div class="product-description">
                     Compact earbuds with a simple design for everyday listening.
-                </p>
+                </div>
 
-                <div class="price">
+                <div class="product-price">
                     RM21.21
                 </div>
 
                 <a
+                    class="buy-button"
                     href="https://s.shopee.com.my/8KpBBJEB0y"
-                    class="button"
                     target="_blank"
-                    rel="noopener noreferrer"
                 >
-                    View on Shopee →
+                    View on Shopee
                 </a>
-
             </div>
         </div>
 
     </div>
 
-    <div class="no-results" id="noResults">
-        No products found. Try another search.
+    <div id="noResults">
+        No products found.
     </div>
 
 </main>
 
 <footer>
-    <strong>@2026 VNR CHOICEZ</strong>
-    <br>
-    Things worth knowing. Things worth buying.
-    <br>
-    Curated finds, useful products, and things worth sharing.
+    <div class="footer-title">@2026 VNR CHOICEZ</div>
+    <div class="footer-text">
+        Things worth knowing. Things worth buying.
+    </div>
+    <div class="footer-text">
+        Curated finds, useful products, and things worth sharing.
+    </div>
 </footer>
 
 <script>
@@ -646,12 +524,10 @@
     const noResults = document.getElementById("noResults");
 
     searchInput.addEventListener("input", function () {
-
         const searchTerm = this.value.toLowerCase().trim();
         let visibleProducts = 0;
 
         products.forEach(function (product) {
-
             const searchData = product
                 .getAttribute("data-search")
                 .toLowerCase();
@@ -662,7 +538,6 @@
             } else {
                 product.style.display = "none";
             }
-
         });
 
         if (visibleProducts === 0) {
@@ -670,10 +545,8 @@
         } else {
             noResults.style.display = "none";
         }
-
     });
 </script>
 
 </body>
 </html>
-```
