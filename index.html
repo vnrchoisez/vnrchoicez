@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,14 +95,22 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
 
-        /* Product image */
-        .product img {
+        /* PRODUCT IMAGE */
+        .product-image {
             width: 100%;
-            height: 320px;
+            height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            padding: 5px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             display: block;
-            background: #fafafa;
-            padding: 15px;
         }
 
         .product-content {
@@ -151,6 +160,7 @@
             font-size: 12px;
         }
 
+        /* MOBILE */
         @media (max-width: 650px) {
 
             header h1 {
@@ -161,8 +171,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .product img {
-                height: 300px;
+            .product-image {
+                height: 330px;
             }
         }
     </style>
@@ -189,21 +199,31 @@
     </div>
 
     <h2 class="section-title">🔥 Trending Finds</h2>
+
     <div class="products">
+
         <!-- PRODUCT 1 -->
         <div class="product">
-            <img
-                src="./GOOJODOQ%20HEADPHONE.jpg"
-                alt="GOOJODOQ HEADPHONE"
-            >
+
+            <div class="product-image">
+                <img
+                    src="./GOOJODOQ%20HEADPHONE.jpg"
+                    alt="GOOJODOQ HEADPHONE"
+                >
+            </div>
+
             <div class="product-content">
+
                 <h3>GOOJODOQ HEADPHONE</h3>
+
                 <p>
                     Powerful sound, clean design, and made for everyday listening.
                 </p>
+
                 <div class="price">
                     RM32.00
                 </div>
+
                 <a
                     href="https://s.shopee.com.my/6AkgD0jriI"
                     class="button"
@@ -212,37 +232,50 @@
                 >
                     View on Shopee →
                 </a>
+
             </div>
         </div>
+
+
         <!-- PRODUCT 2 -->
         <div class="product">
-            <img
-                src="./GOOJODOQ%20HEADPHONE.jpg"
-                alt="Product"
-            >
+
+            <div class="product-image">
+                <!-- Product image will be added later -->
+            </div>
+
             <div class="product-content">
+
                 <h3>More Finds Coming Soon</h3>
+
                 <p>
                     Discover more products worth knowing and worth buying.
                 </p>
+
                 <div class="price">
                     —
                 </div>
+
                 <a
                     href="#"
                     class="button"
                 >
                     Coming Soon →
                 </a>
+
             </div>
         </div>
+
     </div>
+
 </main>
+
 <footer>
     © 2026 VNR Choicez
     <br><br>
     Affiliate links may earn us a commission.
 </footer>
+
 </body>
 </html>
-`
+```
