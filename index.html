@@ -19,6 +19,7 @@
             color: #171717;
         }
 
+        /* HEADER */
         header {
             background: #111;
             color: white;
@@ -38,6 +39,7 @@
             color: #d2d2d2;
         }
 
+        /* SEARCH */
         .search-box {
             max-width: 850px;
             margin: 22px auto 8px;
@@ -54,12 +56,14 @@
             background: white;
         }
 
+        /* MAIN */
         .container {
             max-width: 1250px;
             margin: auto;
             padding: 12px 20px 50px;
         }
 
+        /* CATEGORIES */
         .categories {
             display: flex;
             gap: 9px;
@@ -81,17 +85,20 @@
             white-space: nowrap;
         }
 
+        /* SECTION */
         .section-title {
             font-size: 22px;
             margin: 5px 0 18px;
         }
 
+        /* PRODUCT GRID */
         .products {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
         }
 
+        /* PRODUCT CARD */
         .product {
             background: white;
             border-radius: 12px;
@@ -101,6 +108,7 @@
             min-width: 0;
         }
 
+        /* PRODUCT IMAGE */
         .product-image {
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -119,6 +127,7 @@
             padding: 5px;
         }
 
+        /* PRODUCT DETAILS */
         .product-content {
             padding: 13px;
         }
@@ -144,6 +153,7 @@
             margin-bottom: 11px;
         }
 
+        /* BUTTON */
         .button {
             display: block;
             width: 100%;
@@ -161,6 +171,7 @@
             opacity: 0.85;
         }
 
+        /* FOOTER */
         footer {
             text-align: center;
             padding: 32px 20px;
@@ -169,12 +180,14 @@
             font-size: 12px;
         }
 
+        /* TABLET */
         @media (max-width: 950px) {
             .products {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
 
+        /* PHONE */
         @media (max-width: 650px) {
             header {
                 padding: 32px 15px;
@@ -330,21 +343,31 @@
 
         <!-- PRODUCT 3 -->
         <div class="product">
-            <div class="product-image"></div>
+            <div class="product-image">
+                <img
+                    src="./GOOJODOQ%20FAN.jpg"
+                    alt="GOOJODOQ FAN"
+                >
+            </div>
 
             <div class="product-content">
-                <h3>More Finds Coming Soon</h3>
+                <h3>GOOJODOQ FAN</h3>
 
                 <p>
-                    Discover more products worth knowing and worth buying.
+                    Compact cooling with a simple design for everyday use.
                 </p>
 
                 <div class="price">
-                    —
+                    RM32.00
                 </div>
 
-                <a href="#" class="button">
-                    Coming Soon →
+                <a
+                    href="https://s.shopee.com.my/40gBdw1BVA"
+                    class="button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View on Shopee →
                 </a>
             </div>
         </div>
@@ -352,21 +375,31 @@
 
         <!-- PRODUCT 4 -->
         <div class="product">
-            <div class="product-image"></div>
+            <div class="product-image">
+                <img
+                    src="./GOOJODOQ%20POWERBANK.jpg"
+                    alt="GOOJODOQ MINI POWER BANK"
+                >
+            </div>
 
             <div class="product-content">
-                <h3>More Finds Coming Soon</h3>
+                <h3>GOOJODOQ MINI POWER BANK</h3>
 
                 <p>
-                    Discover more products worth knowing and worth buying.
+                    Small, practical, and convenient for everyday charging.
                 </p>
 
                 <div class="price">
-                    —
+                    RM24.96
                 </div>
 
-                <a href="#" class="button">
-                    Coming Soon →
+                <a
+                    href="https://s.shopee.com.my/7Kwdd36t9S"
+                    class="button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View on Shopee →
                 </a>
             </div>
         </div>
