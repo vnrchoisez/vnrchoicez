@@ -1,385 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>VNR CHOICEZ</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js"></script>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f6f6f6;
-            color: #171717;
-        }
-
-        header {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 42px 20px 38px;
-        }
-
-        .logo {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .tagline {
-            font-size: 15px;
-            color: #d6d6d6;
-        }
-
-        nav {
-            background: white;
-            border-bottom: 1px solid #e5e5e5;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 15px;
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: none;
-        }
-
-        nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #171717;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 9px 15px;
-            border: 1px solid #dedede;
-            border-radius: 999px;
-            background: white;
-            transition: 0.2s ease;
-        }
-
-        nav a:hover {
-            background: #171717;
-            color: white;
-            border-color: #171717;
-        }
-
-        .search-container {
-            max-width: 850px;
-            margin: 28px auto 0;
-            padding: 0 20px;
-        }
-
-        #searchInput {
-            width: 100%;
-            padding: 15px 18px;
-            border: 1px solid #dcdcdc;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            background: white;
-        }
-
-        #searchInput:focus {
-            border-color: #999;
-        }
-
-        .container {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 35px 20px 60px;
-        }
-
-        .section-title {
-            font-size: 28px;
-            margin: 0 0 8px;
-            font-weight: 800;
-        }
-
-        .section-description {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 0 0 24px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .product {
-            background: white;
-            border: 1px solid #e7e7e7;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .product:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .product-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: contain;
-            display: block;
-            padding: 5px;
-            background: white;
-        }
-
-        .product-info {
-            padding: 16px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin: 0 0 8px;
-            line-height: 1.35;
-        }
-
-        .product-description {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .product-price {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 14px;
-        }
-
-        .product-category {
-            display: inline-block;
-            font-size: 11px;
-            color: #666;
-            background: #f1f1f1;
-            padding: 5px 8px;
-            border-radius: 999px;
-            margin-bottom: 12px;
-        }
-
-        .buy-button {
-            display: block;
-            width: 100%;
-            text-align: center;
-            text-decoration: none;
-            background: #111;
-            color: white;
-            padding: 11px 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .loading,
-        .no-results,
-        .error-message {
-            text-align: center;
-            padding: 45px 15px;
-            color: #777;
-        }
-
-        .error-message {
-            display: none;
-            background: white;
-            border: 1px solid #e5e5e5;
-            border-radius: 12px;
-            line-height: 1.6;
-        }
-
-        footer {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 35px 20px;
-        }
-
-        footer .footer-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        footer .footer-text {
-            font-size: 13px;
-            color: #aaa;
-            margin-bottom: 6px;
-        }
-
-        @media (max-width: 1000px) {
-
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-        }
-
-        @media (max-width: 700px) {
-
-            header {
-                padding: 32px 15px 30px;
-            }
-
-            .logo {
-                font-size: 32px;
-            }
-
-            .tagline {
-                font-size: 13px;
-            }
-
-            nav {
-                justify-content: flex-start;
-            }
-
-            .container {
-                padding: 28px 12px 50px;
-            }
-
-            .section-title {
-                font-size: 24px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .product-info {
-                padding: 12px;
-            }
-
-            .product-name {
-                font-size: 14px;
-            }
-
-            .product-description {
-                font-size: 12px;
-            }
-
-            .product-price {
-                font-size: 16px;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<header>
-
-    <div class="logo">
-        VNR CHOICEZ
-    </div>
-
-    <div class="tagline">
-        Things worth knowing. Things worth buying.
-    </div>
-
-</header>
-
-
-<nav id="categoryNav"></nav>
-
-
-<div class="search-container">
-
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-        autocomplete="off"
-    >
-
-</div>
-
-
-<main class="container">
-
-    <h2
-        class="section-title"
-        id="categoryTitle"
-    >
-        Loading...
-    </h2>
-
-    <p
-        class="section-description"
-        id="categoryDescription"
-    ></p>
-
-    <div
-        id="loading"
-        class="loading"
-    >
-        Loading products...
-    </div>
-
-    <div
-        id="errorMessage"
-        class="error-message"
-    ></div>
-
-    <div
-        class="product-grid"
-        id="productGrid"
-    ></div>
-
-    <div
-        id="noResults"
-        class="no-results"
-        style="display:none;"
-    >
-        No products found in this category.
-    </div>
-
-</main>
-
-
-<footer>
-
-    <div class="footer-title">
-        @2026 VNR CHOICEZ
-    </div>
-
-    <div class="footer-text">
-        Things worth knowing. Things worth buying.
-    </div>
-
-    <div class="footer-text">
-        Curated finds, useful products, and things worth sharing.
-    </div>
-
-</footer>
-
-
 <script>
 
 "use strict";
@@ -391,7 +9,7 @@
 
 if (
     typeof window.supabase === "undefined" ||
-    typeof supabase === "undefined"
+    typeof supabaseClient === "undefined"
 ) {
 
     throw new Error(
@@ -675,12 +293,12 @@ function getImageUrl(product) {
 
 
         if (
-            typeof supabase.storage !==
-            "undefined"
+            supabaseClient &&
+            supabaseClient.storage
         ) {
 
             const result =
-                supabase.storage
+                supabaseClient.storage
                     .from("product-images")
                     .getPublicUrl(path);
 
@@ -798,7 +416,7 @@ async function loadCategories() {
     try {
 
         const result =
-            await supabase
+            await supabaseClient
 
                 .from("categories")
 
@@ -934,7 +552,7 @@ async function loadProducts() {
     try {
 
         const result =
-            await supabase
+            await supabaseClient
 
                 .from("products")
 
@@ -1454,11 +1072,6 @@ async function init() {
     );
 
 
-    /*
-     * Heading is already set before
-     * Supabase finishes loading.
-     */
-
     await loadCategories();
 
 
@@ -1479,6 +1092,3 @@ async function init() {
 init();
 
 </script>
-
-</body>
-</html>
