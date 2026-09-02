@@ -1,7 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -21,6 +25,7 @@
     >
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -47,6 +52,7 @@
                 Roboto,
                 Arial,
                 sans-serif;
+
             background: #f7f7f7;
             color: var(--black);
             min-height: 100vh;
@@ -68,6 +74,7 @@
             text-decoration: none;
         }
 
+
         /* =========================
            LOGIN
         ========================= */
@@ -87,7 +94,8 @@
             background: white;
             border-radius: 20px;
             padding: 38px 32px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.25);
         }
 
         .login-logo {
@@ -176,6 +184,7 @@
             display: block;
         }
 
+
         /* =========================
            APP
         ========================= */
@@ -239,6 +248,7 @@
         .logout-btn:hover {
             background: #f5f5f5;
         }
+
 
         /* =========================
            LAYOUT
@@ -325,6 +335,7 @@
             font-size: 13px;
         }
 
+
         /* =========================
            BUTTONS
         ========================= */
@@ -363,13 +374,15 @@
             color: #198754;
         }
 
+
         /* =========================
            STATS
         ========================= */
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -394,6 +407,7 @@
             font-weight: 800;
             margin-top: 8px;
         }
+
 
         /* =========================
            TABLE
@@ -552,6 +566,7 @@
             font-size: 13px;
         }
 
+
         /* =========================
            FORM
         ========================= */
@@ -562,7 +577,8 @@
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
             gap: 18px;
             padding: 22px;
         }
@@ -664,6 +680,7 @@
             gap: 10px;
         }
 
+
         /* =========================
            TOAST
         ========================= */
@@ -679,7 +696,9 @@
             border-radius: 10px;
             font-size: 12px;
             font-weight: 600;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.18);
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.18);
+
             opacity: 0;
             pointer-events: none;
             transform: translateY(10px);
@@ -700,6 +719,7 @@
             background: #c62828;
         }
 
+
         /* =========================
            LOADING
         ========================= */
@@ -710,6 +730,7 @@
             color: #888;
             font-size: 12px;
         }
+
 
         /* =========================
            MOBILE
@@ -725,8 +746,10 @@
         }
 
         @media (max-width: 900px) {
+
             .stats-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
             }
 
             .sidebar {
@@ -736,9 +759,11 @@
             .content {
                 padding: 22px;
             }
+
         }
 
         @media (max-width: 700px) {
+
             .topbar {
                 padding: 0 16px;
             }
@@ -818,9 +843,11 @@
             .form-actions .btn {
                 flex: 1;
             }
+
         }
 
         @media (max-width: 420px) {
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -832,11 +859,16 @@
             .brand span {
                 font-size: 8px;
             }
+
         }
+
     </style>
+
 </head>
 
+
 <body>
+
 
 <!-- =========================
      LOGIN SCREEN
@@ -860,12 +892,14 @@
 
         </div>
 
+
         <form
             id="loginForm"
             class="login-form"
         >
 
             <div>
+
                 <label for="loginEmail">
                     Email
                 </label>
@@ -877,9 +911,12 @@
                     autocomplete="email"
                     required
                 >
+
             </div>
 
+
             <div>
+
                 <label for="loginPassword">
                     Password
                 </label>
@@ -891,12 +928,15 @@
                     autocomplete="current-password"
                     required
                 >
+
             </div>
+
 
             <div
                 id="loginError"
                 class="login-error"
             ></div>
+
 
             <button
                 type="submit"
@@ -919,6 +959,7 @@
 
 <div id="app">
 
+
     <header class="topbar">
 
         <div class="brand">
@@ -931,6 +972,7 @@
 
         </div>
 
+
         <div class="topbar-right">
 
             <span
@@ -940,12 +982,14 @@
                 Owner
             </span>
 
+
             <button
                 class="logout-btn"
                 id="logoutBtn"
             >
                 Logout
             </button>
+
 
             <button
                 class="mobile-menu-btn"
@@ -962,6 +1006,7 @@
 
     <div class="layout">
 
+
         <!-- SIDEBAR -->
 
         <aside
@@ -973,33 +1018,42 @@
                 Management
             </div>
 
+
             <ul class="sidebar-menu">
 
                 <li>
+
                     <button
                         class="nav-btn active"
                         data-page="dashboard"
                     >
                         Dashboard
                     </button>
+
                 </li>
 
+
                 <li>
+
                     <button
                         class="nav-btn"
                         data-page="products"
                     >
                         Products
                     </button>
+
                 </li>
 
+
                 <li>
+
                     <button
                         class="nav-btn"
                         data-page="add-product"
                     >
                         Add Product
                     </button>
+
                 </li>
 
             </ul>
@@ -1024,6 +1078,7 @@
                 <div class="page-header">
 
                     <div>
+
                         <h1>
                             Dashboard
                         </h1>
@@ -1031,12 +1086,14 @@
                         <p>
                             Manage your VNR CHOICEZ affiliate store.
                         </p>
+
                     </div>
 
                 </div>
 
 
                 <div class="stats-grid">
+
 
                     <div class="stat-card">
 
@@ -1122,12 +1179,13 @@
 
                     </div>
 
-                    <div
-                        id="dashboardRecent"
-                    >
+
+                    <div id="dashboardRecent">
+
                         <div class="loading">
                             Loading...
                         </div>
+
                     </div>
 
                 </div>
@@ -1147,6 +1205,7 @@
                 <div class="page-header">
 
                     <div>
+
                         <h1>
                             Products
                         </h1>
@@ -1154,7 +1213,9 @@
                         <p>
                             Add, edit and manage products.
                         </p>
+
                     </div>
+
 
                     <button
                         class="btn btn-primary"
@@ -1175,6 +1236,7 @@
                             All Products
                         </h2>
 
+
                         <div class="filters">
 
                             <input
@@ -1183,17 +1245,22 @@
                                 placeholder="Search products..."
                             >
 
+
                             <select
                                 id="productCategoryFilter"
                             >
+
                                 <option value="">
                                     All Categories
                                 </option>
+
                             </select>
+
 
                             <select
                                 id="productStatusFilter"
                             >
+
                                 <option value="">
                                     All Status
                                 </option>
@@ -1253,6 +1320,7 @@
 
                             </thead>
 
+
                             <tbody
                                 id="productsTableBody"
                             ></tbody>
@@ -1296,6 +1364,7 @@
 
                     <form id="productForm">
 
+
                         <div class="form-grid">
 
 
@@ -1304,9 +1373,13 @@
                             <div class="form-group full-width">
 
                                 <label for="productName">
+
                                     Product Name
+
                                     <span>*</span>
+
                                 </label>
+
 
                                 <input
                                     type="text"
@@ -1323,17 +1396,23 @@
                             <div class="form-group">
 
                                 <label for="productCategory">
+
                                     Category
+
                                     <span>*</span>
+
                                 </label>
+
 
                                 <select
                                     id="productCategory"
                                     required
                                 >
+
                                     <option value="">
                                         Select category
                                     </option>
+
                                 </select>
 
                             </div>
@@ -1344,9 +1423,13 @@
                             <div class="form-group">
 
                                 <label for="productPrice">
+
                                     Price (RM)
+
                                     <span>*</span>
+
                                 </label>
+
 
                                 <input
                                     type="number"
@@ -1365,9 +1448,13 @@
                             <div class="form-group full-width">
 
                                 <label for="productAffiliateLink">
+
                                     Shopee Affiliate Link
+
                                     <span>*</span>
+
                                 </label>
+
 
                                 <input
                                     type="url"
@@ -1376,8 +1463,11 @@
                                     placeholder="https://s.shopee.com.my/..."
                                 >
 
+
                                 <div class="form-help">
+
                                     Paste your Shopee Affiliate link manually.
+
                                 </div>
 
                             </div>
@@ -1391,6 +1481,7 @@
                                     Product Image
                                 </label>
 
+
                                 <div class="image-upload">
 
                                     <input
@@ -1399,19 +1490,26 @@
                                         accept="image/*"
                                     >
 
+
                                     <div class="form-help">
-                                        Upload a product image. JPG, PNG or WEBP recommended.
+
+                                        Upload a product image.
+                                        JPG, PNG or WEBP recommended.
+
                                     </div>
+
 
                                     <div
                                         class="image-preview"
                                         id="imagePreview"
                                     >
+
                                         <img
                                             id="imagePreviewImg"
                                             src=""
                                             alt="Preview"
                                         >
+
                                     </div>
 
                                 </div>
@@ -1426,6 +1524,7 @@
                                 <label for="productDescription">
                                     Description
                                 </label>
+
 
                                 <textarea
                                     id="productDescription"
@@ -1443,9 +1542,8 @@
                                     Status
                                 </label>
 
-                                <select
-                                    id="productStatus"
-                                >
+
+                                <select id="productStatus">
 
                                     <option value="published">
                                         Published
@@ -1476,6 +1574,7 @@
                                     Sort Order
                                 </label>
 
+
                                 <input
                                     type="number"
                                     id="productSortOrder"
@@ -1484,8 +1583,11 @@
                                     placeholder="0"
                                 >
 
+
                                 <div class="form-help">
+
                                     Lower numbers appear earlier.
+
                                 </div>
 
                             </div>
@@ -1499,7 +1601,9 @@
                                     Product Options
                                 </label>
 
+
                                 <div class="checkbox-row">
+
 
                                     <label class="checkbox-item">
 
@@ -1534,6 +1638,7 @@
 
                         <div class="form-actions">
 
+
                             <button
                                 type="button"
                                 class="btn btn-secondary"
@@ -1541,6 +1646,7 @@
                             >
                                 Cancel
                             </button>
+
 
                             <button
                                 type="submit"
@@ -1557,6 +1663,7 @@
                 </div>
 
             </section>
+
 
         </main>
 
@@ -1578,6 +1685,7 @@
 
 
 <script>
+
 document.addEventListener("DOMContentLoaded", () => {
 
     "use strict";
@@ -1588,9 +1696,13 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     let currentUser = null;
+
     let products = [];
+
     let categories = [];
+
     let editingProductId = null;
+
     let toastTimer = null;
 
 
@@ -1731,6 +1843,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loginBtn.disabled = true;
 
         return;
+
     }
 
 
@@ -1753,8 +1866,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         toastTimer = setTimeout(() => {
+
             toast.classList.remove("show");
+
         }, 3500);
+
     }
 
 
@@ -1763,6 +1879,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loginError.textContent = message;
 
         loginError.classList.add("show");
+
     }
 
 
@@ -1771,6 +1888,7 @@ document.addEventListener("DOMContentLoaded", () => {
         loginError.textContent = "";
 
         loginError.classList.remove("show");
+
     }
 
 
@@ -1782,6 +1900,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
+
     }
 
 
@@ -1795,6 +1914,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         return "RM" + number.toFixed(2);
+
     }
 
 
@@ -1804,6 +1924,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .trim()
             .replace(/\s+/g, " ")
             .toLowerCase();
+
     }
 
 
@@ -1816,12 +1937,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const match =
             categories.find(
                 category =>
-                    category.id === product.category_id
+                    String(category.id) ===
+                    String(product.category_id)
             );
 
         return match
             ? match.name
             : "";
+
     }
 
 
@@ -1834,42 +1957,55 @@ document.addEventListener("DOMContentLoaded", () => {
         document
             .querySelectorAll(".page")
             .forEach(page => {
+
                 page.classList.remove("active");
+
             });
+
 
         document
             .querySelectorAll(".nav-btn")
             .forEach(button => {
+
                 button.classList.remove("active");
+
             });
+
 
         const page =
             document.getElementById(
                 `page-${pageName}`
             );
 
+
         if (page) {
             page.classList.add("active");
         }
+
 
         const navButton =
             document.querySelector(
                 `.nav-btn[data-page="${pageName}"]`
             );
 
+
         if (navButton) {
             navButton.classList.add("active");
         }
 
+
         sidebar.classList.remove("open");
+
 
         if (pageName === "dashboard") {
             updateDashboard();
         }
 
+
         if (pageName === "products") {
             renderProducts();
         }
+
     }
 
 
@@ -1931,7 +2067,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================
-       AUTHORIZATION
+       ADMIN AUTHORIZATION
     ========================= */
 
     async function checkAdminAccess(user) {
@@ -1948,6 +2084,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 .eq("user_id", user.id)
                 .limit(1);
 
+
+        /*
+         * Compatibility fallback:
+         *
+         * If admin_users does NOT have user_id,
+         * try matching its id column.
+         */
 
         if (
             result.error &&
@@ -1974,6 +2117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             return false;
+
         }
 
 
@@ -1981,6 +2125,7 @@ document.addEventListener("DOMContentLoaded", () => {
             Array.isArray(result.data) &&
             result.data.length > 0
         );
+
     }
 
 
@@ -2008,6 +2153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             return;
+
         }
 
 
@@ -2018,16 +2164,13 @@ document.addEventListener("DOMContentLoaded", () => {
             user.email || "Owner";
 
 
-        /*
-         * OWNER / CO-OWNER DISPLAY
-         */
-
         if (ownerRole) {
 
             const email =
                 String(user.email || "")
                     .trim()
                     .toLowerCase();
+
 
             if (
                 email ===
@@ -2048,6 +2191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         clearLoginError();
+
 
         loginScreen.style.display =
             "none";
@@ -2077,6 +2221,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             clearLoginError();
 
+
             const email =
                 loginEmail.value.trim();
 
@@ -2091,6 +2236,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
+
             }
 
 
@@ -2129,10 +2275,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     error
                 );
 
+
                 showLoginError(
                     error.message ||
                     "Login failed. Please check your details."
                 );
+
 
             } finally {
 
@@ -2168,6 +2316,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
+
             currentUser = null;
 
             products = [];
@@ -2176,11 +2325,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             editingProductId = null;
 
+
             app.style.display =
                 "none";
 
             loginScreen.style.display =
                 "flex";
+
 
             loginPassword.value = "";
 
@@ -2202,11 +2353,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 session.user &&
                 event !== "SIGNED_OUT"
             ) {
-
-                /*
-                 * Avoid unnecessary repeated handling
-                 * when the current user is already loaded.
-                 */
 
                 if (
                     !currentUser ||
@@ -2253,6 +2399,7 @@ document.addEventListener("DOMContentLoaded", () => {
             categories = [];
 
             return;
+
         }
 
 
@@ -2316,11 +2463,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const option =
                 document.createElement("option");
 
+
             option.value =
                 category.name;
 
             option.textContent =
                 category.name;
+
 
             productCategory.appendChild(
                 option
@@ -2330,11 +2479,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const filterOption =
                 document.createElement("option");
 
+
             filterOption.value =
                 category.name;
 
             filterOption.textContent =
                 category.name;
+
 
             productCategoryFilter.appendChild(
                 filterOption
@@ -2392,16 +2543,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 error
             );
 
+
             showToast(
                 "Failed to load products.",
                 "error"
             );
+
 
             products = [];
 
             renderProducts();
 
             return;
+
         }
 
 
@@ -2494,20 +2648,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
             return;
+
         }
 
 
         let html =
             `
                 <div class="table-wrap">
+
                     <table>
+
                         <thead>
+
                             <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Status</th>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
                             </tr>
+
                         </thead>
+
                         <tbody>
             `;
 
@@ -2553,6 +2723,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                           `
                                 }
 
+
                                 <div>
 
                                     <div class="product-name">
@@ -2588,7 +2759,9 @@ document.addEventListener("DOMContentLoaded", () => {
         html +=
             `
                         </tbody>
+
                     </table>
+
                 </div>
             `;
 
@@ -2652,11 +2825,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 String(product.name || "")
                     .toLowerCase()
                     .includes(search) ||
+
                 String(
                     product.description || ""
                 )
                     .toLowerCase()
                     .includes(search) ||
+
                 String(
                     productCategoryName || ""
                 )
@@ -2728,16 +2903,19 @@ document.addEventListener("DOMContentLoaded", () => {
             productsTableBody.innerHTML =
                 `
                     <tr>
+
                         <td
                             colspan="5"
                             class="empty-state"
                         >
                             No products found.
                         </td>
+
                     </tr>
                 `;
 
             return;
+
         }
 
 
@@ -2774,6 +2952,15 @@ document.addEventListener("DOMContentLoaded", () => {
                                     No Image
                                 </div>
                               `;
+
+
+                    /*
+                     * IMPORTANT:
+                     * ID is converted to String here.
+                     */
+
+                    const productId =
+                        String(product.id);
 
 
                     return `
@@ -2839,11 +3026,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                 <div class="action-buttons">
 
+
                                     <button
                                         class="small-btn"
                                         type="button"
                                         data-action="edit"
-                                        data-id="${escapeHTML(product.id)}"
+                                        data-id="${escapeHTML(productId)}"
                                     >
                                         Edit
                                     </button>
@@ -2853,7 +3041,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         class="small-btn"
                                         type="button"
                                         data-action="toggle-status"
-                                        data-id="${escapeHTML(product.id)}"
+                                        data-id="${escapeHTML(productId)}"
                                     >
                                         ${
                                             product.status === "published"
@@ -2867,7 +3055,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         class="small-btn"
                                         type="button"
                                         data-action="toggle-trending"
-                                        data-id="${escapeHTML(product.id)}"
+                                        data-id="${escapeHTML(productId)}"
                                     >
                                         ${
                                             product.is_trending
@@ -2881,10 +3069,11 @@ document.addEventListener("DOMContentLoaded", () => {
                                         class="small-btn"
                                         type="button"
                                         data-action="delete"
-                                        data-id="${escapeHTML(product.id)}"
+                                        data-id="${escapeHTML(productId)}"
                                     >
                                         Delete
                                     </button>
+
 
                                 </div>
 
@@ -2918,6 +3107,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
             const action =
                 button.dataset.action;
 
@@ -2927,13 +3121,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (!id) {
+
+                console.error(
+                    "Missing product ID."
+                );
+
+
+                showToast(
+                    "Product ID is missing.",
+                    "error"
+                );
+
                 return;
+
             }
+
+
+            console.log(
+                "Product action:",
+                action
+            );
+
+
+            console.log(
+                "Product ID:",
+                id
+            );
 
 
             if (action === "edit") {
 
                 openEditProduct(id);
+
+                return;
 
             }
 
@@ -2942,6 +3162,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 await toggleProductStatus(id);
 
+                return;
+
             }
 
 
@@ -2949,12 +3171,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 await toggleTrending(id);
 
+                return;
+
             }
 
 
             if (action === "delete") {
 
                 await deleteProduct(id);
+
+                return;
 
             }
 
@@ -2970,16 +3196,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         editingProductId = null;
 
+
         resetProductForm();
+
 
         formTitle.textContent =
             "Add Product";
 
+
         formSubtitle.textContent =
             "Add a new affiliate product.";
 
+
         saveProductBtn.textContent =
             "Save Product";
+
 
         showPage("add-product");
 
@@ -2992,50 +3223,114 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openEditProduct(id) {
 
+        console.log(
+            "Opening edit for ID:",
+            id
+        );
+
+
+        /*
+         * Compare IDs as strings.
+         *
+         * This is important because it prevents
+         * UUID/string comparison problems.
+         */
+
         const product =
-            products.find(
-                item => item.id === id
-            );
+            products.find(item => {
+
+                return String(item.id) ===
+                    String(id);
+
+            });
 
 
         if (!product) {
 
+            console.error(
+                "Product not found:",
+                id,
+                products
+            );
+
+
             showToast(
-                "Product not found.",
+                "Product not found. Please reload products.",
                 "error"
             );
 
+
             return;
+
         }
 
 
-        editingProductId =
-            id;
+        console.log(
+            "Editing product:",
+            product
+        );
 
+
+        /*
+         * Store product ID.
+         */
+
+        editingProductId =
+            String(product.id);
+
+
+        /*
+         * Change title.
+         */
 
         formTitle.textContent =
             "Edit Product";
 
+
         formSubtitle.textContent =
             "Update this affiliate product.";
+
 
         saveProductBtn.textContent =
             "Update Product";
 
 
+        /*
+         * Product name.
+         */
+
         productName.value =
             product.name || "";
 
 
-        productCategory.value =
+        /*
+         * Category.
+         */
+
+        const categoryName =
             getProductCategoryName(
                 product
             );
 
 
-        productPrice.value =
-            product.price ?? "";
+        productCategory.value =
+            categoryName || "";
 
+
+        /*
+         * Price.
+         */
+
+        productPrice.value =
+            product.price !== null &&
+            product.price !== undefined
+                ? product.price
+                : "";
+
+
+        /*
+         * Shopee link.
+         */
 
         productAffiliateLink.value =
             product.affiliate_url ||
@@ -3043,35 +3338,70 @@ document.addEventListener("DOMContentLoaded", () => {
             "";
 
 
+        /*
+         * Description.
+         */
+
         productDescription.value =
             product.description || "";
 
+
+        /*
+         * Status.
+         */
 
         productStatus.value =
             product.status ||
             "published";
 
 
+        /*
+         * Trending.
+         */
+
         productTrending.checked =
             product.is_trending === true;
 
+
+        /*
+         * Featured.
+         */
 
         productFeatured.checked =
             product.featured === true;
 
 
-        productSortOrder.value =
-            product.sort_order ?? 0;
+        /*
+         * Sort order.
+         */
 
+        productSortOrder.value =
+            product.sort_order !== null &&
+            product.sort_order !== undefined
+                ? product.sort_order
+                : 0;
+
+
+        /*
+         * Don't automatically replace image.
+         *
+         * Existing image remains unless
+         * the owner chooses a new file.
+         */
 
         productImage.value =
             "";
 
 
+        /*
+         * Existing image preview.
+         */
+
         if (product.image_url) {
 
             imagePreview.style.display =
                 "block";
+
 
             imagePreviewImg.src =
                 product.image_url;
@@ -3081,13 +3411,30 @@ document.addEventListener("DOMContentLoaded", () => {
             imagePreview.style.display =
                 "none";
 
+
             imagePreviewImg.src =
                 "";
 
         }
 
 
-        showPage("add-product");
+        /*
+         * Open edit page.
+         */
+
+        showPage(
+            "add-product"
+        );
+
+
+        /*
+         * Scroll to top.
+         */
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     }
 
@@ -3100,25 +3447,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
         editingProductId = null;
 
+
         productForm.reset();
+
 
         productStatus.value =
             "published";
 
+
         productSortOrder.value =
             "0";
+
 
         imagePreview.style.display =
             "none";
 
+
         imagePreviewImg.src =
             "";
+
 
         formTitle.textContent =
             "Add Product";
 
+
         formSubtitle.textContent =
             "Add a new affiliate product.";
+
 
         saveProductBtn.textContent =
             "Save Product";
@@ -3140,7 +3495,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (!file) {
-
                 return;
             }
 
@@ -3154,6 +3508,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     imagePreview.style.display =
                         "block";
+
 
                     imagePreviewImg.src =
                         event.target.result;
@@ -3258,7 +3613,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================
-       SAVE PRODUCT
+       SAVE / UPDATE PRODUCT
     ========================= */
 
     productForm.addEventListener(
@@ -3266,6 +3621,21 @@ document.addEventListener("DOMContentLoaded", () => {
         async event => {
 
             event.preventDefault();
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Save the editing state BEFORE
+             * anything can reset editingProductId.
+             */
+
+            const wasEditing =
+                !!editingProductId;
+
+
+            const productIdBeingEdited =
+                editingProductId;
 
 
             const name =
@@ -3308,6 +3678,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
 
+            /* =========================
+               VALIDATION
+            ========================= */
+
             if (!name) {
 
                 showToast(
@@ -3316,6 +3690,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
+
             }
 
 
@@ -3327,6 +3702,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
+
             }
 
 
@@ -3341,6 +3717,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
+
             }
 
 
@@ -3352,6 +3729,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
+
             }
 
 
@@ -3369,19 +3747,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 return;
+
             }
 
 
             saveProductBtn.disabled =
                 true;
 
+
             saveProductBtn.textContent =
-                editingProductId
+                wasEditing
                     ? "UPDATING..."
                     : "SAVING...";
 
 
             try {
+
+
+                /* =========================
+                   FIND CATEGORY
+                ========================= */
 
                 const category =
                     categories.find(
@@ -3404,8 +3789,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
+                /* =========================
+                   PRODUCT ID
+                ========================= */
+
                 let productId =
-                    editingProductId;
+                    productIdBeingEdited;
 
 
                 if (!productId) {
@@ -3416,36 +3805,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                let existingProduct =
-                    editingProductId
+                /* =========================
+                   EXISTING PRODUCT
+                ========================= */
+
+                const existingProduct =
+                    wasEditing
                         ? products.find(
                             item =>
-                                item.id ===
-                                editingProductId
+                                String(item.id) ===
+                                String(productIdBeingEdited)
                         )
                         : null;
 
 
+                /* =========================
+                   EXISTING IMAGE
+                ========================= */
+
                 let imageUrl =
-                    existingProduct
-                        ?.image_url ||
+                    existingProduct?.image_url ||
                     null;
 
 
                 let imagePath =
-                    existingProduct
-                        ?.image_path ||
+                    existingProduct?.image_path ||
                     null;
 
+
+                /* =========================
+                   NEW IMAGE
+                ========================= */
 
                 const selectedFile =
                     productImage.files &&
                     productImage.files[0];
 
-
-                /*
-                 * Upload new image first.
-                 */
 
                 if (selectedFile) {
 
@@ -3459,13 +3854,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     imageUrl =
                         uploaded.url;
 
+
                     imagePath =
                         uploaded.path;
 
 
                     /*
-                     * Remove previous image
-                     * after successful upload.
+                     * Delete old image AFTER
+                     * successful upload.
                      */
 
                     if (
@@ -3497,6 +3893,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
+
+                /* =========================
+                   PAYLOAD
+                ========================= */
 
                 const payload = {
 
@@ -3550,13 +3950,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
 
 
-                if (!editingProductId) {
+                /*
+                 * Only create created_at for NEW
+                 * products.
+                 */
+
+                if (!wasEditing) {
 
                     payload.created_at =
                         new Date().toISOString();
 
                 }
 
+
+                /* =========================
+                   DATABASE SAVE
+                ========================= */
 
                 const {
                     error
@@ -3576,8 +3985,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
+                /* =========================
+                   SUCCESS
+                ========================= */
+
                 showToast(
-                    editingProductId
+                    wasEditing
                         ? "Product updated successfully."
                         : "Product added successfully.",
                     "success"
@@ -3586,9 +3999,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 resetProductForm();
 
+
                 await loadProducts();
 
-                showPage("products");
+
+                showPage(
+                    "products"
+                );
 
 
             } catch (error) {
@@ -3611,8 +4028,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 saveProductBtn.disabled =
                     false;
 
+
                 saveProductBtn.textContent =
-                    editingProductId
+                    wasEditing
                         ? "Update Product"
                         : "Save Product";
 
@@ -3630,7 +4048,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const product =
             products.find(
-                item => item.id === id
+                item =>
+                    String(item.id) ===
+                    String(id)
             );
 
 
@@ -3653,12 +4073,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 await supabaseClient
                     .from("products")
                     .update({
+
                         status:
                             newStatus,
+
                         updated_at:
                             new Date().toISOString()
+
                     })
-                    .eq("id", id);
+                    .eq(
+                        "id",
+                        id
+                    );
 
 
             if (error) {
@@ -3704,13 +4130,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const product =
             products.find(
-                item => item.id === id
+                item =>
+                    String(item.id) ===
+                    String(id)
             );
 
 
         if (!product) {
             return;
         }
+
+
+        const newTrending =
+            !product.is_trending;
 
 
         try {
@@ -3721,12 +4153,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 await supabaseClient
                     .from("products")
                     .update({
+
                         is_trending:
-                            !product.is_trending,
+                            newTrending,
+
                         updated_at:
                             new Date().toISOString()
+
                     })
-                    .eq("id", id);
+                    .eq(
+                        "id",
+                        id
+                    );
 
 
             if (error) {
@@ -3735,7 +4173,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             showToast(
-                !product.is_trending
+                newTrending
                     ? "Product added to Trending."
                     : "Product removed from Trending.",
                 "success"
@@ -3772,7 +4210,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const product =
             products.find(
-                item => item.id === id
+                item =>
+                    String(item.id) ===
+                    String(id)
             );
 
 
@@ -3794,6 +4234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
+
             /*
              * Delete database record first.
              */
@@ -3804,7 +4245,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 await supabaseClient
                     .from("products")
                     .delete()
-                    .eq("id", id);
+                    .eq(
+                        "id",
+                        id
+                    );
 
 
             if (error) {
@@ -3813,7 +4257,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             /*
-             * Delete image from Storage.
+             * Delete image.
              */
 
             if (product.image_path) {
@@ -3901,7 +4345,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-
         } catch (error) {
 
             console.error(
@@ -3917,7 +4360,9 @@ document.addEventListener("DOMContentLoaded", () => {
     initialize();
 
 });
+
 </script>
 
 </body>
 </html>
+```
