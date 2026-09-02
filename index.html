@@ -1,397 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>VNR CHOICEZ</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js"></script>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f6f6f6;
-            color: #171717;
-        }
-
-        header {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 42px 20px 38px;
-        }
-
-        .logo {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .tagline {
-            font-size: 15px;
-            color: #d6d6d6;
-        }
-
-        nav {
-            background: white;
-            border-bottom: 1px solid #e5e5e5;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 15px;
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: none;
-        }
-
-        nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #171717;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 9px 15px;
-            border: 1px solid #dedede;
-            border-radius: 999px;
-            background: white;
-            transition: 0.2s ease;
-        }
-
-        nav a:hover {
-            background: #171717;
-            color: white;
-            border-color: #171717;
-        }
-
-        .search-container {
-            max-width: 850px;
-            margin: 28px auto 0;
-            padding: 0 20px;
-        }
-
-        #searchInput {
-            width: 100%;
-            padding: 15px 18px;
-            border: 1px solid #dcdcdc;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            background: white;
-        }
-
-        #searchInput:focus {
-            border-color: #999;
-        }
-
-        .container {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 35px 20px 60px;
-        }
-
-        .section-title {
-            font-size: 28px;
-            margin: 0 0 8px;
-            font-weight: 800;
-        }
-
-        .section-description {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
-            margin: 0 0 24px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .product {
-            background: white;
-            border: 1px solid #e7e7e7;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .product:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .product-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: contain;
-            display: block;
-            padding: 5px;
-            background: white;
-        }
-
-        .product-info {
-            padding: 16px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin: 0 0 8px;
-            line-height: 1.35;
-        }
-
-        .product-description {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .product-price {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 14px;
-        }
-
-        .product-category {
-            display: inline-block;
-            font-size: 11px;
-            color: #666;
-            background: #f1f1f1;
-            padding: 5px 8px;
-            border-radius: 999px;
-            margin-bottom: 12px;
-        }
-
-        .buy-button {
-            display: block;
-            width: 100%;
-            text-align: center;
-            text-decoration: none;
-            background: #111;
-            color: white;
-            padding: 11px 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .loading,
-        .no-results,
-        .error-message {
-            text-align: center;
-            padding: 45px 15px;
-            color: #777;
-        }
-
-        .error-message {
-            display: none;
-        }
-
-        footer {
-            background: #111;
-            color: white;
-            text-align: center;
-            padding: 35px 20px;
-        }
-
-        footer .footer-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        footer .footer-text {
-            font-size: 13px;
-            color: #aaa;
-            margin-bottom: 6px;
-        }
-
-        @media (max-width: 1000px) {
-
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-        }
-
-        @media (max-width: 700px) {
-
-            header {
-                padding: 32px 15px 30px;
-            }
-
-            .logo {
-                font-size: 32px;
-            }
-
-            .tagline {
-                font-size: 13px;
-            }
-
-            nav {
-                justify-content: flex-start;
-            }
-
-            .container {
-                padding: 28px 12px 50px;
-            }
-
-            .section-title {
-                font-size: 24px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-
-            .product-info {
-                padding: 12px;
-            }
-
-            .product-name {
-                font-size: 14px;
-            }
-
-            .product-description {
-                font-size: 12px;
-            }
-
-            .product-price {
-                font-size: 16px;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<header>
-
-    <div class="logo">
-        VNR CHOICEZ
-    </div>
-
-    <div class="tagline">
-        Things worth knowing. Things worth buying.
-    </div>
-
-</header>
-
-
-<nav id="categoryNav">
-
-    <a href="index.html">
-        Home
-    </a>
-
-    <a href="category.html?type=Trending">
-        Trending
-    </a>
-
-</nav>
-
-
-<div class="search-container">
-
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="Search products..."
-        autocomplete="off"
-    >
-
-</div>
-
-
-<main class="container">
-
-    <h2
-        class="section-title"
-        id="categoryTitle"
-    >
-        Loading...
-    </h2>
-
-    <p
-        class="section-description"
-        id="categoryDescription"
-    ></p>
-
-    <div
-        id="loading"
-        class="loading"
-    >
-        Loading products...
-    </div>
-
-    <div
-        id="errorMessage"
-        class="error-message"
-    >
-        Unable to load products.
-    </div>
-
-    <div
-        class="product-grid"
-        id="productGrid"
-    ></div>
-
-    <div
-        id="noResults"
-        class="no-results"
-        style="display:none;"
-    >
-        No products found in this category.
-    </div>
-
-</main>
-
-
-<footer>
-
-    <div class="footer-title">
-        @2026 VNR CHOICEZ
-    </div>
-
-    <div class="footer-text">
-        Things worth knowing. Things worth buying.
-    </div>
-
-    <div class="footer-text">
-        Curated finds, useful products, and things worth sharing.
-    </div>
-
-</footer>
-
-
 <script>
 
 "use strict";
 
+
+// ========================================
+// CHECK SUPABASE CLIENT
+// ========================================
+
+if (
+    typeof supabaseClient === "undefined" ||
+    !supabaseClient ||
+    typeof supabaseClient.from !== "function"
+) {
+
+    console.error(
+        "SUPABASE CLIENT ERROR: supabaseClient is not available or is not a valid Supabase client."
+    );
+
+}
+
+
+// ========================================
+// URL PARAMETER
+// ========================================
 
 const params =
     new URLSearchParams(
@@ -402,6 +33,10 @@ const params =
 const selectedType =
     params.get("type") || "Trending";
 
+
+// ========================================
+// ELEMENTS
+// ========================================
 
 const productGrid =
     document.getElementById("productGrid");
@@ -428,6 +63,10 @@ const noResults =
     document.getElementById("noResults");
 
 
+// ========================================
+// DATA
+// ========================================
+
 let allProducts = [];
 
 let allCategories = [];
@@ -436,7 +75,7 @@ let currentProducts = [];
 
 
 // ========================================
-// ESCAPE
+// ESCAPE HTML
 // ========================================
 
 function escapeHtml(value) {
@@ -498,8 +137,13 @@ function getCategoryInfo(name) {
 
 async function loadCategories() {
 
+    console.log(
+        "VNR CHOICEZ: Loading categories..."
+    );
+
+
     const result =
-        await supabase
+        await supabaseClient
             .from("categories")
             .select("id,name,slug")
             .order("name", {
@@ -514,7 +158,75 @@ async function loadCategories() {
             result.error
         );
 
-        allCategories = [];
+        /*
+         * Fallback categories.
+         * This keeps navigation working even if
+         * the categories query fails.
+         */
+
+        allCategories = [
+
+            {
+                id: null,
+                name: "Gadget & Tech",
+                slug: "gadgets-tech"
+            },
+
+            {
+                id: null,
+                name: "Accessories",
+                slug: "accessories"
+            },
+
+            {
+                id: null,
+                name: "Fashion",
+                slug: "fashion"
+            },
+
+            {
+                id: null,
+                name: "Cookery",
+                slug: "cookery"
+            },
+
+            {
+                id: null,
+                name: "Beauty",
+                slug: "beauty"
+            },
+
+            {
+                id: null,
+                name: "Home Items",
+                slug: "home-items"
+            },
+
+            {
+                id: null,
+                name: "Fragrance",
+                slug: "fragrance"
+            },
+
+            {
+                id: null,
+                name: "Sports",
+                slug: "sports"
+            },
+
+            {
+                id: null,
+                name: "Gaming",
+                slug: "gaming"
+            },
+
+            {
+                id: null,
+                name: "Random Useful Items",
+                slug: "random-useful-items"
+            }
+
+        ];
 
     } else {
 
@@ -611,8 +323,13 @@ function updateCategoryHeading() {
 
 async function loadProducts() {
 
+    console.log(
+        "VNR CHOICEZ: Loading published products..."
+    );
+
+
     const result =
-        await supabase
+        await supabaseClient
             .from("products")
             .select(`
                 id,
@@ -649,12 +366,37 @@ async function loadProducts() {
             result.error
         );
 
+        console.error(
+            "PRODUCT ERROR MESSAGE:",
+            result.error.message
+        );
+
+        console.error(
+            "PRODUCT ERROR DETAILS:",
+            result.error.details
+        );
+
+        console.error(
+            "PRODUCT ERROR HINT:",
+            result.error.hint
+        );
+
         loading.style.display = "none";
+
+        errorMessage.textContent =
+            "Unable to load products. Check the browser Console for the exact Supabase error.";
 
         errorMessage.style.display = "block";
 
         return;
+
     }
+
+
+    console.log(
+        "VNR CHOICEZ: Products loaded:",
+        result.data
+    );
 
 
     allProducts =
@@ -701,13 +443,6 @@ function filterCategory() {
 
     if (selectedType === "Trending") {
 
-        /*
-         * Trending:
-         * featured products first,
-         * followed by highest clicks,
-         * then newest products.
-         */
-
         currentProducts =
             [...allProducts].sort(
                 (a, b) => {
@@ -720,7 +455,9 @@ function filterCategory() {
                     if (
                         featuredDifference !== 0
                     ) {
+
                         return featuredDifference;
+
                     }
 
 
@@ -732,7 +469,9 @@ function filterCategory() {
                     if (
                         clickDifference !== 0
                     ) {
+
                         return clickDifference;
+
                     }
 
 
@@ -748,11 +487,29 @@ function filterCategory() {
 
         currentProducts =
             allProducts.filter(
-                product =>
-                    String(
-                        product.categoryName || ""
-                    ).toLowerCase() ===
-                    selectedType.toLowerCase()
+                product => {
+
+                    const categoryName =
+                        String(
+                            product.categoryName || ""
+                        )
+                        .trim()
+                        .toLowerCase();
+
+
+                    const selected =
+                        String(
+                            selectedType || ""
+                        )
+                        .trim()
+                        .toLowerCase();
+
+
+                    return (
+                        categoryName === selected
+                    );
+
+                }
             );
 
     }
@@ -761,13 +518,15 @@ function filterCategory() {
     loading.style.display = "none";
 
 
-    renderProducts(currentProducts);
+    renderProducts(
+        currentProducts
+    );
 
 }
 
 
 // ========================================
-// RENDER
+// RENDER PRODUCTS
 // ========================================
 
 function renderProducts(products) {
@@ -782,6 +541,7 @@ function renderProducts(products) {
         noResults.style.display = "block";
 
         return;
+
     }
 
 
@@ -797,7 +557,7 @@ function renderProducts(products) {
 
 
 // ========================================
-// CARD
+// CREATE PRODUCT CARD
 // ========================================
 
 function createProductCard(product) {
@@ -929,6 +689,7 @@ searchInput.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -956,7 +717,9 @@ searchInput.addEventListener(
             );
 
 
-        renderProducts(filtered);
+        renderProducts(
+            filtered
+        );
 
     }
 );
@@ -970,9 +733,41 @@ async function init() {
 
     try {
 
+        console.log(
+            "VNR CHOICEZ: Initializing..."
+        );
+
+
+        if (
+            typeof supabaseClient === "undefined" ||
+            !supabaseClient ||
+            typeof supabaseClient.from !== "function"
+        ) {
+
+            throw new Error(
+                "supabaseClient is not available. Check config.js."
+            );
+
+        }
+
+
+        /*
+         * Set heading immediately.
+         * User should never see Loading... as
+         * the category title.
+         */
+
+        updateCategoryHeading();
+
+
         await loadCategories();
 
         await loadProducts();
+
+
+        console.log(
+            "VNR CHOICEZ: Initialization complete."
+        );
 
     } catch (error) {
 
@@ -981,7 +776,11 @@ async function init() {
             error
         );
 
+
         loading.style.display = "none";
+
+        errorMessage.textContent =
+            `Unable to load products: ${error.message || error}`;
 
         errorMessage.style.display = "block";
 
@@ -993,6 +792,3 @@ async function init() {
 init();
 
 </script>
-
-</body>
-</html>
