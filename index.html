@@ -1,794 +1,1416 @@
-<script>
-
-"use strict";
-
-
-// ========================================
-// CHECK SUPABASE CLIENT
-// ========================================
-
-if (
-    typeof supabaseClient === "undefined" ||
-    !supabaseClient ||
-    typeof supabaseClient.from !== "function"
-) {
-
-    console.error(
-        "SUPABASE CLIENT ERROR: supabaseClient is not available or is not a valid Supabase client."
-    );
-
-}
-
-
-// ========================================
-// URL PARAMETER
-// ========================================
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-
-const selectedType =
-    params.get("type") || "Trending";
-
-
-// ========================================
-// ELEMENTS
-// ========================================
-
-const productGrid =
-    document.getElementById("productGrid");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-const categoryTitle =
-    document.getElementById("categoryTitle");
-
-const categoryDescription =
-    document.getElementById("categoryDescription");
-
-const categoryNav =
-    document.getElementById("categoryNav");
-
-const loading =
-    document.getElementById("loading");
-
-const errorMessage =
-    document.getElementById("errorMessage");
-
-const noResults =
-    document.getElementById("noResults");
-
-
-// ========================================
-// DATA
-// ========================================
-
-let allProducts = [];
-
-let allCategories = [];
-
-let currentProducts = [];
-
-
-// ========================================
-// ESCAPE HTML
-// ========================================
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-// ========================================
-// IMAGE
-// ========================================
-
-function getImageUrl(product) {
-
-    return (
-        product.image_url ||
-        product.image_path ||
-        ""
-    );
-
-}
-
-
-// ========================================
-// CATEGORY INFO
-// ========================================
-
-function getCategoryInfo(name) {
-
-    if (name === "Trending") {
-
-        return {
-            title: "🔥 Trending Finds",
-            description:
-                "Discover products currently featured in our trending finds."
-        };
-
-    }
-
-
-    return {
-        title: name,
-        description:
-            "Discover useful products and curated finds from VNR CHOICEZ."
-    };
-
-}
-
-
-// ========================================
-// LOAD CATEGORIES
-// ========================================
-
-async function loadCategories() {
-
-    console.log(
-        "VNR CHOICEZ: Loading categories..."
-    );
-
-
-    const result =
-        await supabaseClient
-            .from("categories")
-            .select("id,name,slug")
-            .order("name", {
-                ascending: true
-            });
-
-
-    if (result.error) {
-
-        console.error(
-            "CATEGORY ERROR:",
-            result.error
-        );
-
-        /*
-         * Fallback categories.
-         * This keeps navigation working even if
-         * the categories query fails.
-         */
-
-        allCategories = [
-
-            {
-                id: null,
-                name: "Gadget & Tech",
-                slug: "gadgets-tech"
-            },
-
-            {
-                id: null,
-                name: "Accessories",
-                slug: "accessories"
-            },
-
-            {
-                id: null,
-                name: "Fashion",
-                slug: "fashion"
-            },
-
-            {
-                id: null,
-                name: "Cookery",
-                slug: "cookery"
-            },
-
-            {
-                id: null,
-                name: "Beauty",
-                slug: "beauty"
-            },
-
-            {
-                id: null,
-                name: "Home Items",
-                slug: "home-items"
-            },
-
-            {
-                id: null,
-                name: "Fragrance",
-                slug: "fragrance"
-            },
-
-            {
-                id: null,
-                name: "Sports",
-                slug: "sports"
-            },
-
-            {
-                id: null,
-                name: "Gaming",
-                slug: "gaming"
-            },
-
-            {
-                id: null,
-                name: "Random Useful Items",
-                slug: "random-useful-items"
-            }
-
-        ];
-
-    } else {
-
-        allCategories =
-            Array.isArray(result.data)
-                ? result.data
-                : [];
-
-    }
-
-
-    renderNavigation();
-
-    updateCategoryHeading();
-
-}
-
-
-// ========================================
-// NAVIGATION
-// ========================================
-
-function renderNavigation() {
-
-    let html = `
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="category.html?type=Trending">
-            Trending
-        </a>
-
-    `;
-
-
-    allCategories.forEach(category => {
-
-        html += `
-
-            <a
-                href="category.html?type=${encodeURIComponent(category.name)}"
-            >
-                ${escapeHtml(category.name)}
-            </a>
-
-        `;
-
-    });
-
-
-    html += `
-
-        <a href="about.html">
-            ABOUT US
-        </a>
-
-    `;
-
-
-    categoryNav.innerHTML = html;
-
-}
-
-
-// ========================================
-// HEADING
-// ========================================
-
-function updateCategoryHeading() {
-
-    const info =
-        getCategoryInfo(selectedType);
-
-
-    categoryTitle.textContent =
-        info.title;
-
-
-    categoryDescription.textContent =
-        info.description;
-
-
-    document.title =
-        `${selectedType} | VNR CHOICEZ`;
-
-}
-
-
-// ========================================
-// LOAD PRODUCTS
-// ========================================
-
-async function loadProducts() {
-
-    console.log(
-        "VNR CHOICEZ: Loading published products..."
-    );
-
-
-    const result =
-        await supabaseClient
-            .from("products")
-            .select(`
-                id,
-                name,
-                description,
-                price,
-                image_url,
-                image_path,
-                affiliate_url,
-                shopee_link,
-                status,
-                featured,
-                views,
-                clicks,
-                created_at,
-                sort_order,
-                category,
-                category_id
-            `)
-            .eq("status", "published")
-            .order("sort_order", {
-                ascending: true,
-                nullsFirst: false
-            })
-            .order("created_at", {
-                ascending: false
-            });
-
-
-    if (result.error) {
-
-        console.error(
-            "PRODUCT ERROR:",
-            result.error
-        );
-
-        console.error(
-            "PRODUCT ERROR MESSAGE:",
-            result.error.message
-        );
-
-        console.error(
-            "PRODUCT ERROR DETAILS:",
-            result.error.details
-        );
-
-        console.error(
-            "PRODUCT ERROR HINT:",
-            result.error.hint
-        );
-
-        loading.style.display = "none";
-
-        errorMessage.textContent =
-            "Unable to load products. Check the browser Console for the exact Supabase error.";
-
-        errorMessage.style.display = "block";
-
-        return;
-
-    }
-
-
-    console.log(
-        "VNR CHOICEZ: Products loaded:",
-        result.data
-    );
-
-
-    allProducts =
-        Array.isArray(result.data)
-            ? result.data
-            : [];
-
-
-    allProducts =
-        allProducts.map(product => {
-
-            const category =
-                allCategories.find(
-                    item =>
-                        item.id ===
-                        product.category_id
-                );
-
-
-            return {
-
-                ...product,
-
-                categoryName:
-                    category?.name ||
-                    product.category ||
-                    "Uncategorized"
-
-            };
-
-        });
-
-
-    filterCategory();
-
-}
-
-
-// ========================================
-// FILTER CATEGORY
-// ========================================
-
-function filterCategory() {
-
-    if (selectedType === "Trending") {
-
-        currentProducts =
-            [...allProducts].sort(
-                (a, b) => {
-
-                    const featuredDifference =
-                        Number(b.featured || false) -
-                        Number(a.featured || false);
-
-
-                    if (
-                        featuredDifference !== 0
-                    ) {
-
-                        return featuredDifference;
-
-                    }
-
-
-                    const clickDifference =
-                        Number(b.clicks || 0) -
-                        Number(a.clicks || 0);
-
-
-                    if (
-                        clickDifference !== 0
-                    ) {
-
-                        return clickDifference;
-
-                    }
-
-
-                    return (
-                        new Date(b.created_at || 0) -
-                        new Date(a.created_at || 0)
-                    );
-
-                }
-            );
-
-    } else {
-
-        currentProducts =
-            allProducts.filter(
-                product => {
-
-                    const categoryName =
-                        String(
-                            product.categoryName || ""
-                        )
-                        .trim()
-                        .toLowerCase();
-
-
-                    const selected =
-                        String(
-                            selectedType || ""
-                        )
-                        .trim()
-                        .toLowerCase();
-
-
-                    return (
-                        categoryName === selected
-                    );
-
-                }
-            );
-
-    }
-
-
-    loading.style.display = "none";
-
-
-    renderProducts(
-        currentProducts
-    );
-
-}
-
-
-// ========================================
-// RENDER PRODUCTS
-// ========================================
-
-function renderProducts(products) {
-
-    productGrid.innerHTML = "";
-
-    noResults.style.display = "none";
-
-
-    if (!products.length) {
-
-        noResults.style.display = "block";
-
-        return;
-
-    }
-
-
-    products.forEach(product => {
-
-        productGrid.appendChild(
-            createProductCard(product)
-        );
-
-    });
-
-}
-
-
-// ========================================
-// CREATE PRODUCT CARD
-// ========================================
-
-function createProductCard(product) {
-
-    const card =
-        document.createElement("article");
-
-
-    card.className =
-        "product";
-
-
-    const name =
-        product.name ||
-        "Unnamed Product";
-
-
-    const description =
-        product.description ||
-        "Useful product worth checking out.";
-
-
-    const category =
-        product.categoryName ||
-        "Uncategorized";
-
-
-    const image =
-        getImageUrl(product);
-
-
-    const affiliate =
-        product.affiliate_url ||
-        product.shopee_link ||
-        "";
-
-
-    const numericPrice =
-        Number(product.price);
-
-
-    const price =
-        Number.isFinite(numericPrice)
-            ? numericPrice.toFixed(2)
-            : "0.00";
-
-
-    card.innerHTML = `
-
-        ${
-            image
-                ? `
-                    <img
-                        class="product-image"
-                        src="${escapeHtml(image)}"
-                        alt="${escapeHtml(name)}"
-                        loading="lazy"
-                        onerror="this.style.display='none';"
-                    >
-                `
-                : ""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VNR CHOICEZ</title>
+
+    <meta name="description" content="VNR CHOICEZ - Discover useful products and curated Shopee finds.">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        <div class="product-info">
+        html {
+            scroll-behavior: smooth;
+        }
 
-            <h3 class="product-name">
-                ${escapeHtml(name)}
-            </h3>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7f7;
+            color: #111;
+            line-height: 1.5;
+        }
 
-            <div class="product-description">
-                ${escapeHtml(description)}
-            </div>
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-            <div class="product-category">
-                ${escapeHtml(category)}
-            </div>
+        /* =========================
+           HEADER
+        ========================= */
 
-            <div class="product-price">
-                RM${price}
-            </div>
+        header {
+            background: #111;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,.12);
+        }
 
-            ${
-                affiliate
-                    ? `
-                        <a
-                            class="buy-button"
-                            href="${escapeHtml(affiliate)}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            View on Shopee
-                        </a>
-                    `
-                    : `
-                        <div class="buy-button">
-                            Product link unavailable
-                        </div>
-                    `
+        .header-inner {
+            max-width: 1400px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            font-weight: 400;
+        }
+
+        .menu-button {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 27px;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav a {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 10px;
+            border-radius: 7px;
+            transition: .2s ease;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background: #fff;
+            color: #111;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            background: #111;
+            color: white;
+            padding: 80px 25px 75px;
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: .7;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 8vw, 82px);
+            line-height: .95;
+            font-weight: 900;
+            letter-spacing: -3px;
+            margin-bottom: 22px;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-section {
+            max-width: 900px;
+            margin: -28px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 15px;
+            padding: 7px;
+            box-shadow: 0 10px 35px rgba(0,0,0,.12);
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 16px 18px;
+            background: transparent;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 65px 25px 80px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-header h2 {
+            font-size: 34px;
+            line-height: 1.1;
+            font-weight: 900;
+        }
+
+        .section-header p {
+            color: #777;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        /* =========================
+           CATEGORY NAV
+        ========================= */
+
+        .category-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 35px;
+            scrollbar-width: thin;
+        }
+
+        .category-nav a {
+            background: white;
+            border: 1px solid #e8e8e8;
+            border-radius: 50px;
+            padding: 9px 15px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: .2s ease;
+        }
+
+        .category-nav a:hover {
+            background: #111;
+            color: white;
+            border-color: #111;
+        }
+
+        /* =========================
+           PRODUCT GRID
+        ========================= */
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #ededed;
+            transition: transform .2s ease, box-shadow .2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,.10);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            background: #f0f0f0;
+        }
+
+        .product-info {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 17px;
+            line-height: 1.25;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: #777;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .product-category {
+            display: inline-block;
+            color: #777;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 21px;
+            font-weight: 900;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .buy-button {
+            width: 100%;
+            background: #111;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            padding: 12px 15px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .buy-button:hover {
+            background: #333;
+        }
+
+        /* =========================
+           STATES
+        ========================= */
+
+        .state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+        }
+
+        #errorMessage {
+            display: none;
+            color: #b00020;
+            background: #fff0f0;
+            border: 1px solid #ffd0d0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        #noResults {
+            display: none;
+        }
+
+        #loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #777;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111;
+            color: white;
+            padding: 45px 25px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .footer-text {
+            color: #999;
+            font-size: 13px;
+            max-width: 450px;
+            margin-top: 8px;
+        }
+
+        .footer-link {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 1100px) {
+            .product-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
+
+            nav a {
+                font-size: 12px;
+                padding: 7px 8px;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .header-inner {
+                flex-wrap: wrap;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                padding-top: 10px;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                width: 100%;
+                padding: 11px;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .product-image {
+                height: 220px;
+            }
+
+            .section-header {
+                display: block;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            main {
+                padding: 50px 15px 65px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image {
+                height: 280px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+        <div class="header-inner">
+
+            <a href="index.html" class="logo">
+                VNR <span>CHOICEZ</span>
+            </a>
+
+            <button class="menu-button" id="menuButton" type="button">
+                ☰
+            </button>
+
+            <nav id="categoryNav"></nav>
+
+        </div>
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+        <div class="hero-inner">
+
+            <div class="hero-label">
+                VNR CHOICEZ
+            </div>
+
+            <h1>
+                FIND YOUR<br>
+                NEXT CHOICE.
+            </h1>
+
+            <p>
+                Discover useful products, trending finds and curated
+                Shopee picks selected by VNR CHOICEZ.
+            </p>
 
         </div>
 
-    `;
+    </section>
 
 
-    return card;
+    <!-- =========================
+         SEARCH
+    ========================== -->
 
-}
+    <section class="search-section">
+
+        <div class="search-box">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search products, categories or keywords..."
+                autocomplete="off"
+            >
+
+        </div>
+
+    </section>
 
 
-// ========================================
-// SEARCH
-// ========================================
+    <!-- =========================
+         MAIN
+    ========================== -->
 
-searchInput.addEventListener(
-    "input",
-    function () {
+    <main>
 
-        const term =
-            this.value
-                .toLowerCase()
-                .trim();
+        <div class="section-header">
+
+            <div>
+                <h2 id="categoryTitle">
+                    VNR CHOICEZ
+                </h2>
+
+                <p id="categoryDescription">
+                    Discover useful products and curated finds.
+                </p>
+            </div>
+
+        </div>
 
 
-        if (!term) {
+        <div id="errorMessage"></div>
 
-            renderProducts(
-                currentProducts
+
+        <div id="loading">
+            Loading products...
+        </div>
+
+
+        <div
+            id="noResults"
+            class="state"
+        >
+            <h3>No products found.</h3>
+            <p>Try another search or check another category.</p>
+        </div>
+
+
+        <section
+            id="productGrid"
+            class="product-grid"
+        ></section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <div>
+
+                <div class="footer-brand">
+                    VNR CHOICEZ
+                </div>
+
+                <div class="footer-text">
+                    Curated products, useful finds and Shopee recommendations.
+                    Discover your next choice with VNR CHOICEZ.
+                </div>
+
+            </div>
+
+            <a
+                href="about.html"
+                class="footer-link"
+            >
+                ABOUT US
+            </a>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         SCRIPTS
+         IMPORTANT ORDER
+    ========================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="config.js"></script>
+
+
+    <script>
+        "use strict";
+
+        document.addEventListener("DOMContentLoaded", async function () {
+
+            console.log("VNR CHOICEZ: Page loaded.");
+
+            /* ========================================
+               ELEMENTS
+            ======================================== */
+
+            const productGrid =
+                document.getElementById("productGrid");
+
+            const searchInput =
+                document.getElementById("searchInput");
+
+            const categoryTitle =
+                document.getElementById("categoryTitle");
+
+            const categoryDescription =
+                document.getElementById("categoryDescription");
+
+            const categoryNav =
+                document.getElementById("categoryNav");
+
+            const loading =
+                document.getElementById("loading");
+
+            const errorMessage =
+                document.getElementById("errorMessage");
+
+            const noResults =
+                document.getElementById("noResults");
+
+            const menuButton =
+                document.getElementById("menuButton");
+
+
+            /* ========================================
+               CHECK SUPABASE
+            ======================================== */
+
+            if (
+                typeof supabaseClient === "undefined" ||
+                !supabaseClient ||
+                typeof supabaseClient.from !== "function"
+            ) {
+
+                console.error(
+                    "SUPABASE CLIENT ERROR: config.js did not load correctly."
+                );
+
+                loading.style.display = "none";
+
+                errorMessage.textContent =
+                    "Supabase could not be loaded. Please check config.js and the Supabase script.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            console.log(
+                "VNR CHOICEZ: Supabase connected."
             );
 
-            return;
 
-        }
+            /* ========================================
+               URL
+            ======================================== */
 
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
 
-        const filtered =
-            currentProducts.filter(
-                product => {
-
-                    const text = [
-
-                        product.name,
-
-                        product.description,
-
-                        product.categoryName
-
-                    ]
-                    .filter(Boolean)
-                    .join(" ")
-                    .toLowerCase();
+            const selectedType =
+                params.get("type") || "All";
 
 
-                    return text.includes(term);
+            /* ========================================
+               DATA
+            ======================================== */
+
+            let allProducts = [];
+
+            let allCategories = [];
+
+            let currentProducts = [];
+
+
+            /* ========================================
+               ESCAPE HTML
+            ======================================== */
+
+            function escapeHtml(value) {
+
+                return String(value ?? "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+
+            }
+
+
+            /* ========================================
+               CATEGORY FALLBACK
+            ======================================== */
+
+            function getFallbackCategories() {
+
+                return [
+
+                    {
+                        id: null,
+                        name: "Gadget & Tech",
+                        slug: "gadgets-tech"
+                    },
+
+                    {
+                        id: null,
+                        name: "Accessories",
+                        slug: "accessories"
+                    },
+
+                    {
+                        id: null,
+                        name: "Fashion",
+                        slug: "fashion"
+                    },
+
+                    {
+                        id: null,
+                        name: "Cookery",
+                        slug: "cookery"
+                    },
+
+                    {
+                        id: null,
+                        name: "Beauty",
+                        slug: "beauty"
+                    },
+
+                    {
+                        id: null,
+                        name: "Home Items",
+                        slug: "home-items"
+                    },
+
+                    {
+                        id: null,
+                        name: "Fragrance",
+                        slug: "fragrance"
+                    },
+
+                    {
+                        id: null,
+                        name: "Sports",
+                        slug: "sports"
+                    },
+
+                    {
+                        id: null,
+                        name: "Gaming",
+                        slug: "gaming"
+                    },
+
+                    {
+                        id: null,
+                        name: "Random Useful Items",
+                        slug: "random-useful-items"
+                    }
+
+                ];
+
+            }
+
+
+            /* ========================================
+               LOAD CATEGORIES
+            ======================================== */
+
+            async function loadCategories() {
+
+                const result =
+                    await supabaseClient
+                        .from("categories")
+                        .select("id,name,slug")
+                        .order("name", {
+                            ascending: true
+                        });
+
+
+                if (result.error) {
+
+                    console.warn(
+                        "CATEGORY ERROR:",
+                        result.error
+                    );
+
+                    allCategories =
+                        getFallbackCategories();
+
+                } else {
+
+                    allCategories =
+                        Array.isArray(result.data)
+                            ? result.data
+                            : getFallbackCategories();
+
+                }
+
+
+                renderNavigation();
+
+            }
+
+
+            /* ========================================
+               NAVIGATION
+            ======================================== */
+
+            function renderNavigation() {
+
+                let html = "";
+
+                html += `
+                    <a href="index.html">
+                        Home
+                    </a>
+                `;
+
+
+                html += `
+                    <a href="category.html?type=Trending">
+                        Trending
+                    </a>
+                `;
+
+
+                allCategories.forEach(category => {
+
+                    html += `
+                        <a href="category.html?type=${encodeURIComponent(category.name)}">
+                            ${escapeHtml(category.name)}
+                        </a>
+                    `;
+
+                });
+
+
+                html += `
+                    <a href="about.html">
+                        ABOUT US
+                    </a>
+                `;
+
+
+                categoryNav.innerHTML = html;
+
+            }
+
+
+            /* ========================================
+               CATEGORY NAME
+            ======================================== */
+
+            function getCategoryName(product) {
+
+                const category =
+                    allCategories.find(
+                        item =>
+                            item.id === product.category_id
+                    );
+
+
+                return (
+                    category?.name ||
+                    product.category ||
+                    "Uncategorized"
+                );
+
+            }
+
+
+            /* ========================================
+               LOAD PRODUCTS
+            ======================================== */
+
+            async function loadProducts() {
+
+                const result =
+                    await supabaseClient
+                        .from("products")
+                        .select(`
+                            id,
+                            name,
+                            description,
+                            price,
+                            image_url,
+                            image_path,
+                            affiliate_url,
+                            shopee_link,
+                            status,
+                            featured,
+                            views,
+                            clicks,
+                            created_at,
+                            sort_order,
+                            category,
+                            category_id
+                        `)
+                        .eq("status", "published")
+                        .order("sort_order", {
+                            ascending: true,
+                            nullsFirst: false
+                        })
+                        .order("created_at", {
+                            ascending: false
+                        });
+
+
+                if (result.error) {
+
+                    console.error(
+                        "PRODUCT ERROR:",
+                        result.error
+                    );
+
+                    throw result.error;
+
+                }
+
+
+                allProducts =
+                    Array.isArray(result.data)
+                        ? result.data.map(product => {
+
+                            return {
+                                ...product,
+                                categoryName:
+                                    getCategoryName(product)
+                            };
+
+                        })
+                        : [];
+
+
+                filterProducts();
+
+            }
+
+
+            /* ========================================
+               FILTER PRODUCTS
+            ======================================== */
+
+            function filterProducts() {
+
+                if (
+                    !selectedType ||
+                    selectedType.toLowerCase() === "all"
+                ) {
+
+                    currentProducts =
+                        [...allProducts];
+
+                }
+
+                else if (
+                    selectedType.toLowerCase() === "trending"
+                ) {
+
+                    currentProducts =
+                        [...allProducts].sort(
+                            (a, b) => {
+
+                                const featuredDifference =
+                                    Number(b.featured || false) -
+                                    Number(a.featured || false);
+
+
+                                if (
+                                    featuredDifference !== 0
+                                ) {
+
+                                    return featuredDifference;
+
+                                }
+
+
+                                const clickDifference =
+                                    Number(b.clicks || 0) -
+                                    Number(a.clicks || 0);
+
+
+                                if (
+                                    clickDifference !== 0
+                                ) {
+
+                                    return clickDifference;
+
+                                }
+
+
+                                return (
+                                    new Date(b.created_at || 0) -
+                                    new Date(a.created_at || 0)
+                                );
+
+                            }
+                        );
+
+                }
+
+                else {
+
+                    const selected =
+                        selectedType
+                            .trim()
+                            .toLowerCase();
+
+
+                    currentProducts =
+                        allProducts.filter(
+                            product =>
+                                String(
+                                    product.categoryName || ""
+                                )
+                                .trim()
+                                .toLowerCase() === selected
+                        );
+
+                }
+
+
+                updateHeading();
+
+                loading.style.display = "none";
+
+                renderProducts(
+                    currentProducts
+                );
+
+            }
+
+
+            /* ========================================
+               HEADING
+            ======================================== */
+
+            function updateHeading() {
+
+                if (
+                    selectedType.toLowerCase() === "trending"
+                ) {
+
+                    categoryTitle.textContent =
+                        "🔥 Trending Finds";
+
+                    categoryDescription.textContent =
+                        "Discover products currently featured in our trending finds.";
+
+                    document.title =
+                        "Trending | VNR CHOICEZ";
+
+                    return;
+
+                }
+
+
+                if (
+                    selectedType.toLowerCase() === "all"
+                ) {
+
+                    categoryTitle.textContent =
+                        "VNR CHOICEZ";
+
+                    categoryDescription.textContent =
+                        "Discover useful products and curated finds.";
+
+                    document.title =
+                        "VNR CHOICEZ";
+
+                    return;
+
+                }
+
+
+                categoryTitle.textContent =
+                    selectedType;
+
+                categoryDescription.textContent =
+                    "Discover useful products and curated finds from VNR CHOICEZ.";
+
+                document.title =
+                    `${selectedType} | VNR CHOICEZ`;
+
+            }
+
+
+            /* ========================================
+               IMAGE
+            ======================================== */
+
+            function getImageUrl(product) {
+
+                return (
+                    product.image_url ||
+                    product.image_path ||
+                    ""
+                );
+
+            }
+
+
+            /* ========================================
+               RENDER PRODUCTS
+            ======================================== */
+
+            function renderProducts(products) {
+
+                productGrid.innerHTML = "";
+
+                noResults.style.display =
+                    "none";
+
+
+                if (!products.length) {
+
+                    noResults.style.display =
+                        "block";
+
+                    return;
+
+                }
+
+
+                products.forEach(product => {
+
+                    productGrid.appendChild(
+                        createProductCard(product)
+                    );
+
+                });
+
+            }
+
+
+            /* ========================================
+               PRODUCT CARD
+            ======================================== */
+
+            function createProductCard(product) {
+
+                const card =
+                    document.createElement("article");
+
+
+                card.className =
+                    "product";
+
+
+                const name =
+                    product.name ||
+                    "Unnamed Product";
+
+
+                const description =
+                    product.description ||
+                    "Useful product worth checking out.";
+
+
+                const category =
+                    product.categoryName ||
+                    "Uncategorized";
+
+
+                const image =
+                    getImageUrl(product);
+
+
+                const affiliate =
+                    product.affiliate_url ||
+                    product.shopee_link ||
+                    "";
+
+
+                const numericPrice =
+                    Number(product.price);
+
+
+                const price =
+                    Number.isFinite(numericPrice)
+                        ? numericPrice.toFixed(2)
+                        : "0.00";
+
+
+                card.innerHTML = `
+
+                    ${
+                        image
+                            ? `
+                                <img
+                                    class="product-image"
+                                    src="${escapeHtml(image)}"
+                                    alt="${escapeHtml(name)}"
+                                    loading="lazy"
+                                    onerror="this.style.display='none';"
+                                >
+                            `
+                            : ""
+                    }
+
+
+                    <div class="product-info">
+
+                        <h3 class="product-name">
+                            ${escapeHtml(name)}
+                        </h3>
+
+
+                        <div class="product-description">
+                            ${escapeHtml(description)}
+                        </div>
+
+
+                        <div class="product-category">
+                            ${escapeHtml(category)}
+                        </div>
+
+
+                        <div class="product-price">
+                            RM${price}
+                        </div>
+
+
+                        ${
+                            affiliate
+                                ? `
+                                    <a
+                                        class="buy-button"
+                                        href="${escapeHtml(affiliate)}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        View on Shopee
+                                    </a>
+                                `
+                                : `
+                                    <div class="buy-button">
+                                        Product link unavailable
+                                    </div>
+                                `
+                        }
+
+                    </div>
+
+                `;
+
+
+                return card;
+
+            }
+
+
+            /* ========================================
+               SEARCH
+            ======================================== */
+
+            searchInput.addEventListener(
+                "input",
+                function () {
+
+                    const term =
+                        this.value
+                            .toLowerCase()
+                            .trim();
+
+
+                    if (!term) {
+
+                        renderProducts(
+                            currentProducts
+                        );
+
+                        return;
+
+                    }
+
+
+                    const filtered =
+                        currentProducts.filter(
+                            product => {
+
+                                const text = [
+
+                                    product.name,
+
+                                    product.description,
+
+                                    product.categoryName
+
+                                ]
+                                .filter(Boolean)
+                                .join(" ")
+                                .toLowerCase();
+
+
+                                return text.includes(term);
+
+                            }
+                        );
+
+
+                    renderProducts(
+                        filtered
+                    );
 
                 }
             );
 
 
-        renderProducts(
-            filtered
-        );
+            /* ========================================
+               MOBILE MENU
+            ======================================== */
 
-    }
-);
+            menuButton.addEventListener(
+                "click",
+                function () {
 
+                    categoryNav.classList.toggle(
+                        "active"
+                    );
 
-// ========================================
-// INIT
-// ========================================
-
-async function init() {
-
-    try {
-
-        console.log(
-            "VNR CHOICEZ: Initializing..."
-        );
-
-
-        if (
-            typeof supabaseClient === "undefined" ||
-            !supabaseClient ||
-            typeof supabaseClient.from !== "function"
-        ) {
-
-            throw new Error(
-                "supabaseClient is not available. Check config.js."
+                }
             );
 
-        }
+
+            /* ========================================
+               INITIALIZE
+            ======================================== */
+
+            try {
+
+                updateHeading();
+
+                await loadCategories();
+
+                await loadProducts();
+
+                console.log(
+                    "VNR CHOICEZ: Initialization complete."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "VNR CHOICEZ INIT ERROR:",
+                    error
+                );
 
 
-        /*
-         * Set heading immediately.
-         * User should never see Loading... as
-         * the category title.
-         */
-
-        updateCategoryHeading();
+                loading.style.display =
+                    "none";
 
 
-        await loadCategories();
-
-        await loadProducts();
-
-
-        console.log(
-            "VNR CHOICEZ: Initialization complete."
-        );
-
-    } catch (error) {
-
-        console.error(
-            "INIT ERROR:",
-            error
-        );
+                errorMessage.textContent =
+                    "Unable to load products. Please check the browser Console for the exact Supabase error.";
 
 
-        loading.style.display = "none";
+                errorMessage.style.display =
+                    "block";
 
-        errorMessage.textContent =
-            `Unable to load products: ${error.message || error}`;
+            }
 
-        errorMessage.style.display = "block";
+        });
+    </script>
 
-    }
-
-}
-
-
-init();
-
-</script>
+</body>
+</html>
