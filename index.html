@@ -182,8 +182,6 @@
             font-size: 14px;
             font-weight: 700;
             transition: 0.2s ease;
-            border: none;
-            cursor: pointer;
         }
 
         .buy-button:hover {
@@ -199,7 +197,7 @@
 
         #errorMessage {
             display: none;
-            background: #fff;
+            background: white;
             border: 1px solid #e5e5e5;
             border-radius: 12px;
             padding: 30px 20px;
@@ -242,7 +240,6 @@
         }
 
         @media (max-width: 700px) {
-
             header {
                 padding: 32px 15px 30px;
             }
@@ -308,30 +305,24 @@
 
 <header>
     <div class="logo">VNR CHOICEZ</div>
+
     <div class="tagline">
         Things worth knowing. Things worth buying.
     </div>
 </header>
 
 <nav id="categoryNav">
-
     <a href="index.html">Home</a>
-
-    <a href="category.html?type=Trending">
-        Trending
-    </a>
-
+    <a href="category.html?type=Trending">Trending</a>
 </nav>
 
 <div class="search-container">
-
     <input
         type="text"
         id="searchInput"
         placeholder="Search products..."
         autocomplete="off"
     >
-
 </div>
 
 <main class="container">
@@ -382,26 +373,32 @@
 "use strict";
 
 
-// ========================================
-// SUPABASE CHECK
-// ========================================
+/* =========================================================
+   SUPABASE CHECK
+========================================================= */
 
 if (
     typeof window.supabase === "undefined" ||
     typeof supabase === "undefined"
 ) {
+
+    console.error(
+        "VNR CHOICEZ ERROR: Supabase library/config.js failed to load."
+    );
+
     document.getElementById("loading").style.display = "none";
+
     document.getElementById("errorMessage").style.display = "block";
 
     throw new Error(
-        "Supabase client was not loaded. Check config.js and Supabase CDN."
+        "Supabase is not available."
     );
 }
 
 
-// ========================================
-// ELEMENTS
-// ========================================
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const productGrid =
     document.getElementById("productGrid");
@@ -409,124 +406,132 @@ const productGrid =
 const searchInput =
     document.getElementById("searchInput");
 
-const noResults =
-    document.getElementById("noResults");
-
 const loading =
     document.getElementById("loading");
 
 const errorMessage =
     document.getElementById("errorMessage");
 
+const noResults =
+    document.getElementById("noResults");
+
 const categoryNav =
     document.getElementById("categoryNav");
 
 
-// ========================================
-// DATA
-// ========================================
+/* =========================================================
+   DEFAULT VNR CHOICEZ CATEGORIES
+
+   These are fallback categories.
+   Supabase categories will replace them
+   automatically if available.
+========================================================= */
+
+const DEFAULT_CATEGORIES = [
+
+    {
+        name: "Gadget & Tech",
+        slug: "gadgets-tech"
+    },
+
+    {
+        name: "Accessories",
+        slug: "accessories"
+    },
+
+    {
+        name: "Fashion",
+        slug: "fashion"
+    },
+
+    {
+        name: "Cookery",
+        slug: "cookery"
+    },
+
+    {
+        name: "Beauty",
+        slug: "beauty"
+    },
+
+    {
+        name: "Home Items",
+        slug: "home-items"
+    },
+
+    {
+        name: "Fragrance",
+        slug: "fragrance"
+    },
+
+    {
+        name: "Sports",
+        slug: "sports"
+    },
+
+    {
+        name: "Gaming",
+        slug: "gaming"
+    },
+
+    {
+        name: "Random Useful Items",
+        slug: "random-useful-items"
+    }
+
+];
+
 
 let allProducts = [];
+
 let allCategories = [];
 
 
-// ========================================
-// ESCAPE HTML
-// ========================================
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHtml(value) {
 
     return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
 
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
 }
 
 
-// ========================================
-// GET IMAGE URL
-// ========================================
+/* =========================================================
+   IMAGE URL
+========================================================= */
 
 function getImageUrl(product) {
 
     if (product.image_url) {
 
-        const value =
-            String(product.image_url).trim();
+        return String(product.image_url).trim();
 
-        if (
-            value.startsWith("http://") ||
-            value.startsWith("https://") ||
-            value.startsWith("/")
-        ) {
-            return value;
-        }
-
-        return value;
     }
 
     if (product.image_path) {
 
-        const path =
-            String(product.image_path).trim();
+        return String(product.image_path).trim();
 
-        if (
-            path.startsWith("http://") ||
-            path.startsWith("https://") ||
-            path.startsWith("/")
-        ) {
-            return path;
-        }
-
-        return path;
     }
 
     return "";
 }
 
 
-// ========================================
-// LOAD CATEGORIES
-// ========================================
-
-async function loadCategories() {
-
-    const result = await supabase
-        .from("categories")
-        .select("id,name,slug")
-        .order("name", {
-            ascending: true
-        });
-
-    if (result.error) {
-
-        console.error(
-            "CATEGORY LOAD ERROR:",
-            result.error
-        );
-
-        allCategories = [];
-
-        renderCategoryNav();
-
-        return;
-    }
-
-    allCategories =
-        Array.isArray(result.data)
-            ? result.data
-            : [];
-
-    renderCategoryNav();
-}
-
-
-// ========================================
-// RENDER CATEGORY NAV
-// ========================================
+/* =========================================================
+   RENDER NAVIGATION
+========================================================= */
 
 function renderCategoryNav() {
 
@@ -571,9 +576,96 @@ function renderCategoryNav() {
 }
 
 
-// ========================================
-// LOAD PRODUCTS
-// ========================================
+/* =========================================================
+   LOAD CATEGORIES
+
+   IMPORTANT:
+   If Supabase categories fails,
+   website DOES NOT break.
+
+   It uses DEFAULT_CATEGORIES instead.
+========================================================= */
+
+async function loadCategories() {
+
+    try {
+
+        const result = await supabase
+
+            .from("categories")
+
+            .select("id,name,slug")
+
+            .order("name", {
+                ascending: true
+            });
+
+
+        if (result.error) {
+
+            console.warn(
+                "VNR CHOICEZ: categories table unavailable. Using default categories.",
+                result.error
+            );
+
+            allCategories = DEFAULT_CATEGORIES.map(category => ({
+                ...category
+            }));
+
+            renderCategoryNav();
+
+            return;
+        }
+
+
+        if (
+            Array.isArray(result.data) &&
+            result.data.length > 0
+        ) {
+
+            allCategories = result.data;
+
+        } else {
+
+            allCategories =
+                DEFAULT_CATEGORIES.map(category => ({
+                    ...category
+                }));
+
+        }
+
+
+        renderCategoryNav();
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "VNR CHOICEZ: category loading failed. Using default categories.",
+            error
+        );
+
+        allCategories =
+            DEFAULT_CATEGORIES.map(category => ({
+                ...category
+            }));
+
+        renderCategoryNav();
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PRODUCTS
+
+   ONLY USE BASIC PRODUCT COLUMNS.
+
+   This prevents optional V2 fields from
+   breaking the entire website.
+========================================================= */
 
 async function loadProducts() {
 
@@ -586,134 +678,154 @@ async function loadProducts() {
     productGrid.innerHTML = "";
 
 
-    const result = await supabase
-        .from("products")
-        .select(`
-            id,
-            name,
-            description,
-            price,
-            image_url,
-            image_path,
-            affiliate_url,
-            shopee_link,
-            status,
-            featured,
-            views,
-            clicks,
-            created_at,
-            sort_order,
-            category,
-            category_id
-        `)
-        .eq("status", "published")
-        .order("sort_order", {
-            ascending: true,
-            nullsFirst: false
-        })
-        .order("created_at", {
-            ascending: false
-        });
+    try {
+
+        const result = await supabase
+
+            .from("products")
+
+            .select(`
+                id,
+                category,
+                category_id,
+                name,
+                price,
+                shopee_link,
+                image_url,
+                image_path,
+                description
+            `)
+
+            .order("id", {
+                ascending: false
+            });
 
 
-    if (result.error) {
+        if (result.error) {
+
+            console.error(
+                "VNR CHOICEZ PRODUCT DATABASE ERROR:",
+                result.error
+            );
+
+            loading.style.display = "none";
+
+            errorMessage.innerHTML = `
+                Unable to load products right now.
+                <br><br>
+                Please try again later.
+            `;
+
+            errorMessage.style.display = "block";
+
+            return;
+        }
+
+
+        allProducts =
+            Array.isArray(result.data)
+                ? result.data
+                : [];
+
+
+        /*
+           CONNECT CATEGORY
+        */
+
+        allProducts =
+            allProducts.map(product => {
+
+                let categoryName = "";
+
+
+                if (product.category_id) {
+
+                    const linkedCategory =
+                        allCategories.find(
+                            category =>
+                                category.id ===
+                                product.category_id
+                        );
+
+
+                    if (linkedCategory) {
+
+                        categoryName =
+                            linkedCategory.name;
+
+                    }
+
+                }
+
+
+                if (!categoryName && product.category) {
+
+                    categoryName =
+                        product.category;
+
+                }
+
+
+                if (!categoryName) {
+
+                    categoryName =
+                        "Uncategorized";
+
+                }
+
+
+                return {
+
+                    ...product,
+
+                    categoryName
+
+                };
+
+            });
+
+
+        loading.style.display = "none";
+
+
+        renderProducts(allProducts);
+
+
+        console.log(
+            "VNR CHOICEZ: products loaded successfully.",
+            allProducts.length
+        );
+
+    }
+
+    catch (error) {
 
         console.error(
-            "PRODUCT LOAD ERROR:",
-            result.error
+            "VNR CHOICEZ PRODUCT EXCEPTION:",
+            error
         );
 
         loading.style.display = "none";
 
         errorMessage.style.display = "block";
 
-        return;
     }
 
-
-    allProducts =
-        Array.isArray(result.data)
-            ? result.data
-            : [];
-
-
-    // ====================================
-    // CONNECT CATEGORY
-    // ====================================
-
-    allProducts =
-        allProducts.map(product => {
-
-            const linkedCategory =
-                allCategories.find(
-                    category =>
-                        category.id ===
-                        product.category_id
-                );
-
-
-            return {
-                ...product,
-
-                categoryName:
-                    linkedCategory?.name ||
-                    product.category ||
-                    "Uncategorized"
-            };
-
-        });
-
-
-    loading.style.display = "none";
-
-
-    renderProducts(allProducts);
 }
 
 
-// ========================================
-// RENDER PRODUCTS
-// ========================================
-
-function renderProducts(products) {
-
-    productGrid.innerHTML = "";
-
-    noResults.style.display = "none";
-
-
-    if (!products.length) {
-
-        noResults.textContent =
-            "No products found.";
-
-        noResults.style.display = "block";
-
-        return;
-    }
-
-
-    products.forEach(product => {
-
-        const card =
-            createProductCard(product);
-
-        productGrid.appendChild(card);
-
-    });
-}
-
-
-// ========================================
-// CREATE PRODUCT CARD
-// ========================================
+/* =========================================================
+   CREATE PRODUCT CARD
+========================================================= */
 
 function createProductCard(product) {
 
     const card =
         document.createElement("article");
 
-    card.className = "product";
+
+    card.className =
+        "product";
 
 
     const name =
@@ -726,18 +838,16 @@ function createProductCard(product) {
         "Useful product worth checking out.";
 
 
-    const categoryName =
+    const category =
         product.categoryName ||
-        product.category ||
         "Uncategorized";
 
 
-    const imageUrl =
+    const image =
         getImageUrl(product);
 
 
-    const affiliateUrl =
-        product.affiliate_url ||
+    const affiliate =
         product.shopee_link ||
         "";
 
@@ -752,62 +862,110 @@ function createProductCard(product) {
             : "0.00";
 
 
-    const imageHtml =
-        imageUrl
-            ? `
-                <img
-                    class="product-image"
-                    src="${escapeHtml(imageUrl)}"
-                    alt="${escapeHtml(name)}"
-                    loading="lazy"
-                    onerror="this.style.display='none';"
-                >
-            `
-            : "";
+    let imageHTML = "";
 
 
-    const buttonHtml =
-        affiliateUrl
-            ? `
-                <a
-                    class="buy-button"
-                    href="${escapeHtml(affiliateUrl)}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View on Shopee
-                </a>
-            `
-            : `
-                <div class="buy-button">
-                    Product link unavailable
-                </div>
-            `;
+    if (image) {
+
+        imageHTML = `
+
+            <img
+
+                class="product-image"
+
+                src="${escapeHtml(image)}"
+
+                alt="${escapeHtml(name)}"
+
+                loading="lazy"
+
+                onerror="this.style.display='none';"
+
+            >
+
+        `;
+
+    }
+
+
+    let buttonHTML = "";
+
+
+    if (affiliate) {
+
+        buttonHTML = `
+
+            <a
+
+                class="buy-button"
+
+                href="${escapeHtml(affiliate)}"
+
+                target="_blank"
+
+                rel="noopener noreferrer"
+
+            >
+
+                View on Shopee
+
+            </a>
+
+        `;
+
+    }
+
+    else {
+
+        buttonHTML = `
+
+            <div class="buy-button">
+
+                Product link unavailable
+
+            </div>
+
+        `;
+
+    }
 
 
     card.innerHTML = `
 
-        ${imageHtml}
+        ${imageHTML}
+
 
         <div class="product-info">
 
             <h3 class="product-name">
+
                 ${escapeHtml(name)}
+
             </h3>
 
+
             <div class="product-description">
+
                 ${escapeHtml(description)}
+
             </div>
+
 
             <div class="product-category">
-                ${escapeHtml(categoryName)}
+
+                ${escapeHtml(category)}
+
             </div>
+
 
             <div class="product-price">
+
                 RM${price}
+
             </div>
 
-            ${buttonHtml}
+
+            ${buttonHTML}
 
         </div>
 
@@ -815,12 +973,48 @@ function createProductCard(product) {
 
 
     return card;
+
 }
 
 
-// ========================================
-// SEARCH
-// ========================================
+/* =========================================================
+   RENDER PRODUCTS
+========================================================= */
+
+function renderProducts(products) {
+
+    productGrid.innerHTML = "";
+
+    noResults.style.display = "none";
+
+
+    if (!products.length) {
+
+        noResults.textContent =
+            "No products found.";
+
+        noResults.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    products.forEach(product => {
+
+        productGrid.appendChild(
+            createProductCard(product)
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 searchInput.addEventListener(
     "input",
@@ -834,9 +1028,12 @@ searchInput.addEventListener(
 
         if (!term) {
 
-            renderProducts(allProducts);
+            renderProducts(
+                allProducts
+            );
 
             return;
+
         }
 
 
@@ -854,8 +1051,11 @@ searchInput.addEventListener(
                     product.category
 
                 ]
+
                 .filter(Boolean)
+
                 .join(" ")
+
                 .toLowerCase();
 
 
@@ -870,32 +1070,38 @@ searchInput.addEventListener(
 );
 
 
-// ========================================
-// START
-// ========================================
+/* =========================================================
+   START WEBSITE
+========================================================= */
 
 async function init() {
 
-    try {
+    console.log(
+        "VNR CHOICEZ: website starting..."
+    );
 
-        await loadCategories();
 
-        await loadProducts();
+    /*
+       Categories first.
+       Even if categories fail,
+       fallback categories are used.
+    */
 
-    } catch (error) {
+    await loadCategories();
 
-        console.error(
-            "INITIALIZATION ERROR:",
-            error
-        );
 
-        loading.style.display = "none";
+    /*
+       Products second.
+    */
 
-        errorMessage.style.display = "block";
-    }
+    await loadProducts();
 
 }
 
+
+/* =========================================================
+   RUN
+========================================================= */
 
 init();
 
