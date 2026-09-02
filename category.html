@@ -205,6 +205,10 @@
 
         .error-message {
             display: none;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            line-height: 1.6;
         }
 
         footer {
@@ -302,17 +306,7 @@
 </header>
 
 
-<nav id="categoryNav">
-
-    <a href="index.html">
-        Home
-    </a>
-
-    <a href="category.html?type=Trending">
-        Trending
-    </a>
-
-</nav>
+<nav id="categoryNav"></nav>
 
 
 <div class="search-container">
@@ -351,9 +345,7 @@
     <div
         id="errorMessage"
         class="error-message"
-    >
-        Unable to load products.
-    </div>
+    ></div>
 
     <div
         class="product-grid"
@@ -393,6 +385,26 @@
 "use strict";
 
 
+/* =========================================================
+   SUPABASE CHECK
+========================================================= */
+
+if (
+    typeof window.supabase === "undefined" ||
+    typeof supabase === "undefined"
+) {
+
+    throw new Error(
+        "VNR CHOICEZ: Supabase library/config.js failed to load."
+    );
+
+}
+
+
+/* =========================================================
+   URL
+========================================================= */
+
 const params =
     new URLSearchParams(
         window.location.search
@@ -403,29 +415,108 @@ const selectedType =
     params.get("type") || "Trending";
 
 
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
 const productGrid =
-    document.getElementById("productGrid");
+    document.getElementById(
+        "productGrid"
+    );
 
 const searchInput =
-    document.getElementById("searchInput");
+    document.getElementById(
+        "searchInput"
+    );
 
 const categoryTitle =
-    document.getElementById("categoryTitle");
+    document.getElementById(
+        "categoryTitle"
+    );
 
 const categoryDescription =
-    document.getElementById("categoryDescription");
+    document.getElementById(
+        "categoryDescription"
+    );
 
 const categoryNav =
-    document.getElementById("categoryNav");
+    document.getElementById(
+        "categoryNav"
+    );
 
 const loading =
-    document.getElementById("loading");
+    document.getElementById(
+        "loading"
+    );
 
 const errorMessage =
-    document.getElementById("errorMessage");
+    document.getElementById(
+        "errorMessage"
+    );
 
 const noResults =
-    document.getElementById("noResults");
+    document.getElementById(
+        "noResults"
+    );
+
+
+/* =========================================================
+   REQUIRED CATEGORIES
+========================================================= */
+
+const REQUIRED_CATEGORIES = [
+
+    {
+        name: "Gadget & Tech",
+        slug: "gadgets-tech"
+    },
+
+    {
+        name: "Accessories",
+        slug: "accessories"
+    },
+
+    {
+        name: "Fashion",
+        slug: "fashion"
+    },
+
+    {
+        name: "Cookery",
+        slug: "cookery"
+    },
+
+    {
+        name: "Beauty",
+        slug: "beauty"
+    },
+
+    {
+        name: "Home Items",
+        slug: "home-items"
+    },
+
+    {
+        name: "Fragrance",
+        slug: "fragrance"
+    },
+
+    {
+        name: "Sports",
+        slug: "sports"
+    },
+
+    {
+        name: "Gaming",
+        slug: "gaming"
+    },
+
+    {
+        name: "Random Useful Items",
+        slug: "random-useful-items"
+    }
+
+];
 
 
 let allProducts = [];
@@ -435,168 +526,40 @@ let allCategories = [];
 let currentProducts = [];
 
 
-// ========================================
-// ESCAPE
-// ========================================
+/* =========================================================
+   IMMEDIATELY SET HEADING
+========================================================= */
 
-function escapeHtml(value) {
+function setInitialHeading() {
 
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    if (
+        selectedType.toLowerCase() ===
+        "trending"
+    ) {
 
-}
-
-
-// ========================================
-// IMAGE
-// ========================================
-
-function getImageUrl(product) {
-
-    return (
-        product.image_url ||
-        product.image_path ||
-        ""
-    );
-
-}
+        categoryTitle.textContent =
+            "🔥 Trending Finds";
 
 
-// ========================================
-// CATEGORY INFO
-// ========================================
+        categoryDescription.textContent =
+            "Discover products currently featured in our trending finds.";
 
-function getCategoryInfo(name) {
 
-    if (name === "Trending") {
+        document.title =
+            "Trending | VNR CHOICEZ";
 
-        return {
-            title: "🔥 Trending Finds",
-            description:
-                "Discover products currently featured in our trending finds."
-        };
+
+        return;
 
     }
-
-
-    return {
-        title: name,
-        description:
-            "Discover useful products and curated finds from VNR CHOICEZ."
-    };
-
-}
-
-
-// ========================================
-// LOAD CATEGORIES
-// ========================================
-
-async function loadCategories() {
-
-    const result =
-        await supabase
-            .from("categories")
-            .select("id,name,slug")
-            .order("name", {
-                ascending: true
-            });
-
-
-    if (result.error) {
-
-        console.error(
-            "CATEGORY ERROR:",
-            result.error
-        );
-
-        allCategories = [];
-
-    } else {
-
-        allCategories =
-            Array.isArray(result.data)
-                ? result.data
-                : [];
-
-    }
-
-
-    renderNavigation();
-
-    updateCategoryHeading();
-
-}
-
-
-// ========================================
-// NAVIGATION
-// ========================================
-
-function renderNavigation() {
-
-    let html = `
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="category.html?type=Trending">
-            Trending
-        </a>
-
-    `;
-
-
-    allCategories.forEach(category => {
-
-        html += `
-
-            <a
-                href="category.html?type=${encodeURIComponent(category.name)}"
-            >
-                ${escapeHtml(category.name)}
-            </a>
-
-        `;
-
-    });
-
-
-    html += `
-
-        <a href="about.html">
-            ABOUT US
-        </a>
-
-    `;
-
-
-    categoryNav.innerHTML = html;
-
-}
-
-
-// ========================================
-// HEADING
-// ========================================
-
-function updateCategoryHeading() {
-
-    const info =
-        getCategoryInfo(selectedType);
 
 
     categoryTitle.textContent =
-        info.title;
+        selectedType;
 
 
     categoryDescription.textContent =
-        info.description;
+        "Discover useful products and curated finds from VNR CHOICEZ.";
 
 
     document.title =
@@ -605,107 +568,501 @@ function updateCategoryHeading() {
 }
 
 
-// ========================================
-// LOAD PRODUCTS
-// ========================================
-
-async function loadProducts() {
-
-    const result =
-        await supabase
-            .from("products")
-            .select(`
-                id,
-                name,
-                description,
-                price,
-                image_url,
-                image_path,
-                affiliate_url,
-                shopee_link,
-                status,
-                featured,
-                views,
-                clicks,
-                created_at,
-                sort_order,
-                category,
-                category_id
-            `)
-            .eq("status", "published")
-            .order("sort_order", {
-                ascending: true,
-                nullsFirst: false
-            })
-            .order("created_at", {
-                ascending: false
-            });
+setInitialHeading();
 
 
-    if (result.error) {
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-        console.error(
-            "PRODUCT ERROR:",
-            result.error
-        );
+function escapeHtml(value) {
 
-        loading.style.display = "none";
+    return String(value ?? "")
 
-        errorMessage.style.display = "block";
+        .replace(/&/g, "&amp;")
 
-        return;
-    }
+        .replace(/</g, "&lt;")
 
+        .replace(/>/g, "&gt;")
 
-    allProducts =
-        Array.isArray(result.data)
-            ? result.data
-            : [];
+        .replace(/"/g, "&quot;")
 
-
-    allProducts =
-        allProducts.map(product => {
-
-            const category =
-                allCategories.find(
-                    item =>
-                        item.id ===
-                        product.category_id
-                );
-
-
-            return {
-
-                ...product,
-
-                categoryName:
-                    category?.name ||
-                    product.category ||
-                    "Uncategorized"
-
-            };
-
-        });
-
-
-    filterCategory();
+        .replace(/'/g, "&#039;");
 
 }
 
 
-// ========================================
-// FILTER CATEGORY
-// ========================================
+/* =========================================================
+   DATABASE ERROR FORMAT
+========================================================= */
+
+function formatDatabaseError(error, location) {
+
+    console.error(
+        `VNR CHOICEZ ${location} ERROR`,
+        error
+    );
+
+
+    const code =
+        error?.code || "UNKNOWN";
+
+    const message =
+        error?.message ||
+        "Unknown database error";
+
+    const details =
+        error?.details || "";
+
+    const hint =
+        error?.hint || "";
+
+
+    return `
+        <strong>VNR CHOICEZ DATABASE ERROR</strong>
+
+        <br><br>
+
+        Code: ${escapeHtml(code)}
+
+        <br>
+
+        Message: ${escapeHtml(message)}
+
+        ${
+            details
+                ? `<br>Details: ${escapeHtml(details)}`
+                : ""
+        }
+
+        ${
+            hint
+                ? `<br>Hint: ${escapeHtml(hint)}`
+                : ""
+        }
+
+        <br><br>
+
+        Open your browser console with
+        <strong>F12 → Console</strong>
+        for the full error.
+    `;
+
+}
+
+
+/* =========================================================
+   IMAGE URL
+========================================================= */
+
+function getImageUrl(product) {
+
+    if (product.image_url) {
+
+        return String(
+            product.image_url
+        ).trim();
+
+    }
+
+
+    if (product.image_path) {
+
+        const path =
+            String(
+                product.image_path
+            ).trim();
+
+
+        if (
+            typeof supabase.storage !==
+            "undefined"
+        ) {
+
+            const result =
+                supabase.storage
+                    .from("product-images")
+                    .getPublicUrl(path);
+
+
+            if (
+                result &&
+                result.data &&
+                result.data.publicUrl
+            ) {
+
+                return result.data.publicUrl;
+
+            }
+
+        }
+
+
+        return path;
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function renderNavigation() {
+
+    let html = "";
+
+
+    html += `
+        <a href="index.html">
+            Home
+        </a>
+    `;
+
+
+    html += `
+        <a href="category.html?type=Trending">
+            Trending
+        </a>
+    `;
+
+
+    REQUIRED_CATEGORIES.forEach(
+        requiredCategory => {
+
+            const databaseCategory =
+                allCategories.find(
+                    category =>
+                        String(
+                            category.slug || ""
+                        ).toLowerCase() ===
+                        requiredCategory.slug.toLowerCase()
+                );
+
+
+            const categoryName =
+                databaseCategory?.name ||
+                requiredCategory.name;
+
+
+            html += `
+                <a
+                    href="category.html?type=${encodeURIComponent(categoryName)}"
+                >
+                    ${escapeHtml(categoryName)}
+                </a>
+            `;
+
+        }
+    );
+
+
+    html += `
+        <a href="about.html">
+            ABOUT US
+        </a>
+    `;
+
+
+    categoryNav.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   LOAD CATEGORIES
+========================================================= */
+
+async function loadCategories() {
+
+    /*
+     * Render required navigation immediately.
+     */
+
+    allCategories =
+        REQUIRED_CATEGORIES.map(
+            category => ({
+                ...category
+            })
+        );
+
+
+    renderNavigation();
+
+
+    try {
+
+        const result =
+            await supabase
+
+                .from("categories")
+
+                .select(
+                    "id,name,slug"
+                )
+
+                .order(
+                    "name",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (result.error) {
+
+            console.warn(
+                "VNR CHOICEZ: categories query failed.",
+                result.error
+            );
+
+            return;
+
+        }
+
+
+        if (
+            Array.isArray(result.data) &&
+            result.data.length > 0
+        ) {
+
+            allCategories =
+                result.data;
+
+
+            renderNavigation();
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "VNR CHOICEZ: categories exception.",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CONNECT CATEGORY NAME
+========================================================= */
+
+function attachCategoryName(product) {
+
+    let categoryName = "";
+
+
+    if (product.category_id) {
+
+        const linkedCategory =
+            allCategories.find(
+                category =>
+                    String(category.id) ===
+                    String(product.category_id)
+            );
+
+
+        if (linkedCategory) {
+
+            categoryName =
+                linkedCategory.name;
+
+        }
+
+    }
+
+
+    if (
+        !categoryName &&
+        product.category
+    ) {
+
+        categoryName =
+            product.category;
+
+    }
+
+
+    if (!categoryName) {
+
+        categoryName =
+            "Uncategorized";
+
+    }
+
+
+    return {
+
+        ...product,
+
+        categoryName
+
+    };
+
+}
+
+
+/* =========================================================
+   LOAD PUBLISHED PRODUCTS
+========================================================= */
+
+async function loadProducts() {
+
+    loading.style.display =
+        "block";
+
+    errorMessage.style.display =
+        "none";
+
+    noResults.style.display =
+        "none";
+
+    productGrid.innerHTML =
+        "";
+
+
+    try {
+
+        const result =
+            await supabase
+
+                .from("products")
+
+                .select(`
+                    id,
+                    category,
+                    category_id,
+                    name,
+                    price,
+                    shopee_link,
+                    affiliate_url,
+                    image_url,
+                    image_path,
+                    description,
+                    status,
+                    featured,
+                    views,
+                    clicks,
+                    created_at,
+                    updated_at,
+                    sort_order
+                `)
+
+                .eq(
+                    "status",
+                    "published"
+                )
+
+                .order(
+                    "sort_order",
+                    {
+                        ascending: true,
+                        nullsFirst: false
+                    }
+                )
+
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (result.error) {
+
+            loading.style.display =
+                "none";
+
+
+            errorMessage.innerHTML =
+                formatDatabaseError(
+                    result.error,
+                    "PRODUCT DATABASE"
+                );
+
+
+            errorMessage.style.display =
+                "block";
+
+
+            return;
+
+        }
+
+
+        allProducts =
+            Array.isArray(result.data)
+                ? result.data.map(
+                    attachCategoryName
+                )
+                : [];
+
+
+        loading.style.display =
+            "none";
+
+
+        filterCategory();
+
+
+        console.log(
+            "VNR CHOICEZ: Published products loaded:",
+            allProducts.length
+        );
+
+    }
+
+    catch (error) {
+
+        loading.style.display =
+            "none";
+
+
+        errorMessage.innerHTML =
+            formatDatabaseError(
+                error,
+                "PRODUCT EXCEPTION"
+            );
+
+
+        errorMessage.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTER CATEGORY
+========================================================= */
 
 function filterCategory() {
 
-    if (selectedType === "Trending") {
+    if (
+        selectedType.toLowerCase() ===
+        "trending"
+    ) {
 
         /*
-         * Trending:
-         * featured products first,
-         * followed by highest clicks,
-         * then newest products.
+         * Trending is NOT a database category.
+         *
+         * Priority:
+         * 1. Featured
+         * 2. Clicks
+         * 3. Views
+         * 4. Newest
          */
 
         currentProducts =
@@ -713,97 +1070,154 @@ function filterCategory() {
                 (a, b) => {
 
                     const featuredDifference =
-                        Number(b.featured || false) -
-                        Number(a.featured || false);
+                        Number(
+                            b.featured || false
+                        ) -
+                        Number(
+                            a.featured || false
+                        );
 
 
                     if (
                         featuredDifference !== 0
                     ) {
+
                         return featuredDifference;
+
                     }
 
 
-                    const clickDifference =
-                        Number(b.clicks || 0) -
-                        Number(a.clicks || 0);
+                    const clicksDifference =
+                        Number(
+                            b.clicks || 0
+                        ) -
+                        Number(
+                            a.clicks || 0
+                        );
 
 
                     if (
-                        clickDifference !== 0
+                        clicksDifference !== 0
                     ) {
-                        return clickDifference;
+
+                        return clicksDifference;
+
+                    }
+
+
+                    const viewsDifference =
+                        Number(
+                            b.views || 0
+                        ) -
+                        Number(
+                            a.views || 0
+                        );
+
+
+                    if (
+                        viewsDifference !== 0
+                    ) {
+
+                        return viewsDifference;
+
                     }
 
 
                     return (
-                        new Date(b.created_at || 0) -
-                        new Date(a.created_at || 0)
+                        new Date(
+                            b.created_at || 0
+                        ) -
+                        new Date(
+                            a.created_at || 0
+                        )
                     );
 
                 }
             );
 
-    } else {
+    }
+
+    else {
+
+        const selectedCategory =
+            allCategories.find(
+                category =>
+                    String(
+                        category.name || ""
+                    ).toLowerCase() ===
+                    selectedType.toLowerCase()
+            );
+
 
         currentProducts =
             allProducts.filter(
-                product =>
-                    String(
-                        product.categoryName || ""
-                    ).toLowerCase() ===
-                    selectedType.toLowerCase()
+                product => {
+
+                    /*
+                     * Primary matching:
+                     * category_id
+                     */
+
+                    if (
+                        selectedCategory?.id &&
+                        product.category_id
+                    ) {
+
+                        if (
+                            String(
+                                product.category_id
+                            ) ===
+                            String(
+                                selectedCategory.id
+                            )
+                        ) {
+
+                            return true;
+
+                        }
+
+                    }
+
+
+                    /*
+                     * Secondary matching:
+                     * category name
+                     */
+
+                    return (
+                        String(
+                            product.categoryName || ""
+                        ).toLowerCase() ===
+                        selectedType.toLowerCase()
+                    );
+
+                }
             );
 
     }
 
 
-    loading.style.display = "none";
+    loading.style.display =
+        "none";
 
 
-    renderProducts(currentProducts);
-
-}
-
-
-// ========================================
-// RENDER
-// ========================================
-
-function renderProducts(products) {
-
-    productGrid.innerHTML = "";
-
-    noResults.style.display = "none";
-
-
-    if (!products.length) {
-
-        noResults.style.display = "block";
-
-        return;
-    }
-
-
-    products.forEach(product => {
-
-        productGrid.appendChild(
-            createProductCard(product)
-        );
-
-    });
+    renderProducts(
+        currentProducts
+    );
 
 }
 
 
-// ========================================
-// CARD
-// ========================================
+/* =========================================================
+   CREATE PRODUCT CARD
+========================================================= */
 
 function createProductCard(product) {
 
     const card =
-        document.createElement("article");
+        document.createElement(
+            "article"
+        );
 
 
     card.className =
@@ -840,7 +1254,9 @@ function createProductCard(product) {
 
 
     const price =
-        Number.isFinite(numericPrice)
+        Number.isFinite(
+            numericPrice
+        )
             ? numericPrice.toFixed(2)
             : "0.00";
 
@@ -855,11 +1271,14 @@ function createProductCard(product) {
                         src="${escapeHtml(image)}"
                         alt="${escapeHtml(name)}"
                         loading="lazy"
-                        onerror="this.style.display='none';"
+                        onerror="
+                            this.style.display='none';
+                        "
                     >
                 `
                 : ""
         }
+
 
         <div class="product-info">
 
@@ -867,17 +1286,21 @@ function createProductCard(product) {
                 ${escapeHtml(name)}
             </h3>
 
+
             <div class="product-description">
                 ${escapeHtml(description)}
             </div>
+
 
             <div class="product-category">
                 ${escapeHtml(category)}
             </div>
 
+
             <div class="product-price">
                 RM${price}
             </div>
+
 
             ${
                 affiliate
@@ -908,9 +1331,58 @@ function createProductCard(product) {
 }
 
 
-// ========================================
-// SEARCH
-// ========================================
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderProducts(products) {
+
+    productGrid.innerHTML =
+        "";
+
+    noResults.style.display =
+        "none";
+
+
+    if (
+        !Array.isArray(products) ||
+        products.length === 0
+    ) {
+
+        noResults.textContent =
+            selectedType.toLowerCase() ===
+            "trending"
+
+                ? "No trending products found."
+
+                : `No published products found in ${selectedType}.`;
+
+
+        noResults.style.display =
+            "block";
+
+
+        return;
+
+    }
+
+
+    products.forEach(
+        product => {
+
+            productGrid.appendChild(
+                createProductCard(product)
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
 
 searchInput.addEventListener(
     "input",
@@ -929,6 +1401,7 @@ searchInput.addEventListener(
             );
 
             return;
+
         }
 
 
@@ -936,59 +1409,72 @@ searchInput.addEventListener(
             currentProducts.filter(
                 product => {
 
-                    const text = [
+                    const searchableText = [
 
                         product.name,
 
                         product.description,
 
-                        product.categoryName
+                        product.categoryName,
+
+                        product.category
 
                     ]
-                    .filter(Boolean)
-                    .join(" ")
-                    .toLowerCase();
+
+                        .filter(Boolean)
+
+                        .join(" ")
+
+                        .toLowerCase();
 
 
-                    return text.includes(term);
+                    return searchableText
+                        .includes(term);
 
                 }
             );
 
 
-        renderProducts(filtered);
+        renderProducts(
+            filtered
+        );
 
     }
 );
 
 
-// ========================================
-// INIT
-// ========================================
+/* =========================================================
+   INIT
+========================================================= */
 
 async function init() {
 
-    try {
+    console.log(
+        "VNR CHOICEZ: category page starting..."
+    );
 
-        await loadCategories();
 
-        await loadProducts();
+    /*
+     * Heading is already set before
+     * Supabase finishes loading.
+     */
 
-    } catch (error) {
+    await loadCategories();
 
-        console.error(
-            "INIT ERROR:",
-            error
-        );
 
-        loading.style.display = "none";
+    await loadProducts();
 
-        errorMessage.style.display = "block";
 
-    }
+    console.log(
+        "VNR CHOICEZ: category page initialized."
+    );
 
 }
 
+
+/* =========================================================
+   START
+========================================================= */
 
 init();
 
