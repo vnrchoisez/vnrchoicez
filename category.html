@@ -1,14 +1,37 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="cropped_circle_image.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="cropped_circle_image.png"
+    >
 
     <title>VNR CHOICEZ</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
@@ -16,6 +39,7 @@
     >
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -32,6 +56,10 @@
             text-decoration: none;
             color: inherit;
         }
+
+        /* =========================
+           HEADER
+        ========================= */
 
         header {
             border-bottom: 1px solid #e5e5e5;
@@ -88,43 +116,120 @@
             border-color: #111111;
         }
 
+        /* =========================
+           NAVIGATION
+        ========================= */
+
         nav {
             margin-top: 18px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-
-        nav::-webkit-scrollbar {
-            display: none;
         }
 
         .nav-list {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
             white-space: nowrap;
             list-style: none;
         }
 
-        .nav-list a {
+        .nav-list > li > a,
+        .dropdown-button {
+            font-family: inherit;
             font-size: 11px;
             font-weight: 600;
             color: #555555;
             transition: 0.2s;
         }
 
-        .nav-list a:hover {
+        .nav-list > li > a:hover,
+        .dropdown-button:hover {
             color: #000000;
         }
 
-        .nav-list a.active {
-            color: #000000;
-            font-weight: 800;
+        /* =========================
+           TRENDING
+        ========================= */
+
+        .trending-link {
+            padding: 7px 12px !important;
+            border-radius: 50px;
+            background: #f1f1f1;
+            color: #111111 !important;
         }
 
-        .about-link {
-            font-weight: 800 !important;
+        .trending-link:hover {
+            background: #111111;
+            color: #ffffff !important;
         }
+
+        /* =========================
+           CATEGORY DROPDOWN
+        ========================= */
+
+        .category-dropdown {
+            position: relative;
+        }
+
+        .dropdown-button {
+            background: none;
+            border: none;
+            padding: 7px 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dropdown-arrow {
+            font-size: 8px;
+            transition: transform .2s ease;
+        }
+
+        .category-dropdown.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 0;
+            width: 225px;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 8px;
+            box-shadow: 0 15px 35px rgba(0,0,0,.12);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5px);
+            transition: .2s ease;
+        }
+
+        .category-dropdown:hover .dropdown-menu,
+        .category-dropdown.open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 12px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #444444;
+            transition: .2s;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f2f2f2;
+            color: #000000;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
 
         main {
             max-width: 1400px;
@@ -147,6 +252,10 @@
             font-size: 12px;
             color: #777777;
         }
+
+        /* =========================
+           PRODUCT GRID
+        ========================= */
 
         .product-grid {
             display: grid;
@@ -248,6 +357,10 @@
             color: #c62828;
         }
 
+        /* =========================
+           FOOTER
+        ========================= */
+
         footer {
             border-top: 1px solid #e5e5e5;
             background: #ffffff;
@@ -273,13 +386,24 @@
             color: #888888;
         }
 
+        /* =========================
+           TABLET
+        ========================= */
+
         @media (max-width: 1100px) {
+
             .product-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+
         }
 
+        /* =========================
+           MOBILE
+        ========================= */
+
         @media (max-width: 800px) {
+
             .top-row {
                 flex-direction: column;
                 align-items: flex-start;
@@ -302,8 +426,29 @@
                 padding: 18px;
             }
 
+            nav {
+                overflow: visible;
+            }
+
             .nav-list {
-                gap: 18px;
+                gap: 12px;
+                flex-wrap: wrap;
+                white-space: normal;
+            }
+
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                margin-top: 6px;
+                box-shadow: none;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+            }
+
+            .category-dropdown.open .dropdown-menu {
+                display: block;
             }
 
             .footer-inner {
@@ -311,9 +456,11 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
         }
 
         @media (max-width: 500px) {
+
             .product-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -343,68 +490,161 @@
             .category-heading h1 {
                 font-size: 28px;
             }
+
         }
+
     </style>
+
 </head>
 
 <body>
 
 <header>
+
     <div class="header-inner">
 
         <div class="top-row">
 
             <div>
-                <a href="index.html" class="brand">
+
+                <a
+                    href="index.html"
+                    class="brand"
+                >
                     VNR CHOICEZ
                 </a>
 
                 <div class="tagline">
                     FIND IT. CHOOSE IT. LOVE IT.
                 </div>
+
             </div>
 
+
             <div class="search-box">
+
                 <input
                     type="text"
                     id="searchInput"
                     placeholder="Search products..."
                     autocomplete="off"
                 >
+
             </div>
 
         </div>
 
+
         <nav>
-            <ul class="nav-list" id="categoryNav">
+
+            <ul
+                class="nav-list"
+                id="categoryNav"
+            >
 
                 <li>
+
                     <a href="index.html">
                         Home
                     </a>
+
                 </li>
+
 
                 <li>
+
                     <a
                         href="category.html?type=Trending"
+                        class="trending-link"
                         id="trendingLink"
                     >
-                        Trending
+                        🔥 Trending
                     </a>
+
                 </li>
 
-                <!-- Categories loaded from Supabase -->
 
-                <li id="aboutItem">
-                    <a href="about.html" class="about-link">
-                        ABOUT US
+                <li
+                    class="category-dropdown"
+                    id="categoryDropdown"
+                >
+
+                    <button
+                        type="button"
+                        class="dropdown-button"
+                        id="categoryButton"
+                    >
+                        Categories
+                        <span class="dropdown-arrow">
+                            ▼
+                        </span>
+                    </button>
+
+
+                    <div class="dropdown-menu">
+
+                        <a href="category.html?type=Accessories">
+                            Accessories
+                        </a>
+
+                        <a href="category.html?type=Beauty">
+                            Beauty
+                        </a>
+
+                        <a href="category.html?type=Cookery">
+                            Cookery
+                        </a>
+
+                        <a href="category.html?type=Fashion">
+                            Fashion
+                        </a>
+
+                        <a href="category.html?type=Fragrance">
+                            Fragrance
+                        </a>
+
+                        <a href="category.html?type=Gadget%20%26%20Tech">
+                            Gadget &amp; Tech
+                        </a>
+
+                        <a href="category.html?type=Gaming">
+                            Gaming
+                        </a>
+
+                        <a href="category.html?type=Home%20Items">
+                            Home Items
+                        </a>
+
+                        <a href="category.html?type=Random%20Useful%20Items">
+                            Random Useful Items
+                        </a>
+
+                        <a href="category.html?type=Sports">
+                            Sports
+                        </a>
+
+                    </div>
+
+                </li>
+
+
+                <li>
+
+                    <a
+                        href="about.html"
+                        class="about-link"
+                    >
+                        About Us
                     </a>
+
                 </li>
 
             </ul>
+
         </nav>
 
     </div>
+
 </header>
 
 
@@ -421,6 +661,7 @@
         </p>
 
     </section>
+
 
     <section
         class="product-grid"
@@ -453,10 +694,8 @@
 </footer>
 
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- CONFIG -->
 <script src="config.js"></script>
 
 
@@ -464,26 +703,17 @@
 "use strict";
 
 
-/* =========================================================
-   SUPABASE CHECK
-========================================================= */
-
 if (
     typeof window.supabase === "undefined" ||
     typeof supabaseClient === "undefined"
 ) {
+
     throw new Error(
         "VNR CHOICEZ: Supabase library/config.js failed to load."
     );
+
 }
 
-
-/* =========================================================
-   DOM
-========================================================= */
-
-const categoryNav =
-    document.getElementById("categoryNav");
 
 const categoryTitle =
     document.getElementById("categoryTitle");
@@ -497,27 +727,25 @@ const productGrid =
 const searchInput =
     document.getElementById("searchInput");
 
-const aboutItem =
-    document.getElementById("aboutItem");
+const categoryDropdown =
+    document.getElementById("categoryDropdown");
+
+const categoryButton =
+    document.getElementById("categoryButton");
 
 const trendingLink =
     document.getElementById("trendingLink");
 
 
-/* =========================================================
-   URL
-========================================================= */
-
 const urlParams =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+        window.location.search
+    );
+
 
 const requestedType =
     urlParams.get("type") || "Gadget & Tech";
 
-
-/* =========================================================
-   STATE
-========================================================= */
 
 let currentCategory =
     requestedType;
@@ -545,21 +773,6 @@ function formatSupabaseError(error) {
         error.hint ||
         JSON.stringify(error)
     );
-}
-
-
-/* =========================================================
-   SLUGIFY
-========================================================= */
-
-function slugify(value) {
-
-    return String(value || "")
-        .toLowerCase()
-        .trim()
-        .replace(/&/g, "and")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
 
 }
 
@@ -591,8 +804,7 @@ async function loadCategories() {
         error
     } = await supabaseClient
         .from("categories")
-        .select("id,name,slug")
-        .order("name", { ascending: true });
+        .select("id,name,slug");
 
 
     if (error) {
@@ -607,30 +819,18 @@ async function loadCategories() {
     }
 
 
-    /*
-     * IMPORTANT:
-     * Deduplicate categories by BOTH slug AND name.
-     *
-     * This guarantees that one category will only
-     * appear once in the navigation.
-     */
-
-    const uniqueCategories = new Map();
+    const uniqueCategories =
+        new Map();
 
 
     (data || []).forEach((category) => {
 
         const cleanName =
-            String(category.name || "")
-                .trim();
-
-        const cleanSlug =
             String(
-                category.slug ||
-                slugify(cleanName)
+                category.name || ""
             )
             .trim()
-            .toLowerCase();
+            .replace(/\s+/g, " ");
 
 
         if (!cleanName) {
@@ -638,18 +838,19 @@ async function loadCategories() {
         }
 
 
-        const uniqueKey =
-            cleanSlug || cleanName.toLowerCase();
+        const key =
+            cleanName.toLowerCase();
 
 
-        if (!uniqueCategories.has(uniqueKey)) {
+        if (
+            !uniqueCategories.has(key)
+        ) {
 
             uniqueCategories.set(
-                uniqueKey,
+                key,
                 {
                     ...category,
-                    name: cleanName,
-                    slug: cleanSlug
+                    name: cleanName
                 }
             );
 
@@ -670,8 +871,9 @@ async function loadCategories() {
     categories.forEach((category) => {
 
         categoryMap.set(
-            category.slug ||
-            slugify(category.name),
+            category.name
+                .trim()
+                .toLowerCase(),
             category
         );
 
@@ -681,132 +883,10 @@ async function loadCategories() {
 
 
 /* =========================================================
-   BUILD NAVIGATION
+   CATEGORY ACTIVE STATE
 ========================================================= */
 
-function buildNavigation() {
-
-    /*
-     * Remove ONLY dynamically generated
-     * category navigation items.
-     */
-
-    categoryNav
-        .querySelectorAll(
-            "li[data-category-link]"
-        )
-        .forEach((item) => {
-
-            item.remove();
-
-        });
-
-
-    /*
-     * Keep About Us exactly once.
-     */
-
-    const about =
-        document.getElementById("aboutItem");
-
-
-    /*
-     * Extra protection:
-     * remove any existing duplicate category
-     * links that might have been left in DOM.
-     */
-
-    const renderedKeys =
-        new Set();
-
-
-    categories.forEach((category) => {
-
-        const name =
-            String(category.name || "")
-                .trim();
-
-        const slug =
-            String(
-                category.slug ||
-                slugify(name)
-            )
-            .trim()
-            .toLowerCase();
-
-
-        if (!name) {
-            return;
-        }
-
-
-        const uniqueKey =
-            slug || name.toLowerCase();
-
-
-        /*
-         * FINAL duplicate protection.
-         */
-
-        if (renderedKeys.has(uniqueKey)) {
-            return;
-        }
-
-
-        renderedKeys.add(uniqueKey);
-
-
-        const li =
-            document.createElement("li");
-
-        li.setAttribute(
-            "data-category-link",
-            "true"
-        );
-
-
-        const a =
-            document.createElement("a");
-
-
-        a.href =
-            `category.html?type=${encodeURIComponent(name)}`;
-
-
-        a.textContent =
-            name;
-
-
-        /*
-         * Active category
-         */
-
-        if (
-            currentCategory
-                .trim()
-                .toLowerCase() ===
-            name.toLowerCase()
-        ) {
-
-            a.classList.add("active");
-
-        }
-
-
-        li.appendChild(a);
-
-
-        categoryNav.insertBefore(
-            li,
-            about
-        );
-
-    });
-
-
-    /*
-     * Trending active state
-     */
+function setActiveNavigation() {
 
     if (
         currentCategory
@@ -815,7 +895,11 @@ function buildNavigation() {
         "trending"
     ) {
 
-        trendingLink.classList.add("active");
+        trendingLink.style.background =
+            "#111111";
+
+        trendingLink.style.color =
+            "#ffffff";
 
     }
 
@@ -928,7 +1012,9 @@ function renderProducts(products) {
                 </div>
 
                 <div class="product-name">
-                    ${escapeHtml(product.name)}
+                    ${escapeHtml(
+                        product.name
+                    )}
                 </div>
 
                 <div class="product-description">
@@ -994,7 +1080,9 @@ function renderProducts(products) {
         }
 
 
-        productGrid.appendChild(card);
+        productGrid.appendChild(
+            card
+        );
 
     });
 
@@ -1178,10 +1266,14 @@ function sortTrending(products) {
 
 
             const clicksA =
-                Number(a.clicks || 0);
+                Number(
+                    a.clicks || 0
+                );
 
             const clicksB =
-                Number(b.clicks || 0);
+                Number(
+                    b.clicks || 0
+                );
 
 
             if (
@@ -1198,10 +1290,14 @@ function sortTrending(products) {
 
 
             const viewsA =
-                Number(a.views || 0);
+                Number(
+                    a.views || 0
+                );
 
             const viewsB =
-                Number(b.views || 0);
+                Number(
+                    b.views || 0
+                );
 
 
             if (
@@ -1218,10 +1314,14 @@ function sortTrending(products) {
 
 
             const sortA =
-                Number(a.sort_order || 0);
+                Number(
+                    a.sort_order || 0
+                );
 
             const sortB =
-                Number(b.sort_order || 0);
+                Number(
+                    b.sort_order || 0
+                );
 
 
             if (
@@ -1335,7 +1435,7 @@ function setHeading() {
     ) {
 
         categoryTitle.textContent =
-            "Trending";
+            "🔥 Trending";
 
         categoryDescription.textContent =
             "Discover the products getting the most attention.";
@@ -1455,6 +1555,62 @@ searchInput.addEventListener(
 
 
 /* =========================================================
+   DROPDOWN
+========================================================= */
+
+categoryButton.addEventListener(
+    "click",
+    function (event) {
+
+        event.stopPropagation();
+
+        categoryDropdown.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        if (
+            !categoryDropdown.contains(
+                event.target
+            )
+        ) {
+
+            categoryDropdown.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+document.querySelectorAll(
+    ".dropdown-menu a"
+).forEach(link => {
+
+    link.addEventListener(
+        "click",
+        function () {
+
+            categoryDropdown.classList.remove(
+                "open"
+            );
+
+        }
+    );
+
+});
+
+
+/* =========================================================
    INITIALIZE
 ========================================================= */
 
@@ -1472,7 +1628,7 @@ async function initializePage() {
         setHeading();
 
 
-        buildNavigation();
+        setActiveNavigation();
 
 
         await loadProducts();
@@ -1504,14 +1660,9 @@ async function initializePage() {
 }
 
 
-/* =========================================================
-   START
-========================================================= */
-
 initializePage();
 
 </script>
 
 </body>
 </html>
-```
