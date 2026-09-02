@@ -9,7 +9,10 @@
 
     <title>VNR CHOICEZ</title>
 
-    <meta name="description" content="VNR CHOICEZ - Discover useful products and curated Shopee finds.">
+    <meta
+        name="description"
+        content="VNR CHOICEZ - Discover useful products and curated Shopee finds."
+    >
 
     <style>
         * {
@@ -80,23 +83,106 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 5px;
-            flex-wrap: wrap;
             justify-content: flex-end;
+            gap: 8px;
         }
 
-        nav a {
+        nav > a,
+        .dropdown-button {
+            font-family: inherit;
             font-size: 13px;
             font-weight: 600;
-            padding: 8px 10px;
-            border-radius: 7px;
+            padding: 8px 12px;
+            border-radius: 8px;
             transition: .2s ease;
             white-space: nowrap;
         }
 
-        nav a:hover {
+        nav > a:hover,
+        .dropdown-button:hover {
             background: #fff;
             color: #111;
+        }
+
+        /* =========================
+           TRENDING HIGHLIGHT
+        ========================= */
+
+        .trending-link {
+            background: rgba(255,255,255,.10);
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 50px !important;
+        }
+
+        .trending-link:hover {
+            background: #fff !important;
+            color: #111 !important;
+        }
+
+        /* =========================
+           CATEGORY DROPDOWN
+        ========================= */
+
+        .category-dropdown {
+            position: relative;
+        }
+
+        .dropdown-button {
+            background: transparent;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dropdown-arrow {
+            font-size: 10px;
+            transition: transform .2s ease;
+        }
+
+        .category-dropdown.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 225px;
+            background: #fff;
+            color: #111;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.20);
+            border: 1px solid #e8e8e8;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px);
+            transition: .2s ease;
+        }
+
+        .category-dropdown:hover .dropdown-menu,
+        .category-dropdown.open .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            color: #222;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 10px 12px;
+            border-radius: 7px;
+            transition: .2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f1f1f1;
+            color: #000;
         }
 
         /* =========================
@@ -198,36 +284,6 @@
             color: #777;
             margin-top: 8px;
             font-size: 14px;
-        }
-
-        /* =========================
-           CATEGORY NAV
-        ========================= */
-
-        .category-nav {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            margin-bottom: 35px;
-            scrollbar-width: thin;
-        }
-
-        .category-nav a {
-            background: white;
-            border: 1px solid #e8e8e8;
-            border-radius: 50px;
-            padding: 9px 15px;
-            font-size: 13px;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: .2s ease;
-        }
-
-        .category-nav a:hover {
-            background: #111;
-            color: white;
-            border-color: #111;
         }
 
         /* =========================
@@ -394,17 +450,15 @@
         ========================= */
 
         @media (max-width: 1100px) {
+
             .product-grid {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
 
-            nav a {
-                font-size: 12px;
-                padding: 7px 8px;
-            }
         }
 
         @media (max-width: 800px) {
+
             .header-inner {
                 flex-wrap: wrap;
             }
@@ -419,15 +473,55 @@
                 flex-direction: column;
                 align-items: stretch;
                 padding-top: 10px;
+                gap: 4px;
             }
 
             nav.active {
                 display: flex;
             }
 
-            nav a {
+            nav > a,
+            .dropdown-button {
                 width: 100%;
                 padding: 11px;
+                text-align: left;
+            }
+
+            .category-dropdown {
+                width: 100%;
+            }
+
+            .dropdown-button {
+                justify-content: space-between;
+            }
+
+            .dropdown-menu {
+                position: static;
+                width: 100%;
+                min-width: 0;
+                box-shadow: none;
+                border: none;
+                border-radius: 8px;
+                background: #1c1c1c;
+                padding: 5px;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+            }
+
+            .category-dropdown.open .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-menu a {
+                color: #ddd;
+                padding: 10px 12px;
+            }
+
+            .dropdown-menu a:hover {
+                background: #333;
+                color: #fff;
             }
 
             .product-grid {
@@ -441,9 +535,11 @@
             .section-header {
                 display: block;
             }
+
         }
 
         @media (max-width: 500px) {
+
             .hero {
                 padding: 60px 20px;
             }
@@ -467,953 +563,941 @@
             .footer-inner {
                 flex-direction: column;
             }
+
         }
     </style>
 </head>
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+<header>
 
-    <header>
-        <div class="header-inner">
+    <div class="header-inner">
 
-            <a href="index.html" class="logo">
-                VNR <span>CHOICEZ</span>
+        <a href="index.html" class="logo">
+            VNR <span>CHOICEZ</span>
+        </a>
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
+
+        <nav id="mainNav">
+
+            <a href="index.html">
+                Home
             </a>
 
-            <button class="menu-button" id="menuButton" type="button">
-                ☰
-            </button>
+            <a
+                href="category.html?type=Trending"
+                class="trending-link"
+            >
+                🔥 Trending
+            </a>
 
-            <nav id="categoryNav"></nav>
+            <div class="category-dropdown" id="categoryDropdown">
 
-        </div>
-    </header>
+                <button
+                    type="button"
+                    class="dropdown-button"
+                    id="categoryButton"
+                >
+                    Categories
+                    <span class="dropdown-arrow">▼</span>
+                </button>
 
+                <div class="dropdown-menu">
 
-    <!-- =========================
-         HERO
-    ========================== -->
+                    <a href="category.html?type=Accessories">
+                        Accessories
+                    </a>
 
-    <section class="hero">
+                    <a href="category.html?type=Beauty">
+                        Beauty
+                    </a>
 
-        <div class="hero-inner">
+                    <a href="category.html?type=Cookery">
+                        Cookery
+                    </a>
 
-            <div class="hero-label">
-                VNR CHOICEZ
+                    <a href="category.html?type=Fashion">
+                        Fashion
+                    </a>
+
+                    <a href="category.html?type=Fragrance">
+                        Fragrance
+                    </a>
+
+                    <a href="category.html?type=Gadget%20%26%20Tech">
+                        Gadget &amp; Tech
+                    </a>
+
+                    <a href="category.html?type=Gaming">
+                        Gaming
+                    </a>
+
+                    <a href="category.html?type=Home%20Items">
+                        Home Items
+                    </a>
+
+                    <a href="category.html?type=Random%20Useful%20Items">
+                        Random Useful Items
+                    </a>
+
+                    <a href="category.html?type=Sports">
+                        Sports
+                    </a>
+
+                </div>
+
             </div>
 
-            <h1>
-                FIND YOUR<br>
-                NEXT CHOICE.
-            </h1>
+            <a href="about.html">
+                About Us
+            </a>
 
-            <p>
-                Discover useful products, trending finds and curated
-                Shopee picks selected by VNR CHOICEZ.
+        </nav>
+
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="hero-inner">
+
+        <div class="hero-label">
+            VNR CHOICEZ
+        </div>
+
+        <h1>
+            FIND YOUR<br>
+            NEXT CHOICE.
+        </h1>
+
+        <p>
+            Discover useful products, trending finds and curated
+            Shopee picks selected by VNR CHOICEZ.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="search-section">
+
+    <div class="search-box">
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search products, categories or keywords..."
+            autocomplete="off"
+        >
+
+    </div>
+
+</section>
+
+
+<main>
+
+    <div class="section-header">
+
+        <div>
+
+            <h2 id="categoryTitle">
+                VNR CHOICEZ
+            </h2>
+
+            <p id="categoryDescription">
+                Discover useful products and curated finds.
             </p>
 
         </div>
 
-    </section>
+    </div>
 
 
-    <!-- =========================
-         SEARCH
-    ========================== -->
-
-    <section class="search-section">
-
-        <div class="search-box">
-
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="Search products, categories or keywords..."
-                autocomplete="off"
-            >
-
-        </div>
-
-    </section>
+    <div id="errorMessage"></div>
 
 
-    <!-- =========================
-         MAIN
-    ========================== -->
+    <div id="loading">
+        Loading products...
+    </div>
 
-    <main>
 
-        <div class="section-header">
+    <div
+        id="noResults"
+        class="state"
+    >
+        <h3>No products found.</h3>
+        <p>Try another search or check another category.</p>
+    </div>
 
-            <div>
-                <h2 id="categoryTitle">
-                    VNR CHOICEZ
-                </h2>
 
-                <p id="categoryDescription">
-                    Discover useful products and curated finds.
-                </p>
+    <section
+        id="productGrid"
+        class="product-grid"
+    ></section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="footer-brand">
+                VNR CHOICEZ
+            </div>
+
+            <div class="footer-text">
+                Curated products, useful finds and Shopee recommendations.
+                Discover your next choice with VNR CHOICEZ.
             </div>
 
         </div>
 
-
-        <div id="errorMessage"></div>
-
-
-        <div id="loading">
-            Loading products...
-        </div>
-
-
-        <div
-            id="noResults"
-            class="state"
+        <a
+            href="about.html"
+            class="footer-link"
         >
-            <h3>No products found.</h3>
-            <p>Try another search or check another category.</p>
-        </div>
+            ABOUT US
+        </a>
+
+    </div>
+
+</footer>
 
 
-        <section
-            id="productGrid"
-            class="product-grid"
-        ></section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    </main>
+<script src="config.js"></script>
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
+<script>
+"use strict";
 
-    <footer>
+document.addEventListener("DOMContentLoaded", async function () {
 
-        <div class="footer-inner">
-
-            <div>
-
-                <div class="footer-brand">
-                    VNR CHOICEZ
-                </div>
-
-                <div class="footer-text">
-                    Curated products, useful finds and Shopee recommendations.
-                    Discover your next choice with VNR CHOICEZ.
-                </div>
-
-            </div>
-
-            <a
-                href="about.html"
-                class="footer-link"
-            >
-                ABOUT US
-            </a>
-
-        </div>
-
-    </footer>
+    console.log("VNR CHOICEZ: Page loaded.");
 
 
-    <!-- =========================
-         SCRIPTS
-         IMPORTANT ORDER
-    ========================== -->
+    const productGrid =
+        document.getElementById("productGrid");
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    const searchInput =
+        document.getElementById("searchInput");
 
-    <script src="config.js"></script>
+    const categoryTitle =
+        document.getElementById("categoryTitle");
 
+    const categoryDescription =
+        document.getElementById("categoryDescription");
 
-    <script>
-        "use strict";
+    const loading =
+        document.getElementById("loading");
 
-        document.addEventListener("DOMContentLoaded", async function () {
+    const errorMessage =
+        document.getElementById("errorMessage");
 
-            console.log("VNR CHOICEZ: Page loaded.");
+    const noResults =
+        document.getElementById("noResults");
 
-            /* ========================================
-               ELEMENTS
-            ======================================== */
+    const menuButton =
+        document.getElementById("menuButton");
 
-            const productGrid =
-                document.getElementById("productGrid");
+    const mainNav =
+        document.getElementById("mainNav");
 
-            const searchInput =
-                document.getElementById("searchInput");
+    const categoryDropdown =
+        document.getElementById("categoryDropdown");
 
-            const categoryTitle =
-                document.getElementById("categoryTitle");
-
-            const categoryDescription =
-                document.getElementById("categoryDescription");
-
-            const categoryNav =
-                document.getElementById("categoryNav");
-
-            const loading =
-                document.getElementById("loading");
-
-            const errorMessage =
-                document.getElementById("errorMessage");
-
-            const noResults =
-                document.getElementById("noResults");
-
-            const menuButton =
-                document.getElementById("menuButton");
+    const categoryButton =
+        document.getElementById("categoryButton");
 
 
-            /* ========================================
-               CHECK SUPABASE
-            ======================================== */
+    if (
+        typeof supabaseClient === "undefined" ||
+        !supabaseClient ||
+        typeof supabaseClient.from !== "function"
+    ) {
 
-            if (
-                typeof supabaseClient === "undefined" ||
-                !supabaseClient ||
-                typeof supabaseClient.from !== "function"
-            ) {
+        console.error(
+            "SUPABASE CLIENT ERROR: config.js did not load correctly."
+        );
 
-                console.error(
-                    "SUPABASE CLIENT ERROR: config.js did not load correctly."
-                );
+        loading.style.display = "none";
 
-                loading.style.display = "none";
+        errorMessage.textContent =
+            "Supabase could not be loaded. Please check config.js and the Supabase script.";
 
-                errorMessage.textContent =
-                    "Supabase could not be loaded. Please check config.js and the Supabase script.";
+        errorMessage.style.display = "block";
 
-                errorMessage.style.display = "block";
+        return;
 
-                return;
+    }
+
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const selectedType =
+        params.get("type") || "All";
+
+
+    let allProducts = [];
+    let allCategories = [];
+    let currentProducts = [];
+
+
+    function escapeHtml(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    function getFallbackCategories() {
+
+        return [
+
+            {
+                id: null,
+                name: "Gadget & Tech",
+                slug: "gadget-tech"
+            },
+
+            {
+                id: null,
+                name: "Accessories",
+                slug: "accessories"
+            },
+
+            {
+                id: null,
+                name: "Fashion",
+                slug: "fashion"
+            },
+
+            {
+                id: null,
+                name: "Cookery",
+                slug: "cookery"
+            },
+
+            {
+                id: null,
+                name: "Beauty",
+                slug: "beauty"
+            },
+
+            {
+                id: null,
+                name: "Home Items",
+                slug: "home-items"
+            },
+
+            {
+                id: null,
+                name: "Fragrance",
+                slug: "fragrance"
+            },
+
+            {
+                id: null,
+                name: "Sports",
+                slug: "sports"
+            },
+
+            {
+                id: null,
+                name: "Gaming",
+                slug: "gaming"
+            },
+
+            {
+                id: null,
+                name: "Random Useful Items",
+                slug: "random-useful-items"
             }
 
+        ];
 
-            console.log(
-                "VNR CHOICEZ: Supabase connected."
+    }
+
+
+    async function loadCategories() {
+
+        const result =
+            await supabaseClient
+                .from("categories")
+                .select("id,name,slug");
+
+
+        if (result.error) {
+
+            console.warn(
+                "CATEGORY ERROR:",
+                result.error
+            );
+
+            allCategories =
+                getFallbackCategories();
+
+        } else {
+
+            allCategories =
+                Array.isArray(result.data)
+                    ? result.data
+                    : getFallbackCategories();
+
+        }
+
+    }
+
+
+    function getCategoryName(product) {
+
+        const category =
+            allCategories.find(
+                item =>
+                    item.id === product.category_id
             );
 
 
-            /* ========================================
-               URL
-            ======================================== */
+        return (
+            category?.name ||
+            product.category ||
+            "Uncategorized"
+        );
 
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-            const selectedType =
-                params.get("type") || "All";
+    }
 
 
-            /* ========================================
-               DATA
-            ======================================== */
+    async function loadProducts() {
 
-            let allProducts = [];
-
-            let allCategories = [];
-
-            let currentProducts = [];
-
-
-            /* ========================================
-               ESCAPE HTML
-            ======================================== */
-
-            function escapeHtml(value) {
-
-                return String(value ?? "")
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
-
-            }
-
-
-            /* ========================================
-               CATEGORY FALLBACK
-            ======================================== */
-
-            function getFallbackCategories() {
-
-                return [
-
-                    {
-                        id: null,
-                        name: "Gadget & Tech",
-                        slug: "gadgets-tech"
-                    },
-
-                    {
-                        id: null,
-                        name: "Accessories",
-                        slug: "accessories"
-                    },
-
-                    {
-                        id: null,
-                        name: "Fashion",
-                        slug: "fashion"
-                    },
-
-                    {
-                        id: null,
-                        name: "Cookery",
-                        slug: "cookery"
-                    },
-
-                    {
-                        id: null,
-                        name: "Beauty",
-                        slug: "beauty"
-                    },
-
-                    {
-                        id: null,
-                        name: "Home Items",
-                        slug: "home-items"
-                    },
-
-                    {
-                        id: null,
-                        name: "Fragrance",
-                        slug: "fragrance"
-                    },
-
-                    {
-                        id: null,
-                        name: "Sports",
-                        slug: "sports"
-                    },
-
-                    {
-                        id: null,
-                        name: "Gaming",
-                        slug: "gaming"
-                    },
-
-                    {
-                        id: null,
-                        name: "Random Useful Items",
-                        slug: "random-useful-items"
-                    }
-
-                ];
-
-            }
-
-
-            /* ========================================
-               LOAD CATEGORIES
-            ======================================== */
-
-            async function loadCategories() {
-
-                const result =
-                    await supabaseClient
-                        .from("categories")
-                        .select("id,name,slug")
-                        .order("name", {
-                            ascending: true
-                        });
-
-
-                if (result.error) {
-
-                    console.warn(
-                        "CATEGORY ERROR:",
-                        result.error
-                    );
-
-                    allCategories =
-                        getFallbackCategories();
-
-                } else {
-
-                    allCategories =
-                        Array.isArray(result.data)
-                            ? result.data
-                            : getFallbackCategories();
-
-                }
-
-
-                renderNavigation();
-
-            }
-
-
-            /* ========================================
-               NAVIGATION
-            ======================================== */
-
-            function renderNavigation() {
-
-                let html = "";
-
-                html += `
-                    <a href="index.html">
-                        Home
-                    </a>
-                `;
-
-
-                html += `
-                    <a href="category.html?type=Trending">
-                        Trending
-                    </a>
-                `;
-
-
-                allCategories.forEach(category => {
-
-                    html += `
-                        <a href="category.html?type=${encodeURIComponent(category.name)}">
-                            ${escapeHtml(category.name)}
-                        </a>
-                    `;
-
+        const result =
+            await supabaseClient
+                .from("products")
+                .select(`
+                    id,
+                    name,
+                    description,
+                    price,
+                    image_url,
+                    image_path,
+                    affiliate_url,
+                    shopee_link,
+                    status,
+                    featured,
+                    views,
+                    clicks,
+                    created_at,
+                    sort_order,
+                    category,
+                    category_id
+                `)
+                .eq("status", "published")
+                .order("sort_order", {
+                    ascending: true,
+                    nullsFirst: false
+                })
+                .order("created_at", {
+                    ascending: false
                 });
 
 
-                html += `
-                    <a href="about.html">
-                        ABOUT US
-                    </a>
-                `;
+        if (result.error) {
+
+            console.error(
+                "PRODUCT ERROR:",
+                result.error
+            );
+
+            throw result.error;
+
+        }
 
 
-                categoryNav.innerHTML = html;
+        allProducts =
+            Array.isArray(result.data)
+                ? result.data.map(product => {
 
-            }
+                    return {
+                        ...product,
+                        categoryName:
+                            getCategoryName(product)
+                    };
 
-
-            /* ========================================
-               CATEGORY NAME
-            ======================================== */
-
-            function getCategoryName(product) {
-
-                const category =
-                    allCategories.find(
-                        item =>
-                            item.id === product.category_id
-                    );
+                })
+                : [];
 
 
-                return (
-                    category?.name ||
-                    product.category ||
-                    "Uncategorized"
+        filterProducts();
+
+    }
+
+
+    function filterProducts() {
+
+        if (
+            !selectedType ||
+            selectedType.toLowerCase() === "all"
+        ) {
+
+            currentProducts =
+                [...allProducts];
+
+        }
+
+        else if (
+            selectedType.toLowerCase() === "trending"
+        ) {
+
+            currentProducts =
+                [...allProducts].sort(
+                    (a, b) => {
+
+                        const featuredDifference =
+                            Number(b.featured || false) -
+                            Number(a.featured || false);
+
+
+                        if (
+                            featuredDifference !== 0
+                        ) {
+
+                            return featuredDifference;
+
+                        }
+
+
+                        const clickDifference =
+                            Number(b.clicks || 0) -
+                            Number(a.clicks || 0);
+
+
+                        if (
+                            clickDifference !== 0
+                        ) {
+
+                            return clickDifference;
+
+                        }
+
+
+                        return (
+                            new Date(b.created_at || 0) -
+                            new Date(a.created_at || 0)
+                        );
+
+                    }
                 );
 
+        }
+
+        else {
+
+            const selected =
+                selectedType
+                    .trim()
+                    .toLowerCase();
+
+
+            currentProducts =
+                allProducts.filter(
+                    product =>
+                        String(
+                            product.categoryName || ""
+                        )
+                        .trim()
+                        .toLowerCase() === selected
+                );
+
+        }
+
+
+        updateHeading();
+
+        loading.style.display = "none";
+
+        renderProducts(
+            currentProducts
+        );
+
+    }
+
+
+    function updateHeading() {
+
+        if (
+            selectedType.toLowerCase() === "trending"
+        ) {
+
+            categoryTitle.textContent =
+                "🔥 Trending Finds";
+
+            categoryDescription.textContent =
+                "Discover products currently featured in our trending finds.";
+
+            document.title =
+                "Trending | VNR CHOICEZ";
+
+            return;
+
+        }
+
+
+        if (
+            selectedType.toLowerCase() === "all"
+        ) {
+
+            categoryTitle.textContent =
+                "VNR CHOICEZ";
+
+            categoryDescription.textContent =
+                "Discover useful products and curated finds.";
+
+            document.title =
+                "VNR CHOICEZ";
+
+            return;
+
+        }
+
+
+        categoryTitle.textContent =
+            selectedType;
+
+        categoryDescription.textContent =
+            "Discover useful products and curated finds from VNR CHOICEZ.";
+
+        document.title =
+            `${selectedType} | VNR CHOICEZ`;
+
+    }
+
+
+    function getImageUrl(product) {
+
+        return (
+            product.image_url ||
+            product.image_path ||
+            ""
+        );
+
+    }
+
+
+    function renderProducts(products) {
+
+        productGrid.innerHTML = "";
+
+        noResults.style.display =
+            "none";
+
+
+        if (!products.length) {
+
+            noResults.style.display =
+                "block";
+
+            return;
+
+        }
+
+
+        products.forEach(product => {
+
+            productGrid.appendChild(
+                createProductCard(product)
+            );
+
+        });
+
+    }
+
+
+    function createProductCard(product) {
+
+        const card =
+            document.createElement("article");
+
+
+        card.className =
+            "product";
+
+
+        const name =
+            product.name ||
+            "Unnamed Product";
+
+
+        const description =
+            product.description ||
+            "Useful product worth checking out.";
+
+
+        const category =
+            product.categoryName ||
+            "Uncategorized";
+
+
+        const image =
+            getImageUrl(product);
+
+
+        const affiliate =
+            product.affiliate_url ||
+            product.shopee_link ||
+            "";
+
+
+        const numericPrice =
+            Number(product.price);
+
+
+        const price =
+            Number.isFinite(numericPrice)
+                ? numericPrice.toFixed(2)
+                : "0.00";
+
+
+        card.innerHTML = `
+
+            ${
+                image
+                    ? `
+                        <img
+                            class="product-image"
+                            src="${escapeHtml(image)}"
+                            alt="${escapeHtml(name)}"
+                            loading="lazy"
+                            onerror="this.style.display='none';"
+                        >
+                    `
+                    : ""
             }
 
+            <div class="product-info">
 
-            /* ========================================
-               LOAD PRODUCTS
-            ======================================== */
+                <h3 class="product-name">
+                    ${escapeHtml(name)}
+                </h3>
 
-            async function loadProducts() {
+                <div class="product-description">
+                    ${escapeHtml(description)}
+                </div>
 
-                const result =
-                    await supabaseClient
-                        .from("products")
-                        .select(`
-                            id,
-                            name,
-                            description,
-                            price,
-                            image_url,
-                            image_path,
-                            affiliate_url,
-                            shopee_link,
-                            status,
-                            featured,
-                            views,
-                            clicks,
-                            created_at,
-                            sort_order,
-                            category,
-                            category_id
-                        `)
-                        .eq("status", "published")
-                        .order("sort_order", {
-                            ascending: true,
-                            nullsFirst: false
-                        })
-                        .order("created_at", {
-                            ascending: false
-                        });
+                <div class="product-category">
+                    ${escapeHtml(category)}
+                </div>
 
+                <div class="product-price">
+                    RM${price}
+                </div>
 
-                if (result.error) {
-
-                    console.error(
-                        "PRODUCT ERROR:",
-                        result.error
-                    );
-
-                    throw result.error;
-
+                ${
+                    affiliate
+                        ? `
+                            <a
+                                class="buy-button"
+                                href="${escapeHtml(affiliate)}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                View on Shopee
+                            </a>
+                        `
+                        : `
+                            <div class="buy-button">
+                                Product link unavailable
+                            </div>
+                        `
                 }
 
+            </div>
 
-                allProducts =
-                    Array.isArray(result.data)
-                        ? result.data.map(product => {
-
-                            return {
-                                ...product,
-                                categoryName:
-                                    getCategoryName(product)
-                            };
-
-                        })
-                        : [];
+        `;
 
 
-                filterProducts();
+        return card;
 
-            }
-
-
-            /* ========================================
-               FILTER PRODUCTS
-            ======================================== */
-
-            function filterProducts() {
-
-                if (
-                    !selectedType ||
-                    selectedType.toLowerCase() === "all"
-                ) {
-
-                    currentProducts =
-                        [...allProducts];
-
-                }
-
-                else if (
-                    selectedType.toLowerCase() === "trending"
-                ) {
-
-                    currentProducts =
-                        [...allProducts].sort(
-                            (a, b) => {
-
-                                const featuredDifference =
-                                    Number(b.featured || false) -
-                                    Number(a.featured || false);
+    }
 
 
-                                if (
-                                    featuredDifference !== 0
-                                ) {
+    searchInput.addEventListener(
+        "input",
+        function () {
 
-                                    return featuredDifference;
-
-                                }
-
-
-                                const clickDifference =
-                                    Number(b.clicks || 0) -
-                                    Number(a.clicks || 0);
+            const term =
+                this.value
+                    .toLowerCase()
+                    .trim();
 
 
-                                if (
-                                    clickDifference !== 0
-                                ) {
-
-                                    return clickDifference;
-
-                                }
-
-
-                                return (
-                                    new Date(b.created_at || 0) -
-                                    new Date(a.created_at || 0)
-                                );
-
-                            }
-                        );
-
-                }
-
-                else {
-
-                    const selected =
-                        selectedType
-                            .trim()
-                            .toLowerCase();
-
-
-                    currentProducts =
-                        allProducts.filter(
-                            product =>
-                                String(
-                                    product.categoryName || ""
-                                )
-                                .trim()
-                                .toLowerCase() === selected
-                        );
-
-                }
-
-
-                updateHeading();
-
-                loading.style.display = "none";
+            if (!term) {
 
                 renderProducts(
                     currentProducts
                 );
 
-            }
-
-
-            /* ========================================
-               HEADING
-            ======================================== */
-
-            function updateHeading() {
-
-                if (
-                    selectedType.toLowerCase() === "trending"
-                ) {
-
-                    categoryTitle.textContent =
-                        "🔥 Trending Finds";
-
-                    categoryDescription.textContent =
-                        "Discover products currently featured in our trending finds.";
-
-                    document.title =
-                        "Trending | VNR CHOICEZ";
-
-                    return;
-
-                }
-
-
-                if (
-                    selectedType.toLowerCase() === "all"
-                ) {
-
-                    categoryTitle.textContent =
-                        "VNR CHOICEZ";
-
-                    categoryDescription.textContent =
-                        "Discover useful products and curated finds.";
-
-                    document.title =
-                        "VNR CHOICEZ";
-
-                    return;
-
-                }
-
-
-                categoryTitle.textContent =
-                    selectedType;
-
-                categoryDescription.textContent =
-                    "Discover useful products and curated finds from VNR CHOICEZ.";
-
-                document.title =
-                    `${selectedType} | VNR CHOICEZ`;
+                return;
 
             }
 
 
-            /* ========================================
-               IMAGE
-            ======================================== */
+            const filtered =
+                currentProducts.filter(
+                    product => {
 
-            function getImageUrl(product) {
+                        const text = [
 
-                return (
-                    product.image_url ||
-                    product.image_path ||
-                    ""
-                );
+                            product.name,
+                            product.description,
+                            product.categoryName
 
-            }
+                        ]
+                        .filter(Boolean)
+                        .join(" ")
+                        .toLowerCase();
 
 
-            /* ========================================
-               RENDER PRODUCTS
-            ======================================== */
-
-            function renderProducts(products) {
-
-                productGrid.innerHTML = "";
-
-                noResults.style.display =
-                    "none";
-
-
-                if (!products.length) {
-
-                    noResults.style.display =
-                        "block";
-
-                    return;
-
-                }
-
-
-                products.forEach(product => {
-
-                    productGrid.appendChild(
-                        createProductCard(product)
-                    );
-
-                });
-
-            }
-
-
-            /* ========================================
-               PRODUCT CARD
-            ======================================== */
-
-            function createProductCard(product) {
-
-                const card =
-                    document.createElement("article");
-
-
-                card.className =
-                    "product";
-
-
-                const name =
-                    product.name ||
-                    "Unnamed Product";
-
-
-                const description =
-                    product.description ||
-                    "Useful product worth checking out.";
-
-
-                const category =
-                    product.categoryName ||
-                    "Uncategorized";
-
-
-                const image =
-                    getImageUrl(product);
-
-
-                const affiliate =
-                    product.affiliate_url ||
-                    product.shopee_link ||
-                    "";
-
-
-                const numericPrice =
-                    Number(product.price);
-
-
-                const price =
-                    Number.isFinite(numericPrice)
-                        ? numericPrice.toFixed(2)
-                        : "0.00";
-
-
-                card.innerHTML = `
-
-                    ${
-                        image
-                            ? `
-                                <img
-                                    class="product-image"
-                                    src="${escapeHtml(image)}"
-                                    alt="${escapeHtml(name)}"
-                                    loading="lazy"
-                                    onerror="this.style.display='none';"
-                                >
-                            `
-                            : ""
-                    }
-
-
-                    <div class="product-info">
-
-                        <h3 class="product-name">
-                            ${escapeHtml(name)}
-                        </h3>
-
-
-                        <div class="product-description">
-                            ${escapeHtml(description)}
-                        </div>
-
-
-                        <div class="product-category">
-                            ${escapeHtml(category)}
-                        </div>
-
-
-                        <div class="product-price">
-                            RM${price}
-                        </div>
-
-
-                        ${
-                            affiliate
-                                ? `
-                                    <a
-                                        class="buy-button"
-                                        href="${escapeHtml(affiliate)}"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        View on Shopee
-                                    </a>
-                                `
-                                : `
-                                    <div class="buy-button">
-                                        Product link unavailable
-                                    </div>
-                                `
-                        }
-
-                    </div>
-
-                `;
-
-
-                return card;
-
-            }
-
-
-            /* ========================================
-               SEARCH
-            ======================================== */
-
-            searchInput.addEventListener(
-                "input",
-                function () {
-
-                    const term =
-                        this.value
-                            .toLowerCase()
-                            .trim();
-
-
-                    if (!term) {
-
-                        renderProducts(
-                            currentProducts
-                        );
-
-                        return;
+                        return text.includes(term);
 
                     }
+                );
 
 
-                    const filtered =
-                        currentProducts.filter(
-                            product => {
-
-                                const text = [
-
-                                    product.name,
-
-                                    product.description,
-
-                                    product.categoryName
-
-                                ]
-                                .filter(Boolean)
-                                .join(" ")
-                                .toLowerCase();
-
-
-                                return text.includes(term);
-
-                            }
-                        );
-
-
-                    renderProducts(
-                        filtered
-                    );
-
-                }
+            renderProducts(
+                filtered
             );
 
+        }
+    );
 
-            /* ========================================
-               MOBILE MENU
-            ======================================== */
 
-            menuButton.addEventListener(
-                "click",
-                function () {
+    menuButton.addEventListener(
+        "click",
+        function () {
 
-                    categoryNav.classList.toggle(
-                        "active"
-                    );
-
-                }
+            mainNav.classList.toggle(
+                "active"
             );
 
+        }
+    );
 
-            /* ========================================
-               INITIALIZE
-            ======================================== */
 
-            try {
+    categoryButton.addEventListener(
+        "click",
+        function (event) {
 
-                updateHeading();
+            event.stopPropagation();
 
-                await loadCategories();
+            categoryDropdown.classList.toggle(
+                "open"
+            );
 
-                await loadProducts();
+        }
+    );
 
-                console.log(
-                    "VNR CHOICEZ: Initialization complete."
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                !categoryDropdown.contains(event.target)
+            ) {
+
+                categoryDropdown.classList.remove(
+                    "open"
                 );
 
             }
 
-            catch (error) {
+        }
+    );
 
-                console.error(
-                    "VNR CHOICEZ INIT ERROR:",
-                    error
+
+    document.querySelectorAll(
+        ".dropdown-menu a"
+    ).forEach(link => {
+
+        link.addEventListener(
+            "click",
+            function () {
+
+                categoryDropdown.classList.remove(
+                    "open"
                 );
 
-
-                loading.style.display =
-                    "none";
-
-
-                errorMessage.textContent =
-                    "Unable to load products. Please check the browser Console for the exact Supabase error.";
-
-
-                errorMessage.style.display =
-                    "block";
+                mainNav.classList.remove(
+                    "active"
+                );
 
             }
+        );
 
-        });
-    </script>
+    });
+
+
+    try {
+
+        updateHeading();
+
+        await loadCategories();
+
+        await loadProducts();
+
+        console.log(
+            "VNR CHOICEZ: Initialization complete."
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "VNR CHOICEZ INIT ERROR:",
+            error
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+        errorMessage.textContent =
+            "Unable to load products. Please check the browser Console for the exact Supabase error.";
+
+
+        errorMessage.style.display =
+            "block";
+
+    }
+
+});
+</script>
 
 </body>
 </html>
