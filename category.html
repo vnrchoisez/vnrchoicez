@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,10 +32,6 @@
             text-decoration: none;
             color: inherit;
         }
-
-        /* =========================
-           HEADER
-        ========================= */
 
         header {
             border-bottom: 1px solid #e5e5e5;
@@ -91,10 +88,6 @@
             border-color: #111111;
         }
 
-        /* =========================
-           NAVIGATION
-        ========================= */
-
         nav {
             margin-top: 18px;
             overflow-x: auto;
@@ -130,13 +123,8 @@
         }
 
         .about-link {
-            margin-left: auto;
             font-weight: 800 !important;
         }
-
-        /* =========================
-           MAIN
-        ========================= */
 
         main {
             max-width: 1400px;
@@ -159,10 +147,6 @@
             font-size: 12px;
             color: #777777;
         }
-
-        /* =========================
-           PRODUCT GRID
-        ========================= */
 
         .product-grid {
             display: grid;
@@ -250,10 +234,6 @@
             background: #333333;
         }
 
-        /* =========================
-           STATES
-        ========================= */
-
         .loading,
         .error-message,
         .empty-message {
@@ -267,10 +247,6 @@
         .error-message {
             color: #c62828;
         }
-
-        /* =========================
-           FOOTER
-        ========================= */
 
         footer {
             border-top: 1px solid #e5e5e5;
@@ -296,10 +272,6 @@
             font-size: 10px;
             color: #888888;
         }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
 
         @media (max-width: 1100px) {
             .product-grid {
@@ -332,10 +304,6 @@
 
             .nav-list {
                 gap: 18px;
-            }
-
-            .about-link {
-                margin-left: 0;
             }
 
             .footer-inner {
@@ -417,12 +385,21 @@
                 </li>
 
                 <li>
-                    <a href="category.html?type=Trending">
+                    <a
+                        href="category.html?type=Trending"
+                        id="trendingLink"
+                    >
                         Trending
                     </a>
                 </li>
 
                 <!-- Categories loaded from Supabase -->
+
+                <li id="aboutItem">
+                    <a href="about.html" class="about-link">
+                        ABOUT US
+                    </a>
+                </li>
 
             </ul>
         </nav>
@@ -444,7 +421,6 @@
         </p>
 
     </section>
-
 
     <section
         class="product-grid"
@@ -480,12 +456,13 @@
 <!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- YOUR CONFIG -->
+<!-- CONFIG -->
 <script src="config.js"></script>
 
 
 <script>
 "use strict";
+
 
 /* =========================================================
    SUPABASE CHECK
@@ -502,39 +479,37 @@ if (
 
 
 /* =========================================================
-   REQUIRED CATEGORIES
-========================================================= */
-
-const REQUIRED_CATEGORIES = [
-    "Gadget & Tech",
-    "Accessories",
-    "Fashion",
-    "Cookery",
-    "Beauty",
-    "Home Items",
-    "Fragrance",
-    "Sports",
-    "Gaming",
-    "Random Useful Items"
-];
-
-
-/* =========================================================
    DOM
 ========================================================= */
 
-const categoryNav = document.getElementById("categoryNav");
-const categoryTitle = document.getElementById("categoryTitle");
-const categoryDescription = document.getElementById("categoryDescription");
-const productGrid = document.getElementById("productGrid");
-const searchInput = document.getElementById("searchInput");
+const categoryNav =
+    document.getElementById("categoryNav");
+
+const categoryTitle =
+    document.getElementById("categoryTitle");
+
+const categoryDescription =
+    document.getElementById("categoryDescription");
+
+const productGrid =
+    document.getElementById("productGrid");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const aboutItem =
+    document.getElementById("aboutItem");
+
+const trendingLink =
+    document.getElementById("trendingLink");
 
 
 /* =========================================================
-   GET CATEGORY FROM URL
+   URL
 ========================================================= */
 
-const urlParams = new URLSearchParams(window.location.search);
+const urlParams =
+    new URLSearchParams(window.location.search);
 
 const requestedType =
     urlParams.get("type") || "Gadget & Tech";
@@ -544,8 +519,13 @@ const requestedType =
    STATE
 ========================================================= */
 
-let currentCategory = requestedType;
+let currentCategory =
+    requestedType;
+
 let allProducts = [];
+
+let categories = [];
+
 let categoryMap = new Map();
 
 
@@ -580,6 +560,23 @@ function slugify(value) {
         .replace(/&/g, "and")
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
 }
 
 
@@ -605,66 +602,81 @@ async function loadCategories() {
             error
         );
 
-        /*
-         * Fallback supaya website masih boleh
-         * bina navigation walaupun categories query gagal.
-         */
+        throw error;
 
-        categoryMap.clear();
-
-        REQUIRED_CATEGORIES.forEach((name) => {
-
-            categoryMap.set(
-                slugify(name),
-                {
-                    id: null,
-                    name: name,
-                    slug: slugify(name)
-                }
-            );
-
-        });
-
-        return;
     }
 
 
-    categoryMap.clear();
+    /*
+     * IMPORTANT:
+     * Deduplicate categories by BOTH slug AND name.
+     *
+     * This guarantees that one category will only
+     * appear once in the navigation.
+     */
+
+    const uniqueCategories = new Map();
 
 
     (data || []).forEach((category) => {
 
-        categoryMap.set(
-            category.slug || slugify(category.name),
-            category
-        );
+        const cleanName =
+            String(category.name || "")
+                .trim();
 
-    });
+        const cleanSlug =
+            String(
+                category.slug ||
+                slugify(cleanName)
+            )
+            .trim()
+            .toLowerCase();
 
 
-    /*
-     * Pastikan semua required categories tetap wujud
-     * dalam navigation.
-     */
+        if (!cleanName) {
+            return;
+        }
 
-    REQUIRED_CATEGORIES.forEach((name) => {
 
-        const slug = slugify(name);
+        const uniqueKey =
+            cleanSlug || cleanName.toLowerCase();
 
-        if (!categoryMap.has(slug)) {
 
-            categoryMap.set(
-                slug,
+        if (!uniqueCategories.has(uniqueKey)) {
+
+            uniqueCategories.set(
+                uniqueKey,
                 {
-                    id: null,
-                    name: name,
-                    slug: slug
+                    ...category,
+                    name: cleanName,
+                    slug: cleanSlug
                 }
             );
 
         }
 
     });
+
+
+    categories =
+        Array.from(
+            uniqueCategories.values()
+        );
+
+
+    categoryMap.clear();
+
+
+    categories.forEach((category) => {
+
+        categoryMap.set(
+            category.slug ||
+            slugify(category.name),
+            category
+        );
+
+    });
+
 }
 
 
@@ -675,70 +687,74 @@ async function loadCategories() {
 function buildNavigation() {
 
     /*
-     * Home + Trending sudah ada.
-     * Buang category links lama supaya tak duplicate.
+     * Remove ONLY dynamically generated
+     * category navigation items.
      */
 
-    const existingCategoryLinks =
-        categoryNav.querySelectorAll(
+    categoryNav
+        .querySelectorAll(
             "li[data-category-link]"
-        );
+        )
+        .forEach((item) => {
 
-    existingCategoryLinks.forEach((item) => {
-        item.remove();
-    });
+            item.remove();
 
-
-    /*
-     * Cari About Us.
-     */
-
-    let aboutItem =
-        categoryNav.querySelector(".about-item");
-
-
-    if (!aboutItem) {
-
-        aboutItem = document.createElement("li");
-
-        aboutItem.className = "about-item";
-
-        aboutItem.innerHTML = `
-            <a href="about.html" class="about-link">
-                ABOUT US
-            </a>
-        `;
-
-        categoryNav.appendChild(aboutItem);
-
-    }
+        });
 
 
     /*
-     * Tambah semua categories sebelum About Us.
+     * Keep About Us exactly once.
      */
 
-    const categories =
-        Array.from(categoryMap.values());
+    const about =
+        document.getElementById("aboutItem");
 
 
-    categories.sort((a, b) => {
+    /*
+     * Extra protection:
+     * remove any existing duplicate category
+     * links that might have been left in DOM.
+     */
 
-        const indexA =
-            REQUIRED_CATEGORIES.indexOf(a.name);
-
-        const indexB =
-            REQUIRED_CATEGORIES.indexOf(b.name);
-
-        return (
-            (indexA === -1 ? 999 : indexA) -
-            (indexB === -1 ? 999 : indexB)
-        );
-
-    });
+    const renderedKeys =
+        new Set();
 
 
     categories.forEach((category) => {
+
+        const name =
+            String(category.name || "")
+                .trim();
+
+        const slug =
+            String(
+                category.slug ||
+                slugify(name)
+            )
+            .trim()
+            .toLowerCase();
+
+
+        if (!name) {
+            return;
+        }
+
+
+        const uniqueKey =
+            slug || name.toLowerCase();
+
+
+        /*
+         * FINAL duplicate protection.
+         */
+
+        if (renderedKeys.has(uniqueKey)) {
+            return;
+        }
+
+
+        renderedKeys.add(uniqueKey);
+
 
         const li =
             document.createElement("li");
@@ -754,11 +770,11 @@ function buildNavigation() {
 
 
         a.href =
-            `category.html?type=${encodeURIComponent(category.name)}`;
+            `category.html?type=${encodeURIComponent(name)}`;
 
 
         a.textContent =
-            category.name;
+            name;
 
 
         /*
@@ -766,8 +782,10 @@ function buildNavigation() {
          */
 
         if (
-            category.name.toLowerCase() ===
-            currentCategory.toLowerCase()
+            currentCategory
+                .trim()
+                .toLowerCase() ===
+            name.toLowerCase()
         ) {
 
             a.classList.add("active");
@@ -780,25 +798,21 @@ function buildNavigation() {
 
         categoryNav.insertBefore(
             li,
-            aboutItem
+            about
         );
 
     });
 
 
     /*
-     * Active Trending
+     * Trending active state
      */
 
-    const trendingLink =
-        categoryNav.querySelector(
-            'a[href="category.html?type=Trending"]'
-        );
-
-
     if (
-        trendingLink &&
-        currentCategory.toLowerCase() === "trending"
+        currentCategory
+            .trim()
+            .toLowerCase() ===
+        "trending"
     ) {
 
         trendingLink.classList.add("active");
@@ -814,25 +828,17 @@ function buildNavigation() {
 
 function getImageUrl(product) {
 
-    /*
-     * Kalau image_url sudah direct URL,
-     * guna terus.
-     */
-
     if (
         product.image_url &&
-        /^https?:\/\//i.test(product.image_url)
+        /^https?:\/\//i.test(
+            product.image_url
+        )
     ) {
 
         return product.image_url;
 
     }
 
-
-    /*
-     * Kalau ada image_path,
-     * ambil dari Supabase Storage.
-     */
 
     if (product.image_path) {
 
@@ -842,7 +848,9 @@ function getImageUrl(product) {
             supabaseClient
                 .storage
                 .from("product-images")
-                .getPublicUrl(product.image_path);
+                .getPublicUrl(
+                    product.image_path
+                );
 
 
         return data?.publicUrl || "";
@@ -851,21 +859,6 @@ function getImageUrl(product) {
 
 
     return "";
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
 
 }
 
@@ -888,6 +881,7 @@ function renderProducts(products) {
         `;
 
         return;
+
     }
 
 
@@ -947,7 +941,9 @@ function renderProducts(products) {
                 <div class="product-bottom">
 
                     <div class="product-price">
-                        RM ${Number(product.price || 0).toFixed(2)}
+                        RM ${Number(
+                            product.price || 0
+                        ).toFixed(2)}
                     </div>
 
                     <a
@@ -959,7 +955,9 @@ function renderProducts(products) {
                         )}"
                         target="_blank"
                         rel="noopener noreferrer"
-                        data-product-id="${escapeHtml(product.id)}"
+                        data-product-id="${escapeHtml(
+                            product.id
+                        )}"
                     >
                         VIEW ON SHOPEE
                     </a>
@@ -971,12 +969,10 @@ function renderProducts(products) {
         `;
 
 
-        /*
-         * Click tracking
-         */
-
         const shopeeButton =
-            card.querySelector(".shopee-btn");
+            card.querySelector(
+                ".shopee-btn"
+            );
 
 
         if (
@@ -988,7 +984,9 @@ function renderProducts(products) {
                 "click",
                 () => {
 
-                    trackClick(product.id);
+                    trackClick(
+                        product.id
+                    );
 
                 }
             );
@@ -1015,12 +1013,6 @@ async function loadProducts() {
         </div>
     `;
 
-
-    /*
-     * Ambil published products.
-     *
-     * category relation digunakan jika ada.
-     */
 
     const {
         data,
@@ -1058,10 +1050,13 @@ async function loadProducts() {
             error
         );
 
+
         productGrid.innerHTML = `
             <div class="error-message">
                 Failed to load products.<br>
-                ${escapeHtml(formatSupabaseError(error))}
+                ${escapeHtml(
+                    formatSupabaseError(error)
+                )}
             </div>
         `;
 
@@ -1077,17 +1072,10 @@ async function loadProducts() {
                 product.category || "";
 
 
-            /*
-             * Kalau category_id ada,
-             * cari nama category dari categoryMap.
-             */
-
             if (product.category_id) {
 
                 const category =
-                    Array.from(
-                        categoryMap.values()
-                    ).find(
+                    categories.find(
                         (item) =>
                             item.id ===
                             product.category_id
@@ -1125,7 +1113,9 @@ async function loadProducts() {
 function matchesCategory(product) {
 
     if (
-        currentCategory.toLowerCase() ===
+        currentCategory
+            .trim()
+            .toLowerCase() ===
         "trending"
     ) {
 
@@ -1151,7 +1141,8 @@ function matchesCategory(product) {
 
 
     return (
-        productCategory === selected
+        productCategory ===
+        selected
     );
 
 }
@@ -1166,10 +1157,6 @@ function sortTrending(products) {
     return [...products].sort(
         (a, b) => {
 
-            /*
-             * Featured dahulu
-             */
-
             const featuredA =
                 a.featured ? 1 : 0;
 
@@ -1178,7 +1165,8 @@ function sortTrending(products) {
 
 
             if (
-                featuredA !== featuredB
+                featuredA !==
+                featuredB
             ) {
 
                 return (
@@ -1189,10 +1177,6 @@ function sortTrending(products) {
             }
 
 
-            /*
-             * Clicks
-             */
-
             const clicksA =
                 Number(a.clicks || 0);
 
@@ -1201,7 +1185,8 @@ function sortTrending(products) {
 
 
             if (
-                clicksA !== clicksB
+                clicksA !==
+                clicksB
             ) {
 
                 return (
@@ -1212,10 +1197,6 @@ function sortTrending(products) {
             }
 
 
-            /*
-             * Views
-             */
-
             const viewsA =
                 Number(a.views || 0);
 
@@ -1224,7 +1205,8 @@ function sortTrending(products) {
 
 
             if (
-                viewsA !== viewsB
+                viewsA !==
+                viewsB
             ) {
 
                 return (
@@ -1235,10 +1217,6 @@ function sortTrending(products) {
             }
 
 
-            /*
-             * Sort order
-             */
-
             const sortA =
                 Number(a.sort_order || 0);
 
@@ -1247,7 +1225,8 @@ function sortTrending(products) {
 
 
             if (
-                sortA !== sortB
+                sortA !==
+                sortB
             ) {
 
                 return (
@@ -1258,13 +1237,13 @@ function sortTrending(products) {
             }
 
 
-            /*
-             * Newest
-             */
-
             return (
-                new Date(b.created_at || 0) -
-                new Date(a.created_at || 0)
+                new Date(
+                    b.created_at || 0
+                ) -
+                new Date(
+                    a.created_at || 0
+                )
             );
 
         }
@@ -1285,24 +1264,20 @@ function applyFilter() {
         );
 
 
-    /*
-     * Trending
-     */
-
     if (
-        currentCategory.toLowerCase() ===
+        currentCategory
+            .trim()
+            .toLowerCase() ===
         "trending"
     ) {
 
         filtered =
-            sortTrending(filtered);
+            sortTrending(
+                filtered
+            );
 
     }
 
-
-    /*
-     * Search
-     */
 
     const searchTerm =
         searchInput.value
@@ -1328,9 +1303,10 @@ function applyFilter() {
                         .toLowerCase();
 
 
-                    return searchableText.includes(
-                        searchTerm
-                    );
+                    return searchableText
+                        .includes(
+                            searchTerm
+                        );
 
                 }
             );
@@ -1338,7 +1314,9 @@ function applyFilter() {
     }
 
 
-    renderProducts(filtered);
+    renderProducts(
+        filtered
+    );
 
 }
 
@@ -1350,7 +1328,9 @@ function applyFilter() {
 function setHeading() {
 
     if (
-        currentCategory.toLowerCase() ===
+        currentCategory
+            .trim()
+            .toLowerCase() ===
         "trending"
     ) {
 
@@ -1368,17 +1348,15 @@ function setHeading() {
     }
 
 
-    /*
-     * Find correct category name
-     */
-
     const category =
-        Array.from(
-            categoryMap.values()
-        ).find(
+        categories.find(
             (item) =>
-                item.name.toLowerCase() ===
-                currentCategory.toLowerCase()
+                item.name
+                    .trim()
+                    .toLowerCase() ===
+                currentCategory
+                    .trim()
+                    .toLowerCase()
         );
 
 
@@ -1412,11 +1390,6 @@ async function trackClick(productId) {
 
     try {
 
-        /*
-         * Ambil current clicks dahulu
-         * kemudian tambah 1.
-         */
-
         const {
             data,
             error
@@ -1441,7 +1414,9 @@ async function trackClick(productId) {
 
 
         const currentClicks =
-            Number(data?.clicks || 0);
+            Number(
+                data?.clicks || 0
+            );
 
 
         await supabaseClient
@@ -1466,7 +1441,7 @@ async function trackClick(productId) {
 
 
 /* =========================================================
-   SEARCH EVENT
+   SEARCH
 ========================================================= */
 
 searchInput.addEventListener(
@@ -1486,11 +1461,6 @@ searchInput.addEventListener(
 async function initializePage() {
 
     try {
-
-        /*
-         * Set heading immediately
-         * supaya tidak stuck "Loading..."
-         */
 
         categoryTitle.textContent =
             currentCategory;
@@ -1544,3 +1514,4 @@ initializePage();
 
 </body>
 </html>
+```
