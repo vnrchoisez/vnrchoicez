@@ -1,0 +1,3528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VNR CHOICEZ — Owner Panel</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --black: #111111;
+            --dark: #1b1b1b;
+            --gray: #6f6f6f;
+            --light-gray: #f4f4f4;
+            --border: #e5e5e5;
+            --white: #ffffff;
+            --green: #16834b;
+            --red: #d93636;
+            --orange: #d9822b;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7f7;
+            color: var(--black);
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        #loginScreen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: #f5f5f5;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 38px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .login-logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 7px;
+        }
+
+        .login-subtitle {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            padding: 12px 13px;
+            outline: none;
+            background: #fff;
+            transition: border .2s, box-shadow .2s;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #111;
+            box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+        }
+
+        .primary-btn {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 13px 16px;
+            background: #111;
+            color: #fff;
+            font-weight: 800;
+            transition: .2s;
+        }
+
+        .primary-btn:hover {
+            background: #292929;
+        }
+
+        .primary-btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            display: none;
+            margin-top: 14px;
+            padding: 11px 13px;
+            background: #fff1f1;
+            border: 1px solid #ffd2d2;
+            color: #b12626;
+            border-radius: 9px;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* =========================
+           APP
+        ========================= */
+
+        #app {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 70px;
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -.7px;
+        }
+
+        .brand span {
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-left: 7px;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .owner-email {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .logout-btn {
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #111;
+            border-radius: 8px;
+            padding: 8px 13px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .logout-btn:hover {
+            background: #f4f4f4;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 225px;
+            background: #fff;
+            border-right: 1px solid var(--border);
+            padding: 25px 14px;
+            flex-shrink: 0;
+        }
+
+        .side-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+            color: #999;
+            padding: 0 11px;
+            margin-bottom: 9px;
+        }
+
+        .side-btn {
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: transparent;
+            padding: 11px 12px;
+            border-radius: 9px;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 3px;
+        }
+
+        .side-btn:hover {
+            background: #f5f5f5;
+            color: #111;
+        }
+
+        .side-btn.active {
+            background: #111;
+            color: #fff;
+        }
+
+        .main {
+            flex: 1;
+            padding: 30px;
+            min-width: 0;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 7px;
+        }
+
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        /* =========================
+           TOOLBAR
+        ========================= */
+
+        .toolbar {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .toolbar input,
+        .toolbar select {
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 9px;
+            padding: 10px 12px;
+            outline: none;
+        }
+
+        .toolbar input {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .toolbar input:focus,
+        .toolbar select:focus {
+            border-color: #111;
+        }
+
+        .add-btn {
+            border: none;
+            background: #111;
+            color: #fff;
+            border-radius: 9px;
+            padding: 10px 15px;
+            font-weight: 800;
+        }
+
+        /* =========================
+           PRODUCT TABLE
+        ========================= */
+
+        .table-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th {
+            text-align: left;
+            padding: 14px 15px;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .product-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 250px;
+        }
+
+        .product-thumb {
+            width: 52px;
+            height: 52px;
+            border-radius: 9px;
+            object-fit: cover;
+            background: #f3f3f3;
+            border: 1px solid #eee;
+            flex-shrink: 0;
+        }
+
+        .product-name {
+            font-weight: 800;
+            line-height: 1.35;
+        }
+
+        .product-category {
+            color: #888;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .price {
+            font-weight: 800;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 100px;
+            padding: 5px 9px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .badge-published {
+            background: #e9f8ef;
+            color: #137442;
+        }
+
+        .badge-draft {
+            background: #fff6e8;
+            color: #a96808;
+        }
+
+        .badge-hidden {
+            background: #eeeeee;
+            color: #666;
+        }
+
+        .badge-archived {
+            background: #f1eafa;
+            color: #6941a5;
+        }
+
+        .badge-trending {
+            background: #111;
+            color: #fff;
+            margin-left: 5px;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: 1px solid #ddd;
+            background: #fff;
+            padding: 7px 9px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .action-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .action-btn.delete {
+            color: #c62929;
+            border-color: #f0cccc;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 55px 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-card {
+            max-width: 850px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .checkbox-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 11px 0;
+        }
+
+        .checkbox-row input {
+            width: 17px;
+            height: 17px;
+        }
+
+        .checkbox-row label {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .image-upload {
+            border: 1px dashed #ccc;
+            border-radius: 11px;
+            padding: 18px;
+            background: #fafafa;
+        }
+
+        .image-upload input {
+            border: none;
+            padding: 0;
+            background: transparent;
+        }
+
+        .image-preview {
+            display: none;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            margin-top: 14px;
+        }
+
+        .current-image {
+            font-size: 12px;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .save-btn {
+            border: none;
+            background: #111;
+            color: #fff;
+            border-radius: 9px;
+            padding: 12px 20px;
+            font-weight: 800;
+        }
+
+        .cancel-btn {
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #111;
+            border-radius: 9px;
+            padding: 12px 20px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           TOAST
+        ========================= */
+
+        #toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            max-width: 360px;
+            background: #111;
+            color: #fff;
+            padding: 13px 17px;
+            border-radius: 10px;
+            font-size: 13px;
+            line-height: 1.4;
+            box-shadow: 0 10px 30px rgba(0,0,0,.2);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition: .25s;
+            z-index: 100;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #toast.success {
+            background: #137442;
+        }
+
+        #toast.error {
+            background: #b52b2b;
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+            padding: 35px;
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1050px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .topbar {
+                padding: 0 16px;
+            }
+
+            .owner-email {
+                display: none;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 10px;
+                display: flex;
+                overflow-x: auto;
+                gap: 4px;
+            }
+
+            .side-label {
+                display: none;
+            }
+
+            .side-btn {
+                width: auto;
+                white-space: nowrap;
+                margin: 0;
+            }
+
+            .main {
+                padding: 20px 15px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 9px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+
+            .page-title {
+                font-size: 25px;
+            }
+
+            .login-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         LOGIN SCREEN
+    ========================= -->
+
+    <section id="loginScreen">
+        <div class="login-card">
+
+            <div class="login-logo">VNR CHOICEZ</div>
+
+            <div class="login-subtitle">
+                Owner Panel · Sign in to manage your affiliate store
+            </div>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        autocomplete="email"
+                        required
+                        placeholder="Enter your email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        autocomplete="current-password"
+                        required
+                        placeholder="Enter your password"
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    class="primary-btn"
+                    id="loginBtn"
+                >
+                    Login
+                </button>
+
+                <div
+                    id="loginError"
+                    class="error-message"
+                ></div>
+
+            </form>
+
+        </div>
+    </section>
+
+
+    <!-- =========================
+         MAIN APP
+    ========================= -->
+
+    <section id="app">
+
+        <header class="topbar">
+
+            <div class="brand">
+                VNR CHOICEZ
+                <span>OWNER</span>
+            </div>
+
+            <div class="topbar-right">
+
+                <div
+                    class="owner-email"
+                    id="ownerEmail"
+                ></div>
+
+                <button
+                    class="logout-btn"
+                    id="logoutBtn"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="layout">
+
+            <!-- SIDEBAR -->
+
+            <aside class="sidebar">
+
+                <div class="side-label">
+                    MANAGEMENT
+                </div>
+
+                <button
+                    class="side-btn active"
+                    data-page="dashboard"
+                >
+                    Dashboard
+                </button>
+
+                <button
+                    class="side-btn"
+                    data-page="products"
+                >
+                    Products
+                </button>
+
+                <button
+                    class="side-btn"
+                    data-page="addProduct"
+                >
+                    + Add Product
+                </button>
+
+            </aside>
+
+
+            <!-- MAIN -->
+
+            <main class="main">
+
+                <!-- =========================
+                     DASHBOARD
+                ========================= -->
+
+                <section
+                    class="page active"
+                    id="dashboardPage"
+                >
+
+                    <h1 class="page-title">
+                        Dashboard
+                    </h1>
+
+                    <p class="page-subtitle">
+                        Welcome back. Here's an overview of VNR CHOICEZ.
+                    </p>
+
+
+                    <div class="stats-grid">
+
+                        <div class="stat-card">
+                            <div class="stat-label">
+                                TOTAL PRODUCTS
+                            </div>
+
+                            <div
+                                class="stat-number"
+                                id="totalProducts"
+                            >
+                                0
+                            </div>
+                        </div>
+
+
+                        <div class="stat-card">
+                            <div class="stat-label">
+                                PUBLISHED
+                            </div>
+
+                            <div
+                                class="stat-number"
+                                id="publishedProducts"
+                            >
+                                0
+                            </div>
+                        </div>
+
+
+                        <div class="stat-card">
+                            <div class="stat-label">
+                                DRAFT
+                            </div>
+
+                            <div
+                                class="stat-number"
+                                id="draftProducts"
+                            >
+                                0
+                            </div>
+                        </div>
+
+
+                        <div class="stat-card">
+                            <div class="stat-label">
+                                TRENDING
+                            </div>
+
+                            <div
+                                class="stat-number"
+                                id="trendingProducts"
+                            >
+                                0
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-card">
+
+                        <div class="loading" id="dashboardLoading">
+                            Loading latest products...
+                        </div>
+
+                        <div
+                            class="table-wrap"
+                            id="dashboardTableWrap"
+                            style="display:none;"
+                        >
+
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Views</th>
+                                        <th>Clicks</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="dashboardProductsBody"></tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =========================
+                     PRODUCTS
+                ========================= -->
+
+                <section
+                    class="page"
+                    id="productsPage"
+                >
+
+                    <h1 class="page-title">
+                        Products
+                    </h1>
+
+                    <p class="page-subtitle">
+                        Manage all products displayed on VNR CHOICEZ.
+                    </p>
+
+
+                    <div class="toolbar">
+
+                        <input
+                            type="search"
+                            id="searchProducts"
+                            placeholder="Search products..."
+                        >
+
+                        <select id="filterCategory">
+                            <option value="">All Categories</option>
+                        </select>
+
+                        <select id="filterStatus">
+                            <option value="">All Status</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                            <option value="hidden">Hidden</option>
+                            <option value="archived">Archived</option>
+                        </select>
+
+                        <button
+                            class="add-btn"
+                            id="toolbarAddProduct"
+                        >
+                            + Add Product
+                        </button>
+
+                    </div>
+
+
+                    <div class="table-card">
+
+                        <div
+                            class="loading"
+                            id="productsLoading"
+                        >
+                            Loading products...
+                        </div>
+
+                        <div
+                            class="table-wrap"
+                            id="productsTableWrap"
+                            style="display:none;"
+                        >
+
+                            <table>
+
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Trending</th>
+                                        <th>Views</th>
+                                        <th>Clicks</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="productsBody"></tbody>
+
+                            </table>
+
+                            <div
+                                class="empty-state"
+                                id="productsEmpty"
+                                style="display:none;"
+                            >
+                                No products found.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =========================
+                     ADD / EDIT PRODUCT
+                ========================= -->
+
+                <section
+                    class="page"
+                    id="addProductPage"
+                >
+
+                    <h1
+                        class="page-title"
+                        id="productFormTitle"
+                    >
+                        Add Product
+                    </h1>
+
+                    <p class="page-subtitle">
+                        Add or update a product for your affiliate store.
+                    </p>
+
+
+                    <div class="form-card">
+
+                        <form id="productForm">
+
+                            <input
+                                type="hidden"
+                                id="productId"
+                            >
+
+                            <input
+                                type="hidden"
+                                id="existingImagePath"
+                            >
+
+
+                            <div class="form-grid">
+
+                                <!-- NAME -->
+
+                                <div class="form-group full-width">
+
+                                    <label for="productName">
+                                        Product Name *
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="productName"
+                                        required
+                                        placeholder="Example: GOOJODOQ HEADPHONE"
+                                    >
+
+                                </div>
+
+
+                                <!-- PRICE -->
+
+                                <div class="form-group">
+
+                                    <label for="productPrice">
+                                        Price (RM) *
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="productPrice"
+                                        min="0"
+                                        step="0.01"
+                                        required
+                                        placeholder="32.00"
+                                    >
+
+                                </div>
+
+
+                                <!-- CATEGORY -->
+
+                                <div class="form-group">
+
+                                    <label for="productCategory">
+                                        Category *
+                                    </label>
+
+                                    <select
+                                        id="productCategory"
+                                        required
+                                    >
+
+                                        <option value="">
+                                            Select Category
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- AFFILIATE LINK -->
+
+                                <div class="form-group full-width">
+
+                                    <label for="productAffiliateLink">
+                                        Shopee Affiliate Link *
+                                    </label>
+
+                                    <input
+                                        type="url"
+                                        id="productAffiliateLink"
+                                        required
+                                        placeholder="https://s.shopee.com.my/..."
+                                    >
+
+                                </div>
+
+
+                                <!-- DESCRIPTION -->
+
+                                <div class="form-group full-width">
+
+                                    <label for="productDescription">
+                                        Description
+                                    </label>
+
+                                    <textarea
+                                        id="productDescription"
+                                        placeholder="Write a short product description..."
+                                    ></textarea>
+
+                                </div>
+
+
+                                <!-- IMAGE -->
+
+                                <div class="form-group full-width">
+
+                                    <label>
+                                        Product Image
+                                    </label>
+
+                                    <div class="image-upload">
+
+                                        <input
+                                            type="file"
+                                            id="productImage"
+                                            accept="image/*"
+                                        >
+
+                                        <img
+                                            id="imagePreview"
+                                            class="image-preview"
+                                            alt="Image preview"
+                                        >
+
+                                        <div
+                                            id="currentImageText"
+                                            class="current-image"
+                                        ></div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- STATUS -->
+
+                                <div class="form-group">
+
+                                    <label for="productStatus">
+                                        Status
+                                    </label>
+
+                                    <select id="productStatus">
+
+                                        <option value="published">
+                                            Published
+                                        </option>
+
+                                        <option value="draft">
+                                            Draft
+                                        </option>
+
+                                        <option value="hidden">
+                                            Hidden
+                                        </option>
+
+                                        <option value="archived">
+                                            Archived
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <!-- SORT ORDER -->
+
+                                <div class="form-group">
+
+                                    <label for="productSortOrder">
+                                        Sort Order
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        id="productSortOrder"
+                                        value="0"
+                                        step="1"
+                                    >
+
+                                </div>
+
+
+                                <!-- TRENDING -->
+
+                                <div class="checkbox-row">
+
+                                    <input
+                                        type="checkbox"
+                                        id="productTrending"
+                                    >
+
+                                    <label for="productTrending">
+                                        Mark as Trending
+                                    </label>
+
+                                </div>
+
+
+                                <!-- FEATURED -->
+
+                                <div class="checkbox-row">
+
+                                    <input
+                                        type="checkbox"
+                                        id="productFeatured"
+                                    >
+
+                                    <label for="productFeatured">
+                                        Mark as Featured
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-actions">
+
+                                <button
+                                    type="submit"
+                                    class="save-btn"
+                                    id="saveProductBtn"
+                                >
+                                    Save Product
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="cancel-btn"
+                                    id="cancelProductBtn"
+                                >
+                                    Cancel
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOAST -->
+
+    <div id="toast"></div>
+
+
+    <script>
+
+        "use strict";
+
+
+        /* =========================================================
+           GLOBAL STATE
+        ========================================================= */
+
+        let currentUser = null;
+        let products = [];
+        let categories = [];
+        let editingProductId = null;
+        let toastTimer = null;
+
+
+        /* =========================================================
+           DOM
+        ========================================================= */
+
+        const loginScreen = document.getElementById("loginScreen");
+        const app = document.getElementById("app");
+
+        const loginForm = document.getElementById("loginForm");
+        const loginBtn = document.getElementById("loginBtn");
+        const loginError = document.getElementById("loginError");
+
+        const ownerEmail = document.getElementById("ownerEmail");
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        const toast = document.getElementById("toast");
+
+        const productForm = document.getElementById("productForm");
+        const productImage = document.getElementById("productImage");
+        const imagePreview = document.getElementById("imagePreview");
+        const currentImageText = document.getElementById("currentImageText");
+
+        const searchProducts = document.getElementById("searchProducts");
+        const filterCategory = document.getElementById("filterCategory");
+        const filterStatus = document.getElementById("filterStatus");
+
+
+        /* =========================================================
+           UTILITY
+        ========================================================= */
+
+        function showToast(message, type = "") {
+
+            clearTimeout(toastTimer);
+
+            toast.textContent = message;
+
+            toast.className = "";
+
+            toast.classList.add("show");
+
+            if (type) {
+                toast.classList.add(type);
+            }
+
+            toastTimer = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3500);
+        }
+
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        function formatPrice(value) {
+
+            const number = Number(value);
+
+            if (!Number.isFinite(number)) {
+                return "RM0.00";
+            }
+
+            return "RM" + number.toFixed(2);
+        }
+
+
+        function formatStatus(status) {
+
+            const clean = String(status || "published").toLowerCase();
+
+            const label =
+                clean.charAt(0).toUpperCase() +
+                clean.slice(1);
+
+            return `
+                <span class="badge badge-${escapeHTML(clean)}">
+                    ${escapeHTML(label)}
+                </span>
+            `;
+        }
+
+
+        function normalizeCategory(value) {
+
+            return String(value || "")
+                .trim()
+                .replace(/\s+/g, " ")
+                .toLowerCase();
+        }
+
+
+        function getProductCategoryName(product) {
+
+            if (product.category_id) {
+
+                const category = categories.find(
+                    item => item.id === product.category_id
+                );
+
+                if (category) {
+                    return category.name;
+                }
+            }
+
+            return product.category || "Uncategorized";
+        }
+
+
+        function getImageUrl(product) {
+
+            if (product.image_url) {
+                return product.image_url;
+            }
+
+            if (product.image_path) {
+
+                const {
+                    data
+                } = supabaseClient
+                    .storage
+                    .from("product-images")
+                    .getPublicUrl(product.image_path);
+
+                return data?.publicUrl || "";
+            }
+
+            return "";
+        }
+
+
+        /* =========================================================
+           PAGE NAVIGATION
+        ========================================================= */
+
+        function showPage(pageName) {
+
+            document.querySelectorAll(".page")
+                .forEach(page => {
+                    page.classList.remove("active");
+                });
+
+            document.querySelectorAll(".side-btn")
+                .forEach(button => {
+                    button.classList.remove("active");
+                });
+
+
+            const page = document.getElementById(
+                pageName + "Page"
+            );
+
+            const button = document.querySelector(
+                `.side-btn[data-page="${pageName}"]`
+            );
+
+
+            if (page) {
+                page.classList.add("active");
+            }
+
+            if (button) {
+                button.classList.add("active");
+            }
+
+
+            if (pageName === "dashboard") {
+                updateDashboard();
+            }
+
+            if (pageName === "products") {
+                renderProducts();
+            }
+        }
+
+
+        document.querySelectorAll(".side-btn")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    const pageName =
+                        button.getAttribute("data-page");
+
+                    if (pageName === "addProduct") {
+                        resetProductForm();
+                    }
+
+                    showPage(pageName);
+                });
+
+            });
+
+
+        document
+            .getElementById("toolbarAddProduct")
+            .addEventListener("click", () => {
+
+                resetProductForm();
+                showPage("addProduct");
+
+            });
+
+
+        document
+            .getElementById("cancelProductBtn")
+            .addEventListener("click", () => {
+
+                resetProductForm();
+                showPage("products");
+
+            });
+
+
+        /* =========================================================
+           AUTH
+        ========================================================= */
+
+        async function checkAdminAccess(user) {
+
+            if (!user?.id) {
+                return false;
+            }
+
+
+            /*
+             * Supports either common admin_users structures:
+             *
+             * 1. user_id = auth.users.id
+             * 2. id = auth.users.id
+             *
+             * This does NOT require changing the database.
+             */
+
+
+            try {
+
+                const firstAttempt =
+                    await supabaseClient
+                        .from("admin_users")
+                        .select("*")
+                        .eq("user_id", user.id)
+                        .maybeSingle();
+
+
+                if (
+                    !firstAttempt.error &&
+                    firstAttempt.data
+                ) {
+                    return true;
+                }
+
+            } catch (error) {
+                console.warn(
+                    "admin_users user_id check failed:",
+                    error
+                );
+            }
+
+
+            try {
+
+                const secondAttempt =
+                    await supabaseClient
+                        .from("admin_users")
+                        .select("*")
+                        .eq("id", user.id)
+                        .maybeSingle();
+
+
+                if (
+                    !secondAttempt.error &&
+                    secondAttempt.data
+                ) {
+                    return true;
+                }
+
+            } catch (error) {
+                console.warn(
+                    "admin_users id check failed:",
+                    error
+                );
+            }
+
+
+            return false;
+        }
+
+
+        async function handleLoggedInUser(user) {
+
+            if (!user) {
+
+                currentUser = null;
+
+                app.style.display = "none";
+                loginScreen.style.display = "flex";
+
+                return;
+            }
+
+
+            const isAdmin =
+                await checkAdminAccess(user);
+
+
+            if (!isAdmin) {
+
+                await supabaseClient.auth.signOut();
+
+                loginError.textContent =
+                    "This account is not authorized to access the VNR CHOICEZ Owner Panel.";
+
+                loginError.classList.add("show");
+
+                app.style.display = "none";
+                loginScreen.style.display = "flex";
+
+                return;
+            }
+
+
+            currentUser = user;
+
+            ownerEmail.textContent =
+                user.email || "Owner";
+
+
+            loginError.classList.remove("show");
+
+            loginScreen.style.display = "none";
+            app.style.display = "block";
+
+
+            await loadCategories();
+            await loadProducts();
+
+            showPage("dashboard");
+        }
+
+
+        loginForm.addEventListener("submit", async event => {
+
+            event.preventDefault();
+
+            loginError.classList.remove("show");
+
+            const email =
+                document.getElementById("loginEmail").value.trim();
+
+            const password =
+                document.getElementById("loginPassword").value;
+
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Signing in...";
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } = await supabaseClient.auth.signInWithPassword({
+                    email,
+                    password
+                });
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                await handleLoggedInUser(data.user);
+
+            } catch (error) {
+
+                console.error(error);
+
+                loginError.textContent =
+                    error?.message ||
+                    "Login failed. Please check your email and password.";
+
+                loginError.classList.add("show");
+
+            } finally {
+
+                loginBtn.disabled = false;
+                loginBtn.textContent = "Login";
+
+            }
+
+        });
+
+
+        logoutBtn.addEventListener("click", async () => {
+
+            await supabaseClient.auth.signOut();
+
+            currentUser = null;
+
+            app.style.display = "none";
+            loginScreen.style.display = "flex";
+
+            loginForm.reset();
+
+        });
+
+
+        supabaseClient.auth.onAuthStateChange(
+            async (_event, session) => {
+
+                if (session?.user) {
+
+                    await handleLoggedInUser(
+                        session.user
+                    );
+
+                } else {
+
+                    currentUser = null;
+
+                    app.style.display = "none";
+                    loginScreen.style.display = "flex";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           LOAD CATEGORIES
+        ========================================================= */
+
+        async function loadCategories() {
+
+            const {
+                data,
+                error
+            } = await supabaseClient
+                .from("categories")
+                .select("id,name,slug")
+                .order("name", {
+                    ascending: true
+                });
+
+
+            if (error) {
+
+                console.error(
+                    "Category loading error:",
+                    error
+                );
+
+                showToast(
+                    "Failed to load categories.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const unique = new Map();
+
+
+            (data || []).forEach(category => {
+
+                const name =
+                    String(category.name || "")
+                        .trim()
+                        .replace(/\s+/g, " ");
+
+
+                if (!name) {
+                    return;
+                }
+
+
+                const key =
+                    normalizeCategory(name);
+
+
+                if (!unique.has(key)) {
+
+                    unique.set(key, {
+                        ...category,
+                        name
+                    });
+
+                }
+
+            });
+
+
+            categories =
+                Array.from(unique.values());
+
+
+            populateCategorySelectors();
+        }
+
+
+        function populateCategorySelectors() {
+
+            filterCategory.innerHTML =
+                `<option value="">All Categories</option>`;
+
+
+            const productCategory =
+                document.getElementById(
+                    "productCategory"
+                );
+
+
+            productCategory.innerHTML =
+                `<option value="">Select Category</option>`;
+
+
+            categories.forEach(category => {
+
+                const option1 =
+                    document.createElement("option");
+
+                option1.value = category.id;
+                option1.textContent = category.name;
+
+                filterCategory.appendChild(
+                    option1
+                );
+
+
+                const option2 =
+                    document.createElement("option");
+
+                option2.value = category.id;
+                option2.textContent = category.name;
+
+                productCategory.appendChild(
+                    option2
+                );
+
+            });
+
+        }
+
+
+        /* =========================================================
+           LOAD PRODUCTS
+        ========================================================= */
+
+        async function loadProducts() {
+
+            document.getElementById(
+                "productsLoading"
+            ).style.display = "block";
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } = await supabaseClient
+                    .from("products")
+                    .select(`
+                        id,
+                        category,
+                        category_id,
+                        name,
+                        price,
+                        shopee_link,
+                        affiliate_url,
+                        image_url,
+                        image_path,
+                        description,
+                        is_trending,
+                        featured,
+                        views,
+                        clicks,
+                        sort_order,
+                        status,
+                        created_at,
+                        updated_at
+                    `)
+                    .order("sort_order", {
+                        ascending: true
+                    })
+                    .order("created_at", {
+                        ascending: false
+                    });
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                products = data || [];
+
+
+                renderProducts();
+                updateDashboard();
+
+            } catch (error) {
+
+                console.error(
+                    "Product loading error:",
+                    error
+                );
+
+                showToast(
+                    "Failed to load products: " +
+                    (error?.message || "Unknown error"),
+                    "error"
+                );
+
+            } finally {
+
+                document.getElementById(
+                    "productsLoading"
+                ).style.display = "none";
+
+            }
+        }
+
+
+        /* =========================================================
+           RENDER PRODUCTS
+        ========================================================= */
+
+        function getFilteredProducts() {
+
+            const search =
+                searchProducts.value
+                    .trim()
+                    .toLowerCase();
+
+
+            const categoryId =
+                filterCategory.value;
+
+
+            const status =
+                filterStatus.value;
+
+
+            return products.filter(product => {
+
+                const categoryName =
+                    getProductCategoryName(product);
+
+
+                const searchableText = [
+
+                    product.name,
+                    product.description,
+                    product.category,
+                    categoryName
+
+                ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
+
+
+                const matchesSearch =
+                    !search ||
+                    searchableText.includes(search);
+
+
+                const matchesCategory =
+                    !categoryId ||
+                    product.category_id === categoryId;
+
+
+                const matchesStatus =
+                    !status ||
+                    product.status === status;
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory &&
+                    matchesStatus
+                );
+
+            });
+
+        }
+
+
+        function renderProducts() {
+
+            const body =
+                document.getElementById(
+                    "productsBody"
+                );
+
+            const tableWrap =
+                document.getElementById(
+                    "productsTableWrap"
+                );
+
+            const empty =
+                document.getElementById(
+                    "productsEmpty"
+                );
+
+
+            const filtered =
+                getFilteredProducts();
+
+
+            tableWrap.style.display = "block";
+
+
+            body.innerHTML = "";
+
+
+            if (!filtered.length) {
+
+                empty.style.display = "block";
+
+                return;
+            }
+
+
+            empty.style.display = "none";
+
+
+            filtered.forEach(product => {
+
+                const categoryName =
+                    getProductCategoryName(product);
+
+
+                const imageUrl =
+                    getImageUrl(product);
+
+
+                const imageHTML =
+                    imageUrl
+                        ? `
+                            <img
+                                class="product-thumb"
+                                src="${escapeHTML(imageUrl)}"
+                                alt="${escapeHTML(product.name)}"
+                                loading="lazy"
+                                onerror="this.style.display='none';"
+                            >
+                          `
+                        : `
+                            <div class="product-thumb"></div>
+                          `;
+
+
+                const trendingHTML =
+                    product.is_trending
+                        ? `
+                            <span class="badge badge-trending">
+                                TRENDING
+                            </span>
+                          `
+                        : `
+                            <span style="color:#aaa;">
+                                —
+                            </span>
+                          `;
+
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+
+                        <div class="product-cell">
+
+                            ${imageHTML}
+
+                            <div>
+
+                                <div class="product-name">
+                                    ${escapeHTML(product.name)}
+                                </div>
+
+                                <div class="product-category">
+                                    ${escapeHTML(categoryName)}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        <span class="price">
+                            ${formatPrice(product.price)}
+                        </span>
+                    </td>
+
+
+                    <td>
+                        ${formatStatus(product.status)}
+                    </td>
+
+
+                    <td>
+                        ${trendingHTML}
+                    </td>
+
+
+                    <td>
+                        ${Number(product.views || 0).toLocaleString()}
+                    </td>
+
+
+                    <td>
+                        ${Number(product.clicks || 0).toLocaleString()}
+                    </td>
+
+
+                    <td>
+
+                        <div class="action-group">
+
+                            <button
+                                class="action-btn"
+                                data-action="edit"
+                                data-id="${escapeHTML(product.id)}"
+                            >
+                                Edit
+                            </button>
+
+
+                            <button
+                                class="action-btn"
+                                data-action="toggle-status"
+                                data-id="${escapeHTML(product.id)}"
+                            >
+                                ${product.status === "published"
+                                    ? "Hide"
+                                    : "Publish"}
+                            </button>
+
+
+                            <button
+                                class="action-btn"
+                                data-action="toggle-trending"
+                                data-id="${escapeHTML(product.id)}"
+                            >
+                                ${product.is_trending
+                                    ? "Untrend"
+                                    : "Trending"}
+                            </button>
+
+
+                            <button
+                                class="action-btn delete"
+                                data-action="delete"
+                                data-id="${escapeHTML(product.id)}"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                `;
+
+
+                body.appendChild(row);
+
+            });
+
+        }
+
+
+        document
+            .getElementById("productsBody")
+            .addEventListener("click", async event => {
+
+                const button =
+                    event.target.closest(
+                        "button[data-action]"
+                    );
+
+
+                if (!button) {
+                    return;
+                }
+
+
+                const action =
+                    button.getAttribute(
+                        "data-action"
+                    );
+
+
+                const id =
+                    button.getAttribute(
+                        "data-id"
+                    );
+
+
+                const product =
+                    products.find(
+                        item => item.id === id
+                    );
+
+
+                if (!product) {
+                    return;
+                }
+
+
+                if (action === "edit") {
+
+                    openEditProduct(product);
+                    return;
+
+                }
+
+
+                if (action === "toggle-status") {
+
+                    await toggleProductStatus(product);
+                    return;
+
+                }
+
+
+                if (action === "toggle-trending") {
+
+                    await toggleTrending(product);
+                    return;
+
+                }
+
+
+                if (action === "delete") {
+
+                    await deleteProduct(product);
+                    return;
+
+                }
+
+            });
+
+
+        searchProducts.addEventListener(
+            "input",
+            renderProducts
+        );
+
+
+        filterCategory.addEventListener(
+            "change",
+            renderProducts
+        );
+
+
+        filterStatus.addEventListener(
+            "change",
+            renderProducts
+        );
+
+
+        /* =========================================================
+           DASHBOARD
+        ========================================================= */
+
+        function updateDashboard() {
+
+            const total =
+                products.length;
+
+
+            const published =
+                products.filter(
+                    p => p.status === "published"
+                ).length;
+
+
+            const draft =
+                products.filter(
+                    p => p.status === "draft"
+                ).length;
+
+
+            const trending =
+                products.filter(
+                    p => p.is_trending === true
+                ).length;
+
+
+            document.getElementById(
+                "totalProducts"
+            ).textContent =
+                total.toLocaleString();
+
+
+            document.getElementById(
+                "publishedProducts"
+            ).textContent =
+                published.toLocaleString();
+
+
+            document.getElementById(
+                "draftProducts"
+            ).textContent =
+                draft.toLocaleString();
+
+
+            document.getElementById(
+                "trendingProducts"
+            ).textContent =
+                trending.toLocaleString();
+
+
+            renderDashboardProducts();
+
+        }
+
+
+        function renderDashboardProducts() {
+
+            const loading =
+                document.getElementById(
+                    "dashboardLoading"
+                );
+
+            const wrap =
+                document.getElementById(
+                    "dashboardTableWrap"
+                );
+
+            const body =
+                document.getElementById(
+                    "dashboardProductsBody"
+                );
+
+
+            loading.style.display = "none";
+            wrap.style.display = "block";
+
+
+            body.innerHTML = "";
+
+
+            const latest =
+                [...products]
+                    .sort(
+                        (a, b) =>
+                            new Date(
+                                b.created_at || 0
+                            ) -
+                            new Date(
+                                a.created_at || 0
+                            )
+                    )
+                    .slice(0, 5);
+
+
+            latest.forEach(product => {
+
+                const row =
+                    document.createElement("tr");
+
+
+                const imageUrl =
+                    getImageUrl(product);
+
+
+                const imageHTML =
+                    imageUrl
+                        ? `
+                            <img
+                                class="product-thumb"
+                                src="${escapeHTML(imageUrl)}"
+                                alt="${escapeHTML(product.name)}"
+                            >
+                          `
+                        : `
+                            <div class="product-thumb"></div>
+                          `;
+
+
+                row.innerHTML = `
+
+                    <td>
+
+                        <div class="product-cell">
+
+                            ${imageHTML}
+
+                            <div>
+
+                                <div class="product-name">
+                                    ${escapeHTML(product.name)}
+                                </div>
+
+                                <div class="product-category">
+                                    ${escapeHTML(
+                                        getProductCategoryName(product)
+                                    )}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+
+                    <td>
+                        ${formatPrice(product.price)}
+                    </td>
+
+
+                    <td>
+                        ${formatStatus(product.status)}
+                    </td>
+
+
+                    <td>
+                        ${Number(
+                            product.views || 0
+                        ).toLocaleString()}
+                    </td>
+
+
+                    <td>
+                        ${Number(
+                            product.clicks || 0
+                        ).toLocaleString()}
+                    </td>
+
+                `;
+
+
+                body.appendChild(row);
+
+            });
+
+        }
+
+
+        /* =========================================================
+           RESET FORM
+        ========================================================= */
+
+        function resetProductForm() {
+
+            editingProductId = null;
+
+
+            document.getElementById(
+                "productFormTitle"
+            ).textContent =
+                "Add Product";
+
+
+            document.getElementById(
+                "productId"
+            ).value = "";
+
+
+            document.getElementById(
+                "existingImagePath"
+            ).value = "";
+
+
+            productForm.reset();
+
+
+            document.getElementById(
+                "productStatus"
+            ).value =
+                "published";
+
+
+            document.getElementById(
+                "productSortOrder"
+            ).value =
+                "0";
+
+
+            imagePreview.style.display =
+                "none";
+
+
+            imagePreview.src = "";
+
+
+            currentImageText.textContent =
+                "";
+
+        }
+
+
+        /* =========================================================
+           EDIT PRODUCT
+        ========================================================= */
+
+        function openEditProduct(product) {
+
+            editingProductId =
+                product.id;
+
+
+            document.getElementById(
+                "productFormTitle"
+            ).textContent =
+                "Edit Product";
+
+
+            document.getElementById(
+                "productId"
+            ).value =
+                product.id;
+
+
+            document.getElementById(
+                "productName"
+            ).value =
+                product.name || "";
+
+
+            document.getElementById(
+                "productPrice"
+            ).value =
+                product.price ?? "";
+
+
+            document.getElementById(
+                "productAffiliateLink"
+            ).value =
+                product.affiliate_url ||
+                product.shopee_link ||
+                "";
+
+
+            document.getElementById(
+                "productDescription"
+            ).value =
+                product.description || "";
+
+
+            document.getElementById(
+                "productStatus"
+            ).value =
+                product.status || "published";
+
+
+            document.getElementById(
+                "productSortOrder"
+            ).value =
+                product.sort_order ?? 0;
+
+
+            document.getElementById(
+                "productTrending"
+            ).checked =
+                product.is_trending === true;
+
+
+            document.getElementById(
+                "productFeatured"
+            ).checked =
+                product.featured === true;
+
+
+            document.getElementById(
+                "existingImagePath"
+            ).value =
+                product.image_path || "";
+
+
+            document.getElementById(
+                "productCategory"
+            ).value =
+                product.category_id || "";
+
+
+            const imageUrl =
+                getImageUrl(product);
+
+
+            if (imageUrl) {
+
+                imagePreview.src =
+                    imageUrl;
+
+                imagePreview.style.display =
+                    "block";
+
+                currentImageText.textContent =
+                    "Current product image. Upload a new image to replace it.";
+
+            } else {
+
+                imagePreview.style.display =
+                    "none";
+
+                currentImageText.textContent =
+                    "No current image.";
+
+            }
+
+
+            showPage("addProduct");
+
+        }
+
+
+        /* =========================================================
+           IMAGE PREVIEW
+        ========================================================= */
+
+        productImage.addEventListener(
+            "change",
+            () => {
+
+                const file =
+                    productImage.files?.[0];
+
+
+                if (!file) {
+                    return;
+                }
+
+
+                if (!file.type.startsWith("image/")) {
+
+                    showToast(
+                        "Please select an image file.",
+                        "error"
+                    );
+
+                    productImage.value = "";
+
+                    return;
+                }
+
+
+                const maxSize =
+                    8 * 1024 * 1024;
+
+
+                if (file.size > maxSize) {
+
+                    showToast(
+                        "Image must be 8MB or smaller.",
+                        "error"
+                    );
+
+                    productImage.value = "";
+
+                    return;
+                }
+
+
+                const url =
+                    URL.createObjectURL(file);
+
+
+                imagePreview.src =
+                    url;
+
+
+                imagePreview.style.display =
+                    "block";
+
+
+                currentImageText.textContent =
+                    "New image selected.";
+
+            }
+        );
+
+
+        /* =========================================================
+           UPLOAD IMAGE
+        ========================================================= */
+
+        async function uploadProductImage(
+            file,
+            productId
+        ) {
+
+            if (!file) {
+                return null;
+            }
+
+
+            const extension =
+                file.name
+                    .split(".")
+                    .pop()
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]/g, "");
+
+
+            const safeExtension =
+                extension || "jpg";
+
+
+            const filePath =
+                `${productId}/${crypto.randomUUID()}.${safeExtension}`;
+
+
+            const {
+                error
+            } = await supabaseClient
+                .storage
+                .from("product-images")
+                .upload(
+                    filePath,
+                    file,
+                    {
+                        cacheControl: "3600",
+                        upsert: false,
+                        contentType: file.type
+                    }
+                );
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            const {
+                data
+            } = supabaseClient
+                .storage
+                .from("product-images")
+                .getPublicUrl(filePath);
+
+
+            return {
+                path: filePath,
+                url: data?.publicUrl || ""
+            };
+
+        }
+
+
+        /* =========================================================
+           DELETE OLD IMAGE
+        ========================================================= */
+
+        async function deleteStorageImage(
+            imagePath
+        ) {
+
+            if (!imagePath) {
+                return;
+            }
+
+
+            try {
+
+                const {
+                    error
+                } = await supabaseClient
+                    .storage
+                    .from("product-images")
+                    .remove([
+                        imagePath
+                    ]);
+
+
+                if (error) {
+
+                    console.warn(
+                        "Old image deletion warning:",
+                        error
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    "Old image deletion failed:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SAVE PRODUCT
+        ========================================================= */
+
+        productForm.addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+
+                const saveButton =
+                    document.getElementById(
+                        "saveProductBtn"
+                    );
+
+
+                const name =
+                    document.getElementById(
+                        "productName"
+                    ).value.trim();
+
+
+                const price =
+                    Number(
+                        document.getElementById(
+                            "productPrice"
+                        ).value
+                    );
+
+
+                const categoryId =
+                    document.getElementById(
+                        "productCategory"
+                    ).value;
+
+
+                const affiliateLink =
+                    document.getElementById(
+                        "productAffiliateLink"
+                    ).value.trim();
+
+
+                const description =
+                    document.getElementById(
+                        "productDescription"
+                    ).value.trim();
+
+
+                const status =
+                    document.getElementById(
+                        "productStatus"
+                    ).value;
+
+
+                const sortOrder =
+                    Number(
+                        document.getElementById(
+                            "productSortOrder"
+                        ).value
+                    ) || 0;
+
+
+                const isTrending =
+                    document.getElementById(
+                        "productTrending"
+                    ).checked;
+
+
+                const featured =
+                    document.getElementById(
+                        "productFeatured"
+                    ).checked;
+
+
+                if (!name) {
+
+                    showToast(
+                        "Product name is required.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!Number.isFinite(price) || price < 0) {
+
+                    showToast(
+                        "Please enter a valid price.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!categoryId) {
+
+                    showToast(
+                        "Please select a category.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!affiliateLink) {
+
+                    showToast(
+                        "Shopee Affiliate Link is required.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                const category =
+                    categories.find(
+                        item => item.id === categoryId
+                    );
+
+
+                if (!category) {
+
+                    showToast(
+                        "Selected category could not be found.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                saveButton.disabled = true;
+                saveButton.textContent =
+                    editingProductId
+                        ? "Saving Changes..."
+                        : "Adding Product...";
+
+
+                let productId =
+                    editingProductId;
+
+
+                let uploadedImage = null;
+
+
+                try {
+
+                    /*
+                     * If adding a new product,
+                     * create the database row first
+                     * so the UUID can be used as the
+                     * image folder.
+                     */
+
+
+                    if (!productId) {
+
+                        const {
+                            data,
+                            error
+                        } = await supabaseClient
+                            .from("products")
+                            .insert({
+                                category: category.name,
+                                category_id: category.id,
+                                name,
+                                price,
+                                shopee_link: affiliateLink,
+                                affiliate_url: affiliateLink,
+                                description,
+                                is_trending: isTrending,
+                                featured,
+                                status,
+                                sort_order: sortOrder
+                            })
+                            .select("*")
+                            .single();
+
+
+                        if (error) {
+                            throw error;
+                        }
+
+
+                        productId =
+                            data.id;
+
+
+                        const selectedFile =
+                            productImage.files?.[0];
+
+
+                        if (selectedFile) {
+
+                            uploadedImage =
+                                await uploadProductImage(
+                                    selectedFile,
+                                    productId
+                                );
+
+
+                            const {
+                                error: imageUpdateError
+                            } = await supabaseClient
+                                .from("products")
+                                .update({
+                                    image_url:
+                                        uploadedImage.url,
+                                    image_path:
+                                        uploadedImage.path
+                                })
+                                .eq("id", productId);
+
+
+                            if (imageUpdateError) {
+
+                                await deleteStorageImage(
+                                    uploadedImage.path
+                                );
+
+                                throw imageUpdateError;
+                            }
+
+                        }
+
+                    } else {
+
+                        /*
+                         * Editing existing product.
+                         */
+
+                        const existingProduct =
+                            products.find(
+                                p => p.id === productId
+                            );
+
+
+                        if (!existingProduct) {
+                            throw new Error(
+                                "Product no longer exists."
+                            );
+                        }
+
+
+                        const updateData = {
+                            category: category.name,
+                            category_id: category.id,
+                            name,
+                            price,
+                            shopee_link: affiliateLink,
+                            affiliate_url: affiliateLink,
+                            description,
+                            is_trending: isTrending,
+                            featured,
+                            status,
+                            sort_order: sortOrder
+                        };
+
+
+                        const selectedFile =
+                            productImage.files?.[0];
+
+
+                        if (selectedFile) {
+
+                            uploadedImage =
+                                await uploadProductImage(
+                                    selectedFile,
+                                    productId
+                                );
+
+
+                            updateData.image_url =
+                                uploadedImage.url;
+
+
+                            updateData.image_path =
+                                uploadedImage.path;
+
+                        }
+
+
+                        const {
+                            error
+                        } = await supabaseClient
+                            .from("products")
+                            .update(updateData)
+                            .eq("id", productId);
+
+
+                        if (error) {
+
+                            if (uploadedImage) {
+
+                                await deleteStorageImage(
+                                    uploadedImage.path
+                                );
+
+                            }
+
+                            throw error;
+                        }
+
+
+                        /*
+                         * Delete old image only after
+                         * database update succeeds.
+                         */
+
+                        if (
+                            selectedFile &&
+                            existingProduct.image_path &&
+                            existingProduct.image_path !==
+                                uploadedImage.path
+                        ) {
+
+                            await deleteStorageImage(
+                                existingProduct.image_path
+                            );
+
+                        }
+
+                    }
+
+
+                    showToast(
+                        editingProductId
+                            ? "Product updated successfully."
+                            : "Product added successfully.",
+                        "success"
+                    );
+
+
+                    resetProductForm();
+
+                    await loadProducts();
+
+                    showPage("products");
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Save product error:",
+                        error
+                    );
+
+
+                    /*
+                     * If a brand-new database row was created
+                     * but image upload/update failed, remove
+                     * that unfinished product.
+                     */
+
+                    if (
+                        !editingProductId &&
+                        productId
+                    ) {
+
+                        try {
+
+                            await supabaseClient
+                                .from("products")
+                                .delete()
+                                .eq("id", productId);
+
+                        } catch (cleanupError) {
+
+                            console.error(
+                                "Cleanup error:",
+                                cleanupError
+                            );
+
+                        }
+
+                    }
+
+
+                    showToast(
+                        error?.message ||
+                        "Failed to save product.",
+                        "error"
+                    );
+
+                } finally {
+
+                    saveButton.disabled = false;
+
+                    saveButton.textContent =
+                        "Save Product";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           TOGGLE STATUS
+        ========================================================= */
+
+        async function toggleProductStatus(product) {
+
+            const newStatus =
+                product.status === "published"
+                    ? "hidden"
+                    : "published";
+
+
+            try {
+
+                const {
+                    error
+                } = await supabaseClient
+                    .from("products")
+                    .update({
+                        status: newStatus
+                    })
+                    .eq("id", product.id);
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                product.status =
+                    newStatus;
+
+
+                renderProducts();
+                updateDashboard();
+
+
+                showToast(
+                    newStatus === "published"
+                        ? "Product published."
+                        : "Product hidden.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                showToast(
+                    error?.message ||
+                    "Failed to update product status.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           TOGGLE TRENDING
+        ========================================================= */
+
+        async function toggleTrending(product) {
+
+            const newValue =
+                !Boolean(
+                    product.is_trending
+                );
+
+
+            try {
+
+                const {
+                    error
+                } = await supabaseClient
+                    .from("products")
+                    .update({
+                        is_trending: newValue
+                    })
+                    .eq("id", product.id);
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                product.is_trending =
+                    newValue;
+
+
+                renderProducts();
+                updateDashboard();
+
+
+                showToast(
+                    newValue
+                        ? "Product marked as trending."
+                        : "Product removed from trending.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                showToast(
+                    error?.message ||
+                    "Failed to update trending status.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           DELETE PRODUCT
+        ========================================================= */
+
+        async function deleteProduct(product) {
+
+            const confirmed =
+                window.confirm(
+                    `Delete "${product.name}"?\n\nThis will remove the product from the database.`
+                );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            try {
+
+                const {
+                    error
+                } = await supabaseClient
+                    .from("products")
+                    .delete()
+                    .eq("id", product.id);
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                /*
+                 * Delete associated storage image
+                 * after successful DB deletion.
+                 */
+
+                if (product.image_path) {
+
+                    await deleteStorageImage(
+                        product.image_path
+                    );
+
+                }
+
+
+                products =
+                    products.filter(
+                        p => p.id !== product.id
+                    );
+
+
+                renderProducts();
+                updateDashboard();
+
+
+                showToast(
+                    "Product deleted successfully.",
+                    "success"
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Delete product error:",
+                    error
+                );
+
+                showToast(
+                    error?.message ||
+                    "Failed to delete product.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           INITIAL AUTH CHECK
+        ========================================================= */
+
+        async function initialize() {
+
+            try {
+
+                const {
+                    data,
+                    error
+                } = await supabaseClient.auth.getSession();
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                if (data?.session?.user) {
+
+                    await handleLoggedInUser(
+                        data.session.user
+                    );
+
+                } else {
+
+                    loginScreen.style.display =
+                        "flex";
+
+                    app.style.display =
+                        "none";
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Initialization error:",
+                    error
+                );
+
+                loginScreen.style.display =
+                    "flex";
+
+                app.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        initialize();
+
+    </script>
+
+</body>
+</html>
