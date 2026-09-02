@@ -1,13 +1,21 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>VNR CHOICEZ</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -19,7 +27,6 @@
             color: #171717;
         }
 
-        /* HEADER */
         header {
             background: #111;
             color: white;
@@ -27,303 +34,965 @@
             padding: 42px 20px 38px;
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 34px;
+        .logo {
+            font-size: 42px;
+            font-weight: 800;
             letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
-        header p {
-            margin: 10px 0 0;
+        .tagline {
             font-size: 15px;
-            color: #d2d2d2;
+            color: #d6d6d6;
         }
 
-        /* NAVIGATION */
-        .nav {
+        nav {
             background: white;
             border-bottom: 1px solid #e5e5e5;
-            padding: 12px 20px;
             display: flex;
             justify-content: center;
-            gap: 9px;
+            gap: 10px;
+            padding: 14px 15px;
             overflow-x: auto;
+            white-space: nowrap;
             scrollbar-width: none;
         }
 
-        .nav::-webkit-scrollbar {
+        nav::-webkit-scrollbar {
             display: none;
         }
 
-        .nav a {
+        nav a {
             text-decoration: none;
             color: #171717;
-            background: #fff;
-            border: 1px solid #e3e3e3;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 9px 15px;
+            border: 1px solid #dedede;
             border-radius: 999px;
-            padding: 9px 14px;
-            font-size: 13px;
-            white-space: nowrap;
-            transition: 0.2s;
+            background: white;
+            transition: 0.2s ease;
         }
 
-        .nav a:hover {
-            background: #111;
+        nav a:hover {
+            background: #171717;
             color: white;
-            border-color: #111;
+            border-color: #171717;
         }
 
-        .about-link {
-            font-weight: bold;
-        }
-
-        /* SEARCH */
-        .search-box {
+        .search-container {
             max-width: 850px;
-            margin: 22px auto 8px;
+            margin: 28px auto 0;
             padding: 0 20px;
         }
 
-        .search-box input {
+        #searchInput {
             width: 100%;
-            padding: 14px 17px;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            font-size: 14px;
+            padding: 15px 18px;
+            border: 1px solid #dcdcdc;
+            border-radius: 10px;
+            font-size: 15px;
             outline: none;
             background: white;
         }
 
-        .search-box input:focus {
-            border-color: #111;
+        #searchInput:focus {
+            border-color: #999;
         }
 
-        /* MAIN */
         .container {
             max-width: 1250px;
-            margin: auto;
-            padding: 12px 20px 50px;
+            margin: 0 auto;
+            padding: 35px 20px 60px;
         }
 
-        /* SECTION */
         .section-title {
-            font-size: 22px;
-            margin: 5px 0 10px;
+            font-size: 28px;
+            margin: 0 0 8px;
+            font-weight: 800;
         }
 
         .section-description {
             color: #666;
-            font-size: 13px;
+            font-size: 14px;
             line-height: 1.5;
             margin: 0 0 24px;
         }
 
-        /* COMING SOON */
-        .coming-soon {
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product {
             background: white;
             border: 1px solid #e7e7e7;
             border-radius: 12px;
-            padding: 45px 25px;
-            text-align: center;
-            color: #777;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .coming-soon strong {
+        .product:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
             display: block;
-            color: #171717;
+            padding: 5px;
+            background: white;
+        }
+
+        .product-info {
+            padding: 16px;
+        }
+
+        .product-name {
             font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px;
+            line-height: 1.35;
+        }
+
+        .product-description {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .product-category {
+            display: inline-block;
+            font-size: 11px;
+            color: #666;
+            background: #f1f1f1;
+            padding: 5px 8px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+
+        .buy-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            background: #111;
+            color: white;
+            padding: 11px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .loading,
+        .no-results,
+        .error-message {
+            text-align: center;
+            padding: 45px 15px;
+            color: #777;
+        }
+
+        .error-message {
+            display: none;
+        }
+
+        footer {
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        footer .footer-title {
+            font-size: 17px;
+            font-weight: 700;
             margin-bottom: 8px;
         }
 
-        .coming-soon p {
-            margin: 0;
+        footer .footer-text {
             font-size: 13px;
-            line-height: 1.5;
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 32px 20px;
-            background: #111;
             color: #aaa;
-            font-size: 12px;
-            line-height: 1.6;
+            margin-bottom: 6px;
         }
 
-        footer strong {
-            color: white;
-        }
+        @media (max-width: 1000px) {
 
-        /* TABLET */
-        @media (max-width: 950px) {
-
-            .nav {
-                justify-content: flex-start;
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
+
         }
 
-        /* PHONE */
-        @media (max-width: 650px) {
+        @media (max-width: 700px) {
 
             header {
-                padding: 32px 15px;
+                padding: 32px 15px 30px;
             }
 
-            header h1 {
-                font-size: 27px;
+            .logo {
+                font-size: 32px;
             }
 
-            header p {
+            .tagline {
                 font-size: 13px;
             }
 
-            .container {
-                padding-left: 10px;
-                padding-right: 10px;
+            nav {
+                justify-content: flex-start;
             }
 
-            .search-box {
-                padding: 0 10px;
+            .container {
+                padding: 28px 12px 50px;
             }
 
             .section-title {
-                font-size: 20px;
+                font-size: 24px;
             }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .product-info {
+                padding: 12px;
+            }
+
+            .product-name {
+                font-size: 14px;
+            }
+
+            .product-description {
+                font-size: 12px;
+            }
+
+            .product-price {
+                font-size: 16px;
+            }
+
         }
+
     </style>
+
 </head>
 
 <body>
 
 <header>
-    <h1>VNR CHOICEZ</h1>
-    <p>Things worth knowing. Things worth buying.</p>
+
+    <div class="logo">
+        VNR CHOICEZ
+    </div>
+
+    <div class="tagline">
+        Things worth knowing. Things worth buying.
+    </div>
+
 </header>
 
-<!-- NAVIGATION -->
-<nav class="nav">
 
-    <a href="index.html">🏠 Home</a>
+<nav id="categoryNav">
 
-    <a href="category.html?type=Trending">🔥 Trending</a>
+    <a href="index.html">
+        Home
+    </a>
 
-    <a href="category.html?type=Gadget%20%26%20Tech">📱 Gadget &amp; Tech</a>
-
-    <a href="category.html?type=Accessories">👜 Accessories</a>
-
-    <a href="category.html?type=Fashion">👕 Fashion</a>
-
-    <a href="category.html?type=Cookery">🍳 Cookery</a>
-
-    <a href="category.html?type=Fragrance">🌸 Fragrance</a>
-
-    <a href="category.html?type=Lifestyle">✨ Lifestyle</a>
-
-    <a href="about.html" class="about-link">ABOUT US</a>
+    <a href="category.html?type=Trending">
+        Trending
+    </a>
 
 </nav>
 
-<!-- SEARCH -->
-<div class="search-box">
+
+<div class="search-container">
+
     <input
         type="text"
         id="searchInput"
         placeholder="Search products..."
         autocomplete="off"
     >
+
 </div>
+
 
 <main class="container">
 
-    <h2 class="section-title" id="categoryTitle"></h2>
+    <h2
+        class="section-title"
+        id="categoryTitle"
+    >
+        Loading...
+    </h2>
 
-    <p class="section-description" id="categoryDescription"></p>
+    <p
+        class="section-description"
+        id="categoryDescription"
+    ></p>
 
-    <div class="coming-soon">
-        <strong id="comingSoonTitle">More products are coming soon.</strong>
-        <p id="comingSoonText">
-            We are currently curating more finds for this category.
-        </p>
+    <div
+        id="loading"
+        class="loading"
+    >
+        Loading products...
+    </div>
+
+    <div
+        id="errorMessage"
+        class="error-message"
+    >
+        Unable to load products.
+    </div>
+
+    <div
+        class="product-grid"
+        id="productGrid"
+    ></div>
+
+    <div
+        id="noResults"
+        class="no-results"
+        style="display:none;"
+    >
+        No products found in this category.
     </div>
 
 </main>
 
+
 <footer>
-    <strong>@2026 VNR CHOICEZ</strong>
-    <br>
-    Things worth knowing. Things worth buying.
-    <br>
-    Curated finds, useful products, and things worth sharing.
+
+    <div class="footer-title">
+        @2026 VNR CHOICEZ
+    </div>
+
+    <div class="footer-text">
+        Things worth knowing. Things worth buying.
+    </div>
+
+    <div class="footer-text">
+        Curated finds, useful products, and things worth sharing.
+    </div>
+
 </footer>
 
+
 <script>
-    const params = new URLSearchParams(window.location.search);
-    const type = params.get("type");
 
-    const categoryTitle = document.getElementById("categoryTitle");
-    const categoryDescription = document.getElementById("categoryDescription");
-    const comingSoonTitle = document.getElementById("comingSoonTitle");
-    const comingSoonText = document.getElementById("comingSoonText");
+"use strict";
 
-    const categories = {
-        "Trending": {
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const selectedType =
+    params.get("type") || "Trending";
+
+
+const productGrid =
+    document.getElementById("productGrid");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const categoryTitle =
+    document.getElementById("categoryTitle");
+
+const categoryDescription =
+    document.getElementById("categoryDescription");
+
+const categoryNav =
+    document.getElementById("categoryNav");
+
+const loading =
+    document.getElementById("loading");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+const noResults =
+    document.getElementById("noResults");
+
+
+let allProducts = [];
+
+let allCategories = [];
+
+let currentProducts = [];
+
+
+// ========================================
+// ESCAPE
+// ========================================
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// ========================================
+// IMAGE
+// ========================================
+
+function getImageUrl(product) {
+
+    return (
+        product.image_url ||
+        product.image_path ||
+        ""
+    );
+
+}
+
+
+// ========================================
+// CATEGORY INFO
+// ========================================
+
+function getCategoryInfo(name) {
+
+    if (name === "Trending") {
+
+        return {
             title: "🔥 Trending Finds",
-            description: "Discover products currently featured in our trending finds."
-        },
+            description:
+                "Discover products currently featured in our trending finds."
+        };
 
-        "Gadget & Tech": {
-            title: "📱 Gadget & Tech",
-            description: "Useful gadgets, tech accessories, and everyday tech finds."
-        },
+    }
 
-        "Accessories": {
-            title: "👜 Accessories",
-            description: "Simple and useful accessories worth checking out."
-        },
 
-        "Fashion": {
-            title: "👕 Fashion",
-            description: "Fashion finds and everyday pieces worth discovering."
-        },
-
-        "Cookery": {
-            title: "🍳 Cookery",
-            description: "Useful kitchen and cookery finds for everyday use."
-        },
-
-        "Fragrance": {
-            title: "🌸 Fragrance",
-            description: "Fragrance finds selected for those who enjoy discovering something new."
-        },
-
-        "Lifestyle": {
-            title: "✨ Lifestyle",
-            description: "Interesting and useful finds for everyday life."
-        }
+    return {
+        title: name,
+        description:
+            "Discover useful products and curated finds from VNR CHOICEZ."
     };
 
-    const selectedCategory = categories[type];
+}
 
-    if (selectedCategory) {
 
-        categoryTitle.textContent = selectedCategory.title;
-        categoryDescription.textContent = selectedCategory.description;
+// ========================================
+// LOAD CATEGORIES
+// ========================================
 
-        document.title = selectedCategory.title.replace(
-            /[\u{1F300}-\u{1FAFF}]\s*/gu,
-            ""
-        ) + " | VNR CHOICEZ";
+async function loadCategories() {
+
+    const result =
+        await supabase
+            .from("categories")
+            .select("id,name,slug")
+            .order("name", {
+                ascending: true
+            });
+
+
+    if (result.error) {
+
+        console.error(
+            "CATEGORY ERROR:",
+            result.error
+        );
+
+        allCategories = [];
 
     } else {
 
-        categoryTitle.textContent = "VNR CHOICEZ";
-        categoryDescription.textContent = "Explore our latest product categories.";
+        allCategories =
+            Array.isArray(result.data)
+                ? result.data
+                : [];
 
     }
+
+
+    renderNavigation();
+
+    updateCategoryHeading();
+
+}
+
+
+// ========================================
+// NAVIGATION
+// ========================================
+
+function renderNavigation() {
+
+    let html = `
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="category.html?type=Trending">
+            Trending
+        </a>
+
+    `;
+
+
+    allCategories.forEach(category => {
+
+        html += `
+
+            <a
+                href="category.html?type=${encodeURIComponent(category.name)}"
+            >
+                ${escapeHtml(category.name)}
+            </a>
+
+        `;
+
+    });
+
+
+    html += `
+
+        <a href="about.html">
+            ABOUT US
+        </a>
+
+    `;
+
+
+    categoryNav.innerHTML = html;
+
+}
+
+
+// ========================================
+// HEADING
+// ========================================
+
+function updateCategoryHeading() {
+
+    const info =
+        getCategoryInfo(selectedType);
+
+
+    categoryTitle.textContent =
+        info.title;
+
+
+    categoryDescription.textContent =
+        info.description;
+
+
+    document.title =
+        `${selectedType} | VNR CHOICEZ`;
+
+}
+
+
+// ========================================
+// LOAD PRODUCTS
+// ========================================
+
+async function loadProducts() {
+
+    const result =
+        await supabase
+            .from("products")
+            .select(`
+                id,
+                name,
+                description,
+                price,
+                image_url,
+                image_path,
+                affiliate_url,
+                shopee_link,
+                status,
+                featured,
+                views,
+                clicks,
+                created_at,
+                sort_order,
+                category,
+                category_id
+            `)
+            .eq("status", "published")
+            .order("sort_order", {
+                ascending: true,
+                nullsFirst: false
+            })
+            .order("created_at", {
+                ascending: false
+            });
+
+
+    if (result.error) {
+
+        console.error(
+            "PRODUCT ERROR:",
+            result.error
+        );
+
+        loading.style.display = "none";
+
+        errorMessage.style.display = "block";
+
+        return;
+    }
+
+
+    allProducts =
+        Array.isArray(result.data)
+            ? result.data
+            : [];
+
+
+    allProducts =
+        allProducts.map(product => {
+
+            const category =
+                allCategories.find(
+                    item =>
+                        item.id ===
+                        product.category_id
+                );
+
+
+            return {
+
+                ...product,
+
+                categoryName:
+                    category?.name ||
+                    product.category ||
+                    "Uncategorized"
+
+            };
+
+        });
+
+
+    filterCategory();
+
+}
+
+
+// ========================================
+// FILTER CATEGORY
+// ========================================
+
+function filterCategory() {
+
+    if (selectedType === "Trending") {
+
+        /*
+         * Trending:
+         * featured products first,
+         * followed by highest clicks,
+         * then newest products.
+         */
+
+        currentProducts =
+            [...allProducts].sort(
+                (a, b) => {
+
+                    const featuredDifference =
+                        Number(b.featured || false) -
+                        Number(a.featured || false);
+
+
+                    if (
+                        featuredDifference !== 0
+                    ) {
+                        return featuredDifference;
+                    }
+
+
+                    const clickDifference =
+                        Number(b.clicks || 0) -
+                        Number(a.clicks || 0);
+
+
+                    if (
+                        clickDifference !== 0
+                    ) {
+                        return clickDifference;
+                    }
+
+
+                    return (
+                        new Date(b.created_at || 0) -
+                        new Date(a.created_at || 0)
+                    );
+
+                }
+            );
+
+    } else {
+
+        currentProducts =
+            allProducts.filter(
+                product =>
+                    String(
+                        product.categoryName || ""
+                    ).toLowerCase() ===
+                    selectedType.toLowerCase()
+            );
+
+    }
+
+
+    loading.style.display = "none";
+
+
+    renderProducts(currentProducts);
+
+}
+
+
+// ========================================
+// RENDER
+// ========================================
+
+function renderProducts(products) {
+
+    productGrid.innerHTML = "";
+
+    noResults.style.display = "none";
+
+
+    if (!products.length) {
+
+        noResults.style.display = "block";
+
+        return;
+    }
+
+
+    products.forEach(product => {
+
+        productGrid.appendChild(
+            createProductCard(product)
+        );
+
+    });
+
+}
+
+
+// ========================================
+// CARD
+// ========================================
+
+function createProductCard(product) {
+
+    const card =
+        document.createElement("article");
+
+
+    card.className =
+        "product";
+
+
+    const name =
+        product.name ||
+        "Unnamed Product";
+
+
+    const description =
+        product.description ||
+        "Useful product worth checking out.";
+
+
+    const category =
+        product.categoryName ||
+        "Uncategorized";
+
+
+    const image =
+        getImageUrl(product);
+
+
+    const affiliate =
+        product.affiliate_url ||
+        product.shopee_link ||
+        "";
+
+
+    const numericPrice =
+        Number(product.price);
+
+
+    const price =
+        Number.isFinite(numericPrice)
+            ? numericPrice.toFixed(2)
+            : "0.00";
+
+
+    card.innerHTML = `
+
+        ${
+            image
+                ? `
+                    <img
+                        class="product-image"
+                        src="${escapeHtml(image)}"
+                        alt="${escapeHtml(name)}"
+                        loading="lazy"
+                        onerror="this.style.display='none';"
+                    >
+                `
+                : ""
+        }
+
+        <div class="product-info">
+
+            <h3 class="product-name">
+                ${escapeHtml(name)}
+            </h3>
+
+            <div class="product-description">
+                ${escapeHtml(description)}
+            </div>
+
+            <div class="product-category">
+                ${escapeHtml(category)}
+            </div>
+
+            <div class="product-price">
+                RM${price}
+            </div>
+
+            ${
+                affiliate
+                    ? `
+                        <a
+                            class="buy-button"
+                            href="${escapeHtml(affiliate)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View on Shopee
+                        </a>
+                    `
+                    : `
+                        <div class="buy-button">
+                            Product link unavailable
+                        </div>
+                    `
+            }
+
+        </div>
+
+    `;
+
+
+    return card;
+
+}
+
+
+// ========================================
+// SEARCH
+// ========================================
+
+searchInput.addEventListener(
+    "input",
+    function () {
+
+        const term =
+            this.value
+                .toLowerCase()
+                .trim();
+
+
+        if (!term) {
+
+            renderProducts(
+                currentProducts
+            );
+
+            return;
+        }
+
+
+        const filtered =
+            currentProducts.filter(
+                product => {
+
+                    const text = [
+
+                        product.name,
+
+                        product.description,
+
+                        product.categoryName
+
+                    ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
+
+
+                    return text.includes(term);
+
+                }
+            );
+
+
+        renderProducts(filtered);
+
+    }
+);
+
+
+// ========================================
+// INIT
+// ========================================
+
+async function init() {
+
+    try {
+
+        await loadCategories();
+
+        await loadProducts();
+
+    } catch (error) {
+
+        console.error(
+            "INIT ERROR:",
+            error
+        );
+
+        loading.style.display = "none";
+
+        errorMessage.style.display = "block";
+
+    }
+
+}
+
+
+init();
+
 </script>
 
 </body>
 </html>
-```
