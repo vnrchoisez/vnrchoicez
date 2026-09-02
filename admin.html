@@ -567,6 +567,98 @@
             margin-top: 10px;
         }
 
+        /* =========================
+           SEMI-AUTO DETECT
+        ========================= */
+
+        .affiliate-detect-row {
+            display: flex;
+            gap: 9px;
+            align-items: stretch;
+        }
+
+        .affiliate-detect-row input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .detect-btn {
+            flex-shrink: 0;
+            border: 1px solid #111;
+            background: #111;
+            color: #fff;
+            border-radius: 10px;
+            padding: 0 16px;
+            font-weight: 800;
+            white-space: nowrap;
+            transition: .2s;
+        }
+
+        .detect-btn:hover {
+            background: #292929;
+        }
+
+        .detect-btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .detect-status {
+            display: none;
+            margin-top: 9px;
+            padding: 10px 12px;
+            border-radius: 9px;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .detect-status.show {
+            display: block;
+        }
+
+        .detect-status.info {
+            background: #f3f6ff;
+            border: 1px solid #dbe4ff;
+            color: #3158a5;
+        }
+
+        .detect-status.success {
+            background: #eaf8ef;
+            border: 1px solid #ccebd8;
+            color: #137442;
+        }
+
+        .detect-status.warning {
+            background: #fff7e9;
+            border: 1px solid #f2dfbd;
+            color: #95600a;
+        }
+
+        .detect-status.error {
+            background: #fff1f1;
+            border: 1px solid #ffd2d2;
+            color: #b12626;
+        }
+
+        .detected-details {
+            display: none;
+            margin-top: 9px;
+            padding: 10px 12px;
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 9px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .detected-details.show {
+            display: block;
+        }
+
+        .detected-details strong {
+            color: #111;
+        }
+
         .form-actions {
             display: flex;
             gap: 10px;
@@ -693,6 +785,16 @@
 
             .full-width {
                 grid-column: auto;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .affiliate-detect-row {
+                flex-direction: column;
+            }
+
+            .detect-btn {
+                min-height: 44px;
             }
         }
 
@@ -849,9 +951,7 @@
 
             <main class="main">
 
-                <!-- =========================
-                     DASHBOARD
-                ========================= -->
+                <!-- DASHBOARD -->
 
                 <section
                     class="page active"
@@ -865,7 +965,6 @@
                     <p class="page-subtitle">
                         Welcome back. Here's an overview of VNR CHOICEZ.
                     </p>
-
 
                     <div class="stats-grid">
 
@@ -882,7 +981,6 @@
                             </div>
                         </div>
 
-
                         <div class="stat-card">
                             <div class="stat-label">
                                 PUBLISHED
@@ -896,7 +994,6 @@
                             </div>
                         </div>
 
-
                         <div class="stat-card">
                             <div class="stat-label">
                                 DRAFT
@@ -909,7 +1006,6 @@
                                 0
                             </div>
                         </div>
-
 
                         <div class="stat-card">
                             <div class="stat-label">
@@ -925,7 +1021,6 @@
                         </div>
 
                     </div>
-
 
                     <div class="table-card">
 
@@ -962,9 +1057,7 @@
                 </section>
 
 
-                <!-- =========================
-                     PRODUCTS
-                ========================= -->
+                <!-- PRODUCTS -->
 
                 <section
                     class="page"
@@ -978,7 +1071,6 @@
                     <p class="page-subtitle">
                         Manage all products displayed on VNR CHOICEZ.
                     </p>
-
 
                     <div class="toolbar">
 
@@ -1008,7 +1100,6 @@
                         </button>
 
                     </div>
-
 
                     <div class="table-card">
 
@@ -1058,9 +1149,7 @@
                 </section>
 
 
-                <!-- =========================
-                     ADD / EDIT PRODUCT
-                ========================= -->
+                <!-- ADD / EDIT PRODUCT -->
 
                 <section
                     class="page"
@@ -1078,7 +1167,6 @@
                         Add or update a product for your affiliate store.
                     </p>
 
-
                     <div class="form-card">
 
                         <form id="productForm">
@@ -1092,7 +1180,6 @@
                                 type="hidden"
                                 id="existingImagePath"
                             >
-
 
                             <div class="form-grid">
 
@@ -1156,7 +1243,7 @@
                                 </div>
 
 
-                                <!-- AFFILIATE LINK -->
+                                <!-- AFFILIATE LINK + SEMI AUTO DETECT -->
 
                                 <div class="form-group full-width">
 
@@ -1164,12 +1251,34 @@
                                         Shopee Affiliate Link *
                                     </label>
 
-                                    <input
-                                        type="url"
-                                        id="productAffiliateLink"
-                                        required
-                                        placeholder="https://s.shopee.com.my/..."
-                                    >
+                                    <div class="affiliate-detect-row">
+
+                                        <input
+                                            type="url"
+                                            id="productAffiliateLink"
+                                            required
+                                            placeholder="https://s.shopee.com.my/..."
+                                        >
+
+                                        <button
+                                            type="button"
+                                            class="detect-btn"
+                                            id="detectAffiliateBtn"
+                                        >
+                                            🔍 Auto Detect
+                                        </button>
+
+                                    </div>
+
+                                    <div
+                                        id="affiliateDetectStatus"
+                                        class="detect-status"
+                                    ></div>
+
+                                    <div
+                                        id="detectedDetails"
+                                        class="detected-details"
+                                    ></div>
 
                                 </div>
 
@@ -1384,6 +1493,18 @@
         const filterCategory = document.getElementById("filterCategory");
         const filterStatus = document.getElementById("filterStatus");
 
+        const productAffiliateLink =
+            document.getElementById("productAffiliateLink");
+
+        const detectAffiliateBtn =
+            document.getElementById("detectAffiliateBtn");
+
+        const affiliateDetectStatus =
+            document.getElementById("affiliateDetectStatus");
+
+        const detectedDetails =
+            document.getElementById("detectedDetails");
+
 
         /* =========================================================
            UTILITY
@@ -1497,6 +1618,380 @@
 
 
         /* =========================================================
+           SEMI-AUTO SHOPEE DETECT
+        ========================================================= */
+
+        function clearAffiliateDetection() {
+
+            affiliateDetectStatus.textContent = "";
+            affiliateDetectStatus.className = "detect-status";
+
+            detectedDetails.innerHTML = "";
+            detectedDetails.className = "detected-details";
+        }
+
+
+        function setAffiliateDetectionStatus(
+            message,
+            type = "info"
+        ) {
+
+            affiliateDetectStatus.textContent = message;
+
+            affiliateDetectStatus.className =
+                "detect-status show " + type;
+        }
+
+
+        function isShopeeMalaysiaHost(hostname) {
+
+            const host =
+                String(hostname || "")
+                    .toLowerCase()
+                    .replace(/^www\./, "");
+
+            return (
+                host === "shopee.com.my" ||
+                host === "s.shopee.com.my"
+            );
+        }
+
+
+        function extractShopeeIds(url) {
+
+            const result = {
+                shopId: "",
+                productId: ""
+            };
+
+
+            /*
+             * Pattern:
+             * /-i.SHOP_ID.PRODUCT_ID
+             */
+
+            const iPattern =
+                /-i\.(\d+)\.(\d+)/i;
+
+            const iMatch =
+                url.match(iPattern);
+
+
+            if (iMatch) {
+
+                result.shopId = iMatch[1];
+                result.productId = iMatch[2];
+
+                return result;
+            }
+
+
+            /*
+             * Pattern:
+             * /SHOP_ID/PRODUCT_ID
+             */
+
+            const pathParts =
+                url.pathname
+                    .split("/")
+                    .filter(Boolean);
+
+
+            for (
+                let index = 0;
+                index < pathParts.length - 1;
+                index++
+            ) {
+
+                const first =
+                    pathParts[index];
+
+                const second =
+                    pathParts[index + 1];
+
+
+                if (
+                    /^\d+$/.test(first) &&
+                    /^\d+$/.test(second)
+                ) {
+
+                    result.shopId = first;
+                    result.productId = second;
+
+                    return result;
+                }
+
+            }
+
+
+            /*
+             * Some Shopee URLs may contain
+             * itemid/shopid in query parameters.
+             */
+
+            const shopId =
+                url.searchParams.get("shopid") ||
+                url.searchParams.get("shop_id") ||
+                url.searchParams.get("shopId");
+
+
+            const itemId =
+                url.searchParams.get("itemid") ||
+                url.searchParams.get("item_id") ||
+                url.searchParams.get("itemId");
+
+
+            if (shopId && /^\d+$/.test(shopId)) {
+                result.shopId = shopId;
+            }
+
+            if (itemId && /^\d+$/.test(itemId)) {
+                result.productId = itemId;
+            }
+
+
+            return result;
+        }
+
+
+        function displayDetectedDetails(
+            hostname,
+            shopId,
+            productId
+        ) {
+
+            const details = [];
+
+
+            details.push(
+                `<strong>Platform:</strong> Shopee Malaysia`
+            );
+
+
+            details.push(
+                `<strong>Domain:</strong> ${escapeHTML(hostname)}`
+            );
+
+
+            if (shopId) {
+
+                details.push(
+                    `<strong>Shop ID:</strong> ${escapeHTML(shopId)}`
+                );
+
+            }
+
+
+            if (productId) {
+
+                details.push(
+                    `<strong>Product ID:</strong> ${escapeHTML(productId)}`
+                );
+
+            }
+
+
+            if (!shopId && !productId) {
+
+                details.push(
+                    `<strong>Product ID:</strong> Not available in this URL`
+                );
+
+            }
+
+
+            detectedDetails.innerHTML =
+                details.join("<br>");
+
+            detectedDetails.className =
+                "detected-details show";
+        }
+
+
+        function detectAffiliateProduct() {
+
+            clearAffiliateDetection();
+
+
+            const rawLink =
+                productAffiliateLink.value.trim();
+
+
+            if (!rawLink) {
+
+                setAffiliateDetectionStatus(
+                    "Paste your Shopee Affiliate Link first.",
+                    "warning"
+                );
+
+                productAffiliateLink.focus();
+
+                return;
+            }
+
+
+            let url;
+
+
+            try {
+
+                url = new URL(rawLink);
+
+            } catch (error) {
+
+                setAffiliateDetectionStatus(
+                    "This does not look like a valid URL. Please paste your Shopee Affiliate Link.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (!isShopeeMalaysiaHost(url.hostname)) {
+
+                setAffiliateDetectionStatus(
+                    "Please use a Shopee Malaysia link, such as https://s.shopee.com.my/...",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            detectAffiliateBtn.disabled = true;
+            detectAffiliateBtn.textContent = "Detecting...";
+
+
+            try {
+
+                const hostname =
+                    url.hostname
+                        .toLowerCase();
+
+
+                /*
+                 * Short link:
+                 * s.shopee.com.my/...
+                 *
+                 * Browser cannot reliably follow/read
+                 * Shopee's redirect destination because
+                 * the destination is controlled by Shopee
+                 * and browser CORS/security restrictions
+                 * prevent us from treating it as a scraper.
+                 */
+
+                if (
+                    hostname === "s.shopee.com.my"
+                ) {
+
+                    setAffiliateDetectionStatus(
+                        "✓ Valid Shopee Malaysia short link detected. Product details are hidden behind Shopee's redirect, so name, price and image cannot be safely read automatically here. You can continue entering them manually.",
+                        "success"
+                    );
+
+                    displayDetectedDetails(
+                        hostname,
+                        "",
+                        ""
+                    );
+
+                    showToast(
+                        "Shopee short link detected.",
+                        "success"
+                    );
+
+                    return;
+                }
+
+
+                const {
+                    shopId,
+                    productId
+                } =
+                    extractShopeeIds(url);
+
+
+                if (shopId || productId) {
+
+                    setAffiliateDetectionStatus(
+                        "✓ Shopee product URL detected successfully.",
+                        "success"
+                    );
+
+                    displayDetectedDetails(
+                        hostname,
+                        shopId,
+                        productId
+                    );
+
+                    showToast(
+                        "Shopee product URL detected.",
+                        "success"
+                    );
+
+                    return;
+                }
+
+
+                setAffiliateDetectionStatus(
+                    "✓ Valid Shopee Malaysia URL detected, but no Shop ID/Product ID could be read from this URL. You can still save the affiliate link normally.",
+                    "warning"
+                );
+
+                displayDetectedDetails(
+                    hostname,
+                    "",
+                    ""
+                );
+
+                showToast(
+                    "Shopee link detected.",
+                    "success"
+                );
+
+            } finally {
+
+                detectAffiliateBtn.disabled = false;
+                detectAffiliateBtn.textContent =
+                    "🔍 Auto Detect";
+
+            }
+
+        }
+
+
+        detectAffiliateBtn.addEventListener(
+            "click",
+            detectAffiliateProduct
+        );
+
+
+        productAffiliateLink.addEventListener(
+            "input",
+            () => {
+
+                clearAffiliateDetection();
+
+            }
+        );
+
+
+        productAffiliateLink.addEventListener(
+            "paste",
+            () => {
+
+                setTimeout(() => {
+
+                    clearAffiliateDetection();
+
+                }, 50);
+
+            }
+        );
+
+
+        /* =========================================================
            PAGE NAVIGATION
         ========================================================= */
 
@@ -1590,16 +2085,6 @@
             }
 
 
-            /*
-             * Supports either common admin_users structures:
-             *
-             * 1. user_id = auth.users.id
-             * 2. id = auth.users.id
-             *
-             * This does NOT require changing the database.
-             */
-
-
             try {
 
                 const firstAttempt =
@@ -1618,10 +2103,12 @@
                 }
 
             } catch (error) {
+
                 console.warn(
                     "admin_users user_id check failed:",
                     error
                 );
+
             }
 
 
@@ -1643,10 +2130,12 @@
                 }
 
             } catch (error) {
+
                 console.warn(
                     "admin_users id check failed:",
                     error
                 );
+
             }
 
 
@@ -1706,73 +2195,89 @@
         }
 
 
-        loginForm.addEventListener("submit", async event => {
+        loginForm.addEventListener(
+            "submit",
+            async event => {
 
-            event.preventDefault();
+                event.preventDefault();
 
-            loginError.classList.remove("show");
+                loginError.classList.remove("show");
 
-            const email =
-                document.getElementById("loginEmail").value.trim();
+                const email =
+                    document.getElementById(
+                        "loginEmail"
+                    ).value.trim();
 
-            const password =
-                document.getElementById("loginPassword").value;
-
-
-            loginBtn.disabled = true;
-            loginBtn.textContent = "Signing in...";
-
-
-            try {
-
-                const {
-                    data,
-                    error
-                } = await supabaseClient.auth.signInWithPassword({
-                    email,
-                    password
-                });
+                const password =
+                    document.getElementById(
+                        "loginPassword"
+                    ).value;
 
 
-                if (error) {
-                    throw error;
+                loginBtn.disabled = true;
+                loginBtn.textContent =
+                    "Signing in...";
+
+
+                try {
+
+                    const {
+                        data,
+                        error
+                    } =
+                        await supabaseClient.auth
+                            .signInWithPassword({
+                                email,
+                                password
+                            });
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    await handleLoggedInUser(
+                        data.user
+                    );
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    loginError.textContent =
+                        error?.message ||
+                        "Login failed. Please check your email and password.";
+
+                    loginError.classList.add("show");
+
+                } finally {
+
+                    loginBtn.disabled = false;
+                    loginBtn.textContent =
+                        "Login";
+
                 }
 
+            }
+        );
 
-                await handleLoggedInUser(data.user);
 
-            } catch (error) {
+        logoutBtn.addEventListener(
+            "click",
+            async () => {
 
-                console.error(error);
+                await supabaseClient.auth.signOut();
 
-                loginError.textContent =
-                    error?.message ||
-                    "Login failed. Please check your email and password.";
+                currentUser = null;
 
-                loginError.classList.add("show");
+                app.style.display = "none";
+                loginScreen.style.display = "flex";
 
-            } finally {
-
-                loginBtn.disabled = false;
-                loginBtn.textContent = "Login";
+                loginForm.reset();
 
             }
-
-        });
-
-
-        logoutBtn.addEventListener("click", async () => {
-
-            await supabaseClient.auth.signOut();
-
-            currentUser = null;
-
-            app.style.display = "none";
-            loginScreen.style.display = "flex";
-
-            loginForm.reset();
-
-        });
+        );
 
 
         supabaseClient.auth.onAuthStateChange(
@@ -2083,7 +2588,6 @@
 
             tableWrap.style.display = "block";
 
-
             body.innerHTML = "";
 
 
@@ -2185,12 +2689,16 @@
 
 
                     <td>
-                        ${Number(product.views || 0).toLocaleString()}
+                        ${Number(
+                            product.views || 0
+                        ).toLocaleString()}
                     </td>
 
 
                     <td>
-                        ${Number(product.clicks || 0).toLocaleString()}
+                        ${Number(
+                            product.clicks || 0
+                        ).toLocaleString()}
                     </td>
 
 
@@ -2253,74 +2761,77 @@
 
         document
             .getElementById("productsBody")
-            .addEventListener("click", async event => {
+            .addEventListener(
+                "click",
+                async event => {
 
-                const button =
-                    event.target.closest(
-                        "button[data-action]"
-                    );
+                    const button =
+                        event.target.closest(
+                            "button[data-action]"
+                        );
 
 
-                if (!button) {
-                    return;
+                    if (!button) {
+                        return;
+                    }
+
+
+                    const action =
+                        button.getAttribute(
+                            "data-action"
+                        );
+
+
+                    const id =
+                        button.getAttribute(
+                            "data-id"
+                        );
+
+
+                    const product =
+                        products.find(
+                            item => item.id === id
+                        );
+
+
+                    if (!product) {
+                        return;
+                    }
+
+
+                    if (action === "edit") {
+
+                        openEditProduct(product);
+                        return;
+
+                    }
+
+
+                    if (action === "toggle-status") {
+
+                        await toggleProductStatus(product);
+                        return;
+
+                    }
+
+
+                    if (action === "toggle-trending") {
+
+                        await toggleTrending(product);
+                        return;
+
+                    }
+
+
+                    if (action === "delete") {
+
+                        await deleteProduct(product);
+                        return;
+
+                    }
+
                 }
-
-
-                const action =
-                    button.getAttribute(
-                        "data-action"
-                    );
-
-
-                const id =
-                    button.getAttribute(
-                        "data-id"
-                    );
-
-
-                const product =
-                    products.find(
-                        item => item.id === id
-                    );
-
-
-                if (!product) {
-                    return;
-                }
-
-
-                if (action === "edit") {
-
-                    openEditProduct(product);
-                    return;
-
-                }
-
-
-                if (action === "toggle-status") {
-
-                    await toggleProductStatus(product);
-                    return;
-
-                }
-
-
-                if (action === "toggle-trending") {
-
-                    await toggleTrending(product);
-                    return;
-
-                }
-
-
-                if (action === "delete") {
-
-                    await deleteProduct(product);
-                    return;
-
-                }
-
-            });
+            );
 
 
         searchProducts.addEventListener(
@@ -2418,7 +2929,6 @@
 
             loading.style.display = "none";
             wrap.style.display = "block";
-
 
             body.innerHTML = "";
 
@@ -2565,11 +3075,15 @@
                 "none";
 
 
-            imagePreview.src = "";
+            imagePreview.src =
+                "";
 
 
             currentImageText.textContent =
                 "";
+
+
+            clearAffiliateDetection();
 
         }
 
@@ -2682,6 +3196,9 @@
                     "No current image.";
 
             }
+
+
+            clearAffiliateDetection();
 
 
             showPage("addProduct");
@@ -2954,7 +3471,10 @@
                 }
 
 
-                if (!Number.isFinite(price) || price < 0) {
+                if (
+                    !Number.isFinite(price) ||
+                    price < 0
+                ) {
 
                     showToast(
                         "Please enter a valid price.",
@@ -3005,10 +3525,11 @@
 
 
                 saveButton.disabled = true;
+
                 saveButton.textContent =
                     editingProductId
                         ? "Saving Changes..."
-                        : "Adding Product...";
+                        : "Adding Product";
 
 
                 let productId =
@@ -3019,14 +3540,6 @@
 
 
                 try {
-
-                    /*
-                     * If adding a new product,
-                     * create the database row first
-                     * so the UUID can be used as the
-                     * image folder.
-                     */
-
 
                     if (!productId) {
 
@@ -3100,10 +3613,6 @@
 
                     } else {
 
-                        /*
-                         * Editing existing product.
-                         */
-
                         const existingProduct =
                             products.find(
                                 p => p.id === productId
@@ -3111,9 +3620,11 @@
 
 
                         if (!existingProduct) {
+
                             throw new Error(
                                 "Product no longer exists."
                             );
+
                         }
 
 
@@ -3177,11 +3688,6 @@
                         }
 
 
-                        /*
-                         * Delete old image only after
-                         * database update succeeds.
-                         */
-
                         if (
                             selectedFile &&
                             existingProduct.image_path &&
@@ -3220,12 +3726,6 @@
                         error
                     );
 
-
-                    /*
-                     * If a brand-new database row was created
-                     * but image upload/update failed, remove
-                     * that unfinished product.
-                     */
 
                     if (
                         !editingProductId &&
@@ -3420,11 +3920,6 @@
                 }
 
 
-                /*
-                 * Delete associated storage image
-                 * after successful DB deletion.
-                 */
-
                 if (product.image_path) {
 
                     await deleteStorageImage(
@@ -3478,7 +3973,9 @@
                 const {
                     data,
                     error
-                } = await supabaseClient.auth.getSession();
+                } =
+                    await supabaseClient.auth
+                        .getSession();
 
 
                 if (error) {
