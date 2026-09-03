@@ -918,6 +918,8 @@
                 repeat(4, minmax(0, 1fr));
 
             gap: 18px;
+
+            align-items: stretch;
         }
 
 
@@ -961,6 +963,9 @@
 
             animation-delay:
                 var(--delay, 0ms);
+
+            display: flex;
+            flex-direction: column;
         }
 
 
@@ -994,6 +999,8 @@
                 var(--sand-soft);
 
             overflow: hidden;
+
+            flex-shrink: 0;
         }
 
 
@@ -1067,6 +1074,12 @@
         .product-content {
             padding:
                 17px 17px 18px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            flex: 1;
         }
 
 
@@ -1103,6 +1116,8 @@
         .product-description {
             min-height: 40px;
 
+            height: 60px;
+
             margin-bottom: 14px;
 
             color:
@@ -1111,6 +1126,14 @@
             font-size: 12px;
 
             line-height: 1.55;
+
+            overflow: hidden;
+
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 3;
         }
 
 
@@ -1122,6 +1145,8 @@
             justify-content: space-between;
 
             gap: 12px;
+
+            margin-top: auto;
         }
 
 
@@ -1132,6 +1157,10 @@
             font-size: 14px;
 
             font-weight: 700;
+
+            line-height: 1.35;
+
+            min-height: 19px;
         }
 
 
@@ -1148,6 +1177,8 @@
             gap: 7px;
 
             width: 100%;
+
+            margin-top: 9px;
         }
 
 
@@ -1928,6 +1959,9 @@
 
                 min-height:
                     36px;
+
+                height:
+                    51px;
             }
 
 
@@ -2068,6 +2102,9 @@
             .product-description {
                 font-size:
                     10px;
+
+                height:
+                    46px;
             }
 
 
@@ -2514,6 +2551,52 @@
         }
 
 
+        function formatPriceRange(prices) {
+
+            const validPrices =
+                prices
+                    .map(function (price) {
+                        const numericPrice =
+                            Number(price);
+
+                        return Number.isFinite(numericPrice)
+                            ? numericPrice
+                            : null;
+                    })
+                    .filter(function (price) {
+                        return price !== null;
+                    });
+
+
+            if (!validPrices.length) {
+                return "";
+            }
+
+
+            const lowestPrice =
+                Math.min(...validPrices);
+
+            const highestPrice =
+                Math.max(...validPrices);
+
+
+            if (
+                lowestPrice === highestPrice
+            ) {
+                return formatPrice(
+                    lowestPrice
+                );
+            }
+
+
+            return `
+                ${formatPrice(lowestPrice)}
+                –
+                ${formatPrice(highestPrice)}
+            `;
+        }
+
+
         function getProductCategory(product) {
 
             return (
@@ -2594,6 +2677,85 @@
             );
 
         }
+
+
+        /* =========================================================
+           GET PRODUCT PRICE RANGE
+           MAIN PRICE + ACTIVE PLATFORM PRICES
+           ========================================================= */
+
+        function getProductPriceRange(
+            product,
+            activePlatforms
+        ) {
+
+            const prices = [];
+
+
+            /*
+             * Main/base product price.
+             */
+
+            if (
+                product.price !== null &&
+                product.price !== undefined &&
+                product.price !== ""
+            ) {
+
+                const mainPrice =
+                    Number(product.price);
+
+                if (
+                    Number.isFinite(mainPrice)
+                ) {
+
+                    prices.push(
+                        mainPrice
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Active platform prices only.
+             */
+
+            activePlatforms.forEach(
+                function (platform) {
+
+                    if (
+                        platform.price !== null &&
+                        platform.price !== undefined &&
+                        platform.price !== ""
+                    ) {
+
+                        const platformPrice =
+                            Number(platform.price);
+
+                        if (
+                            Number.isFinite(platformPrice)
+                        ) {
+
+                            prices.push(
+                                platformPrice
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            return formatPriceRange(
+                prices
+            );
+
+        }
+
 
 
         /* =========================================================
@@ -3290,6 +3452,13 @@
                         );
 
 
+                    const priceRange =
+                        getProductPriceRange(
+                            product,
+                            activePlatforms
+                        );
+
+
                     let platformHTML = "";
 
 
@@ -3405,11 +3574,40 @@
 
 
                     /*
-                     * When platform records exist, the platform rows
-                     * already contain their own prices, so the old
-                     * single-price/single-button layout is replaced
-                     * only for that product.
+                     * Platform products now have:
+                     *
+                     * 1. A calculated overall price range
+                     *    based on main price + active platform prices.
+                     *
+                     * 2. Platform-specific buttons underneath.
+                     *
+                     * The entire bottom section is kept at the bottom
+                     * of the product card by the flex layout.
                      */
+
+                    const platformProductBottom =
+                        activePlatforms.length
+                            ? `
+                                <div class="product-bottom">
+
+                                    ${
+                                        priceRange
+                                            ? `
+                                                <div class="product-price">
+                                                    ${priceRange}
+                                                </div>
+                                              `
+                                            : `
+                                                <div></div>
+                                              `
+                                    }
+
+                                </div>
+
+                                ${platformHTML}
+                              `
+                            : platformHTML;
+
 
                     card.innerHTML = `
 
@@ -3448,11 +3646,7 @@
                             </div>
 
 
-                            ${
-                                activePlatforms.length
-                                    ? platformHTML
-                                    : platformHTML
-                            }
+                            ${platformProductBottom}
 
                         </div>
 
