@@ -1,8 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -11,9 +11,11 @@
     <title>About Us - VNR CHOICEZ</title>
 
     <style>
+
         * {
             box-sizing: border-box;
         }
+
 
         :root {
             --sand: #CFC5B5;
@@ -37,232 +39,244 @@
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
+
         html {
             scroll-behavior: smooth;
         }
 
+
         body {
             margin: 0;
-            font-family: Inter, Arial, Helvetica, sans-serif;
+
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: var(--paper);
+
             color: var(--text);
+
             min-height: 100vh;
         }
+
 
         /* =========================
            HEADER
         ========================== */
 
         header {
-            background: var(--charcoal);
-            color: var(--white);
+            position: sticky;
 
-            text-align: center;
+            top: 0;
 
-            padding: 38px 20px 34px;
+            z-index: 1000;
 
-            position: relative;
-            overflow: hidden;
+            height: 72px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 42px;
+
+            background:
+                rgba(23,23,23,0.96);
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            transition:
+                background 0.35s var(--ease),
+                box-shadow 0.35s var(--ease),
+                border-color 0.35s var(--ease);
         }
 
-        header::before {
-            content: "";
 
-            position: absolute;
+        header.scrolled {
+            background:
+                rgba(23,23,23,0.985);
 
-            width: 260px;
-            height: 260px;
+            border-color:
+                rgba(255,255,255,0.12);
 
-            top: -210px;
-            left: 50%;
-
-            transform: translateX(-50%);
-
-            background: rgba(182, 154, 107, 0.10);
-
-            border-radius: 50%;
-
-            filter: blur(35px);
-
-            pointer-events: none;
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,0.18);
         }
 
-        header h1 {
-            position: relative;
 
-            margin: 0;
+        .logo {
+            display: flex;
 
-            font-family: Georgia, "Times New Roman", serif;
+            align-items: center;
 
-            font-size: 31px;
-            font-weight: 500;
+            gap: 10px;
 
-            letter-spacing: 3px;
-            line-height: 1.1;
+            color: #fff;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.7px;
+
+            transition:
+                transform 0.3s var(--ease),
+                opacity 0.3s var(--ease);
         }
 
-        header p {
-            position: relative;
 
-            margin: 10px 0 0;
+        .logo:hover {
+            transform:
+                translateY(-1px);
 
-            color: #BDB7AE;
-
-            font-size: 12px;
-
-            letter-spacing: 0.7px;
-            line-height: 1.6;
+            opacity: 0.88;
         }
+
 
         /* =========================
            NAVIGATION
         ========================== */
 
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            background: rgba(250, 248, 244, 0.96);
-
-            border-bottom: 1px solid var(--line-soft);
-
-            padding: 12px 20px;
-
+        nav {
             display: flex;
-            justify-content: center;
+
             align-items: center;
 
             gap: 8px;
-
-            box-shadow:
-                0 4px 18px rgba(36, 34, 31, 0.035);
-
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
         }
 
-        .nav a,
-        .dropdown-button {
-            font-family: inherit;
+
+        nav a,
+        .category-toggle {
+            position: relative;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 40px;
+
+            padding: 0 14px;
+
+            color: #D8D5CE;
 
             text-decoration: none;
 
-            color: var(--text);
+            background: transparent;
 
-            background: rgba(250, 248, 244, 0.75);
+            border: none;
 
-            border: 1px solid var(--line);
+            font: inherit;
 
-            border-radius: 999px;
-
-            padding: 9px 14px;
-
-            font-size: 13px;
-
-            letter-spacing: 0.15px;
-
-            white-space: nowrap;
+            font-size: 14px;
 
             cursor: pointer;
 
+            border-radius: 10px;
+
             transition:
-                background 0.25s var(--ease),
                 color 0.25s var(--ease),
-                border-color 0.25s var(--ease),
+                background 0.25s var(--ease),
                 transform 0.25s var(--ease);
         }
 
-        .nav a:hover,
-        .dropdown-button:hover {
-            background: var(--charcoal);
 
-            color: var(--white);
+        nav a:hover,
+        .category-toggle:hover {
+            color: #fff;
 
-            border-color: var(--charcoal);
+            background:
+                rgba(255,255,255,0.07);
 
-            transform: translateY(-1px);
+            transform:
+                translateY(-1px);
         }
 
-        /* Trending */
 
-        .nav .trending-link {
-            background: var(--sand-soft);
-
-            border-color: var(--sand);
-
-            font-weight: 600;
+        nav a:active,
+        .category-toggle:active {
+            transform:
+                scale(0.96);
         }
 
-        .nav .trending-link:hover {
-            background: var(--charcoal);
 
-            color: var(--white);
-
-            border-color: var(--charcoal);
+        .category-wrapper {
+            position: relative;
         }
 
-        /* Active About */
 
-        .nav .active-link {
-            background: var(--charcoal);
-
-            color: var(--white);
-
-            border-color: var(--charcoal);
-
-            font-weight: 600;
+        .category-toggle {
+            gap: 7px;
         }
+
+
+        .arrow {
+            font-size: 10px;
+
+            transition:
+                transform 0.3s var(--ease);
+        }
+
+
+        .category-wrapper.open .arrow {
+            transform:
+                rotate(180deg);
+        }
+
 
         /* =========================
            CATEGORIES DROPDOWN
         ========================== */
 
-        .category-dropdown {
-            position: relative;
-        }
-
-        .dropdown-button {
-            display: flex;
-            align-items: center;
-
-            gap: 7px;
-        }
-
-        .dropdown-arrow {
-            font-size: 9px;
-
-            transition:
-                transform 0.25s var(--ease);
-        }
-
-        .category-dropdown:hover .dropdown-arrow {
-            transform: rotate(180deg);
-        }
-
         .dropdown-menu {
             position: absolute;
 
-            top: calc(100% + 9px);
-            left: 50%;
+            top:
+                calc(100% + 12px);
 
-            transform:
-                translateX(-50%)
-                translateY(-7px);
+            right: 0;
 
-            width: 225px;
+            min-width: 220px;
 
-            background: var(--white);
+            padding: 8px;
 
-            border: 1px solid var(--line);
+            background:
+                rgba(28,28,28,0.98);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
 
             border-radius: 15px;
 
-            padding: 7px;
-
             box-shadow:
-                0 16px 38px
-                rgba(36, 34, 31, 0.10);
+                0 22px 60px
+                rgba(0,0,0,0.32),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.04);
+
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
 
             opacity: 0;
 
@@ -270,13 +284,22 @@
 
             pointer-events: none;
 
+            transform:
+                translateY(-8px)
+                scale(0.97);
+
+            transform-origin:
+                top right;
+
             transition:
-                opacity 0.25s var(--ease),
-                transform 0.25s var(--ease),
-                visibility 0.25s ease;
+                opacity 0.28s var(--ease),
+                transform 0.32s var(--ease),
+                visibility 0.28s;
         }
 
-        .category-dropdown:hover .dropdown-menu {
+
+        .category-wrapper.open
+        .dropdown-menu {
             opacity: 1;
 
             visibility: visible;
@@ -284,38 +307,136 @@
             pointer-events: auto;
 
             transform:
-                translateX(-50%)
-                translateY(0);
+                translateY(0)
+                scale(1);
         }
+
 
         .dropdown-menu a {
             display: flex;
+
             align-items: center;
 
             width: 100%;
 
-            border: none;
+            min-height: 40px;
+
+            padding: 0 12px;
 
             border-radius: 9px;
 
-            padding: 10px 12px;
-
-            background: transparent;
-
-            color: var(--text);
-
             font-size: 13px;
 
+            color: #C8C4BC;
+
             transform: none;
         }
+
 
         .dropdown-menu a:hover {
-            background: var(--paper);
+            background:
+                rgba(182,154,107,0.12);
 
-            color: var(--charcoal);
+            color: #fff;
 
-            transform: none;
+            transform:
+                translateX(3px);
         }
+
+
+        /* =========================
+           MOBILE MENU BUTTON
+        ========================== */
+
+        .mobile-menu-btn {
+            display: none;
+
+            width: 42px;
+
+            height: 42px;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            border-radius: 11px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color: #fff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s var(--ease),
+                transform 0.25s var(--ease);
+        }
+
+
+        .mobile-menu-btn:hover {
+            background:
+                rgba(255,255,255,0.08);
+        }
+
+
+        .mobile-menu-btn:active {
+            transform:
+                scale(0.93);
+        }
+
+
+        .menu-lines {
+            width: 17px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .menu-lines span {
+            width: 100%;
+
+            height: 1.5px;
+
+            background: #fff;
+
+            border-radius: 10px;
+
+            transition:
+                transform 0.3s var(--ease),
+                opacity 0.25s var(--ease);
+        }
+
+
+        .mobile-menu-btn.active
+        .menu-lines span:nth-child(1) {
+            transform:
+                translateY(5.5px)
+                rotate(45deg);
+        }
+
+
+        .mobile-menu-btn.active
+        .menu-lines span:nth-child(2) {
+            opacity: 0;
+        }
+
+
+        .mobile-menu-btn.active
+        .menu-lines span:nth-child(3) {
+            transform:
+                translateY(-5.5px)
+                rotate(-45deg);
+        }
+
 
         /* =========================
            MAIN CONTENT
@@ -328,6 +449,7 @@
 
             padding: 52px 20px 75px;
         }
+
 
         .back {
             display: inline-flex;
@@ -349,11 +471,14 @@
                 transform 0.25s var(--ease);
         }
 
+
         .back:hover {
             color: var(--charcoal);
 
-            transform: translateX(-3px);
+            transform:
+                translateX(-3px);
         }
+
 
         /* =========================
            ABOUT CARD
@@ -364,7 +489,9 @@
 
             background: var(--white);
 
-            border: 1px solid var(--line-soft);
+            border:
+                1px solid
+                var(--line-soft);
 
             border-radius: 20px;
 
@@ -377,26 +504,31 @@
             overflow: hidden;
         }
 
+
         .about-card::before {
             content: "";
 
             position: absolute;
 
             top: 0;
+
             left: 0;
+
             right: 0;
 
             height: 3px;
 
-            background: linear-gradient(
-                90deg,
-                transparent,
-                var(--champagne),
-                transparent
-            );
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--champagne),
+                    transparent
+                );
 
             opacity: 0.75;
         }
+
 
         /* =========================
            INTRO
@@ -410,10 +542,12 @@
             margin: 0 auto;
         }
 
+
         .about-card h2 {
             margin: 0;
 
-            font-family: Georgia,
+            font-family:
+                Georgia,
                 "Times New Roman",
                 serif;
 
@@ -425,6 +559,7 @@
 
             color: var(--charcoal);
         }
+
 
         .about-intro p {
             margin: 18px auto 0;
@@ -438,6 +573,7 @@
             line-height: 1.9;
         }
 
+
         /* =========================
            WHY SECTION
         ========================== */
@@ -446,12 +582,14 @@
             margin-top: 50px;
         }
 
+
         .why-section h3 {
             margin: 0 0 24px;
 
             text-align: center;
 
-            font-family: Georgia,
+            font-family:
+                Georgia,
                 "Times New Roman",
                 serif;
 
@@ -464,6 +602,7 @@
             color: var(--charcoal);
         }
 
+
         .value-grid {
             display: grid;
 
@@ -473,10 +612,13 @@
             gap: 17px;
         }
 
+
         .value-card {
             background: var(--paper);
 
-            border: 1px solid var(--line-soft);
+            border:
+                1px solid
+                var(--line-soft);
 
             border-radius: 15px;
 
@@ -490,8 +632,10 @@
                 border-color 0.3s ease;
         }
 
+
         .value-card:hover {
-            transform: translateY(-4px);
+            transform:
+                translateY(-4px);
 
             border-color:
                 rgba(182, 154, 107, 0.35);
@@ -501,34 +645,42 @@
                 rgba(36, 34, 31, 0.07);
         }
 
+
         .value-icon {
             width: 44px;
+
             height: 44px;
 
-            margin: 0 auto 16px;
+            margin:
+                0 auto 16px;
 
             border-radius: 50%;
 
-            background: var(--champagne-soft);
+            background:
+                var(--champagne-soft);
 
             border:
                 1px solid
                 rgba(182, 154, 107, 0.25);
 
-            color: var(--champagne);
+            color:
+                var(--champagne);
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
             font-size: 17px;
         }
 
+
         .value-card h4 {
             margin: 0;
 
-            font-family: Inter,
+            font-family:
+                Inter,
                 Arial,
                 Helvetica,
                 sans-serif;
@@ -537,18 +689,22 @@
 
             font-weight: 600;
 
-            color: var(--charcoal);
+            color:
+                var(--charcoal);
         }
+
 
         .value-card p {
             margin: 11px 0 0;
 
-            color: var(--text-soft);
+            color:
+                var(--text-soft);
 
             font-size: 13px;
 
             line-height: 1.75;
         }
+
 
         /* =========================
            HIGHLIGHT
@@ -561,15 +717,18 @@
 
             padding: 27px 22px;
 
-            background: var(--charcoal);
+            background:
+                var(--charcoal);
 
-            color: var(--white);
+            color:
+                var(--white);
 
             border-radius: 14px;
 
             text-align: center;
 
-            font-family: Georgia,
+            font-family:
+                Georgia,
                 "Times New Roman",
                 serif;
 
@@ -588,18 +747,22 @@
             overflow: hidden;
         }
 
+
         .highlight::before {
             content: "";
 
             position: absolute;
 
             width: 180px;
+
             height: 180px;
 
             top: -120px;
+
             left: 50%;
 
-            transform: translateX(-50%);
+            transform:
+                translateX(-50%);
 
             background:
                 rgba(182, 154, 107, 0.12);
@@ -608,6 +771,7 @@
 
             filter: blur(25px);
         }
+
 
         /* =========================
            FOOTER
@@ -618,9 +782,11 @@
 
             padding: 36px 20px;
 
-            background: var(--charcoal);
+            background:
+                var(--charcoal);
 
-            color: #9D988F;
+            color:
+                #9D988F;
 
             font-size: 12px;
 
@@ -631,11 +797,14 @@
                 rgba(255, 255, 255, 0.04);
         }
 
+
         footer strong {
-            color: var(--white);
+            color:
+                var(--white);
 
             letter-spacing: 0.5px;
         }
+
 
         /* =========================
            TABLET
@@ -643,14 +812,24 @@
 
         @media (max-width: 950px) {
 
-            .nav {
-                justify-content: center;
+            header {
+                padding:
+                    0 22px;
             }
 
-            .about-card {
-                padding: 45px 38px;
+
+            nav {
+                gap: 3px;
             }
+
+
+            .about-card {
+                padding:
+                    45px 38px;
+            }
+
         }
+
 
         /* =========================
            MOBILE
@@ -658,58 +837,181 @@
 
         @media (max-width: 700px) {
 
-            .nav {
-                justify-content: flex-start;
-
-                overflow-x: auto;
-
-                scrollbar-width: none;
-
-                padding: 10px 12px;
+            header {
+                height: 66px;
             }
 
-            .nav::-webkit-scrollbar {
-                display: none;
+
+            .logo {
+                font-size: 15px;
             }
 
-            .category-dropdown {
-                flex-shrink: 0;
+
+            .mobile-menu-btn {
+                display: flex;
             }
 
-            .nav > a {
-                flex-shrink: 0;
-            }
 
-            .dropdown-menu {
-                position: fixed;
+            nav {
+                position: absolute;
 
-                top: auto;
-                left: 50%;
+                top:
+                    calc(100% + 1px);
 
-                width:
-                    min(250px,
-                    calc(100vw - 30px));
+                left: 0;
+
+                right: 0;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding:
+                    10px 15px 15px;
+
+                background:
+                    rgba(23,23,23,0.985);
+
+                border-bottom:
+                    1px solid
+                    rgba(255,255,255,0.08);
+
+                backdrop-filter:
+                    blur(20px);
+
+                -webkit-backdrop-filter:
+                    blur(20px);
+
+                opacity: 0;
+
+                visibility: hidden;
+
+                pointer-events: none;
 
                 transform:
-                    translateX(-50%)
-                    translateY(-5px);
+                    translateY(-8px);
+
+                transition:
+                    opacity 0.3s var(--ease),
+                    transform 0.35s var(--ease),
+                    visibility 0.3s;
             }
 
-            .category-dropdown:hover
-            .dropdown-menu {
+
+            nav.mobile-open {
+                opacity: 1;
+
+                visibility: visible;
+
+                pointer-events: auto;
+
                 transform:
-                    translateX(-50%)
                     translateY(0);
             }
+
+
+            nav a,
+            .category-toggle {
+                width: 100%;
+
+                justify-content:
+                    space-between;
+
+                min-height: 48px;
+
+                padding:
+                    0 13px;
+
+                border-radius: 10px;
+            }
+
+
+            .category-wrapper {
+                width: 100%;
+            }
+
+
+            .dropdown-menu {
+                position: static;
+
+                width: 100%;
+
+                margin-top: 0;
+
+                padding: 0;
+
+                max-height: 0;
+
+                overflow: hidden;
+
+                box-shadow: none;
+
+                border-width: 0;
+
+                border-color:
+                    transparent;
+
+                opacity: 0;
+
+                visibility: hidden;
+
+                pointer-events: none;
+
+                transform:
+                    translateY(-5px)
+                    scale(0.99);
+
+                transition:
+                    opacity 0.28s var(--ease),
+                    transform 0.32s var(--ease),
+                    visibility 0.28s,
+                    max-height 0.35s var(--ease),
+                    margin-top 0.35s var(--ease),
+                    padding 0.35s var(--ease),
+                    border-color 0.35s var(--ease),
+                    border-width 0.35s var(--ease);
+            }
+
+
+            .category-wrapper.open
+            .dropdown-menu {
+                max-height: 600px;
+
+                margin-top: 4px;
+
+                padding: 4px;
+
+                opacity: 1;
+
+                visibility: visible;
+
+                pointer-events: auto;
+
+                border-width: 1px;
+
+                border-color:
+                    rgba(255,255,255,0.06);
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
 
             .value-grid {
                 grid-template-columns: 1fr;
             }
 
+
             .value-card {
-                padding: 23px 20px;
+                padding:
+                    23px 20px;
             }
+
         }
+
 
         /* =========================
            SMALL MOBILE
@@ -717,33 +1019,24 @@
 
         @media (max-width: 650px) {
 
-            header h1 {
-                font-size: 27px;
-
-                letter-spacing: 2.5px;
-            }
-
-            header {
-                padding: 32px 20px 30px;
-            }
-
-            header p {
-                font-size: 12px;
-            }
-
             .container {
-                padding: 32px 10px 55px;
+                padding:
+                    32px 10px 55px;
             }
+
 
             .about-card {
-                padding: 31px 20px;
+                padding:
+                    31px 20px;
 
                 border-radius: 16px;
             }
 
+
             .about-card h2 {
                 font-size: 27px;
             }
+
 
             .about-intro p {
                 font-size: 14px;
@@ -751,129 +1044,180 @@
                 line-height: 1.85;
             }
 
+
             .why-section {
                 margin-top: 39px;
             }
+
 
             .why-section h3 {
                 font-size: 20px;
             }
 
+
             .highlight {
                 margin-top: 30px;
 
-                padding: 22px 15px;
+                padding:
+                    22px 15px;
 
                 font-size: 15px;
             }
+
         }
+
     </style>
 </head>
 
+
 <body>
 
-<header>
-    <h1>VNR CHOICEZ</h1>
-
-    <p>
-        Things worth knowing. Things worth buying.
-    </p>
-</header>
 
 <!-- =========================
-     NAVIGATION
+     HEADER
 ========================== -->
 
-<nav class="nav">
-
-    <a href="index.html">
-        🏠 Home
-    </a>
+<header id="siteHeader">
 
     <a
-        href="category.html?type=Trending"
-        class="trending-link"
+        href="index.html"
+        class="logo"
+        aria-label="VNR Choicez Home"
     >
-        🔥 Trending
+        <span>
+            VNR CHOICEZ
+        </span>
     </a>
 
-    <div class="category-dropdown">
 
-        <button
-            class="dropdown-button"
-            type="button"
+    <button
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        aria-label="Open menu"
+        aria-expanded="false"
+        type="button"
+    >
+
+        <span class="menu-lines">
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </span>
+
+    </button>
+
+
+    <nav id="mainNav">
+
+
+        <a href="index.html">
+            Home
+        </a>
+
+
+        <a href="category.html?type=Trending">
+            🔥Trending
+        </a>
+
+
+        <div
+            class="category-wrapper"
+            id="categoryWrapper"
         >
-            Categories
 
-            <span class="dropdown-arrow">
-                ▼
-            </span>
-        </button>
 
-        <div class="dropdown-menu">
-
-            <a href="category.html?type=Accessories">
-                Accessories
-            </a>
-
-            <a href="category.html?type=Beauty">
-                Beauty
-            </a>
-
-            <a href="category.html?type=Cookery">
-                Cookery
-            </a>
-
-            <a href="category.html?type=Fashion">
-                Fashion
-            </a>
-
-            <a href="category.html?type=Fragrance">
-                Fragrance
-            </a>
-
-            <a
-                href="category.html?type=Gadget%20%26%20Tech"
+            <button
+                class="category-toggle"
+                id="categoryToggle"
+                type="button"
+                aria-expanded="false"
             >
-                Gadget &amp; Tech
-            </a>
 
-            <a href="category.html?type=Gaming">
-                Gaming
-            </a>
+                Categories
 
-            <a href="category.html?type=Home%20Items">
-                Home Items
-            </a>
+                <span class="arrow">
+                    ▼
+                </span>
 
-            <a
-                href="category.html?type=Random%20Useful%20Items"
+            </button>
+
+
+            <div
+                class="dropdown-menu"
+                id="categoryMenu"
             >
-                Random Useful Items
-            </a>
 
-            <a href="category.html?type=Sports">
-                Sports
-            </a>
+                <a href="index.html">
+                    All Products
+                </a>
+
+                <a href="category.html?type=Accessories">
+                    Accessories
+                </a>
+
+                <a href="category.html?type=Beauty">
+                    Beauty
+                </a>
+
+                <a href="category.html?type=Cookery">
+                    Cookery
+                </a>
+
+                <a href="category.html?type=Fashion">
+                    Fashion
+                </a>
+
+                <a href="category.html?type=Fragrance">
+                    Fragrance
+                </a>
+
+                <a href="category.html?type=Gadget%20%26%20Tech">
+                    Gadget &amp; Tech
+                </a>
+
+                <a href="category.html?type=Gaming">
+                    Gaming
+                </a>
+
+                <a href="category.html?type=Home%20Items">
+                    Home Items
+                </a>
+
+                <a href="category.html?type=Random%20Useful%20Items">
+                    Random Useful Items
+                </a>
+
+                <a href="category.html?type=Sports">
+                    Sports
+                </a>
+
+            </div>
 
         </div>
 
-    </div>
 
-    <a
-        href="about.html"
-        class="active-link"
-    >
-        About Us
-    </a>
+        <a
+            href="about.html"
+        >
+            About Us
+        </a>
 
-</nav>
+
+    </nav>
+
+</header>
+
 
 <!-- =========================
      ABOUT US
 ========================== -->
 
 <main class="container">
+
 
     <a
         href="index.html"
@@ -882,13 +1226,17 @@
         ← Back to Home
     </a>
 
+
     <div class="about-card">
 
+
         <section class="about-intro">
+
 
             <h2>
                 About VNR CHOICEZ
             </h2>
+
 
             <p>
                 VNR CHOICEZ is a curated space created to help you discover
@@ -896,25 +1244,33 @@
                 without the endless scrolling.
             </p>
 
+
         </section>
 
+
         <section class="why-section">
+
 
             <h3>
                 Why Browse With Us?
             </h3>
 
+
             <div class="value-grid">
 
+
                 <div class="value-card">
+
 
                     <div class="value-icon">
                         ✦
                     </div>
 
+
                     <h4>
                         Curated Selection
                     </h4>
+
 
                     <p>
                         Every item — from tech and fashion to everyday
@@ -922,17 +1278,22 @@
                         and practical value.
                     </p>
 
+
                 </div>
 
+
                 <div class="value-card">
+
 
                     <div class="value-icon">
                         ⌕
                     </div>
 
+
                     <h4>
                         Zero Clutter
                     </h4>
+
 
                     <p>
                         We strip away the noise so you can easily
@@ -940,17 +1301,22 @@
                         in one simple place.
                     </p>
 
+
                 </div>
 
+
                 <div class="value-card">
+
 
                     <div class="value-icon">
                         ✓
                     </div>
 
+
                     <h4>
                         Value First
                     </h4>
+
 
                     <p>
                         If a product does not offer genuine usefulness,
@@ -958,37 +1324,256 @@
                         make the cut.
                     </p>
 
+
                 </div>
+
 
             </div>
 
+
         </section>
 
+
         <div class="highlight">
+
             Things worth knowing.<br>
             Things worth buying.
+
         </div>
+
 
     </div>
 
+
 </main>
 
+
 <footer>
+
 
     <strong>
         @2026 VNR CHOICEZ
     </strong>
 
+
     <br>
+
 
     Things worth knowing. Things worth buying.
 
+
     <br>
+
 
     Curated finds, useful products, and things worth sharing.
 
+
 </footer>
+
+
+<script>
+
+    /* =========================
+       HEADER ELEMENTS
+    ========================== */
+
+    const mobileMenuBtn =
+        document.getElementById(
+            "mobileMenuBtn"
+        );
+
+
+    const mainNav =
+        document.getElementById(
+            "mainNav"
+        );
+
+
+    const categoryWrapper =
+        document.getElementById(
+            "categoryWrapper"
+        );
+
+
+    const categoryToggle =
+        document.getElementById(
+            "categoryToggle"
+        );
+
+
+    const siteHeader =
+        document.getElementById(
+            "siteHeader"
+        );
+
+
+    /* =========================
+       HEADER SCROLL
+    ========================== */
+
+    function handleHeaderScroll() {
+
+        if (window.scrollY > 15) {
+
+            siteHeader.classList.add(
+                "scrolled"
+            );
+
+        } else {
+
+            siteHeader.classList.remove(
+                "scrolled"
+            );
+
+        }
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        handleHeaderScroll,
+        {
+            passive: true
+        }
+    );
+
+
+    handleHeaderScroll();
+
+
+    /* =========================
+       MOBILE MENU
+    ========================== */
+
+    mobileMenuBtn.addEventListener(
+        "click",
+        function () {
+
+            const isOpen =
+                mainNav.classList.toggle(
+                    "mobile-open"
+                );
+
+
+            mobileMenuBtn.classList.toggle(
+                "active",
+                isOpen
+            );
+
+
+            mobileMenuBtn.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+        }
+    );
+
+
+    /* =========================
+       CATEGORY DROPDOWN
+    ========================== */
+
+    categoryToggle.addEventListener(
+        "click",
+        function (event) {
+
+            event.stopPropagation();
+
+
+            const isOpen =
+                categoryWrapper.classList.toggle(
+                    "open"
+                );
+
+
+            categoryToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+        }
+    );
+
+
+    /* =========================
+       CLOSE CATEGORY
+    ========================== */
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                !categoryWrapper.contains(
+                    event.target
+                )
+            ) {
+
+                categoryWrapper.classList.remove(
+                    "open"
+                );
+
+
+                categoryToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       NAVIGATION CLICK
+    ========================== */
+
+    document.querySelectorAll(
+        "#mainNav a"
+    ).forEach(
+        function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    mainNav.classList.remove(
+                        "mobile-open"
+                    );
+
+
+                    mobileMenuBtn.classList.remove(
+                        "active"
+                    );
+
+
+                    mobileMenuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+
+                    categoryWrapper.classList.remove(
+                        "open"
+                    );
+
+
+                    categoryToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
 
 </body>
 </html>
-```
