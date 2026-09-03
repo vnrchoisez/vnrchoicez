@@ -16,6 +16,15 @@
 
     <title>VNR CHOICEZ</title>
 
+    <link
+        rel="icon"
+        type="image/png"
+        href="cropped_circle_image.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="cropped_circle_image.png"
     >
 
     <link
@@ -25,7 +34,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.gstatic.com"
+        href="https://fonts.googleapis.com"
         crossorigin
     >
 
@@ -38,30 +47,30 @@
 
         /* =========================================================
            VNR CHOICEZ
-           WARM AESTHETIC LUXURY DESIGN SYSTEM
+           MODERN EDITORIAL / CURATED DISCOVERY DESIGN
            ========================================================= */
 
         :root {
-            --sand: #DED7CA;
-            --sand-soft: #E8E2D8;
+            --sand: #CFC5B5;
+            --sand-soft: #E3DBCF;
 
-            --paper: #F6F3ED;
-            --white: #FBF9F5;
+            --paper: #F0EBE3;
+            --white: #FAF8F4;
 
-            --charcoal: #191817;
-            --charcoal-soft: #242220;
+            --charcoal: #171717;
+            --charcoal-soft: #222222;
 
-            --text: #292724;
-            --text-soft: #716C64;
-            --text-muted: #979087;
+            --text: #24221F;
+            --text-soft: #68635B;
+            --text-muted: #938C82;
 
-            --champagne: #B49A70;
-            --champagne-soft: rgba(180,154,112,0.14);
+            --champagne: #B69A6B;
+            --champagne-soft: rgba(182,154,107,0.15);
 
-            --line: #D4CCC0;
-            --line-soft: rgba(41,39,36,0.10);
+            --line: #CFC6B9;
+            --line-soft: rgba(36,34,31,0.10);
 
-            --card: #FBF9F5;
+            --card: #FAF8F4;
 
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
             --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
@@ -83,15 +92,15 @@
         body {
             background:
                 radial-gradient(
-                    circle at 50% -12%,
-                    rgba(255,255,255,0.52),
-                    transparent 36%
+                    circle at 50% -8%,
+                    rgba(255,255,255,0.48),
+                    transparent 34%
                 ),
                 linear-gradient(
                     180deg,
-                    #E8E2D8 0%,
-                    #DED7CA 48%,
-                    #E7E1D7 100%
+                    #E3DBCF 0%,
+                    #CFC5B5 46%,
+                    #D8CFC3 100%
                 );
 
             color: var(--text);
@@ -148,7 +157,7 @@
 
             padding: 0 42px;
 
-            background: rgba(25,24,23,0.96);
+            background: rgba(23,23,23,0.96);
 
             border-bottom:
                 1px solid rgba(255,255,255,0.08);
@@ -164,7 +173,7 @@
 
 
         header.scrolled {
-            background: rgba(25,24,23,0.985);
+            background: rgba(23,23,23,0.985);
 
             border-color:
                 rgba(255,255,255,0.12);
@@ -221,7 +230,7 @@
                 scale(1.06);
 
             box-shadow:
-                0 0 22px rgba(180,154,112,0.16);
+                0 0 22px rgba(182,154,107,0.16);
         }
 
 
@@ -399,7 +408,7 @@
 
         .dropdown-menu a:hover {
             background:
-                rgba(180,154,112,0.12);
+                rgba(182,154,107,0.12);
 
             color: #fff;
 
@@ -505,7 +514,7 @@
         .hero {
             position: relative;
 
-            min-height: 430px;
+            min-height: 460px;
 
             display: flex;
             align-items: center;
@@ -513,19 +522,19 @@
 
             text-align: center;
 
-            padding: 80px 20px 75px;
+            padding: 85px 20px 78px;
 
             overflow: hidden;
 
             background:
                 radial-gradient(
                     circle at 50% 35%,
-                    rgba(180,154,112,0.10),
-                    transparent 30%
+                    rgba(182,154,107,0.11),
+                    transparent 31%
                 ),
                 linear-gradient(
                     180deg,
-                    rgba(246,243,237,0.20),
+                    rgba(240,235,227,0.24),
                     transparent
                 );
         }
@@ -541,12 +550,12 @@
             background:
                 radial-gradient(
                     circle at 50% 45%,
-                    rgba(180,154,112,0.075),
+                    rgba(182,154,107,0.07),
                     transparent 28%
                 ),
                 radial-gradient(
                     circle at 50% 100%,
-                    rgba(180,154,112,0.035),
+                    rgba(182,154,107,0.035),
                     transparent 40%
                 );
 
@@ -562,12 +571,12 @@
 
             z-index: 2;
 
-            max-width: 850px;
+            max-width: 900px;
         }
 
 
         .hero-eyebrow {
-            margin-bottom: 16px;
+            margin-bottom: 17px;
 
             color: var(--champagne);
 
@@ -575,7 +584,7 @@
 
             font-weight: 700;
 
-            letter-spacing: 3.5px;
+            letter-spacing: 4px;
 
             text-transform: uppercase;
 
@@ -595,9 +604,9 @@
 
             display: inline-block;
 
-            padding: 38px 58px;
+            padding: 42px 64px;
 
-            margin-bottom: 24px;
+            margin-bottom: 26px;
 
             color: var(--charcoal);
 
@@ -608,11 +617,11 @@
                 serif;
 
             font-size:
-                clamp(48px, 7.5vw, 88px);
+                clamp(52px, 8vw, 94px);
 
-            line-height: 0.88;
+            line-height: 0.87;
 
-            letter-spacing: -2px;
+            letter-spacing: -2.7px;
 
             font-weight: 600;
 
@@ -630,8 +639,8 @@
 
 
         /*
-         * Signature VNR CHOICEZ frame.
-         * Kept intentionally thin and quiet.
+         * Signature VNR CHOICEZ editorial frame.
+         * Intentionally thin and understated.
          */
 
         .hero h1::before {
@@ -643,7 +652,7 @@
 
             border:
                 1px solid
-                rgba(180,154,112,0.42);
+                rgba(182,154,107,0.48);
 
             pointer-events: none;
         }
@@ -657,7 +666,7 @@
             top: 4px;
             left: 50%;
 
-            width: 42px;
+            width: 46px;
             height: 2px;
 
             transform:
@@ -671,7 +680,7 @@
 
 
         .hero p {
-            max-width: 610px;
+            max-width: 630px;
 
             margin: 0 auto;
 
@@ -679,7 +688,7 @@
 
             font-size: 15px;
 
-            line-height: 1.7;
+            line-height: 1.75;
 
             opacity: 0;
 
@@ -726,7 +735,7 @@
         .search-box input {
             width: 100%;
 
-            height: 58px;
+            height: 60px;
 
             padding:
                 0 20px 0 50px;
@@ -734,20 +743,20 @@
             color: var(--text);
 
             background:
-                rgba(251,249,245,0.94);
+                rgba(250,248,244,0.96);
 
             border:
                 1px solid var(--line);
 
-            border-radius: 16px;
+            border-radius: 15px;
 
             outline: none;
 
             font-size: 14px;
 
             box-shadow:
-                0 8px 30px
-                rgba(41,40,36,0.055);
+                0 10px 35px
+                rgba(36,34,31,0.065);
 
             transition:
                 border-color 0.3s var(--ease),
@@ -758,28 +767,29 @@
 
 
         .search-box input::placeholder {
-            color: #A19C93;
+            color: #9B958B;
         }
 
 
         .search-box input:hover {
             border-color:
-                #CFC6B9;
+                #C5BBAE;
         }
 
 
         .search-box:focus-within input {
-            background: #FBF9F5;
+            background:
+                #FAF8F4;
 
             border-color:
-                rgba(180,154,112,0.62);
+                rgba(182,154,107,0.65);
 
             box-shadow:
                 0 0 0 4px
-                rgba(180,154,112,0.09),
+                rgba(182,154,107,0.09),
 
-                0 15px 40px
-                rgba(41,40,36,0.09);
+                0 16px 42px
+                rgba(36,34,31,0.10);
 
             transform:
                 translateY(-1px);
@@ -818,7 +828,8 @@
             width: 6px;
             height: 1.5px;
 
-            background: #9A958C;
+            background:
+                #9A958C;
 
             right: -5px;
             bottom: -2px;
@@ -873,6 +884,11 @@
             gap: 20px;
 
             margin-bottom: 28px;
+
+            padding-bottom: 17px;
+
+            border-bottom:
+                1px solid var(--line-soft);
         }
 
 
@@ -886,9 +902,9 @@
                 serif;
 
             font-size:
-                clamp(28px, 4vw, 38px);
+                clamp(30px, 4vw, 42px);
 
-            letter-spacing: -0.8px;
+            letter-spacing: -0.9px;
 
             font-weight: 600;
         }
@@ -930,12 +946,13 @@
 
             min-width: 0;
 
-            background: var(--card);
+            background:
+                var(--card);
 
             border:
                 1px solid var(--line);
 
-            border-radius: 16px;
+            border-radius: 14px;
 
             overflow: hidden;
 
@@ -973,11 +990,11 @@
                     #FFFFFF;
 
                 border-color:
-                    #CEC5B8;
+                    #C8BFB2;
 
                 box-shadow:
                     0 18px 45px
-                    rgba(41,40,36,0.10);
+                    rgba(36,34,31,0.105);
             }
 
         }
@@ -1194,7 +1211,7 @@
 
                 box-shadow:
                     0 8px 20px
-                    rgba(41,40,36,0.08);
+                    rgba(36,34,31,0.08);
             }
 
         }
@@ -1237,7 +1254,7 @@
 
             border:
                 2px solid
-                rgba(41,40,36,0.12);
+                rgba(36,34,31,0.12);
 
             border-top-color:
                 var(--champagne);
@@ -1612,7 +1629,7 @@
                     10px 15px 15px;
 
                 background:
-                    rgba(25,24,23,0.985);
+                    rgba(23,23,23,0.985);
 
                 border-bottom:
                     1px solid
@@ -1747,16 +1764,16 @@
 
 
             .hero {
-                min-height: 370px;
+                min-height: 390px;
 
                 padding:
-                    65px 20px 55px;
+                    68px 20px 58px;
             }
 
 
             .hero h1 {
                 letter-spacing:
-                    -1.8px;
+                    -2px;
             }
 
 
@@ -1864,7 +1881,7 @@
 
             .hero {
                 min-height:
-                    350px;
+                    360px;
             }
 
 
@@ -2047,11 +2064,6 @@
             class="logo"
             aria-label="VNR Choicez Home"
         >
-            <img
-                src="cropped_circle_image.png"
-                alt="VNR Choicez"
-            >
-
             <span>VNR CHOICEZ</span>
         </a>
 
