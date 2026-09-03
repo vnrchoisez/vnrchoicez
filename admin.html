@@ -73,7 +73,6 @@
             text-decoration: none;
         }
 
-
         /* =========================
            LOGIN
         ========================= */
@@ -183,7 +182,6 @@
             display: block;
         }
 
-
         /* =========================
            APP
         ========================= */
@@ -247,7 +245,6 @@
         .logout-btn:hover {
             background: #f5f5f5;
         }
-
 
         /* =========================
            LAYOUT
@@ -334,7 +331,6 @@
             font-size: 13px;
         }
 
-
         /* =========================
            BUTTONS
         ========================= */
@@ -373,7 +369,6 @@
             color: #198754;
         }
 
-
         /* =========================
            STATS
         ========================= */
@@ -406,7 +401,6 @@
             font-weight: 800;
             margin-top: 8px;
         }
-
 
         /* =========================
            TABLE
@@ -565,7 +559,6 @@
             font-size: 13px;
         }
 
-
         /* =========================
            FORM
         ========================= */
@@ -679,6 +672,133 @@
             gap: 10px;
         }
 
+        /* =========================
+           PLATFORM MANAGER
+        ========================= */
+
+        .platform-section {
+            grid-column: 1 / -1;
+            border: 1px solid #e2e2e2;
+            border-radius: 12px;
+            padding: 16px;
+            background: #fafafa;
+        }
+
+        .platform-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .platform-section-title {
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .platform-section-help {
+            margin-top: 4px;
+            color: #888;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .platform-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .platform-row {
+            background: white;
+            border: 1px solid #e2e2e2;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .platform-row-grid {
+            display: grid;
+            grid-template-columns:
+                1fr
+                1fr
+                2fr
+                auto
+                auto;
+            gap: 9px;
+            align-items: end;
+        }
+
+        .platform-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .platform-field label {
+            font-size: 9px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .platform-field input,
+        .platform-field select {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 9px 10px;
+            outline: none;
+            background: white;
+            font-size: 12px;
+        }
+
+        .platform-field input:focus,
+        .platform-field select:focus {
+            border-color: #111;
+        }
+
+        .platform-active {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            height: 35px;
+            padding: 0 4px;
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .platform-active input {
+            width: 15px;
+            height: 15px;
+        }
+
+        .remove-platform-btn {
+            border: 1px solid #f0d0cd;
+            background: #fff4f3;
+            color: #c62828;
+            padding: 9px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .remove-platform-btn:hover {
+            background: #ffe9e7;
+        }
+
+        .platform-empty {
+            text-align: center;
+            border: 1px dashed #d5d5d5;
+            border-radius: 9px;
+            padding: 18px;
+            color: #888;
+            font-size: 11px;
+            background: white;
+        }
 
         /* =========================
            TOAST
@@ -718,7 +838,6 @@
             background: #c62828;
         }
 
-
         /* =========================
            LOADING
         ========================= */
@@ -729,7 +848,6 @@
             color: #888;
             font-size: 12px;
         }
-
 
         /* =========================
            MOBILE
@@ -757,6 +875,20 @@
 
             .content {
                 padding: 22px;
+            }
+
+            .platform-row-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .platform-field.url-field {
+                grid-column: 1 / -1;
+            }
+
+            .platform-active {
+                height: auto;
+                min-height: 35px;
             }
 
         }
@@ -833,6 +965,22 @@
 
             .form-group.full-width {
                 grid-column: auto;
+            }
+
+            .platform-section {
+                grid-column: auto;
+            }
+
+            .platform-row-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .platform-field.url-field {
+                grid-column: auto;
+            }
+
+            .platform-active {
+                padding: 5px 0;
             }
 
             .form-actions {
@@ -1439,35 +1587,47 @@
                                     placeholder="32.00"
                                 >
 
+                                <div class="form-help">
+                                    Main/default product price.
+                                </div>
+
                             </div>
 
 
-                            <!-- SHOPEE LINK -->
+                            <!-- PLATFORM MANAGER -->
 
-                            <div class="form-group full-width">
+                            <div class="platform-section">
 
-                                <label for="productAffiliateLink">
+                                <div class="platform-section-header">
 
-                                    Shopee Affiliate Link
+                                    <div>
 
-                                    <span>*</span>
+                                        <div class="platform-section-title">
+                                            Affiliate Platforms
+                                        </div>
 
-                                </label>
+                                        <div class="platform-section-help">
+                                            Add one or more platforms. Each platform has its own price and affiliate link.
+                                        </div>
 
-
-                                <input
-                                    type="url"
-                                    id="productAffiliateLink"
-                                    required
-                                    placeholder="https://s.shopee.com.my/..."
-                                >
+                                    </div>
 
 
-                                <div class="form-help">
-
-                                    Paste your Shopee Affiliate link manually.
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        id="addPlatformBtn"
+                                    >
+                                        + Add Platform
+                                    </button>
 
                                 </div>
+
+
+                                <div
+                                    id="platformList"
+                                    class="platform-list"
+                                ></div>
 
                             </div>
 
@@ -1704,6 +1864,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let toastTimer = null;
 
+    let platformRows = [];
+
 
     /* =========================
        ELEMENTS
@@ -1756,9 +1918,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const productPrice =
         document.getElementById("productPrice");
-
-    const productAffiliateLink =
-        document.getElementById("productAffiliateLink");
 
     const productImage =
         document.getElementById("productImage");
@@ -1822,6 +1981,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const toast =
         document.getElementById("toast");
+
+    const platformList =
+        document.getElementById("platformList");
+
+    const addPlatformBtn =
+        document.getElementById("addPlatformBtn");
 
 
     /* =========================
@@ -2084,13 +2249,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 .limit(1);
 
 
-        /*
-         * Compatibility fallback:
-         *
-         * If admin_users does NOT have user_id,
-         * try matching its id column.
-         */
-
         if (
             result.error &&
             /column .*user_id.*does not exist/i.test(
@@ -2323,6 +2481,8 @@ document.addEventListener("DOMContentLoaded", () => {
             categories = [];
 
             editingProductId = null;
+
+            platformRows = [];
 
 
             app.style.display =
@@ -2567,6 +2727,596 @@ document.addEventListener("DOMContentLoaded", () => {
         renderProducts();
 
     }
+
+
+    /* =========================
+       LOAD PLATFORMS
+    ========================= */
+
+    async function loadProductPlatforms(productId) {
+
+        if (!productId) {
+            return [];
+        }
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from("product_platforms")
+                .select(`
+                    id,
+                    product_id,
+                    platform,
+                    price,
+                    affiliate_url,
+                    is_active,
+                    created_at,
+                    updated_at
+                `)
+                .eq(
+                    "product_id",
+                    productId
+                )
+                .order("created_at", {
+                    ascending: true
+                });
+
+
+        if (error) {
+
+            console.error(
+                "Platform load error:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        return data || [];
+
+    }
+
+
+    /* =========================
+       PLATFORM ROW HELPERS
+    ========================= */
+
+    function createPlatformRow(data = {}) {
+
+        return {
+            localId:
+                data.id ||
+                `new-${crypto.randomUUID()}`,
+
+            id:
+                data.id ||
+                null,
+
+            platform:
+                data.platform ||
+                "Shopee",
+
+            price:
+                data.price !== null &&
+                data.price !== undefined
+                    ? data.price
+                    : "",
+
+            affiliate_url:
+                data.affiliate_url ||
+                "",
+
+            is_active:
+                data.is_active !== false
+        };
+
+    }
+
+
+    function renderPlatformRows() {
+
+        if (!platformList) {
+            return;
+        }
+
+
+        if (!platformRows.length) {
+
+            platformList.innerHTML = `
+                <div class="platform-empty">
+                    No affiliate platforms added yet.
+                    Click "+ Add Platform" to add one.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        platformList.innerHTML =
+            platformRows
+                .map(row => {
+
+                    const localId =
+                        escapeHTML(
+                            row.localId
+                        );
+
+
+                    return `
+                        <div
+                            class="platform-row"
+                            data-platform-row="${localId}"
+                        >
+
+                            <div class="platform-row-grid">
+
+                                <div class="platform-field">
+
+                                    <label>
+                                        Platform
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        data-platform-field="platform"
+                                        value="${escapeHTML(row.platform)}"
+                                        placeholder="Shopee"
+                                    >
+
+                                </div>
+
+
+                                <div class="platform-field">
+
+                                    <label>
+                                        Price (RM)
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        data-platform-field="price"
+                                        min="0"
+                                        step="0.01"
+                                        value="${escapeHTML(row.price)}"
+                                        placeholder="32.00"
+                                    >
+
+                                </div>
+
+
+                                <div class="platform-field url-field">
+
+                                    <label>
+                                        Affiliate URL
+                                    </label>
+
+                                    <input
+                                        type="url"
+                                        data-platform-field="affiliate_url"
+                                        value="${escapeHTML(row.affiliate_url)}"
+                                        placeholder="https://..."
+                                    >
+
+                                </div>
+
+
+                                <label class="platform-active">
+
+                                    <input
+                                        type="checkbox"
+                                        data-platform-field="is_active"
+                                        ${row.is_active ? "checked" : ""}
+                                    >
+
+                                    Active
+
+                                </label>
+
+
+                                <button
+                                    type="button"
+                                    class="remove-platform-btn"
+                                    data-remove-platform="${localId}"
+                                >
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                })
+                .join("");
+
+    }
+
+
+    function addPlatformRow(data = {}) {
+
+        platformRows.push(
+            createPlatformRow(data)
+        );
+
+        renderPlatformRows();
+
+    }
+
+
+    function removePlatformRow(localId) {
+
+        platformRows =
+            platformRows.filter(
+                row =>
+                    String(row.localId) !==
+                    String(localId)
+            );
+
+        renderPlatformRows();
+
+    }
+
+
+    function readPlatformRowsFromDOM() {
+
+        if (!platformList) {
+            return;
+        }
+
+
+        const rows =
+            platformList.querySelectorAll(
+                "[data-platform-row]"
+            );
+
+
+        rows.forEach(element => {
+
+            const localId =
+                element.dataset.platformRow;
+
+
+            const row =
+                platformRows.find(
+                    item =>
+                        String(item.localId) ===
+                        String(localId)
+                );
+
+
+            if (!row) {
+                return;
+            }
+
+
+            const platformInput =
+                element.querySelector(
+                    '[data-platform-field="platform"]'
+                );
+
+
+            const priceInput =
+                element.querySelector(
+                    '[data-platform-field="price"]'
+                );
+
+
+            const urlInput =
+                element.querySelector(
+                    '[data-platform-field="affiliate_url"]'
+                );
+
+
+            const activeInput =
+                element.querySelector(
+                    '[data-platform-field="is_active"]'
+                );
+
+
+            row.platform =
+                platformInput
+                    ? platformInput.value.trim()
+                    : "";
+
+
+            row.price =
+                priceInput
+                    ? priceInput.value
+                    : "";
+
+
+            row.affiliate_url =
+                urlInput
+                    ? urlInput.value.trim()
+                    : "";
+
+
+            row.is_active =
+                activeInput
+                    ? activeInput.checked
+                    : false;
+
+        });
+
+    }
+
+
+    async function saveProductPlatforms(
+        productId
+    ) {
+
+        if (!productId) {
+            throw new Error(
+                "Product ID is missing."
+            );
+        }
+
+
+        readPlatformRowsFromDOM();
+
+
+        const validRows =
+            platformRows.filter(row => {
+
+                return (
+                    String(
+                        row.platform || ""
+                    ).trim() ||
+                    String(
+                        row.affiliate_url || ""
+                    ).trim() ||
+                    String(
+                        row.price || ""
+                    ).trim()
+                );
+
+            });
+
+
+        for (const row of validRows) {
+
+            const platform =
+                String(
+                    row.platform || ""
+                ).trim();
+
+
+            const affiliateUrl =
+                String(
+                    row.affiliate_url || ""
+                ).trim();
+
+
+            const price =
+                Number(row.price);
+
+
+            if (!platform) {
+
+                throw new Error(
+                    "Every affiliate platform must have a platform name."
+                );
+
+            }
+
+
+            if (
+                !Number.isFinite(price) ||
+                price < 0
+            ) {
+
+                throw new Error(
+                    `Please enter a valid price for ${platform}.`
+                );
+
+            }
+
+
+            if (!affiliateUrl) {
+
+                throw new Error(
+                    `Please enter an affiliate URL for ${platform}.`
+                );
+
+            }
+
+
+            try {
+
+                new URL(
+                    affiliateUrl
+                );
+
+            } catch {
+
+                throw new Error(
+                    `Please enter a valid affiliate URL for ${platform}.`
+                );
+
+            }
+
+        }
+
+
+        const existingIds =
+            validRows
+                .filter(row => row.id)
+                .map(row => String(row.id));
+
+
+        const existingResult =
+            await supabaseClient
+                .from("product_platforms")
+                .select("id")
+                .eq(
+                    "product_id",
+                    productId
+                );
+
+
+        if (existingResult.error) {
+            throw existingResult.error;
+        }
+
+
+        const existingRows =
+            existingResult.data || [];
+
+
+        const idsToDelete =
+            existingRows
+                .filter(row =>
+                    !existingIds.includes(
+                        String(row.id)
+                    )
+                )
+                .map(row => row.id);
+
+
+        if (idsToDelete.length) {
+
+            const {
+                error
+            } =
+                await supabaseClient
+                    .from("product_platforms")
+                    .delete()
+                    .in(
+                        "id",
+                        idsToDelete
+                    );
+
+
+            if (error) {
+                throw error;
+            }
+
+        }
+
+
+        for (const row of validRows) {
+
+            const payload = {
+
+                product_id:
+                    productId,
+
+                platform:
+                    String(
+                        row.platform
+                    ).trim(),
+
+                price:
+                    Number(row.price),
+
+                affiliate_url:
+                    String(
+                        row.affiliate_url
+                    ).trim(),
+
+                is_active:
+                    row.is_active === true,
+
+                updated_at:
+                    new Date().toISOString()
+
+            };
+
+
+            if (row.id) {
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .from("product_platforms")
+                        .update(payload)
+                        .eq(
+                            "id",
+                            row.id
+                        )
+                        .eq(
+                            "product_id",
+                            productId
+                        );
+
+
+                if (error) {
+                    throw error;
+                }
+
+            } else {
+
+                const {
+                    error
+                } =
+                    await supabaseClient
+                        .from("product_platforms")
+                        .insert({
+
+                            ...payload,
+
+                            created_at:
+                                new Date().toISOString()
+
+                        });
+
+
+                if (error) {
+                    throw error;
+                }
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================
+       PLATFORM EVENTS
+    ========================= */
+
+    addPlatformBtn.addEventListener(
+        "click",
+        () => {
+
+            readPlatformRowsFromDOM();
+
+            addPlatformRow();
+
+        }
+    );
+
+
+    platformList.addEventListener(
+        "click",
+        event => {
+
+            const button =
+                event.target.closest(
+                    "[data-remove-platform]"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            removePlatformRow(
+                button.dataset.removePlatform
+            );
+
+        }
+    );
 
 
     /* =========================
@@ -2953,11 +3703,6 @@ document.addEventListener("DOMContentLoaded", () => {
                               `;
 
 
-                    /*
-                     * IMPORTANT:
-                     * ID is converted to String here.
-                     */
-
                     const productId =
                         String(product.id);
 
@@ -3121,11 +3866,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!id) {
 
-                console.error(
-                    "Missing product ID."
-                );
-
-
                 showToast(
                     "Product ID is missing.",
                     "error"
@@ -3136,21 +3876,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            console.log(
-                "Product action:",
-                action
-            );
-
-
-            console.log(
-                "Product ID:",
-                id
-            );
-
-
             if (action === "edit") {
 
-                openEditProduct(id);
+                await openEditProduct(id);
 
                 return;
 
@@ -3220,20 +3948,7 @@ document.addEventListener("DOMContentLoaded", () => {
        OPEN EDIT
     ========================= */
 
-    function openEditProduct(id) {
-
-        console.log(
-            "Opening edit for ID:",
-            id
-        );
-
-
-        /*
-         * Compare IDs as strings.
-         *
-         * This is important because it prevents
-         * UUID/string comparison problems.
-         */
+    async function openEditProduct(id) {
 
         const product =
             products.find(item => {
@@ -3246,41 +3961,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!product) {
 
-            console.error(
-                "Product not found:",
-                id,
-                products
-            );
-
-
             showToast(
                 "Product not found. Please reload products.",
                 "error"
             );
-
 
             return;
 
         }
 
 
-        console.log(
-            "Editing product:",
-            product
-        );
-
-
-        /*
-         * Store product ID.
-         */
-
         editingProductId =
             String(product.id);
 
-
-        /*
-         * Change title.
-         */
 
         formTitle.textContent =
             "Edit Product";
@@ -3294,17 +3987,9 @@ document.addEventListener("DOMContentLoaded", () => {
             "Update Product";
 
 
-        /*
-         * Product name.
-         */
-
         productName.value =
             product.name || "";
 
-
-        /*
-         * Category.
-         */
 
         const categoryName =
             getProductCategoryName(
@@ -3316,10 +4001,6 @@ document.addEventListener("DOMContentLoaded", () => {
             categoryName || "";
 
 
-        /*
-         * Price.
-         */
-
         productPrice.value =
             product.price !== null &&
             product.price !== undefined
@@ -3327,52 +4008,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "";
 
 
-        /*
-         * Shopee link.
-         */
-
-        productAffiliateLink.value =
-            product.affiliate_url ||
-            product.shopee_link ||
-            "";
-
-
-        /*
-         * Description.
-         */
-
         productDescription.value =
             product.description || "";
 
-
-        /*
-         * Status.
-         */
 
         productStatus.value =
             product.status ||
             "published";
 
 
-        /*
-         * Trending.
-         */
-
         productTrending.checked =
             product.is_trending === true;
 
 
-        /*
-         * Featured.
-         */
-
         productFeatured.checked =
             product.featured === true;
 
-
-        /*
-         * Sort order.
-         */
 
         productSortOrder.value =
             product.sort_order !== null &&
@@ -3381,20 +4032,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 : 0;
 
 
-        /*
-         * Don't automatically replace image.
-         *
-         * Existing image remains unless
-         * the owner chooses a new file.
-         */
-
         productImage.value =
             "";
 
-
-        /*
-         * Existing image preview.
-         */
 
         if (product.image_url) {
 
@@ -3417,18 +4057,94 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        /*
-         * Open edit page.
-         */
+        /* =========================
+           LOAD PLATFORM DATA
+        ========================= */
+
+        try {
+
+            const platformData =
+                await loadProductPlatforms(
+                    product.id
+                );
+
+
+            platformRows =
+                platformData.map(
+                    createPlatformRow
+                );
+
+
+            /*
+             * Compatibility for products
+             * that somehow do not yet have
+             * a product_platforms row.
+             *
+             * Uses the old Shopee fields
+             * only as a fallback.
+             */
+
+            if (!platformRows.length) {
+
+                const oldLink =
+                    product.affiliate_url ||
+                    product.shopee_link ||
+                    "";
+
+
+                if (oldLink) {
+
+                    platformRows = [
+                        createPlatformRow({
+
+                            platform:
+                                "Shopee",
+
+                            price:
+                                product.price,
+
+                            affiliate_url:
+                                oldLink,
+
+                            is_active:
+                                true
+
+                        })
+                    ];
+
+                }
+
+            }
+
+
+            renderPlatformRows();
+
+
+        } catch (error) {
+
+            console.error(
+                "Platform loading error:",
+                error
+            );
+
+
+            showToast(
+                "Failed to load affiliate platforms.",
+                "error"
+            );
+
+
+            platformRows = [];
+
+            renderPlatformRows();
+
+        }
+
 
         showPage(
             "add-product"
         );
 
-
-        /*
-         * Scroll to top.
-         */
 
         window.scrollTo({
             top: 0,
@@ -3445,6 +4161,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function resetProductForm() {
 
         editingProductId = null;
+
+        platformRows = [];
 
 
         productForm.reset();
@@ -3476,6 +4194,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         saveProductBtn.textContent =
             "Save Product";
+
+
+        renderPlatformRows();
 
     }
 
@@ -3622,19 +4343,20 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
 
 
-            /*
-             * IMPORTANT:
-             *
-             * Save the editing state BEFORE
-             * anything can reset editingProductId.
-             */
-
             const wasEditing =
                 !!editingProductId;
 
 
             const productIdBeingEdited =
                 editingProductId;
+
+
+            /*
+             * Read platform inputs BEFORE
+             * anything resets the form.
+             */
+
+            readPlatformRowsFromDOM();
 
 
             const name =
@@ -3649,10 +4371,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 Number(
                     productPrice.value
                 );
-
-
-            const affiliateLink =
-                productAffiliateLink.value.trim();
 
 
             const description =
@@ -3720,28 +4438,33 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            if (!affiliateLink) {
+            const validPlatformRows =
+                platformRows.filter(row => {
+
+                    return (
+                        String(
+                            row.platform || ""
+                        ).trim() ||
+                        String(
+                            row.affiliate_url || ""
+                        ).trim() ||
+                        String(
+                            row.price || ""
+                        ).trim()
+                    );
+
+                });
+
+
+            /*
+             * A product must have at least
+             * one affiliate platform.
+             */
+
+            if (!validPlatformRows.length) {
 
                 showToast(
-                    "Please enter the Shopee affiliate link.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            try {
-
-                new URL(
-                    affiliateLink
-                );
-
-            } catch {
-
-                showToast(
-                    "Please enter a valid Shopee link.",
+                    "Please add at least one affiliate platform.",
                     "error"
                 );
 
@@ -3761,7 +4484,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             try {
-
 
                 /* =========================
                    FIND CATEGORY
@@ -3858,11 +4580,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         uploaded.path;
 
 
-                    /*
-                     * Delete old image AFTER
-                     * successful upload.
-                     */
-
                     if (
                         existingProduct &&
                         existingProduct.image_path
@@ -3894,7 +4611,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 /* =========================
-                   PAYLOAD
+                   MAIN PRODUCT PAYLOAD
                 ========================= */
 
                 const payload = {
@@ -3914,11 +4631,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     price:
                         price,
 
+                    /*
+                     * Keep old columns for
+                     * compatibility with the
+                     * existing database.
+                     *
+                     * Platform data itself is
+                     * now stored in
+                     * product_platforms.
+                     */
+
                     shopee_link:
-                        affiliateLink,
+                        existingProduct?.shopee_link ||
+                        existingProduct?.affiliate_url ||
+                        null,
 
                     affiliate_url:
-                        affiliateLink,
+                        existingProduct?.affiliate_url ||
+                        existingProduct?.shopee_link ||
+                        null,
 
                     image_url:
                         imageUrl,
@@ -3949,12 +4680,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
 
 
-                /*
-                 * Only create created_at for NEW
-                 * products.
-                 */
-
                 if (!wasEditing) {
+
+                    /*
+                     * Keep the old Shopee columns
+                     * populated for compatibility
+                     * with the first platform if it
+                     * is Shopee.
+                     */
+
+                    const firstShopee =
+                        validPlatformRows.find(
+                            row =>
+                                normalizePlatformName(
+                                    row.platform
+                                ) === "shopee"
+                        );
+
+
+                    if (firstShopee) {
+
+                        payload.shopee_link =
+                            String(
+                                firstShopee.affiliate_url
+                            ).trim();
+
+
+                        payload.affiliate_url =
+                            String(
+                                firstShopee.affiliate_url
+                            ).trim();
+
+                    }
+
 
                     payload.created_at =
                         new Date().toISOString();
@@ -3981,6 +4739,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (error) {
                     throw error;
+                }
+
+
+                /* =========================
+                   SAVE PLATFORMS
+                ========================= */
+
+                await saveProductPlatforms(
+                    productId
+                );
+
+
+                /*
+                 * If a Shopee platform exists,
+                 * keep the old product columns
+                 * synchronized as well.
+                 */
+
+                const savedShopee =
+                    platformRows.find(
+                        row =>
+                            normalizePlatformName(
+                                row.platform
+                            ) === "shopee"
+                    );
+
+
+                if (savedShopee) {
+
+                    const shopeeLink =
+                        String(
+                            savedShopee.affiliate_url ||
+                            ""
+                        ).trim();
+
+
+                    if (shopeeLink) {
+
+                        const {
+                            error:
+                                compatibilityError
+                        } =
+                            await supabaseClient
+                                .from("products")
+                                .update({
+
+                                    shopee_link:
+                                        shopeeLink,
+
+                                    affiliate_url:
+                                        shopeeLink,
+
+                                    updated_at:
+                                        new Date().toISOString()
+
+                                })
+                                .eq(
+                                    "id",
+                                    productId
+                                );
+
+
+                        if (compatibilityError) {
+                            throw compatibilityError;
+                        }
+
+                    }
+
                 }
 
 
@@ -4037,6 +4863,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
     );
+
+
+    /* =========================
+       PLATFORM NAME HELPER
+    ========================= */
+
+    function normalizePlatformName(value) {
+
+        return String(value || "")
+            .trim()
+            .toLowerCase();
+
+    }
 
 
     /* =========================
@@ -4222,7 +5061,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const confirmed =
             window.confirm(
-                `Delete "${product.name}"?\n\nThis action cannot be undone.`
+                `Delete "${product.name}"?\n\nThis will also delete all affiliate platform records for this product.\n\nThis action cannot be undone.`
             );
 
 
@@ -4233,9 +5072,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
-
             /*
-             * Delete database record first.
+             * product_platforms uses
+             * ON DELETE CASCADE from
+             * Step 1, so platform rows
+             * are automatically removed.
              */
 
             const {
@@ -4255,9 +5096,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            /*
-             * Delete image.
-             */
+            /* =========================
+               DELETE IMAGE
+            ========================= */
 
             if (product.image_path) {
 
@@ -4356,6 +5197,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =========================
+       INITIAL PLATFORM STATE
+    ========================= */
+
+    renderPlatformRows();
+
+
     initialize();
 
 });
@@ -4364,4 +5212,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-```
