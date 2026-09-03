@@ -27,33 +27,50 @@
         href="cropped_circle_image.png"
     >
 
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
 
         /* =========================================================
            VNR CHOICEZ
-           QUIET PREMIUM DESIGN SYSTEM
+           WARM AESTHETIC LUXURY DESIGN SYSTEM
            ========================================================= */
 
         :root {
-            --ivory: #F7F5F0;
-            --ivory-soft: #F3F0E9;
+            --sand: #DED7CA;
+            --sand-soft: #E8E2D8;
 
-            --white: #FFFFFF;
+            --paper: #F6F3ED;
+            --white: #FBF9F5;
 
-            --charcoal: #171717;
-            --charcoal-soft: #242424;
+            --charcoal: #191817;
+            --charcoal-soft: #242220;
 
-            --text: #292824;
-            --text-soft: #77736C;
-            --text-muted: #9A958C;
+            --text: #292724;
+            --text-soft: #716C64;
+            --text-muted: #979087;
 
-            --champagne: #B69B6A;
-            --champagne-soft: rgba(182,155,106,0.16);
+            --champagne: #B49A70;
+            --champagne-soft: rgba(180,154,112,0.14);
 
-            --line: #E5E0D7;
-            --line-soft: rgba(41,40,36,0.09);
+            --line: #D4CCC0;
+            --line-soft: rgba(41,39,36,0.10);
 
-            --card: #FFFFFF;
+            --card: #FBF9F5;
 
             --ease: cubic-bezier(0.22, 1, 0.36, 1);
             --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
@@ -73,10 +90,23 @@
 
 
         body {
-            background: var(--ivory);
+            background:
+                radial-gradient(
+                    circle at 50% -12%,
+                    rgba(255,255,255,0.52),
+                    transparent 36%
+                ),
+                linear-gradient(
+                    180deg,
+                    #E8E2D8 0%,
+                    #DED7CA 48%,
+                    #E7E1D7 100%
+                );
+
             color: var(--text);
 
             font-family:
+                "Inter",
                 Arial,
                 Helvetica,
                 sans-serif;
@@ -127,7 +157,7 @@
 
             padding: 0 42px;
 
-            background: rgba(23,23,23,0.96);
+            background: rgba(25,24,23,0.96);
 
             border-bottom:
                 1px solid rgba(255,255,255,0.08);
@@ -143,7 +173,7 @@
 
 
         header.scrolled {
-            background: rgba(23,23,23,0.985);
+            background: rgba(25,24,23,0.985);
 
             border-color:
                 rgba(255,255,255,0.12);
@@ -200,7 +230,7 @@
                 scale(1.06);
 
             box-shadow:
-                0 0 22px rgba(182,155,106,0.16);
+                0 0 22px rgba(180,154,112,0.16);
         }
 
 
@@ -378,7 +408,7 @@
 
         .dropdown-menu a:hover {
             background:
-                rgba(182,155,106,0.12);
+                rgba(180,154,112,0.12);
 
             color: #fff;
 
@@ -495,6 +525,18 @@
             padding: 80px 20px 75px;
 
             overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 35%,
+                    rgba(180,154,112,0.10),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    180deg,
+                    rgba(246,243,237,0.20),
+                    transparent
+                );
         }
 
 
@@ -508,12 +550,12 @@
             background:
                 radial-gradient(
                     circle at 50% 45%,
-                    rgba(182,155,106,0.075),
+                    rgba(180,154,112,0.075),
                     transparent 28%
                 ),
                 radial-gradient(
                     circle at 50% 100%,
-                    rgba(182,155,106,0.035),
+                    rgba(180,154,112,0.035),
                     transparent 40%
                 );
 
@@ -569,16 +611,17 @@
             color: var(--charcoal);
 
             font-family:
+                "Cormorant Garamond",
                 Georgia,
                 "Times New Roman",
                 serif;
 
             font-size:
-                clamp(42px, 7vw, 82px);
+                clamp(48px, 7.5vw, 88px);
 
-            line-height: 0.94;
+            line-height: 0.88;
 
-            letter-spacing: -3px;
+            letter-spacing: -2px;
 
             font-weight: 600;
 
@@ -609,7 +652,7 @@
 
             border:
                 1px solid
-                rgba(182,155,106,0.42);
+                rgba(180,154,112,0.42);
 
             pointer-events: none;
         }
@@ -700,7 +743,7 @@
             color: var(--text);
 
             background:
-                rgba(255,255,255,0.94);
+                rgba(251,249,245,0.94);
 
             border:
                 1px solid var(--line);
@@ -713,7 +756,7 @@
 
             box-shadow:
                 0 8px 30px
-                rgba(41,40,36,0.035);
+                rgba(41,40,36,0.055);
 
             transition:
                 border-color 0.3s var(--ease),
@@ -730,22 +773,22 @@
 
         .search-box input:hover {
             border-color:
-                #D6CFC3;
+                #CFC6B9;
         }
 
 
         .search-box:focus-within input {
-            background: #fff;
+            background: #FBF9F5;
 
             border-color:
-                rgba(182,155,106,0.62);
+                rgba(180,154,112,0.62);
 
             box-shadow:
                 0 0 0 4px
-                rgba(182,155,106,0.09),
+                rgba(180,154,112,0.09),
 
                 0 15px 40px
-                rgba(41,40,36,0.08);
+                rgba(41,40,36,0.09);
 
             transform:
                 translateY(-1px);
@@ -846,12 +889,13 @@
             color: var(--charcoal);
 
             font-family:
+                "Cormorant Garamond",
                 Georgia,
                 "Times New Roman",
                 serif;
 
             font-size:
-                clamp(24px, 4vw, 34px);
+                clamp(28px, 4vw, 38px);
 
             letter-spacing: -0.8px;
 
@@ -938,11 +982,11 @@
                     #FFFFFF;
 
                 border-color:
-                    #D8D0C3;
+                    #CEC5B8;
 
                 box-shadow:
                     0 18px 45px
-                    rgba(41,40,36,0.09);
+                    rgba(41,40,36,0.10);
             }
 
         }
@@ -954,7 +998,7 @@
             aspect-ratio: 1 / 1;
 
             background:
-                var(--ivory-soft);
+                var(--sand-soft);
 
             overflow: hidden;
         }
@@ -1577,7 +1621,7 @@
                     10px 15px 15px;
 
                 background:
-                    rgba(23,23,23,0.985);
+                    rgba(25,24,23,0.985);
 
                 border-bottom:
                     1px solid
@@ -1721,7 +1765,7 @@
 
             .hero h1 {
                 letter-spacing:
-                    -2.5px;
+                    -1.8px;
             }
 
 
@@ -1844,10 +1888,10 @@
 
             .hero h1 {
                 font-size:
-                    43px;
+                    46px;
 
                 letter-spacing:
-                    -2px;
+                    -1.5px;
 
                 padding:
                     32px 36px;
@@ -1889,7 +1933,7 @@
 
             .section-heading {
                 font-size:
-                    24px;
+                    26px;
             }
 
 
