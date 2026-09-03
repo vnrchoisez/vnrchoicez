@@ -2069,7 +2069,7 @@
                 } = await supabaseClient
                     .from("products")
                     .select("*")
-                    .eq("published", true);
+                    .eq("status", "published");
 
 
                 if (error) {
