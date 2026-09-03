@@ -85,94 +85,6 @@
 
 
         /* =========================================================
-           PAGE TRANSITION
-           ONLY NEW FEATURE
-           ========================================================= */
-
-        #pageTransition {
-            position: fixed;
-            inset: 0;
-
-            z-index: 99999;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #050505;
-
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-
-            transition:
-                opacity 0.42s var(--ease),
-                visibility 0.42s;
-        }
-
-        #pageTransition::before {
-            content: "";
-
-            position: absolute;
-            width: 180px;
-            height: 180px;
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.055),
-                    transparent 68%
-                );
-
-            filter: blur(4px);
-
-            transform: scale(0.7);
-
-            transition:
-                transform 0.65s var(--ease),
-                opacity 0.5s var(--ease);
-
-            opacity: 0;
-        }
-
-        #pageTransition span {
-            position: relative;
-            z-index: 2;
-
-            color: #fff;
-
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 4px;
-
-            opacity: 0;
-            transform: translateY(12px);
-
-            transition:
-                opacity 0.35s var(--ease),
-                transform 0.45s var(--ease);
-        }
-
-        #pageTransition.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        #pageTransition.active::before {
-            opacity: 1;
-            transform: scale(1.15);
-        }
-
-        #pageTransition.active span {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-
-        /* =========================================================
            HEADER
            ========================================================= */
 
@@ -1447,6 +1359,62 @@
 
         }
 
+
+        /* =========================================================
+           PAGE TRANSITION
+           ADDED ONLY
+           ========================================================= */
+
+        #pageTransition {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #050505;
+
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+
+            transition:
+                opacity 0.38s var(--ease),
+                visibility 0.38s;
+        }
+
+        .page-transition-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #fff;
+
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+
+            transform: translateY(10px);
+            opacity: 0;
+
+            transition:
+                transform 0.45s var(--ease),
+                opacity 0.45s var(--ease);
+        }
+
+        #pageTransition.active .page-transition-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        #pageTransition.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
     </style>
 </head>
 
@@ -1456,15 +1424,17 @@
 
     <!-- =========================================================
          PAGE TRANSITION
+         ADDED ONLY
          ========================================================= -->
 
     <div
         id="pageTransition"
         aria-hidden="true"
     >
-        <span>VNR CHOICEZ</span>
+        <div class="page-transition-content">
+            <span>VNR CHOICEZ</span>
+        </div>
     </div>
-
 
 
     <!-- =========================================================
@@ -1475,7 +1445,7 @@
 
         <a
             href="index.html"
-            class="logo"
+            class="logo nav-transition"
             aria-label="VNR Choicez Home"
         >
             <img
@@ -1504,11 +1474,17 @@
 
         <nav id="mainNav">
 
-            <a href="index.html">
+            <a
+                href="index.html"
+                class="nav-transition"
+            >
                 Home
             </a>
 
-            <a href="?type=trending">
+            <a
+                href="?type=trending"
+                class="nav-transition"
+            >
                 Trending
             </a>
 
@@ -1747,8 +1723,129 @@
         const siteHeader =
             document.getElementById("siteHeader");
 
+
+        /* =========================================================
+           PAGE TRANSITION
+           ADDED ONLY
+           ========================================================= */
+
         const pageTransition =
             document.getElementById("pageTransition");
+
+
+        function navigateWithTransition(url) {
+
+            if (!pageTransition) {
+                window.location.href = url;
+                return;
+            }
+
+
+            const targetURL =
+                new URL(
+                    url,
+                    window.location.href
+                );
+
+
+            if (
+                targetURL.origin !==
+                window.location.origin
+            ) {
+
+                window.location.href = url;
+                return;
+
+            }
+
+
+            if (
+                targetURL.href ===
+                window.location.href
+            ) {
+
+                return;
+
+            }
+
+
+            pageTransition.classList.add(
+                "active"
+            );
+
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        targetURL.href;
+
+                },
+                380
+            );
+
+        }
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                const link =
+                    event.target.closest(
+                        "a.nav-transition"
+                    );
+
+
+                if (!link) {
+                    return;
+                }
+
+
+                const href =
+                    link.getAttribute("href");
+
+
+                if (
+                    !href ||
+                    href.startsWith("#") ||
+                    link.target === "_blank" ||
+                    event.ctrlKey ||
+                    event.metaKey ||
+                    event.shiftKey ||
+                    event.altKey
+                ) {
+
+                    return;
+
+                }
+
+
+                event.preventDefault();
+
+
+                navigateWithTransition(
+                    href
+                );
+
+            }
+        );
+
+
+        window.addEventListener(
+            "pageshow",
+            function () {
+
+                if (pageTransition) {
+
+                    pageTransition.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
 
 
         /* =========================================================
@@ -1865,218 +1962,6 @@
                 "#"
             );
         }
-
-
-        /* =========================================================
-           PAGE TRANSITION
-           ADDED ONLY
-           ========================================================= */
-
-        let isNavigating = false;
-
-
-        function closeMobileNavigation() {
-
-            mainNav.classList.remove(
-                "mobile-open"
-            );
-
-            mobileMenuBtn.classList.remove(
-                "active"
-            );
-
-            mobileMenuBtn.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        }
-
-
-        function navigateWithTransition(targetURL) {
-
-            if (isNavigating) {
-                return;
-            }
-
-            const destination =
-                new URL(
-                    targetURL,
-                    window.location.href
-                );
-
-            if (
-                destination.origin !==
-                window.location.origin
-            ) {
-                return;
-            }
-
-            if (
-                destination.href ===
-                window.location.href
-            ) {
-                return;
-            }
-
-            isNavigating = true;
-
-            closeMobileNavigation();
-
-            categoryWrapper.classList.remove(
-                "open"
-            );
-
-            categoryToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            pageTransition.classList.add(
-                "active"
-            );
-
-            window.setTimeout(
-                function () {
-
-                    window.location.href =
-                        destination.href;
-
-                },
-                430
-            );
-
-        }
-
-
-        /*
-         * Handle Home / Trending / Categories.
-         *
-         * Product "View Product" links are NOT affected.
-         * External Shopee links remain completely normal.
-         */
-
-        document.addEventListener(
-            "click",
-            function (event) {
-
-                const link =
-                    event.target.closest(
-                        "a"
-                    );
-
-                if (!link) {
-                    return;
-                }
-
-                if (
-                    event.defaultPrevented ||
-                    event.button !== 0
-                ) {
-                    return;
-                }
-
-                if (
-                    event.ctrlKey ||
-                    event.metaKey ||
-                    event.shiftKey ||
-                    event.altKey
-                ) {
-                    return;
-                }
-
-                if (
-                    link.target === "_blank"
-                ) {
-                    return;
-                }
-
-                /*
-                 * Do NOT intercept product affiliate links.
-                 */
-
-                if (
-                    link.classList.contains(
-                        "buy-button"
-                    )
-                ) {
-                    return;
-                }
-
-                const href =
-                    link.getAttribute("href");
-
-                if (!href) {
-                    return;
-                }
-
-                /*
-                 * About Us is an anchor on the same page.
-                 * Keep its original smooth-scroll behavior.
-                 */
-
-                if (
-                    href.startsWith("#")
-                ) {
-                    return;
-                }
-
-                const destination =
-                    new URL(
-                        href,
-                        window.location.href
-                    );
-
-                /*
-                 * External links remain untouched.
-                 */
-
-                if (
-                    destination.origin !==
-                    window.location.origin
-                ) {
-                    return;
-                }
-
-                /*
-                 * Same exact URL = normal browser behavior.
-                 */
-
-                if (
-                    destination.href ===
-                    window.location.href
-                ) {
-                    return;
-                }
-
-                event.preventDefault();
-
-                navigateWithTransition(
-                    destination.href
-                );
-
-            },
-            false
-        );
-
-
-        /*
-         * When the new page loads, make sure the
-         * transition overlay is reset.
-         */
-
-        window.addEventListener(
-            "pageshow",
-            function () {
-
-                isNavigating = false;
-
-                pageTransition.classList.remove(
-                    "active"
-                );
-
-            }
-        );
 
 
         /* =========================================================
@@ -2294,6 +2179,10 @@
             allLink.href = "index.html";
             allLink.textContent = "All Products";
 
+            allLink.className =
+                "nav-transition";
+
+
             allLink.addEventListener(
                 "click",
                 function () {
@@ -2323,6 +2212,10 @@
                         `?type=${encodeURIComponent(category)}`;
 
                     link.textContent = category;
+
+                    link.className =
+                        "nav-transition";
+
 
                     link.addEventListener(
                         "click",
