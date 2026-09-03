@@ -638,11 +638,6 @@
         }
 
 
-        /*
-         * Signature VNR CHOICEZ editorial frame.
-         * Intentionally thin and understated.
-         */
-
         .hero h1::before {
             content: none;
         }
@@ -1137,6 +1132,108 @@
             font-size: 14px;
 
             font-weight: 700;
+        }
+
+
+
+        /* =========================================================
+           PLATFORM LINKS
+           ========================================================= */
+
+        .product-platforms {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+
+            width: 100%;
+        }
+
+
+        .platform-button {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            width: 100%;
+
+            min-height: 36px;
+
+            padding:
+                0 12px;
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--charcoal);
+
+            border:
+                1px solid var(--charcoal);
+
+            border-radius: 9px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.2s var(--ease),
+                background 0.25s var(--ease),
+                color 0.25s var(--ease),
+                border-color 0.25s var(--ease),
+                box-shadow 0.25s var(--ease);
+        }
+
+
+        .platform-button-name {
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        .platform-button-price {
+            margin-left: 8px;
+
+            white-space: nowrap;
+
+            opacity: 0.88;
+        }
+
+
+        @media (hover: hover) {
+
+            .platform-button:hover {
+                color:
+                    var(--charcoal);
+
+                background:
+                    transparent;
+
+                border-color:
+                    var(--champagne);
+
+                transform:
+                    translateY(-1px);
+
+                box-shadow:
+                    0 8px 20px
+                    rgba(36,34,31,0.08);
+            }
+
+        }
+
+
+        .platform-button:active {
+            transform:
+                scale(0.96);
         }
 
 
@@ -1836,7 +1933,7 @@
 
             .product-bottom {
                 align-items:
-                    flex-end;
+                    stretch;
 
                 flex-direction:
                     column;
@@ -1849,6 +1946,18 @@
             .buy-button {
                 width:
                     100%;
+            }
+
+
+            .platform-button {
+                min-height:
+                    34px;
+
+                font-size:
+                    9px;
+
+                padding:
+                    0 10px;
             }
 
 
@@ -1974,6 +2083,15 @@
 
                 font-size:
                     10px;
+            }
+
+
+            .platform-button {
+                min-height:
+                    33px;
+
+                font-size:
+                    8.5px;
             }
 
         }
@@ -2451,6 +2569,34 @@
 
 
         /* =========================================================
+           GET ACTIVE PRODUCT PLATFORMS
+           ========================================================= */
+
+        function getActiveProductPlatforms(product) {
+
+            if (
+                !Array.isArray(product.platforms)
+            ) {
+                return [];
+            }
+
+
+            return product.platforms.filter(
+                function (platform) {
+
+                    return (
+                        platform &&
+                        platform.is_active === true &&
+                        platform.affiliate_url
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================================================
            HEADER SCROLL EFFECT
            ========================================================= */
 
@@ -2750,6 +2896,10 @@
 
             try {
 
+                /* =================================================
+                   LOAD PUBLISHED PRODUCTS
+                   ================================================= */
+
                 const {
                     data,
                     error
@@ -2768,6 +2918,127 @@
                     Array.isArray(data)
                         ? data
                         : [];
+
+
+                /* =================================================
+                   LOAD PLATFORM DATA
+                   ================================================= */
+
+                if (allProducts.length) {
+
+                    const productIds =
+                        allProducts
+                            .map(product => product.id)
+                            .filter(Boolean);
+
+
+                    if (productIds.length) {
+
+                        const {
+                            data: platformData,
+                            error: platformError
+                        } = await supabaseClient
+                            .from("product_platforms")
+                            .select(`
+                                id,
+                                product_id,
+                                platform,
+                                price,
+                                affiliate_url,
+                                is_active,
+                                created_at,
+                                updated_at
+                            `)
+                            .in(
+                                "product_id",
+                                productIds
+                            )
+                            .order(
+                                "created_at",
+                                {
+                                    ascending: true
+                                }
+                            );
+
+
+                        if (platformError) {
+
+                            /*
+                             * Do not break the entire website if the
+                             * platform table cannot be read.
+                             *
+                             * The existing products table remains the
+                             * fallback so old products continue to work.
+                             */
+
+                            console.warn(
+                                "Could not load product platforms:",
+                                platformError
+                            );
+
+                        } else {
+
+                            const platformsByProduct =
+                                {};
+
+
+                            (
+                                Array.isArray(platformData)
+                                    ? platformData
+                                    : []
+                            ).forEach(
+                                function (platform) {
+
+                                    const productId =
+                                        String(
+                                            platform.product_id
+                                        );
+
+
+                                    if (
+                                        !platformsByProduct[
+                                            productId
+                                        ]
+                                    ) {
+
+                                        platformsByProduct[
+                                            productId
+                                        ] = [];
+
+                                    }
+
+
+                                    platformsByProduct[
+                                        productId
+                                    ].push(
+                                        platform
+                                    );
+
+                                }
+                            );
+
+
+                            allProducts =
+                                allProducts.map(
+                                    function (product) {
+
+                                        return {
+                                            ...product,
+
+                                            platforms:
+                                                platformsByProduct[
+                                                    String(product.id)
+                                                ] || []
+                                        };
+
+                                    }
+                                );
+
+                        }
+
+                    }
+
+                }
 
 
                 renderProducts();
@@ -3008,16 +3279,137 @@
                             getProductCategory(product)
                         );
 
-                    const link =
-                        escapeHTML(
-                            getProductLink(product)
+
+                    /* =================================================
+                       PLATFORM DISPLAY
+                       ================================================= */
+
+                    const activePlatforms =
+                        getActiveProductPlatforms(
+                            product
                         );
 
-                    const price =
-                        formatPrice(
-                            product.price
-                        );
 
+                    let platformHTML = "";
+
+
+                    if (
+                        activePlatforms.length
+                    ) {
+
+                        platformHTML = `
+                            <div class="product-platforms">
+                                ${
+                                    activePlatforms
+                                        .map(
+                                            function (platform) {
+
+                                                const platformName =
+                                                    escapeHTML(
+                                                        platform.platform ||
+                                                        "View Product"
+                                                    );
+
+                                                const platformURL =
+                                                    escapeHTML(
+                                                        platform.affiliate_url ||
+                                                        "#"
+                                                    );
+
+                                                const platformPrice =
+                                                    formatPrice(
+                                                        platform.price
+                                                    );
+
+
+                                                return `
+                                                    <a
+                                                        class="platform-button"
+                                                        href="${platformURL}"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        aria-label="View on ${platformName}"
+                                                    >
+                                                        <span class="platform-button-name">
+                                                            View on ${platformName}
+                                                        </span>
+
+                                                        ${
+                                                            platformPrice
+                                                                ? `
+                                                                    <span class="platform-button-price">
+                                                                        ${platformPrice}
+                                                                    </span>
+                                                                  `
+                                                                : ""
+                                                        }
+                                                    </a>
+                                                `;
+
+                                            }
+                                        )
+                                        .join("")
+                                }
+                            </div>
+                        `;
+
+                    } else {
+
+                        /*
+                         * FALLBACK:
+                         *
+                         * If there are no platform records, preserve
+                         * the original VNR CHOICEZ behaviour exactly.
+                         */
+
+                        const link =
+                            escapeHTML(
+                                getProductLink(product)
+                            );
+
+                        const price =
+                            formatPrice(
+                                product.price
+                            );
+
+
+                        platformHTML = `
+                            <div class="product-bottom">
+
+                                ${
+                                    price
+                                        ? `
+                                            <div class="product-price">
+                                                ${price}
+                                            </div>
+                                          `
+                                        : `
+                                            <div></div>
+                                          `
+                                }
+
+
+                                <a
+                                    class="buy-button"
+                                    href="${link}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    View Product
+                                </a>
+
+                            </div>
+                        `;
+
+                    }
+
+
+                    /*
+                     * When platform records exist, the platform rows
+                     * already contain their own prices, so the old
+                     * single-price/single-button layout is replaced
+                     * only for that product.
+                     */
 
                     card.innerHTML = `
 
@@ -3056,31 +3448,11 @@
                             </div>
 
 
-                            <div class="product-bottom">
-
-                                ${
-                                    price
-                                        ? `
-                                            <div class="product-price">
-                                                ${price}
-                                            </div>
-                                          `
-                                        : `
-                                            <div></div>
-                                          `
-                                }
-
-
-                                <a
-                                    class="buy-button"
-                                    href="${link}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    View Product
-                                </a>
-
-                            </div>
+                            ${
+                                activePlatforms.length
+                                    ? platformHTML
+                                    : platformHTML
+                            }
 
                         </div>
 
