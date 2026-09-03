@@ -644,17 +644,7 @@
          */
 
         .hero h1::before {
-            content: "";
-
-            position: absolute;
-
-            inset: 10px;
-
-            border:
-                1px solid
-                rgba(182,154,107,0.48);
-
-            pointer-events: none;
+            content: none;
         }
 
 
@@ -2046,6 +2036,21 @@
 
         }
 
+
+        /* =========================================================
+           NON-HOME PAGES
+           HIDE HERO ONLY WHEN A FILTER IS ACTIVE
+           ========================================================= */
+
+        body.has-filter .hero {
+            display: none;
+        }
+
+
+        body.has-filter .search-section {
+            margin-top: 42px;
+        }
+
     </style>
 </head>
 
@@ -3164,6 +3169,10 @@
 
                 currentFilter = "all";
 
+                document.body.classList.remove(
+                    "has-filter"
+                );
+
                 return;
 
             }
@@ -3173,6 +3182,10 @@
                 decodeURIComponent(
                     initialType
                 );
+
+            document.body.classList.add(
+                "has-filter"
+            );
 
         }
 
