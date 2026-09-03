@@ -1359,82 +1359,11 @@
 
         }
 
-
-        /* =========================================================
-           PAGE TRANSITION
-           ADDED ONLY
-           ========================================================= */
-
-        #pageTransition {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #050505;
-
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-
-            transition:
-                opacity 0.38s var(--ease),
-                visibility 0.38s;
-        }
-
-        .page-transition-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            color: #fff;
-
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 3px;
-
-            transform: translateY(10px);
-            opacity: 0;
-
-            transition:
-                transform 0.45s var(--ease),
-                opacity 0.45s var(--ease);
-        }
-
-        #pageTransition.active .page-transition-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        #pageTransition.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
     </style>
 </head>
 
 
 <body>
-
-
-    <!-- =========================================================
-         PAGE TRANSITION
-         ADDED ONLY
-         ========================================================= -->
-
-    <div
-        id="pageTransition"
-        aria-hidden="true"
-    >
-        <div class="page-transition-content">
-            <span>VNR CHOICEZ</span>
-        </div>
-    </div>
 
 
     <!-- =========================================================
@@ -1445,7 +1374,7 @@
 
         <a
             href="index.html"
-            class="logo nav-transition"
+            class="logo"
             aria-label="VNR Choicez Home"
         >
             <img
@@ -1474,17 +1403,11 @@
 
         <nav id="mainNav">
 
-            <a
-                href="index.html"
-                class="nav-transition"
-            >
+            <a href="index.html">
                 Home
             </a>
 
-            <a
-                href="?type=trending"
-                class="nav-transition"
-            >
+            <a href="?type=trending">
                 Trending
             </a>
 
@@ -1722,130 +1645,6 @@
 
         const siteHeader =
             document.getElementById("siteHeader");
-
-
-        /* =========================================================
-           PAGE TRANSITION
-           ADDED ONLY
-           ========================================================= */
-
-        const pageTransition =
-            document.getElementById("pageTransition");
-
-
-        function navigateWithTransition(url) {
-
-            if (!pageTransition) {
-                window.location.href = url;
-                return;
-            }
-
-
-            const targetURL =
-                new URL(
-                    url,
-                    window.location.href
-                );
-
-
-            if (
-                targetURL.origin !==
-                window.location.origin
-            ) {
-
-                window.location.href = url;
-                return;
-
-            }
-
-
-            if (
-                targetURL.href ===
-                window.location.href
-            ) {
-
-                return;
-
-            }
-
-
-            pageTransition.classList.add(
-                "active"
-            );
-
-
-            setTimeout(
-                function () {
-
-                    window.location.href =
-                        targetURL.href;
-
-                },
-                380
-            );
-
-        }
-
-
-        document.addEventListener(
-            "click",
-            function (event) {
-
-                const link =
-                    event.target.closest(
-                        "a.nav-transition"
-                    );
-
-
-                if (!link) {
-                    return;
-                }
-
-
-                const href =
-                    link.getAttribute("href");
-
-
-                if (
-                    !href ||
-                    href.startsWith("#") ||
-                    link.target === "_blank" ||
-                    event.ctrlKey ||
-                    event.metaKey ||
-                    event.shiftKey ||
-                    event.altKey
-                ) {
-
-                    return;
-
-                }
-
-
-                event.preventDefault();
-
-
-                navigateWithTransition(
-                    href
-                );
-
-            }
-        );
-
-
-        window.addEventListener(
-            "pageshow",
-            function () {
-
-                if (pageTransition) {
-
-                    pageTransition.classList.remove(
-                        "active"
-                    );
-
-                }
-
-            }
-        );
 
 
         /* =========================================================
@@ -2179,10 +1978,6 @@
             allLink.href = "index.html";
             allLink.textContent = "All Products";
 
-            allLink.className =
-                "nav-transition";
-
-
             allLink.addEventListener(
                 "click",
                 function () {
@@ -2212,10 +2007,6 @@
                         `?type=${encodeURIComponent(category)}`;
 
                     link.textContent = category;
-
-                    link.className =
-                        "nav-transition";
-
 
                     link.addEventListener(
                         "click",
