@@ -723,7 +723,7 @@
             height: 60px;
 
             padding:
-                0 20px 0 50px;
+                0 150px 0 50px;
 
             color: var(--text);
 
@@ -842,6 +842,270 @@
         .search-icon::after {
             background:
                 var(--champagne);
+        }
+
+
+
+        /* =========================================================
+           FILTER BUTTON
+           ========================================================= */
+
+        .filter-button {
+            position: absolute;
+
+            right: 10px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            min-width: 92px;
+            height: 40px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 7px;
+
+            padding:
+                0 13px;
+
+            color: #FFFFFF;
+
+            background:
+                var(--charcoal);
+
+            border:
+                1px solid var(--charcoal);
+
+            border-radius: 10px;
+
+            font-family:
+                "Inter",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            z-index: 5;
+
+            transition:
+                background 0.25s var(--ease),
+                color 0.25s var(--ease),
+                border-color 0.25s var(--ease),
+                transform 0.25s var(--ease),
+                box-shadow 0.25s var(--ease);
+        }
+
+
+        .filter-button:hover {
+            color:
+                var(--charcoal);
+
+            background:
+                var(--white);
+
+            border-color:
+                var(--champagne);
+
+            transform:
+                translateY(-50%)
+                translateY(-1px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(36,34,31,0.08);
+        }
+
+
+        .filter-button:active {
+            transform:
+                translateY(-50%)
+                scale(0.96);
+        }
+
+
+        .filter-arrow {
+            font-size: 9px;
+
+            transition:
+                transform 0.3s var(--ease);
+        }
+
+
+        .filter-button[aria-expanded="true"]
+        .filter-arrow {
+            transform:
+                rotate(180deg);
+        }
+
+
+        .filter-menu {
+            position: absolute;
+
+            top: calc(100% + 10px);
+            right: 0;
+
+            width: 220px;
+
+            padding: 8px;
+
+            background:
+                rgba(28,28,28,0.98);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.24);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transform:
+                translateY(-8px)
+                scale(0.97);
+
+            transform-origin:
+                top right;
+
+            z-index: 100;
+
+            transition:
+                opacity 0.25s var(--ease),
+                transform 0.3s var(--ease),
+                visibility 0.25s;
+        }
+
+
+        .filter-menu.open {
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .filter-menu-title {
+            padding:
+                8px 11px 6px;
+
+            color:
+                #8F8B84;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .filter-option {
+            width: 100%;
+
+            min-height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 11px;
+
+            color:
+                #C8C4BC;
+
+            background:
+                transparent;
+
+            border:
+                none;
+
+            border-radius: 9px;
+
+            font-family:
+                "Inter",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s var(--ease),
+                color 0.2s var(--ease),
+                transform 0.2s var(--ease);
+        }
+
+
+        .filter-option:hover {
+            color:
+                #FFFFFF;
+
+            background:
+                rgba(182,154,107,0.12);
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .filter-option.active {
+            color:
+                #FFFFFF;
+
+            background:
+                rgba(182,154,107,0.16);
+        }
+
+
+        .filter-option-check {
+            color:
+                var(--champagne);
+
+            font-size: 12px;
+
+            opacity: 0;
+        }
+
+
+        .filter-option.active
+        .filter-option-check {
+            opacity: 1;
         }
 
 
@@ -1913,6 +2177,33 @@
             }
 
 
+            .search-box input {
+                padding:
+                    0 112px 0 50px;
+            }
+
+
+            .filter-button {
+                right: 7px;
+
+                min-width: 84px;
+
+                height: 38px;
+
+                padding:
+                    0 10px;
+
+                font-size: 10px;
+            }
+
+
+            .filter-menu {
+                width: 205px;
+
+                right: 0;
+            }
+
+
             main {
                 width:
                     calc(100% - 30px);
@@ -2079,6 +2370,27 @@
 
                 font-size:
                     13px;
+
+                padding:
+                    0 105px 0 46px;
+            }
+
+
+            .filter-button {
+                min-width:
+                    78px;
+
+                height:
+                    36px;
+
+                right:
+                    6px;
+            }
+
+
+            .filter-menu {
+                width:
+                    195px;
             }
 
 
@@ -2349,6 +2661,137 @@
                 aria-label="Search products"
             >
 
+
+            <!-- =================================================
+                 FILTER BUTTON
+                 ================================================= -->
+
+            <button
+                class="filter-button"
+                id="filterButton"
+                type="button"
+                aria-expanded="false"
+                aria-haspopup="true"
+            >
+                Filter
+
+                <span class="filter-arrow">
+                    ▼
+                </span>
+            </button>
+
+
+            <!-- =================================================
+                 FILTER MENU
+                 CATEGORY IS INTENTIONALLY NOT HERE
+                 ================================================= -->
+
+            <div
+                class="filter-menu"
+                id="filterMenu"
+            >
+
+                <div class="filter-menu-title">
+                    Sort by
+                </div>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-sort="low"
+                >
+                    <span>
+                        Price: Low → High
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-sort="high"
+                >
+                    <span>
+                        Price: High → Low
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <div class="filter-menu-title">
+                    Platform
+                </div>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="all"
+                >
+                    <span>
+                        All Platforms
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="Shopee"
+                >
+                    <span>
+                        Shopee
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="TikTok Shop"
+                >
+                    <span>
+                        TikTok Shop
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="Lazada"
+                >
+                    <span>
+                        Lazada
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+            </div>
+
         </div>
 
     </section>
@@ -2500,6 +2943,20 @@
 
 
         /* =========================================================
+           FILTER DOM ELEMENTS
+           ========================================================= */
+
+        const filterButton =
+            document.getElementById("filterButton");
+
+        const filterMenu =
+            document.getElementById("filterMenu");
+
+        const filterOptions =
+            document.querySelectorAll(".filter-option");
+
+
+        /* =========================================================
            STATE
            ========================================================= */
 
@@ -2508,6 +2965,103 @@
 
         let currentFilter = "all";
         let currentSearch = "";
+
+        let currentSort = "default";
+        let currentPlatform = "all";
+
+
+        /* =========================================================
+           CATEGORY DEFINITIONS
+           =========================================================
+           
+           The database may still contain the old names:
+           
+           Gadget & Tech
+           Random Useful Items
+           
+           They are displayed as:
+           
+           Electronics
+           Others
+           
+           This also keeps old database products working.
+           ========================================================= */
+
+        const CATEGORY_DEFINITIONS = [
+
+            {
+                display: "Fashion",
+                values: [
+                    "Fashion"
+                ]
+            },
+
+            {
+                display: "Accessories",
+                values: [
+                    "Accessories"
+                ]
+            },
+
+            {
+                display: "Beauty",
+                values: [
+                    "Beauty"
+                ]
+            },
+
+            {
+                display: "Fragrance",
+                values: [
+                    "Fragrance"
+                ]
+            },
+
+            {
+                display: "Home Items",
+                values: [
+                    "Home Items"
+                ]
+            },
+
+            {
+                display: "Cookery",
+                values: [
+                    "Cookery"
+                ]
+            },
+
+            {
+                display: "Electronics",
+                values: [
+                    "Electronics",
+                    "Gadget & Tech"
+                ]
+            },
+
+            {
+                display: "Gaming",
+                values: [
+                    "Gaming"
+                ]
+            },
+
+            {
+                display: "Sports",
+                values: [
+                    "Sports"
+                ]
+            },
+
+            {
+                display: "Others",
+                values: [
+                    "Others",
+                    "Random Useful Items"
+                ]
+            }
+
+        ];
 
 
         /* =========================================================
@@ -2537,6 +3091,7 @@
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
+
         }
 
 
@@ -2558,6 +3113,7 @@
             }
 
             return `RM ${numericPrice.toFixed(2)}`;
+
         }
 
 
@@ -2566,15 +3122,19 @@
             const validPrices =
                 prices
                     .map(function (price) {
+
                         const numericPrice =
                             Number(price);
 
                         return Number.isFinite(numericPrice)
                             ? numericPrice
                             : null;
+
                     })
                     .filter(function (price) {
+
                         return price !== null;
+
                     });
 
 
@@ -2593,9 +3153,11 @@
             if (
                 lowestPrice === highestPrice
             ) {
+
                 return formatPrice(
                     lowestPrice
                 );
+
             }
 
 
@@ -2604,6 +3166,7 @@
                 –
                 ${formatPrice(highestPrice)}
             `;
+
         }
 
 
@@ -2615,6 +3178,7 @@
                 product.categories?.name ||
                 ""
             );
+
         }
 
 
@@ -2626,6 +3190,7 @@
                 product.product_image ||
                 "cropped_circle_image.png"
             );
+
         }
 
 
@@ -2636,6 +3201,7 @@
                 product.product_name ||
                 "Unnamed Product"
             );
+
         }
 
 
@@ -2646,6 +3212,7 @@
                 product.product_description ||
                 "Discover this product on VNR CHOICEZ."
             );
+
         }
 
 
@@ -2658,7 +3225,107 @@
                 product.link ||
                 "#"
             );
+
         }
+
+
+
+        /* =========================================================
+           CATEGORY MATCHING
+           ========================================================= */
+
+        function getCategoryDefinition(
+            categoryName
+        ) {
+
+            if (!categoryName) {
+                return null;
+            }
+
+
+            const normalizedCategory =
+                String(categoryName)
+                    .toLowerCase()
+                    .trim();
+
+
+            return CATEGORY_DEFINITIONS.find(
+                function (definition) {
+
+                    return definition.values.some(
+                        function (value) {
+
+                            return (
+                                value
+                                    .toLowerCase()
+                                    .trim() ===
+                                normalizedCategory
+                            );
+
+                        }
+                    );
+
+                }
+            ) || null;
+
+        }
+
+
+        function productMatchesCategory(
+            product,
+            categoryName
+        ) {
+
+            const productCategory =
+                getProductCategory(product);
+
+
+            if (!productCategory) {
+                return false;
+            }
+
+
+            const definition =
+                getCategoryDefinition(
+                    categoryName
+                );
+
+
+            if (definition) {
+
+                const normalizedProductCategory =
+                    productCategory
+                        .toLowerCase()
+                        .trim();
+
+
+                return definition.values.some(
+                    function (value) {
+
+                        return (
+                            value
+                                .toLowerCase()
+                                .trim() ===
+                            normalizedProductCategory
+                        );
+
+                    }
+                );
+
+            }
+
+
+            return (
+                productCategory
+                    .toLowerCase()
+                    .trim() ===
+                categoryName
+                    .toLowerCase()
+                    .trim()
+            );
+
+        }
+
 
 
         /* =========================================================
@@ -2687,6 +3354,7 @@
             );
 
         }
+
 
 
         /* =========================================================
@@ -2769,6 +3437,143 @@
 
 
         /* =========================================================
+           GET PRODUCT SORT PRICE
+           ========================================================= */
+
+        function getProductSortPrice(product) {
+
+            const prices = [];
+
+
+            /*
+             * Main/base product price.
+             */
+
+            if (
+                product.price !== null &&
+                product.price !== undefined &&
+                product.price !== ""
+            ) {
+
+                const mainPrice =
+                    Number(product.price);
+
+                if (
+                    Number.isFinite(mainPrice)
+                ) {
+
+                    prices.push(
+                        mainPrice
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Active platform prices.
+             */
+
+            const activePlatforms =
+                getActiveProductPlatforms(
+                    product
+                );
+
+
+            activePlatforms.forEach(
+                function (platform) {
+
+                    if (
+                        platform.price !== null &&
+                        platform.price !== undefined &&
+                        platform.price !== ""
+                    ) {
+
+                        const platformPrice =
+                            Number(platform.price);
+
+                        if (
+                            Number.isFinite(platformPrice)
+                        ) {
+
+                            prices.push(
+                                platformPrice
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            if (!prices.length) {
+                return null;
+            }
+
+
+            /*
+             * Use the lowest available price
+             * as the product's sorting price.
+             */
+
+            return Math.min(
+                ...prices
+            );
+
+        }
+
+
+
+        /* =========================================================
+           PLATFORM MATCHING
+           ========================================================= */
+
+        function productMatchesPlatform(
+            product,
+            platformName
+        ) {
+
+            if (
+                !platformName ||
+                platformName === "all"
+            ) {
+
+                return true;
+
+            }
+
+
+            const activePlatforms =
+                getActiveProductPlatforms(
+                    product
+                );
+
+
+            return activePlatforms.some(
+                function (platform) {
+
+                    return (
+                        String(
+                            platform.platform || ""
+                        )
+                            .toLowerCase()
+                            .trim() ===
+                        platformName
+                            .toLowerCase()
+                            .trim()
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================================
            HEADER SCROLL EFFECT
            ========================================================= */
 
@@ -2789,6 +3594,7 @@
         );
 
         handleHeaderScroll();
+
 
 
         /* =========================================================
@@ -2816,6 +3622,7 @@
         );
 
 
+
         /* =========================================================
            CATEGORY DROPDOWN
            ========================================================= */
@@ -2838,9 +3645,36 @@
         );
 
 
+
+        /* =========================================================
+           FILTER DROPDOWN
+           ========================================================= */
+
+        filterButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                const isOpen =
+                    filterMenu.classList.toggle("open");
+
+                filterButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+            }
+        );
+
+
         document.addEventListener(
             "click",
             function (event) {
+
+                /*
+                 * Close category dropdown.
+                 */
 
                 if (
                     !categoryWrapper.contains(event.target)
@@ -2857,8 +3691,140 @@
 
                 }
 
+
+                /*
+                 * Close filter dropdown.
+                 */
+
+                if (
+                    !filterMenu.contains(event.target) &&
+                    !filterButton.contains(event.target)
+                ) {
+
+                    filterMenu.classList.remove(
+                        "open"
+                    );
+
+                    filterButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
             }
         );
+
+
+
+        /* =========================================================
+           FILTER OPTIONS
+           ========================================================= */
+
+        filterOptions.forEach(
+            function (option) {
+
+                option.addEventListener(
+                    "click",
+                    function () {
+
+                        const selectedSort =
+                            this.dataset.sort;
+
+                        const selectedPlatform =
+                            this.dataset.platform;
+
+
+                        /*
+                         * SORT
+                         */
+
+                        if (selectedSort) {
+
+                            currentSort =
+                                selectedSort;
+
+
+                            filterOptions
+                                .forEach(
+                                    function (item) {
+
+                                        if (
+                                            item.dataset.sort
+                                        ) {
+
+                                            item.classList.toggle(
+                                                "active",
+                                                item.dataset.sort ===
+                                                currentSort
+                                            );
+
+                                        }
+
+                                    }
+                                );
+
+                        }
+
+
+                        /*
+                         * PLATFORM
+                         */
+
+                        if (selectedPlatform) {
+
+                            currentPlatform =
+                                selectedPlatform;
+
+
+                            filterOptions
+                                .forEach(
+                                    function (item) {
+
+                                        if (
+                                            item.dataset.platform
+                                        ) {
+
+                                            item.classList.toggle(
+                                                "active",
+                                                item.dataset.platform ===
+                                                currentPlatform
+                                            );
+
+                                        }
+
+                                    }
+                                );
+
+                        }
+
+
+                        /*
+                         * Re-render products.
+                         */
+
+                        renderProducts();
+
+
+                        /*
+                         * Close filter menu.
+                         */
+
+                        filterMenu.classList.remove(
+                            "open"
+                        );
+
+                        filterButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
 
 
         /* =========================================================
@@ -2892,6 +3858,7 @@
         });
 
 
+
         /* =========================================================
            LOAD CATEGORIES
            ========================================================= */
@@ -2899,30 +3866,35 @@
         async function loadCategories() {
 
             const fallbackCategories = [
+                "Fashion",
                 "Accessories",
                 "Beauty",
-                "Cookery",
-                "Fashion",
                 "Fragrance",
-                "Gadget & Tech",
-                "Gaming",
                 "Home Items",
-                "Random Useful Items",
-                "Sports"
+                "Cookery",
+                "Electronics",
+                "Gaming",
+                "Sports",
+                "Others"
             ];
 
 
             try {
+
+                /*
+                 * Keep the database check so the existing
+                 * Supabase structure is not disturbed.
+                 *
+                 * The website display itself uses the fixed
+                 * CATEGORY_DEFINITIONS order above.
+                 */
 
                 const {
                     data,
                     error
                 } = await supabaseClient
                     .from("categories")
-                    .select("*")
-                    .order("name", {
-                        ascending: true
-                    });
+                    .select("*");
 
 
                 if (error) {
@@ -2930,18 +3902,22 @@
                 }
 
 
+                /*
+                 * Always use the requested category order
+                 * and display names.
+                 *
+                 * Existing database names such as
+                 * "Gadget & Tech" and
+                 * "Random Useful Items" are handled
+                 * through CATEGORY_DEFINITIONS.
+                 */
+
                 if (
-                    Array.isArray(data) &&
-                    data.length
+                    Array.isArray(data)
                 ) {
 
                     allCategories =
-                        data
-                            .map(category =>
-                                category.name ||
-                                category.category_name
-                            )
-                            .filter(Boolean);
+                        fallbackCategories;
 
                 } else {
 
@@ -2966,6 +3942,7 @@
             renderCategories();
 
         }
+
 
 
         /* =========================================================
@@ -3002,16 +3979,26 @@
             categoryMenu.appendChild(allLink);
 
 
-            allCategories.forEach(
-                function (category) {
+            /*
+             * Render categories in the exact requested order.
+             */
+
+            CATEGORY_DEFINITIONS.forEach(
+                function (definition) {
 
                     const link =
                         document.createElement("a");
 
-                    link.href =
-                        `?type=${encodeURIComponent(category)}`;
 
-                    link.textContent = category;
+                    link.href =
+                        `?type=${encodeURIComponent(
+                            definition.display
+                        )}`;
+
+
+                    link.textContent =
+                        definition.display;
+
 
                     link.addEventListener(
                         "click",
@@ -3029,12 +4016,16 @@
                         }
                     );
 
-                    categoryMenu.appendChild(link);
+
+                    categoryMenu.appendChild(
+                        link
+                    );
 
                 }
             );
 
         }
+
 
 
         /* =========================================================
@@ -3234,6 +4225,7 @@
         }
 
 
+
         /* =========================================================
            FILTER PRODUCTS
            ========================================================= */
@@ -3244,15 +4236,32 @@
                 [...allProducts];
 
 
-            /* CATEGORY */
+            /* =====================================================
+               CATEGORY
+               ===================================================== */
 
             if (
                 currentFilter &&
                 currentFilter !== "all"
             ) {
 
+                const normalizedFilter =
+                    currentFilter
+                        .toLowerCase()
+                        .trim();
+
+
+                /*
+                 * Support both:
+                 *
+                 * ?type=trending
+                 * ?type=🔥trending
+                 */
+
                 if (
-                    currentFilter.toLowerCase() ===
+                    normalizedFilter ===
+                    "trending" ||
+                    normalizedFilter ===
                     "🔥trending"
                 ) {
 
@@ -3269,19 +4278,9 @@
                         products.filter(
                             product => {
 
-                                const category =
-                                    getProductCategory(
-                                        product
-                                    );
-
-                                return (
-                                    category &&
-                                    category
-                                        .toLowerCase()
-                                        .trim() ===
+                                return productMatchesCategory(
+                                    product,
                                     currentFilter
-                                        .toLowerCase()
-                                        .trim()
                                 );
 
                             }
@@ -3292,7 +4291,10 @@
             }
 
 
-            /* SEARCH */
+
+            /* =====================================================
+               SEARCH
+               ===================================================== */
 
             if (currentSearch) {
 
@@ -3334,9 +4336,94 @@
             }
 
 
+
+            /* =====================================================
+               PLATFORM
+               ===================================================== */
+
+            if (
+                currentPlatform &&
+                currentPlatform !== "all"
+            ) {
+
+                products =
+                    products.filter(
+                        product => {
+
+                            return productMatchesPlatform(
+                                product,
+                                currentPlatform
+                            );
+
+                        }
+                    );
+
+            }
+
+
+
+            /* =====================================================
+               PRICE SORT
+               ===================================================== */
+
+            if (
+                currentSort === "low" ||
+                currentSort === "high"
+            ) {
+
+                products.sort(
+                    function (a, b) {
+
+                        const priceA =
+                            getProductSortPrice(a);
+
+                        const priceB =
+                            getProductSortPrice(b);
+
+
+                        /*
+                         * Products without a price go to the end.
+                         */
+
+                        if (
+                            priceA === null &&
+                            priceB === null
+                        ) {
+                            return 0;
+                        }
+
+
+                        if (priceA === null) {
+                            return 1;
+                        }
+
+
+                        if (priceB === null) {
+                            return -1;
+                        }
+
+
+                        if (
+                            currentSort === "low"
+                        ) {
+
+                            return priceA - priceB;
+
+                        }
+
+
+                        return priceB - priceA;
+
+                    }
+                );
+
+            }
+
+
             return products;
 
         }
+
 
 
         /* =========================================================
@@ -3347,8 +4434,12 @@
 
             if (
                 currentFilter &&
-                currentFilter.toLowerCase() ===
-                "trending"
+                (
+                    currentFilter.toLowerCase() ===
+                    "trending" ||
+                    currentFilter.toLowerCase() ===
+                    "🔥trending"
+                )
             ) {
 
                 sectionHeading.textContent =
@@ -3358,6 +4449,7 @@
                     "Popular picks from VNR CHOICEZ";
 
                 return;
+
             }
 
 
@@ -3366,13 +4458,23 @@
                 currentFilter !== "all"
             ) {
 
+                const definition =
+                    getCategoryDefinition(
+                        currentFilter
+                    );
+
+
                 sectionHeading.textContent =
-                    currentFilter;
+                    definition
+                        ? definition.display
+                        : currentFilter;
+
 
                 sectionSubheading.textContent =
                     "Curated picks by VNR CHOICEZ";
 
                 return;
+
             }
 
 
@@ -3383,6 +4485,7 @@
                 "Curated picks by VNR CHOICEZ";
 
         }
+
 
 
         /* =========================================================
@@ -3452,15 +4555,50 @@
                         );
 
 
+
                     /* =================================================
                        PLATFORM DISPLAY
                        ================================================= */
 
-                    const activePlatforms =
+                    const allActivePlatforms =
                         getActiveProductPlatforms(
                             product
                         );
 
+
+                    /*
+                     * When a platform filter is selected,
+                     * only display the selected platform button.
+                     *
+                     * This makes the selected filter clear to users.
+                     */
+
+                    const activePlatforms =
+                        currentPlatform === "all"
+                            ? allActivePlatforms
+                            : allActivePlatforms.filter(
+                                function (platform) {
+
+                                    return (
+                                        String(
+                                            platform.platform || ""
+                                        )
+                                            .toLowerCase()
+                                            .trim() ===
+                                        currentPlatform
+                                            .toLowerCase()
+                                            .trim()
+                                    );
+
+                                }
+                            );
+
+
+                    /*
+                     * Price range remains based on the displayed
+                     * platform selection when a platform filter
+                     * is active.
+                     */
 
                     const priceRange =
                         getProductPriceRange(
@@ -3583,11 +4721,12 @@
                     }
 
 
+
                     /*
                      * Platform products now have:
                      *
                      * 1. A calculated overall price range
-                     *    based on main price + active platform prices.
+                     *    based on the selected/displayed platforms.
                      *
                      * 2. Platform-specific buttons underneath.
                      *
@@ -3696,6 +4835,7 @@
         }
 
 
+
         /* =========================================================
            SEARCH
            ========================================================= */
@@ -3735,6 +4875,7 @@
         );
 
 
+
         /* =========================================================
            DETECT INITIAL FILTER
            ========================================================= */
@@ -3759,11 +4900,18 @@
                     initialType
                 );
 
+
+            /*
+             * Category filters hide the hero.
+             * Trending also behaves as a filtered page.
+             */
+
             document.body.classList.add(
                 "has-filter"
             );
 
         }
+
 
 
         /* =========================================================
@@ -3798,6 +4946,52 @@
         );
 
 
+
+        /* =========================================================
+           INITIALIZE FILTER UI
+           ========================================================= */
+
+        function initializeFilterUI() {
+
+            /*
+             * Default sort state:
+             * no price sorting selected.
+             */
+
+            filterOptions.forEach(
+                function (option) {
+
+                    option.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            /*
+             * Default platform:
+             * All Platforms.
+             */
+
+            const allPlatformOption =
+                filterMenu.querySelector(
+                    '[data-platform="all"]'
+                );
+
+
+            if (allPlatformOption) {
+
+                allPlatformOption.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+
+
+
         /* =========================================================
            INITIALIZE
            ========================================================= */
@@ -3805,6 +4999,8 @@
         async function initializeSite() {
 
             applyInitialFilter();
+
+            initializeFilterUI();
 
             await loadCategories();
 
@@ -3814,6 +5010,7 @@
 
 
         initializeSite();
+
 
 
         /* =========================================================
