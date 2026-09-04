@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -27,117 +28,96 @@
         href="cropped_circle_image.png"
     >
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
     <style>
 
-        /* =========================================================
-           VNR CHOICEZ
-           MODERN EDITORIAL / CURATED DISCOVERY DESIGN
-           ========================================================= */
-
         :root {
-            --sand: #CFC5B5;
-            --sand-soft: #E3DBCF;
 
-            --paper: #F0EBE3;
-            --white: #FAF8F4;
+            --bg:
+                #F7F4EF;
 
-            --charcoal: #171717;
-            --charcoal-soft: #222222;
+            --card:
+                #FCFAF7;
 
-            --text: #24221F;
-            --text-soft: #68635B;
-            --text-muted: #938C82;
+            --text:
+                #24221F;
 
-            --champagne: #B69A6B;
-            --champagne-soft: rgba(182,154,107,0.15);
+            --muted:
+                #777168;
 
-            --line: #CFC6B9;
-            --line-soft: rgba(36,34,31,0.10);
+            --line:
+                #E3DDD4;
 
-            --card: #FAF8F4;
+            --sand:
+                #D9CCBA;
 
-            --ease: cubic-bezier(0.22, 1, 0.36, 1);
-            --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+            --sand-soft:
+                #EFE8DE;
+
+            --gold:
+                #B69A6B;
+
+            --white:
+                #FFFFFF;
+
+            --ease:
+                cubic-bezier(0.22, 1, 0.36, 1);
+
         }
 
 
         * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            box-sizing:
+                border-box;
         }
 
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior:
+                smooth;
         }
 
 
         body {
-            background:
-                radial-gradient(
-                    circle at 50% -8%,
-                    rgba(255,255,255,0.48),
-                    transparent 34%
-                ),
-                linear-gradient(
-                    180deg,
-                    #E3DBCF 0%,
-                    #CFC5B5 46%,
-                    #D8CFC3 100%
-                );
 
-            color: var(--text);
+            margin:
+                0;
+
+            padding:
+                0;
+
+            background:
+                var(--bg);
+
+            color:
+                var(--text);
 
             font-family:
-                "Inter",
                 Arial,
                 Helvetica,
                 sans-serif;
 
-            min-height: 100vh;
+            -webkit-font-smoothing:
+                antialiased;
 
-            overflow-x: hidden;
-
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
+            overflow-x:
+                hidden;
         }
 
 
-        body::selection {
-            background: var(--champagne);
-            color: var(--white);
+        a {
+            color:
+                inherit;
+
+            text-decoration:
+                none;
         }
 
 
-        a,
         button,
         input {
-            -webkit-tap-highlight-color: transparent;
+            font-family:
+                inherit;
         }
-
-
-        button,
-        a {
-            touch-action: manipulation;
-        }
-
 
 
         /* =========================================================
@@ -145,366 +125,422 @@
            ========================================================= */
 
         header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
 
-            height: 72px;
+            position:
+                sticky;
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            top:
+                0;
 
-            padding: 0 42px;
+            z-index:
+                5000;
 
-            background: rgba(23,23,23,0.96);
+            width:
+                100%;
+
+            height:
+                76px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                0 5vw;
+
+            background:
+                rgba(23,23,23,0.94);
 
             border-bottom:
-                1px solid rgba(255,255,255,0.08);
+                1px solid
+                rgba(255,255,255,0.07);
 
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
 
             transition:
+                height 0.35s var(--ease),
                 background 0.35s var(--ease),
-                box-shadow 0.35s var(--ease),
-                border-color 0.35s var(--ease);
+                box-shadow 0.35s var(--ease);
         }
 
 
         header.scrolled {
-            background: rgba(23,23,23,0.985);
 
-            border-color:
-                rgba(255,255,255,0.12);
+            height:
+                68px;
+
+            background:
+                rgba(23,23,23,0.985);
 
             box-shadow:
-                0 10px 35px rgba(0,0,0,0.18);
+                0 10px 35px
+                rgba(0,0,0,0.18);
         }
 
 
         .logo {
-            display: flex;
-            align-items: center;
 
-            gap: 10px;
+            display:
+                flex;
 
-            color: #fff;
+            align-items:
+                center;
 
-            text-decoration: none;
+            gap:
+                11px;
 
-            font-size: 17px;
-            font-weight: 800;
+            color:
+                #FFFFFF;
 
-            letter-spacing: 1.7px;
+            font-size:
+                16px;
 
-            transition:
-                transform 0.3s var(--ease),
-                opacity 0.3s var(--ease);
-        }
+            font-weight:
+                700;
 
+            letter-spacing:
+                0.13em;
 
-        .logo:hover {
-            transform: translateY(-1px);
-            opacity: 0.88;
+            white-space:
+                nowrap;
         }
 
 
         .logo img {
-            width: 34px;
-            height: 34px;
 
-            object-fit: cover;
+            width:
+                36px;
 
-            border-radius: 50%;
+            height:
+                36px;
 
-            transition:
-                transform 0.45s var(--ease),
-                box-shadow 0.45s var(--ease);
+            object-fit:
+                cover;
+
+            border-radius:
+                50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.16);
         }
 
-
-        .logo:hover img {
-            transform:
-                rotate(-5deg)
-                scale(1.06);
-
-            box-shadow:
-                0 0 22px rgba(182,154,107,0.16);
-        }
-
-
-
-        /* =========================================================
-           NAVIGATION
-           ========================================================= */
 
         nav {
-            display: flex;
-            align-items: center;
 
-            gap: 8px;
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
         }
 
 
         nav a,
         .category-toggle {
-            position: relative;
 
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            min-height:
+                42px;
 
-            min-height: 40px;
+            padding:
+                0 13px;
 
-            padding: 0 14px;
+            display:
+                inline-flex;
 
-            color: #D8D5CE;
+            align-items:
+                center;
 
-            text-decoration: none;
+            justify-content:
+                center;
 
-            background: transparent;
+            gap:
+                7px;
 
-            border: none;
+            border:
+                0;
 
-            font: inherit;
-            font-size: 14px;
+            background:
+                transparent;
 
-            cursor: pointer;
+            color:
+                rgba(255,255,255,0.72);
 
-            border-radius: 10px;
+            border-radius:
+                9px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                600;
+
+            letter-spacing:
+                0.02em;
+
+            cursor:
+                pointer;
 
             transition:
-                color 0.25s var(--ease),
-                background 0.25s var(--ease),
-                transform 0.25s var(--ease);
+                color 0.25s ease,
+                background 0.25s ease;
         }
 
 
         nav a:hover,
         .category-toggle:hover {
-            color: #fff;
+
+            color:
+                #FFFFFF;
 
             background:
                 rgba(255,255,255,0.07);
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        nav a:active,
-        .category-toggle:active {
-            transform: scale(0.96);
         }
 
 
         .category-wrapper {
-            position: relative;
+
+            position:
+                relative;
         }
 
 
-        .category-toggle {
-            gap: 7px;
-        }
+        .category-toggle .arrow {
 
+            font-size:
+                9px;
 
-        .arrow {
-            font-size: 10px;
+            opacity:
+                0.75;
 
             transition:
-                transform 0.3s var(--ease);
+                transform 0.25s ease;
         }
 
 
-        .category-wrapper.open .arrow {
+        .category-wrapper.open
+        .category-toggle .arrow {
+
             transform:
                 rotate(180deg);
         }
 
 
-
-        /* =========================================================
-           DROPDOWN
-           ========================================================= */
-
         .dropdown-menu {
-            position: absolute;
 
-            top: calc(100% + 12px);
-            right: 0;
+            position:
+                absolute;
 
-            min-width: 220px;
+            top:
+                calc(100% + 9px);
 
-            padding: 8px;
+            right:
+                0;
+
+            min-width:
+                215px;
+
+            max-height:
+                420px;
+
+            overflow-y:
+                auto;
+
+            padding:
+                7px;
 
             background:
-                rgba(28,28,28,0.98);
+                rgba(28,28,28,0.985);
 
             border:
-                1px solid rgba(255,255,255,0.10);
+                1px solid
+                rgba(255,255,255,0.09);
 
-            border-radius: 15px;
+            border-radius:
+                12px;
 
             box-shadow:
-                0 22px 60px rgba(0,0,0,0.32),
-                inset 0 1px 0 rgba(255,255,255,0.04);
+                0 22px 50px
+                rgba(0,0,0,0.30);
 
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            opacity:
+                0;
 
-            opacity: 0;
+            visibility:
+                hidden;
 
-            visibility: hidden;
-
-            pointer-events: none;
+            pointer-events:
+                none;
 
             transform:
-                translateY(-8px)
-                scale(0.97);
-
-            transform-origin:
-                top right;
+                translateY(-7px);
 
             transition:
-                opacity 0.28s var(--ease),
-                transform 0.32s var(--ease),
-                visibility 0.28s;
+                opacity 0.25s ease,
+                transform 0.25s ease,
+                visibility 0.25s;
         }
 
 
-        .category-wrapper.open .dropdown-menu {
-            opacity: 1;
+        .category-wrapper.open
+        .dropdown-menu {
 
-            visibility: visible;
+            opacity:
+                1;
 
-            pointer-events: auto;
+            visibility:
+                visible;
+
+            pointer-events:
+                auto;
 
             transform:
-                translateY(0)
-                scale(1);
+                translateY(0);
         }
 
 
         .dropdown-menu a {
-            display: flex;
-            align-items: center;
 
-            width: 100%;
+            width:
+                100%;
 
-            min-height: 40px;
+            min-height:
+                42px;
 
-            padding: 0 12px;
+            justify-content:
+                flex-start;
 
-            border-radius: 9px;
+            padding:
+                0 12px;
 
-            font-size: 13px;
+            color:
+                rgba(255,255,255,0.75);
 
-            color: #C8C4BC;
-
-            transform: none;
+            border-radius:
+                8px;
         }
 
 
         .dropdown-menu a:hover {
-            background:
-                rgba(182,154,107,0.12);
 
-            color: #fff;
+            color:
+                #FFFFFF;
 
-            transform:
-                translateX(3px);
-        }
-
-
-
-        /* =========================================================
-           MOBILE MENU BUTTON
-           ========================================================= */
-
-        .mobile-menu-btn {
-            display: none;
-
-            width: 42px;
-            height: 42px;
-
-            align-items: center;
-            justify-content: center;
-
-            border:
-                1px solid rgba(255,255,255,0.10);
-
-            border-radius: 11px;
-
-            background:
-                rgba(255,255,255,0.04);
-
-            color: #fff;
-
-            cursor: pointer;
-
-            transition:
-                background 0.25s var(--ease),
-                transform 0.25s var(--ease);
-        }
-
-
-        .mobile-menu-btn:hover {
             background:
                 rgba(255,255,255,0.08);
         }
 
 
-        .mobile-menu-btn:active {
-            transform: scale(0.93);
+        .mobile-menu-btn {
+
+            display:
+                none;
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                0;
+
+            border:
+                0;
+
+            background:
+                transparent;
+
+            color:
+                #FFFFFF;
+
+            cursor:
+                pointer;
         }
 
 
-        .menu-lines {
-            width: 17px;
+        .mobile-menu-btn span,
+        .mobile-menu-btn::before,
+        .mobile-menu-btn::after {
 
-            display: flex;
-            flex-direction: column;
+            content:
+                "";
 
-            gap: 4px;
-        }
+            position:
+                absolute;
 
+            width:
+                20px;
 
-        .menu-lines span {
-            width: 100%;
-            height: 1.5px;
+            height:
+                1.5px;
 
-            background: #fff;
-
-            border-radius: 10px;
+            background:
+                currentColor;
 
             transition:
-                transform 0.3s var(--ease),
-                opacity 0.25s var(--ease);
+                transform 0.25s ease;
         }
 
 
-        .mobile-menu-btn.active
-        .menu-lines span:nth-child(1) {
+        .mobile-menu-btn {
+
+            position:
+                relative;
+        }
+
+
+        .mobile-menu-btn::before {
+
             transform:
-                translateY(5.5px)
+                translateY(-6px);
+        }
+
+
+        .mobile-menu-btn::after {
+
+            transform:
+                translateY(6px);
+        }
+
+
+        .mobile-menu-btn.active span {
+
+            opacity:
+                0;
+        }
+
+
+        .mobile-menu-btn.active::before {
+
+            transform:
                 rotate(45deg);
         }
 
 
-        .mobile-menu-btn.active
-        .menu-lines span:nth-child(2) {
-            opacity: 0;
-        }
+        .mobile-menu-btn.active::after {
 
-
-        .mobile-menu-btn.active
-        .menu-lines span:nth-child(3) {
             transform:
-                translateY(-5.5px)
                 rotate(-45deg);
         }
-
 
 
         /* =========================================================
@@ -512,179 +548,163 @@
            ========================================================= */
 
         .hero {
-            position: relative;
 
-            min-height: 460px;
+            min-height:
+                510px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display:
+                flex;
 
-            text-align: center;
+            align-items:
+                center;
 
-            padding: 85px 20px 78px;
+            justify-content:
+                center;
 
-            overflow: hidden;
+            padding:
+                80px 20px 95px;
+
+            text-align:
+                center;
 
             background:
                 radial-gradient(
-                    circle at 50% 35%,
-                    rgba(182,154,107,0.11),
-                    transparent 31%
+                    circle at 50% 0%,
+                    rgba(182,154,107,0.15),
+                    transparent 48%
                 ),
-                linear-gradient(
-                    180deg,
-                    rgba(240,235,227,0.24),
-                    transparent
-                );
+                var(--bg);
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
         }
 
 
         .hero::before {
-            content: "";
 
-            position: absolute;
+            content:
+                "";
 
-            inset: -30%;
+            position:
+                absolute;
 
-            background:
-                radial-gradient(
-                    circle at 50% 45%,
-                    rgba(182,154,107,0.07),
-                    transparent 28%
-                ),
-                radial-gradient(
-                    circle at 50% 100%,
-                    rgba(182,154,107,0.035),
-                    transparent 40%
-                );
+            width:
+                500px;
 
-            pointer-events: none;
+            height:
+                500px;
 
-            animation:
-                heroGlow 7s ease-in-out infinite alternate;
-        }
+            top:
+                -300px;
 
-
-        .hero-content {
-            position: relative;
-
-            z-index: 2;
-
-            max-width: 900px;
-        }
-
-
-        .hero-eyebrow {
-            margin-bottom: 17px;
-
-            color: var(--champagne);
-
-            font-size: 11px;
-
-            font-weight: 700;
-
-            letter-spacing: 4px;
-
-            text-transform: uppercase;
-
-            opacity: 0;
-
-            animation:
-                heroItem
-                0.8s
-                0.05s
-                var(--ease)
-                forwards;
-        }
-
-
-        .hero h1 {
-            position: relative;
-
-            display: inline-block;
-
-            padding: 42px 64px;
-
-            margin-bottom: 26px;
-
-            color: var(--charcoal);
-
-            font-family:
-                "Cormorant Garamond",
-                Georgia,
-                "Times New Roman",
-                serif;
-
-            font-size:
-                clamp(52px, 8vw, 94px);
-
-            line-height: 0.87;
-
-            letter-spacing: -2.7px;
-
-            font-weight: 600;
-
-            opacity: 0;
-
-            filter: blur(8px);
-
-            animation:
-                heroTitle
-                1s
-                0.15s
-                var(--ease)
-                forwards;
-        }
-
-
-        .hero h1::before {
-            content: none;
-        }
-
-
-        .hero h1::after {
-            content: "";
-
-            position: absolute;
-
-            top: 4px;
-            left: 50%;
-
-            width: 46px;
-            height: 2px;
+            left:
+                50%;
 
             transform:
                 translateX(-50%);
 
-            background:
-                var(--champagne);
+            border-radius:
+                50%;
 
-            pointer-events: none;
+            border:
+                1px solid
+                rgba(182,154,107,0.15);
+
+            box-shadow:
+                0 0 0 80px
+                rgba(182,154,107,0.025),
+                0 0 0 160px
+                rgba(182,154,107,0.018);
         }
 
 
-        .hero p {
-            max-width: 630px;
+        .hero-content {
 
-            margin: 0 auto;
+            position:
+                relative;
 
-            color: var(--text-soft);
+            z-index:
+                2;
 
-            font-size: 15px;
+            max-width:
+                820px;
 
-            line-height: 1.75;
+            opacity:
+                0;
 
-            opacity: 0;
+            transform:
+                translateY(20px);
 
             animation:
-                heroItem
-                0.8s
-                0.38s
+                sectionReveal
+                0.9s
+                0.1s
                 var(--ease)
                 forwards;
         }
 
+
+        .hero-eyebrow {
+
+            margin-bottom:
+                20px;
+
+            color:
+                var(--gold);
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                0.32em;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .hero h1 {
+
+            margin:
+                0;
+
+            font-size:
+                clamp(44px, 7vw, 88px);
+
+            line-height:
+                0.94;
+
+            letter-spacing:
+                -0.055em;
+
+            font-weight:
+                700;
+        }
+
+
+        .hero p {
+
+            max-width:
+                620px;
+
+            margin:
+                27px auto 0;
+
+            color:
+                var(--muted);
+
+            font-size:
+                15px;
+
+            line-height:
+                1.75;
+        }
 
 
         /* =========================================================
@@ -692,13 +712,21 @@
            ========================================================= */
 
         .search-section {
+
+            position:
+                relative;
+
+            z-index:
+                1000;
+
             width:
                 min(900px, calc(100% - 40px));
 
             margin:
                 0 auto 70px;
 
-            opacity: 0;
+            opacity:
+                0;
 
             transform:
                 translateY(20px);
@@ -713,31 +741,47 @@
 
 
         .search-box {
-            position: relative;
+
+            position:
+                relative;
+
+            z-index:
+                1000;
+
+            overflow:
+                visible;
         }
 
 
         .search-box input {
-            width: 100%;
 
-            height: 60px;
+            width:
+                100%;
+
+            height:
+                60px;
 
             padding:
-                0 150px 0 50px;
+                0 70px 0 50px;
 
-            color: var(--text);
+            color:
+                var(--text);
 
             background:
                 rgba(250,248,244,0.96);
 
             border:
-                1px solid var(--line);
+                1px solid
+                var(--line);
 
-            border-radius: 15px;
+            border-radius:
+                15px;
 
-            outline: none;
+            outline:
+                none;
 
-            font-size: 14px;
+            font-size:
+                14px;
 
             box-shadow:
                 0 10px 35px
@@ -752,17 +796,21 @@
 
 
         .search-box input::placeholder {
-            color: #9B958B;
+
+            color:
+                #9B958B;
         }
 
 
         .search-box input:hover {
+
             border-color:
                 #C5BBAE;
         }
 
 
         .search-box:focus-within input {
+
             background:
                 #FAF8F4;
 
@@ -781,20 +829,211 @@
         }
 
 
+        /* =========================================================
+           FILTER BUTTON
+           ========================================================= */
+
+        .filter-button {
+
+            position:
+                absolute;
+
+            right:
+                10px;
+
+            top:
+                50%;
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            transform:
+                translateY(-50%);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                0;
+
+            border:
+                0;
+
+            border-radius:
+                10px;
+
+            background:
+                #24211E;
+
+            color:
+                #FAF8F4;
+
+            cursor:
+                pointer;
+
+            z-index:
+                10002;
+        }
+
+
+        .filter-button:hover {
+
+            background:
+                #3A3530;
+        }
+
+
+        .filter-button svg {
+
+            width:
+                20px;
+
+            height:
+                20px;
+
+            display:
+                block;
+        }
+
+
+        .filter-menu {
+
+            position:
+                absolute;
+
+            top:
+                calc(100% + 8px);
+
+            right:
+                0;
+
+            min-width:
+                215px;
+
+            padding:
+                7px;
+
+            background:
+                #FFFFFF;
+
+            border:
+                1px solid
+                rgba(36,34,31,0.12);
+
+            border-radius:
+                12px;
+
+            box-shadow:
+                0 18px 45px
+                rgba(0,0,0,0.18),
+
+                0 5px 15px
+                rgba(0,0,0,0.08);
+
+            display:
+                none;
+
+            z-index:
+                99999;
+        }
+
+
+        .filter-menu.open {
+
+            display:
+                block;
+        }
+
+
+        .filter-option {
+
+            width:
+                100%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            padding:
+                11px 13px;
+
+            border:
+                0;
+
+            border-radius:
+                8px;
+
+            background:
+                transparent;
+
+            color:
+                #24211E;
+
+            font-family:
+                inherit;
+
+            font-size:
+                13px;
+
+            text-align:
+                left;
+
+            cursor:
+                pointer;
+        }
+
+
+        .filter-option:hover {
+
+            background:
+                #F3EEE7;
+        }
+
+
+        .filter-option.active {
+
+            background:
+                #24211E;
+
+            color:
+                #FFFFFF;
+        }
+
+
         .search-icon {
-            position: absolute;
 
-            left: 19px;
-            top: 50%;
+            position:
+                absolute;
 
-            width: 15px;
-            height: 15px;
+            left:
+                19px;
+
+            top:
+                50%;
+
+            width:
+                15px;
+
+            height:
+                15px;
 
             border:
                 1.6px solid
                 #9A958C;
 
-            border-radius: 50%;
+            border-radius:
+                50%;
 
             transform:
                 translateY(-55%);
@@ -806,386 +1045,133 @@
 
 
         .search-icon::after {
-            content: "";
 
-            position: absolute;
+            content:
+                "";
 
-            width: 6px;
-            height: 1.5px;
+            position:
+                absolute;
+
+            width:
+                6px;
+
+            height:
+                1.6px;
+
+            right:
+                -4px;
+
+            bottom:
+                -2px;
 
             background:
                 #9A958C;
 
-            right: -5px;
-            bottom: -2px;
-
             transform:
                 rotate(45deg);
 
-            transition:
-                background 0.3s var(--ease);
+            border-radius:
+                2px;
         }
 
 
         .search-box:focus-within
         .search-icon {
+
             border-color:
-                var(--champagne);
+                var(--gold);
 
             transform:
                 translateY(-55%)
-                scale(1.08);
+                scale(1.05);
         }
-
-
-        .search-box:focus-within
-        .search-icon::after {
-            background:
-                var(--champagne);
-        }
-
-
-
-
-          /* =========================================================
-           FILTER BUTTON
-           ========================================================= */
-
-        .filter-button {
-            position: absolute;
-
-            right: 10px;
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            min-width: 92px;
-            height: 40px;
-
-            display: inline-flex;
-
-            align-items: center;
-            justify-content: center;
-
-            gap: 7px;
-
-            padding:
-                0 13px;
-
-            color: #FFFFFF;
-
-            background:
-                var(--charcoal);
-
-            border:
-                1px solid var(--charcoal);
-
-            border-radius: 10px;
-
-            font-family:
-                "Inter",
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            font-size: 11px;
-
-            font-weight: 800;
-
-            cursor: pointer;
-
-            z-index: 5;
-
-            transition:
-                background 0.25s var(--ease),
-                color 0.25s var(--ease),
-                border-color 0.25s var(--ease),
-                transform 0.25s var(--ease),
-                box-shadow 0.25s var(--ease);
-        }
-
-
-        .filter-button:hover {
-            color:
-                var(--charcoal);
-
-            background:
-                var(--white);
-
-            border-color:
-                var(--champagne);
-
-            transform:
-                translateY(-50%)
-                translateY(-1px);
-
-            box-shadow:
-                0 8px 20px
-                rgba(36,34,31,0.08);
-        }
-
-
-        .filter-button:active {
-            transform:
-                translateY(-50%)
-                scale(0.96);
-        }
-
-
-        .filter-arrow {
-            font-size: 9px;
-
-            transition:
-                transform 0.3s var(--ease);
-        }
-
-
-        .filter-button[aria-expanded="true"]
-        .filter-arrow {
-            transform:
-                rotate(180deg);
-        }
-
-
-        .filter-menu {
-            position: absolute;
-
-            top: calc(100% + 10px);
-            right: 0;
-
-            width: 220px;
-
-            padding: 8px;
-
-            background:
-                rgba(28,28,28,0.98);
-
-            border:
-                1px solid rgba(255,255,255,0.10);
-
-            border-radius: 14px;
-
-            box-shadow:
-                0 20px 50px rgba(0,0,0,0.24);
-
-            backdrop-filter:
-                blur(18px);
-
-            -webkit-backdrop-filter:
-                blur(18px);
-
-            opacity: 0;
-
-            visibility: hidden;
-
-            pointer-events: none;
-
-            transform:
-                translateY(-8px)
-                scale(0.97);
-
-            transform-origin:
-                top right;
-
-            z-index: 100;
-
-            transition:
-                opacity 0.25s var(--ease),
-                transform 0.3s var(--ease),
-                visibility 0.25s;
-        }
-
-
-        .filter-menu.open {
-            opacity: 1;
-
-            visibility: visible;
-
-            pointer-events: auto;
-
-            transform:
-                translateY(0)
-                scale(1);
-        }
-
-
-        .filter-menu-title {
-            padding:
-                8px 11px 6px;
-
-            color:
-                #8F8B84;
-
-            font-size: 9px;
-
-            font-weight: 800;
-
-            letter-spacing: 1.5px;
-
-            text-transform: uppercase;
-        }
-
-      .filter-option {
-            width: 100%;
-
-            min-height: 38px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding:
-                0 11px;
-
-            color:
-                #C8C4BC;
-
-            background:
-                transparent;
-
-            border:
-                none;
-
-            border-radius: 9px;
-
-            font-family:
-                "Inter",
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            text-align: left;
-
-            cursor: pointer;
-
-            transition:
-                background 0.2s var(--ease),
-                color 0.2s var(--ease),
-                transform 0.2s var(--ease);
-        }
-
-
-        .filter-option:hover {
-            color:
-                #FFFFFF;
-
-            background:
-                rgba(182,154,107,0.12);
-
-            transform:
-                translateX(2px);
-        }
-
-
-        .filter-option.active {
-            color:
-                #FFFFFF;
-
-            background:
-                rgba(182,154,107,0.16);
-        }
-
-
-        .filter-option-check {
-            color:
-                var(--champagne);
-
-            font-size: 12px;
-
-            opacity: 0;
-        }
-
-
-        .filter-option.active
-        .filter-option-check {
-            opacity: 1;
-        }
-
 
 
         /* =========================================================
-           PRODUCTS SECTION
+           PRODUCTS MAIN
            ========================================================= */
 
-        main {
+        #productsMain {
+
+            position:
+                relative;
+
+            z-index:
+                1;
+
             width:
-                min(1180px, calc(100% - 48px));
+                min(1400px, calc(100% - 40px));
 
             margin:
-                0 auto 100px;
+                0 auto;
+
+            padding-bottom:
+                80px;
         }
 
 
         .section-header {
-            display: flex;
 
-            align-items: flex-end;
+            display:
+                flex;
 
-            justify-content: space-between;
+            align-items:
+                flex-end;
 
-            gap: 20px;
+            justify-content:
+                space-between;
 
-            margin-bottom: 28px;
-
-            padding-bottom: 17px;
-
-            border-bottom:
-                1px solid var(--line-soft);
+            margin-bottom:
+                24px;
         }
 
 
         .section-heading {
-            color: var(--charcoal);
 
-            font-family:
-                "Cormorant Garamond",
-                Georgia,
-                "Times New Roman",
-                serif;
+            margin:
+                0;
 
             font-size:
-                clamp(30px, 4vw, 42px);
+                clamp(25px, 3vw, 34px);
 
-            letter-spacing: -0.9px;
-
-            font-weight: 600;
+            letter-spacing:
+                -0.035em;
         }
 
 
         .section-subheading {
-            margin-top: 7px;
 
-            color: var(--text-soft);
+            margin:
+                8px 0 0;
 
-            font-size: 13px;
+            color:
+                var(--muted);
 
-            line-height: 1.5;
+            font-size:
+                13px;
         }
 
 
-
-        /* =========================================================
-           PRODUCT GRID
-           ========================================================= */
-
         .products-grid {
-            display: grid;
+
+            position:
+                relative;
+
+            z-index:
+                1;
+
+            display:
+                grid;
 
             grid-template-columns:
                 repeat(4, minmax(0, 1fr));
 
-            gap: 18px;
+            gap:
+                18px;
 
-            align-items: stretch;
+            align-items:
+                stretch;
         }
-
 
 
         /* =========================================================
@@ -1193,21 +1179,31 @@
            ========================================================= */
 
         .product {
-            position: relative;
 
-            min-width: 0;
+            position:
+                relative;
+
+            z-index:
+                1;
+
+            min-width:
+                0;
 
             background:
                 var(--card);
 
             border:
-                1px solid var(--line);
+                1px solid
+                var(--line);
 
-            border-radius: 14px;
+            border-radius:
+                14px;
 
-            overflow: hidden;
+            overflow:
+                hidden;
 
-            opacity: 0;
+            opacity:
+                0;
 
             transform:
                 translateY(20px)
@@ -1228,14 +1224,18 @@
             animation-delay:
                 var(--delay, 0ms);
 
-            display: flex;
-            flex-direction: column;
+            display:
+                flex;
+
+            flex-direction:
+                column;
         }
 
 
         @media (hover: hover) {
 
             .product:hover {
+
                 transform:
                     translateY(-5px)
                     scale(1.004);
@@ -1255,25 +1255,34 @@
 
 
         .product-image-wrap {
-            position: relative;
 
-            aspect-ratio: 1 / 1;
+            position:
+                relative;
+
+            aspect-ratio:
+                1 / 1;
 
             background:
                 var(--sand-soft);
 
-            overflow: hidden;
+            overflow:
+                hidden;
 
-            flex-shrink: 0;
+            flex-shrink:
+                0;
         }
 
 
         .product-image-wrap::after {
-            content: "";
 
-            position: absolute;
+            content:
+                "";
 
-            inset: 0;
+            position:
+                absolute;
+
+            inset:
+                0;
 
             background:
                 linear-gradient(
@@ -1284,9 +1293,13 @@
                 );
 
             transform:
-                translateX(-130%);
+                translateX(-120%);
 
-            pointer-events: none;
+            transition:
+                transform 0.8s var(--ease);
+
+            pointer-events:
+                none;
         }
 
 
@@ -1294,379 +1307,378 @@
 
             .product:hover
             .product-image-wrap::after {
-                animation:
-                    imageShine
-                    0.8s
-                    var(--ease);
+
+                transform:
+                    translateX(120%);
             }
 
         }
 
 
-        .product img {
-            width: 100%;
-            height: 100%;
+        .product-image {
 
-            display: block;
+            width:
+                100%;
 
-            object-fit: cover;
+            height:
+                100%;
+
+            display:
+                block;
+
+            object-fit:
+                cover;
 
             transition:
-                transform 0.65s var(--ease),
-                filter 0.45s var(--ease);
+                transform 0.7s var(--ease);
         }
 
 
         @media (hover: hover) {
 
-            .product:hover img {
-                transform:
-                    scale(1.035);
+            .product:hover
+            .product-image {
 
-                filter:
-                    brightness(1.015);
+                transform:
+                    scale(1.045);
             }
 
         }
 
 
+        .product-body {
 
-        /* =========================================================
-           PRODUCT CONTENT
-           ========================================================= */
+            display:
+                flex;
 
-        .product-content {
+            flex-direction:
+                column;
+
+            flex:
+                1;
+
             padding:
                 17px 17px 18px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            flex: 1;
         }
 
 
-        .product-category {
-            margin-bottom: 7px;
+        .product-name {
 
-            color:
-                var(--champagne);
-
-            font-size: 10px;
-
-            font-weight: 700;
-
-            letter-spacing: 1.5px;
-
-            text-transform: uppercase;
-        }
-
-
-        .product h3 {
-            margin-bottom: 8px;
+            margin:
+                0;
 
             color:
                 var(--text);
 
-            font-size: 15px;
+            font-size:
+                15px;
 
-            line-height: 1.35;
+            line-height:
+                1.45;
 
-            font-weight: 700;
+            font-weight:
+                700;
         }
 
 
         .product-description {
-            min-height: 40px;
 
-            height: 60px;
-
-            margin-bottom: 14px;
+            margin:
+                8px 0 0;
 
             color:
-                var(--text-soft);
+                var(--muted);
 
-            font-size: 12px;
+            font-size:
+                12px;
 
-            line-height: 1.55;
+            line-height:
+                1.65;
 
-            overflow: hidden;
+            display:
+                -webkit-box;
 
-            display: -webkit-box;
+            -webkit-line-clamp:
+                3;
 
-            -webkit-box-orient: vertical;
+            -webkit-box-orient:
+                vertical;
 
-            -webkit-line-clamp: 3;
-        }
-
-
-        .product-bottom {
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 12px;
-
-            margin-top: auto;
+            overflow:
+                hidden;
         }
 
 
         .product-price {
+
+            margin-top:
+                13px;
+
             color:
-                var(--charcoal);
+                var(--text);
 
-            font-size: 14px;
+            font-size:
+                14px;
 
-            font-weight: 700;
-
-            line-height: 1.35;
-
-            min-height: 19px;
+            font-weight:
+                700;
         }
 
 
-
-        /* =========================================================
-           PLATFORM LINKS
-           ========================================================= */
-
         .product-platforms {
-            display: flex;
 
-            flex-direction: column;
+            display:
+                flex;
 
-            gap: 7px;
+            flex-direction:
+                column;
 
-            width: 100%;
+            gap:
+                7px;
 
-            margin-top: 9px;
+            margin-top:
+                15px;
         }
 
 
         .platform-button {
-            display: flex;
 
-            align-items: center;
-            justify-content: space-between;
+            width:
+                100%;
 
-            width: 100%;
+            min-height:
+                39px;
 
-            min-height: 36px;
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                10px;
 
             padding:
-                0 12px;
-
-            color:
-                #FFFFFF;
-
-            background:
-                var(--charcoal);
+                0 11px;
 
             border:
-                1px solid var(--charcoal);
+                1px solid
+                var(--line);
 
-            border-radius: 9px;
+            border-radius:
+                9px;
 
-            font-size: 10px;
+            background:
+                #FFFFFF;
 
-            font-weight: 800;
+            color:
+                var(--text);
 
-            text-decoration: none;
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+            cursor:
+                pointer;
 
             transition:
-                transform 0.2s var(--ease),
-                background 0.25s var(--ease),
-                color 0.25s var(--ease),
-                border-color 0.25s var(--ease),
-                box-shadow 0.25s var(--ease);
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
         }
 
 
-        .platform-button-name {
-            overflow: hidden;
+        .platform-button:hover {
 
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
-        }
-
-
-        .platform-button-price {
-            margin-left: 8px;
-
-            white-space: nowrap;
-
-            opacity: 0.88;
-        }
-
-
-        @media (hover: hover) {
-
-            .platform-button:hover {
-                color:
-                    var(--charcoal);
-
-                background:
-                    transparent;
-
-                border-color:
-                    var(--champagne);
-
-                transform:
-                    translateY(-1px);
-
-                box-shadow:
-                    0 8px 20px
-                    rgba(36,34,31,0.08);
-            }
-
-        }
-
-
-        .platform-button:active {
             transform:
-                scale(0.96);
+                translateY(-1px);
+
+            border-color:
+                #C3B49F;
+
+            background:
+                #FAF7F2;
         }
 
+
+        .platform-name {
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
+        }
+
+
+        .platform-price {
+
+            color:
+                var(--gold);
+
+            white-space:
+                nowrap;
+        }
+
+
+        .product-footer {
+
+            margin-top:
+                auto;
+
+            padding-top:
+                15px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                10px;
+        }
+
+
+        .product-category {
+
+            color:
+                #9A9388;
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                0.09em;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .view-product {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                5px;
+
+            color:
+                var(--text);
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+        }
+
+
+        .view-product span {
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .product:hover
+        .view-product span {
+
+            transform:
+                translateX(3px);
+        }
 
 
         /* =========================================================
-           BUY BUTTON
+           STATES
            ========================================================= */
 
-        .buy-button {
-            display: inline-flex;
+        .loading,
+        .empty-state,
+        .error-message {
 
-            align-items: center;
-            justify-content: center;
+            grid-column:
+                1 / -1;
 
-            min-height: 36px;
+            min-height:
+                180px;
 
-            padding:
-                0 13px;
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-align:
+                center;
 
             color:
-                #FFFFFF;
+                var(--muted);
 
-            background:
-                var(--charcoal);
+            font-size:
+                13px;
 
             border:
-                1px solid var(--charcoal);
+                1px dashed
+                var(--line);
 
-            border-radius: 9px;
+            border-radius:
+                14px;
 
-            font-size: 11px;
-
-            font-weight: 800;
-
-            text-decoration: none;
-
-            white-space: nowrap;
-
-            transition:
-                transform 0.2s var(--ease),
-                background 0.25s var(--ease),
-                color 0.25s var(--ease),
-                border-color 0.25s var(--ease),
-                box-shadow 0.25s var(--ease);
-        }
-
-
-        @media (hover: hover) {
-
-            .buy-button:hover {
-                color:
-                    var(--charcoal);
-
-                background:
-                    transparent;
-
-                border-color:
-                    var(--champagne);
-
-                transform:
-                    translateY(-1px);
-
-                box-shadow:
-                    0 8px 20px
-                    rgba(36,34,31,0.08);
-            }
-
-        }
-
-
-        .buy-button:active {
-            transform:
-                scale(0.94);
-        }
-
-
-
-        /* =========================================================
-           LOADING
-           ========================================================= */
-
-        .loading {
-            min-height: 220px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color:
-                var(--text-muted);
-
-            font-size: 13px;
+            background:
+                rgba(252,250,247,0.65);
         }
 
 
         .loading::after {
-            content: "";
 
-            width: 16px;
-            height: 16px;
+            content:
+                "";
 
-            margin-left: 10px;
+            width:
+                20px;
+
+            height:
+                20px;
+
+            margin-left:
+                10px;
 
             border:
                 2px solid
-                rgba(36,34,31,0.12);
+                #DDD5CA;
 
             border-top-color:
-                var(--champagne);
+                var(--gold);
 
-            border-radius: 50%;
+            border-radius:
+                50%;
 
             animation:
                 spin
-                0.8s
-                linear
-                infinite;
+                0.8s linear infinite;
         }
-
-
-        .empty-state {
-            padding: 80px 20px;
-
-            text-align: center;
-
-            color:
-                var(--text-muted);
-
-            font-size: 14px;
-
-            animation:
-                fadeIn
-                0.5s
-                var(--ease);
-        }
-
 
 
         /* =========================================================
@@ -1674,205 +1686,73 @@
            ========================================================= */
 
         footer {
-            position: relative;
 
             padding:
-                65px 30px 35px;
+                55px 20px;
+
+            text-align:
+                center;
 
             border-top:
                 1px solid
-                rgba(255,255,255,0.08);
+                var(--line);
 
             background:
-                var(--charcoal);
-        }
+                #F2EEE7;
 
-
-        footer::before {
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-            left: 50%;
-
-            width: 48px;
-            height: 1px;
-
-            transform:
-                translateX(-50%);
-
-            background:
-                var(--champagne);
-
-            opacity: 0.65;
-        }
-
-
-        .footer-inner {
-            width:
-                min(1180px, 100%);
-
-            margin: 0 auto;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 30px;
-
-            text-align: center;
+            color:
+                var(--muted);
         }
 
 
         .footer-brand {
+
             color:
-                #FFFFFF;
+                var(--text);
 
-            font-size: 16px;
+            font-size:
+                13px;
 
-            font-weight: 800;
+            font-weight:
+                700;
 
-            letter-spacing: 1.5px;
+            letter-spacing:
+                0.16em;
         }
 
 
         .footer-text {
-            max-width: 420px;
 
-            margin-top: 9px;
+            margin:
+                10px 0 0;
 
-            color:
-                #918E87;
+            font-size:
+                11px;
 
-            font-size: 12px;
-
-            line-height: 1.6;
+            line-height:
+                1.7;
         }
-
-
-        .footer-copy {
-            margin-top: 45px;
-
-            color:
-                #66625B;
-
-            text-align: center;
-
-            font-size: 11px;
-        }
-
-
-
-        /* =========================================================
-           SCROLL REVEAL
-           ========================================================= */
-
-        .reveal {
-            opacity: 0;
-
-            transform:
-                translateY(20px);
-
-            transition:
-                opacity 0.8s var(--ease),
-                transform 0.8s var(--ease);
-        }
-
-
-        .reveal.visible {
-            opacity: 1;
-
-            transform:
-                translateY(0);
-        }
-
 
 
         /* =========================================================
            ANIMATIONS
            ========================================================= */
 
-        @keyframes heroGlow {
-
-            from {
-                transform:
-                    scale(0.98);
-
-                opacity: 0.7;
-            }
-
-            to {
-                transform:
-                    scale(1.04);
-
-                opacity: 1;
-            }
-
-        }
-
-
-        @keyframes heroItem {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(18px);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-            }
-
-        }
-
-
-        @keyframes heroTitle {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(24px)
-                    scale(0.98);
-
-                filter:
-                    blur(10px);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-
-                filter:
-                    blur(0);
-            }
-
-        }
-
-
         @keyframes sectionReveal {
 
             from {
-                opacity: 0;
+
+                opacity:
+                    0;
 
                 transform:
                     translateY(20px);
             }
 
             to {
-                opacity: 1;
+
+                opacity:
+                    1;
 
                 transform:
                     translateY(0);
@@ -1884,7 +1764,9 @@
         @keyframes productReveal {
 
             from {
-                opacity: 0;
+
+                opacity:
+                    0;
 
                 transform:
                     translateY(20px)
@@ -1892,7 +1774,9 @@
             }
 
             to {
-                opacity: 1;
+
+                opacity:
+                    1;
 
                 transform:
                     translateY(0)
@@ -1902,24 +1786,10 @@
         }
 
 
-        @keyframes imageShine {
-
-            from {
-                transform:
-                    translateX(-130%);
-            }
-
-            to {
-                transform:
-                    translateX(130%);
-            }
-
-        }
-
-
         @keyframes spin {
 
             to {
+
                 transform:
                     rotate(360deg);
             }
@@ -1927,44 +1797,14 @@
         }
 
 
-        @keyframes fadeIn {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-            }
-
-        }
-
-
-
         /* =========================================================
-           MOBILE
+           RESPONSIVE
            ========================================================= */
 
-        @media (max-width: 900px) {
-
-            header {
-                padding:
-                    0 22px;
-            }
-
-
-            nav {
-                gap: 3px;
-            }
-
+        @media (max-width: 1100px) {
 
             .products-grid {
+
                 grid-template-columns:
                     repeat(3, minmax(0, 1fr));
             }
@@ -1972,44 +1812,94 @@
         }
 
 
-
-        @media (max-width: 700px) {
+        @media (max-width: 900px) {
 
             header {
-                height: 66px;
-            }
 
-
-            .logo {
-                font-size: 15px;
-            }
-
-
-            .logo img {
-                width: 31px;
-                height: 31px;
-            }
-
-
-            .mobile-menu-btn {
-                display: flex;
+                padding:
+                    0 20px;
             }
 
 
             nav {
-                position: absolute;
+
+                gap:
+                    2px;
+            }
+
+
+            nav a,
+            .category-toggle {
+
+                padding:
+                    0 10px;
+            }
+
+
+            .products-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            header {
+
+                height:
+                    66px;
+            }
+
+
+            .logo {
+
+                font-size:
+                    15px;
+            }
+
+
+            .logo img {
+
+                width:
+                    31px;
+
+                height:
+                    31px;
+            }
+
+
+            .mobile-menu-btn {
+
+                display:
+                    flex;
+            }
+
+
+            nav {
+
+                position:
+                    absolute;
 
                 top:
                     calc(100% + 1px);
 
-                left: 0;
-                right: 0;
+                left:
+                    0;
 
-                display: flex;
+                right:
+                    0;
 
-                flex-direction: column;
+                display:
+                    flex;
 
-                align-items: stretch;
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
 
                 padding:
                     10px 15px 15px;
@@ -2027,11 +1917,14 @@
                 -webkit-backdrop-filter:
                     blur(20px);
 
-                opacity: 0;
+                opacity:
+                    0;
 
-                visibility: hidden;
+                visibility:
+                    hidden;
 
-                pointer-events: none;
+                pointer-events:
+                    none;
 
                 transform:
                     translateY(-8px);
@@ -2044,11 +1937,15 @@
 
 
             nav.mobile-open {
-                opacity: 1;
 
-                visibility: visible;
+                opacity:
+                    1;
 
-                pointer-events: auto;
+                visibility:
+                    visible;
+
+                pointer-events:
+                    auto;
 
                 transform:
                     translateY(0);
@@ -2057,118 +1954,102 @@
 
             nav a,
             .category-toggle {
-                width: 100%;
+
+                width:
+                    100%;
 
                 justify-content:
                     space-between;
 
-                min-height: 48px;
+                min-height:
+                    48px;
 
                 padding:
                     0 13px;
-
-                border-radius: 10px;
             }
 
 
             .category-wrapper {
-                width: 100%;
+
+                width:
+                    100%;
             }
 
 
-
-            /* =====================================================
-               CATEGORY DROPDOWN
-               CLOSED STATE TAKES ZERO SPACE
-               ===================================================== */
-
             .dropdown-menu {
-                position: static;
 
-                width: 100%;
+                position:
+                    static;
 
-                margin-top: 0;
+                width:
+                    100%;
 
-                padding: 0;
+                max-height:
+                    none;
 
-                max-height: 0;
+                margin-top:
+                    4px;
 
-                overflow: hidden;
+                box-shadow:
+                    none;
 
-                box-shadow: none;
+                border:
+                    1px solid
+                    rgba(255,255,255,0.07);
 
-                border-width: 0;
+                opacity:
+                    0;
 
-                border-color: transparent;
-
-                opacity: 0;
-
-                visibility: hidden;
-
-                pointer-events: none;
+                visibility:
+                    hidden;
 
                 transform:
-                    translateY(-5px)
-                    scale(0.99);
+                    none;
 
-                transition:
-                    opacity 0.28s var(--ease),
-                    transform 0.32s var(--ease),
-                    visibility 0.28s,
-                    max-height 0.35s var(--ease),
-                    margin-top 0.35s var(--ease),
-                    padding 0.35s var(--ease),
-                    border-color 0.35s var(--ease),
-                    border-width 0.35s var(--ease);
+                display:
+                    none;
             }
 
 
             .category-wrapper.open
             .dropdown-menu {
-                max-height: 600px;
 
-                margin-top: 4px;
+                display:
+                    block;
 
-                padding: 4px;
+                opacity:
+                    1;
 
-                opacity: 1;
+                visibility:
+                    visible;
 
-                visibility: visible;
-
-                pointer-events: auto;
-
-                border-width: 1px;
-
-                border-color:
-                    rgba(255,255,255,0.06);
-
-                transform:
-                    translateY(0)
-                    scale(1);
+                pointer-events:
+                    auto;
             }
-
 
 
             .hero {
-                min-height: 390px;
+
+                min-height:
+                    460px;
 
                 padding:
-                    68px 20px 58px;
-            }
-
-
-            .hero h1 {
-                letter-spacing:
-                    -2px;
+                    70px 20px 80px;
             }
 
 
             .hero p {
-                font-size: 14px;
+
+                font-size:
+                    13px;
+
+                max-width:
+                    480px;
             }
 
 
             .search-section {
+
                 width:
                     calc(100% - 30px);
 
@@ -2178,357 +2059,121 @@
 
 
             .search-box input {
-                padding:
-                    0 112px 0 50px;
+
+                height:
+                    55px;
+
+                padding-right:
+                    58px;
             }
 
 
             .filter-button {
-                right: 7px;
 
-                min-width: 84px;
+                right:
+                    7px;
 
-                height: 38px;
+                width:
+                    40px;
 
-                padding:
-                    0 10px;
+                height:
+                    40px;
+            }
 
-                font-size: 10px;
+
+            .filter-button svg {
+
+                width:
+                    19px;
+
+                height:
+                    19px;
             }
 
 
             .filter-menu {
-                width: 205px;
 
-                right: 0;
+                right:
+                    0;
+
+                min-width:
+                    205px;
             }
 
 
-            main {
+            #productsMain {
+
                 width:
                     calc(100% - 30px);
-
-                margin-bottom:
-                    75px;
-            }
-
-
-            .section-header {
-                align-items:
-                    flex-start;
-
-                margin-bottom:
-                    22px;
             }
 
 
             .products-grid {
+
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
 
-                gap: 12px;
+                gap:
+                    12px;
             }
 
 
-            .product {
-                border-radius:
-                    13px;
-            }
+            .product-body {
 
-
-            .product-content {
                 padding:
-                    13px;
+                    14px;
             }
 
 
-            .product h3 {
+            .product-name {
+
                 font-size:
                     13px;
             }
 
 
             .product-description {
+
                 font-size:
                     11px;
-
-                min-height:
-                    36px;
-
-                height:
-                    51px;
-            }
-
-
-            .product-bottom {
-                align-items:
-                    stretch;
-
-                flex-direction:
-                    column;
-
-                gap:
-                    9px;
-            }
-
-
-            .buy-button {
-                width:
-                    100%;
-            }
-
-
-            .platform-button {
-                min-height:
-                    34px;
-
-                font-size:
-                    9px;
-
-                padding:
-                    0 10px;
-            }
-
-
-            footer {
-                padding:
-                    50px 20px 28px;
-            }
-
-
-            .footer-inner {
-                flex-direction:
-                    column;
-
-                align-items:
-                    center;
-
-                text-align:
-                    center;
             }
 
         }
 
 
+        @media (max-width: 450px) {
 
-        @media (max-width: 500px) {
+            .products-grid {
 
-            .hero {
-                min-height:
-                    360px;
-            }
-
-
-            .hero-eyebrow {
-                font-size:
-                    9px;
-
-                letter-spacing:
-                    2.8px;
+                grid-template-columns:
+                    1fr;
             }
 
 
             .hero h1 {
-                font-size:
-                    46px;
-
-                letter-spacing:
-                    -1.5px;
-
-                padding:
-                    32px 36px;
-            }
-
-
-            .hero h1::before {
-                inset:
-                    8px;
-            }
-
-
-            .hero h1::after {
-                top:
-                    2px;
-
-                width:
-                    36px;
-            }
-
-
-            .hero p {
-                font-size:
-                    13px;
-
-                line-height:
-                    1.65;
-            }
-
-
-            .search-box input {
-                height:
-                    54px;
 
                 font-size:
-                    13px;
-
-                padding:
-                    0 105px 0 46px;
+                    45px;
             }
 
 
-            .filter-button {
-                min-width:
-                    78px;
+            .hero {
 
-                height:
-                    36px;
-
-                right:
-                    6px;
-            }
-
-
-            .filter-menu {
-                width:
-                    195px;
-            }
-
-
-            .section-heading {
-                font-size:
-                    26px;
-            }
-
-
-            .section-subheading {
-                font-size:
-                    11px;
-            }
-
-
-            .product-category {
-                font-size:
-                    8px;
-
-                letter-spacing:
-                    1.2px;
-            }
-
-
-            .product h3 {
-                font-size:
-                    12px;
-            }
-
-
-            .product-description {
-                font-size:
-                    10px;
-
-                height:
-                    46px;
-            }
-
-
-            .product-price {
-                font-size:
-                    12px;
-            }
-
-
-            .buy-button {
                 min-height:
-                    34px;
-
-                font-size:
-                    10px;
+                    430px;
             }
 
 
-            .platform-button {
-                min-height:
-                    33px;
+            .product-image-wrap {
 
-                font-size:
-                    8.5px;
+                aspect-ratio:
+                    1.05 / 1;
             }
 
-        }
-
-
-
-        /* =========================================================
-           TABLET / IPAD
-           ========================================================= */
-
-        @media (min-width: 701px)
-        and (max-width: 1100px) {
-
-            .products-grid {
-                grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
-            }
-
-
-            main {
-                width:
-                    calc(100% - 40px);
-            }
-
-        }
-
-
-
-        /* =========================================================
-           REDUCED MOTION
-           ========================================================= */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                scroll-behavior:
-                    auto !important;
-
-                animation-duration:
-                    0.01ms !important;
-
-                animation-iteration-count:
-                    1 !important;
-
-                transition-duration:
-                    0.01ms !important;
-            }
-
-
-            .product,
-            .reveal {
-                opacity:
-                    1 !important;
-
-                transform:
-                    none !important;
-            }
-
-        }
-
-
-        /* =========================================================
-           NON-HOME PAGES
-           HIDE HERO ONLY WHEN A FILTER IS ACTIVE
-           ========================================================= */
-
-        body.has-filter .hero {
-            display: none;
-        }
-
-
-        body.has-filter .search-section {
-            margin-top: 42px;
         }
 
     </style>
+
 </head>
 
 
@@ -2544,24 +2189,30 @@
         <a
             href="index.html"
             class="logo"
-            aria-label="VNR Choicez Home"
         >
-            <span>VNR CHOICEZ</span>
+
+            <img
+                src="cropped_circle_image.png"
+                alt="VNR CHOICEZ"
+            >
+
+            <span>
+                VNR CHOICEZ
+            </span>
+
         </a>
 
 
         <button
             class="mobile-menu-btn"
             id="mobileMenuBtn"
+            type="button"
             aria-label="Open menu"
             aria-expanded="false"
-            type="button"
         >
-            <span class="menu-lines">
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
+
+            <span></span>
+
         </button>
 
 
@@ -2569,10 +2220,6 @@
 
             <a href="index.html">
                 Home
-            </a>
-
-            <a href="?type=trending">
-                🔥Trending
             </a>
 
 
@@ -2587,11 +2234,13 @@
                     type="button"
                     aria-expanded="false"
                 >
+
                     Categories
 
                     <span class="arrow">
                         ▼
                     </span>
+
                 </button>
 
 
@@ -2599,7 +2248,9 @@
                     class="dropdown-menu"
                     id="categoryMenu"
                 >
+
                     <!-- Categories generated by JavaScript -->
+
                 </div>
 
             </div>
@@ -2614,7 +2265,6 @@
     </header>
 
 
-
     <!-- =========================================================
          HERO
          ========================================================= -->
@@ -2627,20 +2277,26 @@
                 VNR CHOICEZ
             </div>
 
+
             <h1>
+
                 FIND YOUR<br>
+
                 NEXT CHOICE.
+
             </h1>
 
+
             <p>
+
                 Discover useful products, trending finds and curated
                 Shopee picks selected by VNR CHOICEZ.
+
             </p>
 
         </div>
 
     </section>
-
 
 
     <!-- =========================================================
@@ -2653,6 +2309,7 @@
 
             <span class="search-icon"></span>
 
+
             <input
                 type="search"
                 id="searchInput"
@@ -2662,38 +2319,92 @@
             >
 
 
-            <!-- =================================================
-                 FILTER BUTTON
-                 ================================================= -->
-
             <button
                 class="filter-button"
                 id="filterButton"
                 type="button"
+                aria-label="Open filters"
                 aria-expanded="false"
-                aria-haspopup="true"
             >
-                Filter
 
-                <span class="filter-arrow">
-                    ▼
-                </span>
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+
+                    <line
+                        x1="4"
+                        y1="6"
+                        x2="20"
+                        y2="6"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                    />
+
+                    <circle
+                        cx="9"
+                        cy="6"
+                        r="2"
+                        fill="currentColor"
+                    />
+
+
+                    <line
+                        x1="4"
+                        y1="12"
+                        x2="20"
+                        y2="12"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                    />
+
+                    <circle
+                        cx="15"
+                        cy="12"
+                        r="2"
+                        fill="currentColor"
+                    />
+
+
+                    <line
+                        x1="4"
+                        y1="18"
+                        x2="20"
+                        y2="18"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                    />
+
+                    <circle
+                        cx="11"
+                        cy="18"
+                        r="2"
+                        fill="currentColor"
+                    />
+
+                </svg>
+
             </button>
 
-
-            <!-- =================================================
-                 FILTER MENU
-                 CATEGORY IS INTENTIONALLY NOT HERE
-                 ================================================= -->
 
             <div
                 class="filter-menu"
                 id="filterMenu"
+                aria-hidden="true"
             >
 
-                <div class="filter-menu-title">
-                    Sort by
-                </div>
+                <button
+                    class="filter-option active"
+                    type="button"
+                    data-sort="default"
+                >
+                    Default Order
+                </button>
 
 
                 <button
@@ -2701,13 +2412,7 @@
                     type="button"
                     data-sort="low"
                 >
-                    <span>
-                        Price: Low → High
-                    </span>
-
-                    <span class="filter-option-check">
-                        ✓
-                    </span>
+                    Price: Low → High
                 </button>
 
 
@@ -2716,33 +2421,16 @@
                     type="button"
                     data-sort="high"
                 >
-                    <span>
-                        Price: High → Low
-                    </span>
-
-                    <span class="filter-option-check">
-                        ✓
-                    </span>
+                    Price: High → Low
                 </button>
 
 
-                <div class="filter-menu-title">
-                    Platform
-                </div>
-
-
                 <button
-                    class="filter-option"
+                    class="filter-option active"
                     type="button"
                     data-platform="all"
                 >
-                    <span>
-                        All Platforms
-                    </span>
-
-                    <span class="filter-option-check">
-                        ✓
-                    </span>
+                    All Platforms
                 </button>
 
 
@@ -2751,13 +2439,7 @@
                     type="button"
                     data-platform="Shopee"
                 >
-                    <span>
-                        Shopee
-                    </span>
-
-                    <span class="filter-option-check">
-                        ✓
-                    </span>
+                    Shopee
                 </button>
 
 
@@ -2766,13 +2448,7 @@
                     type="button"
                     data-platform="TikTok Shop"
                 >
-                    <span>
-                        TikTok Shop
-                    </span>
-
-                    <span class="filter-option-check">
-                        ✓
-                    </span>
+                    TikTok Shop
                 </button>
 
 
@@ -2781,13 +2457,7 @@
                     type="button"
                     data-platform="Lazada"
                 >
-                    <span>
-                        Lazada
-                    </span>
-
-                    <span class="filter-option-check">
-                        ✓
-                    </span>
+                    Lazada
                 </button>
 
             </div>
@@ -2795,7 +2465,6 @@
         </div>
 
     </section>
-
 
 
     <!-- =========================================================
@@ -2814,6 +2483,7 @@
                 >
                     All Products
                 </h2>
+
 
                 <p
                     class="section-subheading"
@@ -2841,119 +2511,139 @@
     </main>
 
 
-
     <!-- =========================================================
          FOOTER
          ========================================================= -->
 
-    <footer id="about">
+    <footer>
 
-        <div class="footer-inner">
-
-            <div>
-
-                <div class="footer-brand">
-                    VNR CHOICEZ
-                </div>
-
-                <p class="footer-text">
-                    Curated products, useful finds and Shopee
-                    recommendations. Discover your next choice
-                    with VNR CHOICEZ.
-                </p>
-
-            </div>
-
+        <div class="footer-brand">
+            VNR CHOICEZ
         </div>
 
 
-        <div class="footer-copy">
-            © 2026 VNR CHOICEZ. All rights reserved.
-        </div>
+        <p class="footer-text">
+            Curated products. Better choices.
+        </p>
 
     </footer>
-
 
 
     <!-- =========================================================
          SUPABASE
          ========================================================= -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
 
-    <script src="config.js"></script>
-
-
-
-    <!-- =========================================================
-         MAIN JAVASCRIPT
-         ========================================================= -->
 
     <script>
 
         /* =========================================================
-           SUPABASE CHECK
+           SUPABASE
            ========================================================= */
 
+        const SUPABASE_URL =
+            "https://YOUR-PROJECT.supabase.co";
+
+        const SUPABASE_ANON_KEY =
+            "YOUR-ANON-KEY";
+
+
+        let supabaseClient = null;
+
+
         if (
-            typeof supabaseClient === "undefined" ||
-            !supabaseClient
+            typeof window.supabase !== "undefined" &&
+            SUPABASE_URL &&
+            SUPABASE_ANON_KEY &&
+            !SUPABASE_URL.includes("YOUR-PROJECT")
         ) {
 
-            console.error(
-                "supabaseClient is not available. Check config.js"
-            );
+            supabaseClient =
+                window.supabase.createClient(
+                    SUPABASE_URL,
+                    SUPABASE_ANON_KEY
+                );
 
         }
 
 
         /* =========================================================
-           DOM ELEMENTS
+           DOM
            ========================================================= */
 
         const productsContainer =
-            document.getElementById("productsContainer");
+            document.getElementById(
+                "productsContainer"
+            );
 
-        const searchInput =
-            document.getElementById("searchInput");
 
         const sectionHeading =
-            document.getElementById("sectionHeading");
+            document.getElementById(
+                "sectionHeading"
+            );
+
 
         const sectionSubheading =
-            document.getElementById("sectionSubheading");
+            document.getElementById(
+                "sectionSubheading"
+            );
 
-        const categoryMenu =
-            document.getElementById("categoryMenu");
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
 
         const categoryWrapper =
-            document.getElementById("categoryWrapper");
+            document.getElementById(
+                "categoryWrapper"
+            );
+
 
         const categoryToggle =
-            document.getElementById("categoryToggle");
+            document.getElementById(
+                "categoryToggle"
+            );
+
+
+        const categoryMenu =
+            document.getElementById(
+                "categoryMenu"
+            );
+
 
         const mobileMenuBtn =
-            document.getElementById("mobileMenuBtn");
+            document.getElementById(
+                "mobileMenuBtn"
+            );
+
 
         const mainNav =
-            document.getElementById("mainNav");
+            document.getElementById(
+                "mainNav"
+            );
+
 
         const siteHeader =
-            document.getElementById("siteHeader");
+            document.getElementById(
+                "siteHeader"
+            );
 
-
-        /* =========================================================
-           FILTER DOM ELEMENTS
-           ========================================================= */
 
         const filterButton =
-            document.getElementById("filterButton");
+            document.getElementById(
+                "filterButton"
+            );
+
 
         const filterMenu =
-            document.getElementById("filterMenu");
-
-        const filterOptions =
-            document.querySelectorAll(".filter-option");
+            document.getElementById(
+                "filterMenu"
+            );
 
 
         /* =========================================================
@@ -2961,107 +2651,20 @@
            ========================================================= */
 
         let allProducts = [];
+
         let allCategories = [];
 
-        let currentFilter = "all";
-        let currentSearch = "";
+        let currentFilter =
+            "all";
 
-        let currentSort = "default";
-        let currentPlatform = "all";
+        let currentSearch =
+            "";
 
+        let currentSort =
+            "default";
 
-        /* =========================================================
-           CATEGORY DEFINITIONS
-           =========================================================
-           
-           The database may still contain the old names:
-           
-           Gadget & Tech
-           Random Useful Items
-           
-           They are displayed as:
-           
-           Electronics
-           Others
-           
-           This also keeps old database products working.
-           ========================================================= */
-
-        const CATEGORY_DEFINITIONS = [
-
-            {
-                display: "Fashion",
-                values: [
-                    "Fashion"
-                ]
-            },
-
-            {
-                display: "Accessories",
-                values: [
-                    "Accessories"
-                ]
-            },
-
-            {
-                display: "Beauty",
-                values: [
-                    "Beauty"
-                ]
-            },
-
-            {
-                display: "Fragrance",
-                values: [
-                    "Fragrance"
-                ]
-            },
-
-            {
-                display: "Home Items",
-                values: [
-                    "Home Items"
-                ]
-            },
-
-            {
-                display: "Cookery",
-                values: [
-                    "Cookery"
-                ]
-            },
-
-            {
-                display: "Electronics",
-                values: [
-                    "Electronics",
-                    "Gadget & Tech"
-                ]
-            },
-
-            {
-                display: "Gaming",
-                values: [
-                    "Gaming"
-                ]
-            },
-
-            {
-                display: "Sports",
-                values: [
-                    "Sports"
-                ]
-            },
-
-            {
-                display: "Others",
-                values: [
-                    "Others",
-                    "Random Useful Items"
-                ]
-            }
-
-        ];
+        let currentPlatform =
+            "all";
 
 
         /* =========================================================
@@ -3069,10 +2672,15 @@
            ========================================================= */
 
         const urlParams =
-            new URLSearchParams(window.location.search);
+            new URLSearchParams(
+                window.location.search
+            );
+
 
         const initialType =
-            urlParams.get("type");
+            urlParams.get(
+                "type"
+            );
 
 
         /* =========================================================
@@ -3081,16 +2689,42 @@
 
         function escapeHTML(value) {
 
-            if (value === null || value === undefined) {
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
                 return "";
+
             }
 
+
             return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
 
         }
 
@@ -3102,15 +2736,28 @@
                 price === undefined ||
                 price === ""
             ) {
+
                 return "";
+
             }
+
 
             const numericPrice =
                 Number(price);
 
-            if (Number.isNaN(numericPrice)) {
-                return escapeHTML(price);
+
+            if (
+                Number.isNaN(
+                    numericPrice
+                )
+            ) {
+
+                return escapeHTML(
+                    price
+                );
+
             }
+
 
             return `RM ${numericPrice.toFixed(2)}`;
 
@@ -3121,37 +2768,56 @@
 
             const validPrices =
                 prices
-                    .map(function (price) {
 
-                        const numericPrice =
-                            Number(price);
+                    .map(
+                        function (price) {
 
-                        return Number.isFinite(numericPrice)
-                            ? numericPrice
-                            : null;
-
-                    })
-                    .filter(function (price) {
-
-                        return price !== null;
-
-                    });
+                            const numericPrice =
+                                Number(price);
 
 
-            if (!validPrices.length) {
+                            return Number.isFinite(
+                                numericPrice
+                            )
+                                ? numericPrice
+                                : null;
+
+                        }
+                    )
+
+                    .filter(
+                        function (price) {
+
+                            return price !== null;
+
+                        }
+                    );
+
+
+            if (
+                !validPrices.length
+            ) {
+
                 return "";
+
             }
 
 
             const lowestPrice =
-                Math.min(...validPrices);
+                Math.min(
+                    ...validPrices
+                );
+
 
             const highestPrice =
-                Math.max(...validPrices);
+                Math.max(
+                    ...validPrices
+                );
 
 
             if (
-                lowestPrice === highestPrice
+                lowestPrice ===
+                highestPrice
             ) {
 
                 return formatPrice(
@@ -3161,28 +2827,44 @@
             }
 
 
-            return `
-                ${formatPrice(lowestPrice)}
-                –
-                ${formatPrice(highestPrice)}
-            `;
+            return (
+                `${formatPrice(lowestPrice)} – ` +
+                `${formatPrice(highestPrice)}`
+            );
 
         }
 
 
-        function getProductCategory(product) {
+        function getProductName(
+            product
+        ) {
 
             return (
-                product.category_name ||
-                product.category ||
-                product.categories?.name ||
+                product.name ||
+                product.product_name ||
+                product.title ||
+                "Untitled Product"
+            );
+
+        }
+
+
+        function getProductDescription(
+            product
+        ) {
+
+            return (
+                product.description ||
+                product.product_description ||
                 ""
             );
 
         }
 
 
-        function getProductImage(product) {
+        function getProductImage(
+            product
+        ) {
 
             return (
                 product.image_url ||
@@ -3194,150 +2876,32 @@
         }
 
 
-        function getProductName(product) {
-
-            return (
-                product.name ||
-                product.product_name ||
-                "Unnamed Product"
-            );
-
-        }
-
-
-        function getProductDescription(product) {
-
-            return (
-                product.description ||
-                product.product_description ||
-                "Discover this product on VNR CHOICEZ."
-            );
-
-        }
-
-
-        function getProductLink(product) {
-
-            return (
-                product.affiliate_link ||
-                product.shopee_link ||
-                product.product_link ||
-                product.link ||
-                "#"
-            );
-
-        }
-
-
-
-        /* =========================================================
-           CATEGORY MATCHING
-           ========================================================= */
-
-        function getCategoryDefinition(
-            categoryName
+        function getProductCategory(
+            product
         ) {
 
-            if (!categoryName) {
-                return null;
-            }
-
-
-            const normalizedCategory =
-                String(categoryName)
-                    .toLowerCase()
-                    .trim();
-
-
-            return CATEGORY_DEFINITIONS.find(
-                function (definition) {
-
-                    return definition.values.some(
-                        function (value) {
-
-                            return (
-                                value
-                                    .toLowerCase()
-                                    .trim() ===
-                                normalizedCategory
-                            );
-
-                        }
-                    );
-
-                }
-            ) || null;
-
-        }
-
-
-        function productMatchesCategory(
-            product,
-            categoryName
-        ) {
-
-            const productCategory =
-                getProductCategory(product);
-
-
-            if (!productCategory) {
-                return false;
-            }
-
-
-            const definition =
-                getCategoryDefinition(
-                    categoryName
-                );
-
-
-            if (definition) {
-
-                const normalizedProductCategory =
-                    productCategory
-                        .toLowerCase()
-                        .trim();
-
-
-                return definition.values.some(
-                    function (value) {
-
-                        return (
-                            value
-                                .toLowerCase()
-                                .trim() ===
-                            normalizedProductCategory
-                        );
-
-                    }
-                );
-
-            }
-
-
             return (
-                productCategory
-                    .toLowerCase()
-                    .trim() ===
-                categoryName
-                    .toLowerCase()
-                    .trim()
+                product.category ||
+                product.category_name ||
+                product.product_category ||
+                ""
             );
 
         }
 
 
-
-        /* =========================================================
-           GET ACTIVE PRODUCT PLATFORMS
-           ========================================================= */
-
-        function getActiveProductPlatforms(product) {
+        function getActiveProductPlatforms(
+            product
+        ) {
 
             if (
-                !Array.isArray(product.platforms)
+                !Array.isArray(
+                    product.platforms
+                )
             ) {
+
                 return [];
+
             }
 
 
@@ -3354,7 +2918,6 @@
             );
 
         }
-
 
 
         /* =========================================================
@@ -3383,8 +2946,11 @@
                 const mainPrice =
                     Number(product.price);
 
+
                 if (
-                    Number.isFinite(mainPrice)
+                    Number.isFinite(
+                        mainPrice
+                    )
                 ) {
 
                     prices.push(
@@ -3412,8 +2978,11 @@
                         const platformPrice =
                             Number(platform.price);
 
+
                         if (
-                            Number.isFinite(platformPrice)
+                            Number.isFinite(
+                                platformPrice
+                            )
                         ) {
 
                             prices.push(
@@ -3435,166 +3004,41 @@
         }
 
 
-
-        /* =========================================================
-           GET PRODUCT SORT PRICE
-           ========================================================= */
-
-        function getProductSortPrice(product) {
-
-            const prices = [];
-
-
-            /*
-             * Main/base product price.
-             */
-
-            if (
-                product.price !== null &&
-                product.price !== undefined &&
-                product.price !== ""
-            ) {
-
-                const mainPrice =
-                    Number(product.price);
-
-                if (
-                    Number.isFinite(mainPrice)
-                ) {
-
-                    prices.push(
-                        mainPrice
-                    );
-
-                }
-
-            }
-
-
-            /*
-             * Active platform prices.
-             */
-
-            const activePlatforms =
-                getActiveProductPlatforms(
-                    product
-                );
-
-
-            activePlatforms.forEach(
-                function (platform) {
-
-                    if (
-                        platform.price !== null &&
-                        platform.price !== undefined &&
-                        platform.price !== ""
-                    ) {
-
-                        const platformPrice =
-                            Number(platform.price);
-
-                        if (
-                            Number.isFinite(platformPrice)
-                        ) {
-
-                            prices.push(
-                                platformPrice
-                            );
-
-                        }
-
-                    }
-
-                }
-            );
-
-
-            if (!prices.length) {
-                return null;
-            }
-
-
-            /*
-             * Use the lowest available price
-             * as the product's sorting price.
-             */
-
-            return Math.min(
-                ...prices
-            );
-
-        }
-
-
-
-        /* =========================================================
-           PLATFORM MATCHING
-           ========================================================= */
-
-        function productMatchesPlatform(
-            product,
-            platformName
-        ) {
-
-            if (
-                !platformName ||
-                platformName === "all"
-            ) {
-
-                return true;
-
-            }
-
-
-            const activePlatforms =
-                getActiveProductPlatforms(
-                    product
-                );
-
-
-            return activePlatforms.some(
-                function (platform) {
-
-                    return (
-                        String(
-                            platform.platform || ""
-                        )
-                            .toLowerCase()
-                            .trim() ===
-                        platformName
-                            .toLowerCase()
-                            .trim()
-                    );
-
-                }
-            );
-
-        }
-
-
-
         /* =========================================================
            HEADER SCROLL EFFECT
            ========================================================= */
 
         function handleHeaderScroll() {
 
-            if (window.scrollY > 15) {
-                siteHeader.classList.add("scrolled");
+            if (
+                window.scrollY > 15
+            ) {
+
+                siteHeader.classList.add(
+                    "scrolled"
+                );
+
             } else {
-                siteHeader.classList.remove("scrolled");
+
+                siteHeader.classList.remove(
+                    "scrolled"
+                );
+
             }
 
         }
 
+
         window.addEventListener(
             "scroll",
             handleHeaderScroll,
-            { passive: true }
+            {
+                passive: true
+            }
         );
 
-        handleHeaderScroll();
 
+        handleHeaderScroll();
 
 
         /* =========================================================
@@ -3606,12 +3050,16 @@
             function () {
 
                 const isOpen =
-                    mainNav.classList.toggle("mobile-open");
+                    mainNav.classList.toggle(
+                        "mobile-open"
+                    );
+
 
                 mobileMenuBtn.classList.toggle(
                     "active",
                     isOpen
                 );
+
 
                 mobileMenuBtn.setAttribute(
                     "aria-expanded",
@@ -3622,241 +3070,156 @@
         );
 
 
-
         /* =========================================================
-           CATEGORY DROPDOWN
+           CATEGORY DISPLAY ORDER / COMPATIBILITY
            ========================================================= */
 
-        categoryToggle.addEventListener(
-            "click",
-            function (event) {
+        const CATEGORY_DEFINITIONS = [
 
-                event.stopPropagation();
+            {
+                display:
+                    "Fashion",
 
-                const isOpen =
-                    categoryWrapper.classList.toggle("open");
+                values:
+                    [
+                        "Fashion"
+                    ]
+            },
 
-                categoryToggle.setAttribute(
-                    "aria-expanded",
-                    String(isOpen)
-                );
 
+            {
+                display:
+                    "Accessories",
+
+                values:
+                    [
+                        "Accessories"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Beauty",
+
+                values:
+                    [
+                        "Beauty"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Fragrance",
+
+                values:
+                    [
+                        "Fragrance"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Home Items",
+
+                values:
+                    [
+                        "Home Items"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Cookery",
+
+                values:
+                    [
+                        "Cookery"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Electronics",
+
+                values:
+                    [
+                        "Electronics",
+                        "Gadget & Tech"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Gaming",
+
+                values:
+                    [
+                        "Gaming"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Sports",
+
+                values:
+                    [
+                        "Sports"
+                    ]
+            },
+
+
+            {
+                display:
+                    "Others",
+
+                values:
+                    [
+                        "Others",
+                        "Random Useful Items"
+                    ]
             }
-        );
+
+        ];
 
 
+        function getCategoryDefinition(
+            categoryName
+        ) {
 
-        /* =========================================================
-           FILTER DROPDOWN
-           ========================================================= */
-
-        filterButton.addEventListener(
-            "click",
-            function (event) {
-
-                event.stopPropagation();
-
-                const isOpen =
-                    filterMenu.classList.toggle("open");
-
-                filterButton.setAttribute(
-                    "aria-expanded",
-                    String(isOpen)
-                );
-
-            }
-        );
+            const name =
+                String(
+                    categoryName || ""
+                )
+                    .toLowerCase()
+                    .trim();
 
 
-        document.addEventListener(
-            "click",
-            function (event) {
+            return CATEGORY_DEFINITIONS.find(
+                function (definition) {
 
-                /*
-                 * Close category dropdown.
-                 */
+                    return definition.values.some(
+                        function (value) {
 
-                if (
-                    !categoryWrapper.contains(event.target)
-                ) {
-
-                    categoryWrapper.classList.remove(
-                        "open"
-                    );
-
-                    categoryToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                }
-
-
-                /*
-                 * Close filter dropdown.
-                 */
-
-                if (
-                    !filterMenu.contains(event.target) &&
-                    !filterButton.contains(event.target)
-                ) {
-
-                    filterMenu.classList.remove(
-                        "open"
-                    );
-
-                    filterButton.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                }
-
-            }
-        );
-
-
-
-        /* =========================================================
-           FILTER OPTIONS
-           ========================================================= */
-
-        filterOptions.forEach(
-            function (option) {
-
-                option.addEventListener(
-                    "click",
-                    function () {
-
-                        const selectedSort =
-                            this.dataset.sort;
-
-                        const selectedPlatform =
-                            this.dataset.platform;
-
-
-                        /*
-                         * SORT
-                         */
-
-                        if (selectedSort) {
-
-                            currentSort =
-                                selectedSort;
-
-
-                            filterOptions
-                                .forEach(
-                                    function (item) {
-
-                                        if (
-                                            item.dataset.sort
-                                        ) {
-
-                                            item.classList.toggle(
-                                                "active",
-                                                item.dataset.sort ===
-                                                currentSort
-                                            );
-
-                                        }
-
-                                    }
-                                );
+                            return (
+                                value.toLowerCase() ===
+                                name
+                            );
 
                         }
-
-
-                        /*
-                         * PLATFORM
-                         */
-
-                        if (selectedPlatform) {
-
-                            currentPlatform =
-                                selectedPlatform;
-
-
-                            filterOptions
-                                .forEach(
-                                    function (item) {
-
-                                        if (
-                                            item.dataset.platform
-                                        ) {
-
-                                            item.classList.toggle(
-                                                "active",
-                                                item.dataset.platform ===
-                                                currentPlatform
-                                            );
-
-                                        }
-
-                                    }
-                                );
-
-                        }
-
-
-                        /*
-                         * Re-render products.
-                         */
-
-                        renderProducts();
-
-
-                        /*
-                         * Close filter menu.
-                         */
-
-                        filterMenu.classList.remove(
-                            "open"
-                        );
-
-                        filterButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-
-
-        /* =========================================================
-           CLOSE MOBILE MENU AFTER NAVIGATION
-           ========================================================= */
-
-        document.querySelectorAll(
-            "#mainNav a"
-        ).forEach(function (link) {
-
-            link.addEventListener(
-                "click",
-                function () {
-
-                    mainNav.classList.remove(
-                        "mobile-open"
-                    );
-
-                    mobileMenuBtn.classList.remove(
-                        "active"
-                    );
-
-                    mobileMenuBtn.setAttribute(
-                        "aria-expanded",
-                        "false"
                     );
 
                 }
-            );
+            ) || null;
 
-        });
-
+        }
 
 
         /* =========================================================
@@ -3865,59 +3228,129 @@
 
         async function loadCategories() {
 
-            const fallbackCategories = [
-                "Fashion",
-                "Accessories",
-                "Beauty",
-                "Fragrance",
-                "Home Items",
-                "Cookery",
-                "Electronics",
-                "Gaming",
-                "Sports",
-                "Others"
-            ];
+            const fallbackCategories =
+                CATEGORY_DEFINITIONS.map(
+                    function (definition) {
+
+                        return definition.display;
+
+                    }
+                );
 
 
             try {
 
-                /*
-                 * Keep the database check so the existing
-                 * Supabase structure is not disturbed.
-                 *
-                 * The website display itself uses the fixed
-                 * CATEGORY_DEFINITIONS order above.
-                 */
-
-                const {
-                    data,
-                    error
-                } = await supabaseClient
-                    .from("categories")
-                    .select("*");
-
-
-                if (error) {
-                    throw error;
-                }
-
-
-                /*
-                 * Always use the requested category order
-                 * and display names.
-                 *
-                 * Existing database names such as
-                 * "Gadget & Tech" and
-                 * "Random Useful Items" are handled
-                 * through CATEGORY_DEFINITIONS.
-                 */
-
                 if (
-                    Array.isArray(data)
+                    !supabaseClient
                 ) {
 
                     allCategories =
                         fallbackCategories;
+
+                    renderCategories();
+
+                    return;
+
+                }
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("categories")
+                        .select("*")
+                        .order(
+                            "name",
+                            {
+                                ascending:
+                                    true
+                            }
+                        );
+
+
+                if (
+                    error
+                ) {
+
+                    throw error;
+
+                }
+
+
+                if (
+                    Array.isArray(data) &&
+                    data.length
+                ) {
+
+                    const databaseCategories =
+                        data
+                            .map(
+                                category =>
+                                    category.name ||
+                                    category.category_name
+                            )
+                            .filter(
+                                Boolean
+                            );
+
+
+                    allCategories =
+                        CATEGORY_DEFINITIONS
+
+                            .filter(
+                                function (
+                                    definition
+                                ) {
+
+                                    return definition.values.some(
+                                        function (
+                                            value
+                                        ) {
+
+                                            return databaseCategories.some(
+                                                function (
+                                                    databaseCategory
+                                                ) {
+
+                                                    return (
+                                                        String(
+                                                            databaseCategory
+                                                        )
+                                                            .toLowerCase()
+                                                            .trim() ===
+                                                        value.toLowerCase()
+                                                    );
+
+                                                }
+                                            );
+
+                                        }
+                                    );
+
+                                }
+                            )
+
+                            .map(
+                                function (
+                                    definition
+                                ) {
+
+                                    return definition.display;
+
+                                }
+                            );
+
+
+                    if (
+                        !allCategories.length
+                    ) {
+
+                        allCategories =
+                            fallbackCategories;
+
+                    }
 
                 } else {
 
@@ -3933,6 +3366,7 @@
                     error
                 );
 
+
                 allCategories =
                     fallbackCategories;
 
@@ -3944,21 +3378,29 @@
         }
 
 
-
         /* =========================================================
            RENDER CATEGORY MENU
            ========================================================= */
 
         function renderCategories() {
 
-            categoryMenu.innerHTML = "";
+            categoryMenu.innerHTML =
+                "";
 
 
             const allLink =
-                document.createElement("a");
+                document.createElement(
+                    "a"
+                );
 
-            allLink.href = "index.html";
-            allLink.textContent = "All Products";
+
+            allLink.href =
+                "index.html";
+
+
+            allLink.textContent =
+                "All Products";
+
 
             allLink.addEventListener(
                 "click",
@@ -3968,6 +3410,7 @@
                         "open"
                     );
 
+
                     categoryToggle.setAttribute(
                         "aria-expanded",
                         "false"
@@ -3976,28 +3419,29 @@
                 }
             );
 
-            categoryMenu.appendChild(allLink);
+
+            categoryMenu.appendChild(
+                allLink
+            );
 
 
-            /*
-             * Render categories in the exact requested order.
-             */
-
-            CATEGORY_DEFINITIONS.forEach(
-                function (definition) {
+            allCategories.forEach(
+                function (category) {
 
                     const link =
-                        document.createElement("a");
+                        document.createElement(
+                            "a"
+                        );
 
 
                     link.href =
                         `?type=${encodeURIComponent(
-                            definition.display
+                            category
                         )}`;
 
 
                     link.textContent =
-                        definition.display;
+                        category;
 
 
                     link.addEventListener(
@@ -4007,6 +3451,7 @@
                             categoryWrapper.classList.remove(
                                 "open"
                             );
+
 
                             categoryToggle.setAttribute(
                                 "aria-expanded",
@@ -4027,7 +3472,6 @@
         }
 
 
-
         /* =========================================================
            LOAD PRODUCTS
            ========================================================= */
@@ -4035,7 +3479,6 @@
         async function loadProducts() {
 
             if (
-                typeof supabaseClient === "undefined" ||
                 !supabaseClient
             ) {
 
@@ -4059,21 +3502,21 @@
 
             try {
 
-                /* =================================================
-                   LOAD PUBLISHED PRODUCTS
-                   ================================================= */
-
                 const {
                     data,
                     error
-                } = await supabaseClient
-                    .from("products")
-                    .select("*")
-                    .eq("status", "published");
+                } =
+                    await supabaseClient
+                        .from("products")
+                        .select("*");
 
 
-                if (error) {
+                if (
+                    error
+                ) {
+
                     throw error;
+
                 }
 
 
@@ -4083,140 +3526,19 @@
                         : [];
 
 
-                /* =================================================
-                   LOAD PLATFORM DATA
-                   ================================================= */
-
-                if (allProducts.length) {
-
-                    const productIds =
-                        allProducts
-                            .map(product => product.id)
-                            .filter(Boolean);
-
-
-                    if (productIds.length) {
-
-                        const {
-                            data: platformData,
-                            error: platformError
-                        } = await supabaseClient
-                            .from("product_platforms")
-                            .select(`
-                                id,
-                                product_id,
-                                platform,
-                                price,
-                                affiliate_url,
-                                is_active,
-                                created_at,
-                                updated_at
-                            `)
-                            .in(
-                                "product_id",
-                                productIds
-                            )
-                            .order(
-                                "created_at",
-                                {
-                                    ascending: true
-                                }
-                            );
-
-
-                        if (platformError) {
-
-                            /*
-                             * Do not break the entire website if the
-                             * platform table cannot be read.
-                             *
-                             * The existing products table remains the
-                             * fallback so old products continue to work.
-                             */
-
-                            console.warn(
-                                "Could not load product platforms:",
-                                platformError
-                            );
-
-                        } else {
-
-                            const platformsByProduct =
-                                {};
-
-
-                            (
-                                Array.isArray(platformData)
-                                    ? platformData
-                                    : []
-                            ).forEach(
-                                function (platform) {
-
-                                    const productId =
-                                        String(
-                                            platform.product_id
-                                        );
-
-
-                                    if (
-                                        !platformsByProduct[
-                                            productId
-                                        ]
-                                    ) {
-
-                                        platformsByProduct[
-                                            productId
-                                        ] = [];
-
-                                    }
-
-
-                                    platformsByProduct[
-                                        productId
-                                    ].push(
-                                        platform
-                                    );
-
-                                }
-                            );
-
-
-                            allProducts =
-                                allProducts.map(
-                                    function (product) {
-
-                                        return {
-                                            ...product,
-
-                                            platforms:
-                                                platformsByProduct[
-                                                    String(product.id)
-                                                ] || []
-                                        };
-
-                                    }
-                                );
-
-                        }
-
-                    }
-
-                }
-
-
                 renderProducts();
 
             } catch (error) {
 
                 console.error(
-                    "Product loading error:",
+                    "VNR CHOICEZ: Unable to load products.",
                     error
                 );
 
 
                 productsContainer.innerHTML = `
-                    <div class="empty-state">
-                        Unable to load products right now.
+                    <div class="error-message">
+                        Unable to load products.
                     </div>
                 `;
 
@@ -4224,6 +3546,71 @@
 
         }
 
+
+        /* =========================================================
+           GET SORT PRICE
+           ========================================================= */
+
+        function getProductSortPrice(
+            product
+        ) {
+
+            const prices = [];
+
+
+            const mainPrice =
+                Number(
+                    product.price
+                );
+
+
+            if (
+                Number.isFinite(
+                    mainPrice
+                )
+            ) {
+
+                prices.push(
+                    mainPrice
+                );
+
+            }
+
+
+            getActiveProductPlatforms(
+                product
+            ).forEach(
+                function (platform) {
+
+                    const platformPrice =
+                        Number(
+                            platform.price
+                        );
+
+
+                    if (
+                        Number.isFinite(
+                            platformPrice
+                        )
+                    ) {
+
+                        prices.push(
+                            platformPrice
+                        );
+
+                    }
+
+                }
+            );
+
+
+            return prices.length
+                ? Math.min(
+                    ...prices
+                )
+                : null;
+
+        }
 
 
         /* =========================================================
@@ -4233,35 +3620,21 @@
         function getFilteredProducts() {
 
             let products =
-                [...allProducts];
+                [
+                    ...allProducts
+                ];
 
 
-            /* =====================================================
-               CATEGORY
-               ===================================================== */
+            /* CATEGORY */
 
             if (
                 currentFilter &&
                 currentFilter !== "all"
             ) {
 
-                const normalizedFilter =
-                    currentFilter
-                        .toLowerCase()
-                        .trim();
-
-
-                /*
-                 * Support both:
-                 *
-                 * ?type=trending
-                 * ?type=🔥trending
-                 */
-
                 if (
-                    normalizedFilter ===
-                    "trending" ||
-                    normalizedFilter ===
+                    currentFilter
+                        .toLowerCase() ===
                     "🔥trending"
                 ) {
 
@@ -4276,11 +3649,60 @@
 
                     products =
                         products.filter(
-                            product => {
+                            function (product) {
 
-                                return productMatchesCategory(
-                                    product,
+                                const category =
+                                    getProductCategory(
+                                        product
+                                    );
+
+
+                                const definition =
+                                    getCategoryDefinition(
+                                        currentFilter
+                                    );
+
+
+                                if (
+                                    !category
+                                ) {
+
+                                    return false;
+
+                                }
+
+
+                                if (
+                                    definition
+                                ) {
+
+                                    return definition.values.some(
+                                        function (
+                                            value
+                                        ) {
+
+                                            return (
+                                                category
+                                                    .toLowerCase()
+                                                    .trim() ===
+                                                value
+                                                    .toLowerCase()
+                                                    .trim()
+                                            );
+
+                                        }
+                                    );
+
+                                }
+
+
+                                return (
+                                    category
+                                        .toLowerCase()
+                                        .trim() ===
                                     currentFilter
+                                        .toLowerCase()
+                                        .trim()
                                 );
 
                             }
@@ -4291,12 +3713,11 @@
             }
 
 
+            /* SEARCH */
 
-            /* =====================================================
-               SEARCH
-               ===================================================== */
-
-            if (currentSearch) {
+            if (
+                currentSearch
+            ) {
 
                 const query =
                     currentSearch
@@ -4306,17 +3727,19 @@
 
                 products =
                     products.filter(
-                        product => {
+                        function (product) {
 
                             const name =
                                 getProductName(
                                     product
                                 ).toLowerCase();
 
+
                             const description =
                                 getProductDescription(
                                     product
                                 ).toLowerCase();
+
 
                             const category =
                                 getProductCategory(
@@ -4325,9 +3748,17 @@
 
 
                             return (
-                                name.includes(query) ||
-                                description.includes(query) ||
-                                category.includes(query)
+                                name.includes(
+                                    query
+                                ) ||
+
+                                description.includes(
+                                    query
+                                ) ||
+
+                                category.includes(
+                                    query
+                                )
                             );
 
                         }
@@ -4336,23 +3767,37 @@
             }
 
 
-
-            /* =====================================================
-               PLATFORM
-               ===================================================== */
+            /* PLATFORM */
 
             if (
-                currentPlatform &&
-                currentPlatform !== "all"
+                currentPlatform !==
+                "all"
             ) {
 
                 products =
                     products.filter(
-                        product => {
+                        function (product) {
 
-                            return productMatchesPlatform(
-                                product,
-                                currentPlatform
+                            return getActiveProductPlatforms(
+                                product
+                            ).some(
+                                function (
+                                    platform
+                                ) {
+
+                                    return (
+                                        String(
+                                            platform.platform ||
+                                            ""
+                                        )
+                                            .toLowerCase()
+                                            .trim() ===
+                                        currentPlatform
+                                            .toLowerCase()
+                                            .trim()
+                                    );
+
+                                }
                             );
 
                         }
@@ -4361,58 +3806,65 @@
             }
 
 
-
-            /* =====================================================
-               PRICE SORT
-               ===================================================== */
+            /* SORT BY PRICE */
 
             if (
-                currentSort === "low" ||
-                currentSort === "high"
+                currentSort !==
+                "default"
             ) {
 
                 products.sort(
-                    function (a, b) {
+                    function (
+                        a,
+                        b
+                    ) {
 
                         const priceA =
-                            getProductSortPrice(a);
+                            getProductSortPrice(
+                                a
+                            );
+
 
                         const priceB =
-                            getProductSortPrice(b);
+                            getProductSortPrice(
+                                b
+                            );
 
-
-                        /*
-                         * Products without a price go to the end.
-                         */
 
                         if (
                             priceA === null &&
                             priceB === null
                         ) {
+
                             return 0;
-                        }
 
-
-                        if (priceA === null) {
-                            return 1;
-                        }
-
-
-                        if (priceB === null) {
-                            return -1;
                         }
 
 
                         if (
-                            currentSort === "low"
+                            priceA === null
                         ) {
 
-                            return priceA - priceB;
+                            return 1;
 
                         }
 
 
-                        return priceB - priceA;
+                        if (
+                            priceB === null
+                        ) {
+
+                            return -1;
+
+                        }
+
+
+                        return (
+                            currentSort ===
+                            "low"
+                        )
+                            ? priceA - priceB
+                            : priceB - priceA;
 
                     }
                 );
@@ -4425,7 +3877,6 @@
         }
 
 
-
         /* =========================================================
            UPDATE SECTION TITLE
            ========================================================= */
@@ -4434,19 +3885,17 @@
 
             if (
                 currentFilter &&
-                (
-                    currentFilter.toLowerCase() ===
-                    "trending" ||
-                    currentFilter.toLowerCase() ===
-                    "🔥trending"
-                )
+                currentFilter.toLowerCase() ===
+                "trending"
             ) {
 
                 sectionHeading.textContent =
                     "Trending";
 
+
                 sectionSubheading.textContent =
                     "Popular picks from VNR CHOICEZ";
+
 
                 return;
 
@@ -4458,20 +3907,13 @@
                 currentFilter !== "all"
             ) {
 
-                const definition =
-                    getCategoryDefinition(
-                        currentFilter
-                    );
-
-
                 sectionHeading.textContent =
-                    definition
-                        ? definition.display
-                        : currentFilter;
+                    currentFilter;
 
 
                 sectionSubheading.textContent =
                     "Curated picks by VNR CHOICEZ";
+
 
                 return;
 
@@ -4481,11 +3923,11 @@
             sectionHeading.textContent =
                 "All Products";
 
+
             sectionSubheading.textContent =
                 "Curated picks by VNR CHOICEZ";
 
         }
-
 
 
         /* =========================================================
@@ -4501,7 +3943,9 @@
                 getFilteredProducts();
 
 
-            if (!products.length) {
+            if (
+                !products.length
+            ) {
 
                 productsContainer.innerHTML = `
                     <div
@@ -4517,88 +3961,72 @@
             }
 
 
-            productsContainer.innerHTML = "";
+            productsContainer.innerHTML =
+                "";
 
 
             products.forEach(
-                function (product, index) {
+                function (
+                    product,
+                    index
+                ) {
 
                     const card =
-                        document.createElement("article");
+                        document.createElement(
+                            "article"
+                        );
 
-                    card.className = "product";
+
+                    card.className =
+                        "product";
+
 
                     card.style.setProperty(
                         "--delay",
-                        `${Math.min(index * 65, 650)}ms`
+                        `${Math.min(
+                            index * 65,
+                            650
+                        )}ms`
                     );
 
 
                     const image =
                         escapeHTML(
-                            getProductImage(product)
+                            getProductImage(
+                                product
+                            )
                         );
+
 
                     const name =
                         escapeHTML(
-                            getProductName(product)
+                            getProductName(
+                                product
+                            )
                         );
+
 
                     const description =
                         escapeHTML(
-                            getProductDescription(product)
+                            getProductDescription(
+                                product
+                            )
                         );
+
 
                     const category =
                         escapeHTML(
-                            getProductCategory(product)
+                            getProductCategory(
+                                product
+                            )
                         );
 
 
-
-                    /* =================================================
-                       PLATFORM DISPLAY
-                       ================================================= */
-
-                    const allActivePlatforms =
+                    const activePlatforms =
                         getActiveProductPlatforms(
                             product
                         );
 
-
-                    /*
-                     * When a platform filter is selected,
-                     * only display the selected platform button.
-                     *
-                     * This makes the selected filter clear to users.
-                     */
-
-                    const activePlatforms =
-                        currentPlatform === "all"
-                            ? allActivePlatforms
-                            : allActivePlatforms.filter(
-                                function (platform) {
-
-                                    return (
-                                        String(
-                                            platform.platform || ""
-                                        )
-                                            .toLowerCase()
-                                            .trim() ===
-                                        currentPlatform
-                                            .toLowerCase()
-                                            .trim()
-                                    );
-
-                                }
-                            );
-
-
-                    /*
-                     * Price range remains based on the displayed
-                     * platform selection when a platform filter
-                     * is active.
-                     */
 
                     const priceRange =
                         getProductPriceRange(
@@ -4607,7 +4035,8 @@
                         );
 
 
-                    let platformHTML = "";
+                    let platformHTML =
+                        "";
 
 
                     if (
@@ -4616,10 +4045,13 @@
 
                         platformHTML = `
                             <div class="product-platforms">
+
                                 ${
                                     activePlatforms
                                         .map(
-                                            function (platform) {
+                                            function (
+                                                platform
+                                            ) {
 
                                                 const platformName =
                                                     escapeHTML(
@@ -4627,11 +4059,13 @@
                                                         "View Product"
                                                     );
 
+
                                                 const platformURL =
                                                     escapeHTML(
                                                         platform.affiliate_url ||
                                                         "#"
                                                     );
+
 
                                                 const platformPrice =
                                                     formatPrice(
@@ -4645,21 +4079,22 @@
                                                         href="${platformURL}"
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        aria-label="View on ${platformName}"
+                                                        data-product-id="${escapeHTML(
+                                                            product.id || ""
+                                                        )}"
                                                     >
-                                                        <span class="platform-button-name">
-                                                            View on ${platformName}
+
+                                                        <span class="platform-name">
+                                                            ${platformName}
                                                         </span>
 
-                                                        ${
-                                                            platformPrice
-                                                                ? `
-                                                                    <span class="platform-button-price">
-                                                                        ${platformPrice}
-                                                                    </span>
-                                                                  `
-                                                                : ""
-                                                        }
+                                                        <span class="platform-price">
+                                                            ${
+                                                                platformPrice ||
+                                                                "View"
+                                                            }
+                                                        </span>
+
                                                     </a>
                                                 `;
 
@@ -4667,53 +4102,6 @@
                                         )
                                         .join("")
                                 }
-                            </div>
-                        `;
-
-                    } else {
-
-                        /*
-                         * FALLBACK:
-                         *
-                         * If there are no platform records, preserve
-                         * the original VNR CHOICEZ behaviour exactly.
-                         */
-
-                        const link =
-                            escapeHTML(
-                                getProductLink(product)
-                            );
-
-                        const price =
-                            formatPrice(
-                                product.price
-                            );
-
-
-                        platformHTML = `
-                            <div class="product-bottom">
-
-                                ${
-                                    price
-                                        ? `
-                                            <div class="product-price">
-                                                ${price}
-                                            </div>
-                                          `
-                                        : `
-                                            <div></div>
-                                          `
-                                }
-
-
-                                <a
-                                    class="buy-button"
-                                    href="${link}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    View Product
-                                </a>
 
                             </div>
                         `;
@@ -4721,85 +4109,93 @@
                     }
 
 
-
-                    /*
-                     * Platform products now have:
-                     *
-                     * 1. A calculated overall price range
-                     *    based on the selected/displayed platforms.
-                     *
-                     * 2. Platform-specific buttons underneath.
-                     *
-                     * The entire bottom section is kept at the bottom
-                     * of the product card by the flex layout.
-                     */
-
-                    const platformProductBottom =
-                        activePlatforms.length
-                            ? `
-                                <div class="product-bottom">
-
-                                    ${
-                                        priceRange
-                                            ? `
-                                                <div class="product-price">
-                                                    ${priceRange}
-                                                </div>
-                                              `
-                                            : `
-                                                <div></div>
-                                              `
-                                    }
-
-                                </div>
-
-                                ${platformHTML}
-                              `
-                            : platformHTML;
-
-
                     card.innerHTML = `
 
                         <div class="product-image-wrap">
 
                             <img
+                                class="product-image"
                                 src="${image}"
                                 alt="${name}"
                                 loading="lazy"
-                                onerror="this.src='cropped_circle_image.png'"
                             >
 
                         </div>
 
 
-                        <div class="product-content">
+                        <div class="product-body">
 
-                            ${
-                                category
-                                    ? `
-                                        <div class="product-category">
-                                            ${category}
-                                        </div>
-                                      `
-                                    : ""
-                            }
-
-
-                            <h3>
+                            <h3 class="product-name">
                                 ${name}
                             </h3>
 
 
-                            <div class="product-description">
-                                ${description}
+                            ${
+                                description
+                                    ? `
+                                        <p class="product-description">
+                                            ${description}
+                                        </p>
+                                    `
+                                    : ""
+                            }
+
+
+                            ${
+                                priceRange
+                                    ? `
+                                        <div class="product-price">
+                                            ${priceRange}
+                                        </div>
+                                    `
+                                    : ""
+                            }
+
+
+                            ${platformHTML}
+
+
+                            <div class="product-footer">
+
+                                <span class="product-category">
+                                    ${category}
+                                </span>
+
+
+                                <span class="view-product">
+                                    View
+                                    <span>
+                                        →
+                                    </span>
+                                </span>
+
                             </div>
-
-
-                            ${platformProductBottom}
 
                         </div>
 
                     `;
+
+
+                    card
+                        .querySelectorAll(
+                            "[data-product-id]"
+                        )
+                        .forEach(
+                            function (link) {
+
+                                link.addEventListener(
+                                    "click",
+                                    function () {
+
+                                        trackClick(
+                                            product.id
+                                        );
+
+                                    }
+                                );
+
+                            }
+                        );
 
 
                     productsContainer.appendChild(
@@ -4809,31 +4205,243 @@
                 }
             );
 
+        }
 
-            /*
-             * Force browser to register the
-             * new cards before animation starts.
-             */
 
-            requestAnimationFrame(
-                function () {
+        /* =========================================================
+           CLICK TRACKING
+           ========================================================= */
 
-                    productsContainer
-                        .querySelectorAll(".product")
-                        .forEach(
-                            function (card) {
+        async function trackClick(
+            productId
+        ) {
 
-                                card.style.animationPlayState =
-                                    "running";
+            if (
+                !supabaseClient ||
+                !productId
+            ) {
 
-                            }
-                        );
+                return;
+
+            }
+
+
+            try {
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+                        .from("products")
+                        .select("clicks")
+                        .eq(
+                            "id",
+                            productId
+                        )
+                        .single();
+
+
+                if (
+                    error
+                ) {
+
+                    console.warn(
+                        "VNR CHOICEZ: Unable to read click count.",
+                        error
+                    );
+
+
+                    return;
 
                 }
+
+
+                const currentClicks =
+                    Number(
+                        data?.clicks ||
+                        0
+                    );
+
+
+                await supabaseClient
+                    .from("products")
+                    .update(
+                        {
+                            clicks:
+                                currentClicks + 1
+                        }
+                    )
+                    .eq(
+                        "id",
+                        productId
+                    );
+
+            } catch (
+                error
+            ) {
+
+                console.warn(
+                    "VNR CHOICEZ: Click tracking failed.",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           FILTER MENU
+           ========================================================= */
+
+        function closeFilterMenu() {
+
+            filterMenu.classList.remove(
+                "open"
+            );
+
+
+            filterButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            filterMenu.setAttribute(
+                "aria-hidden",
+                "true"
             );
 
         }
 
+
+        filterButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                const isOpen =
+                    filterMenu.classList.toggle(
+                        "open"
+                    );
+
+
+                filterButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+
+                filterMenu.setAttribute(
+                    "aria-hidden",
+                    String(!isOpen)
+                );
+
+            }
+        );
+
+
+        filterMenu.addEventListener(
+            "click",
+            function (event) {
+
+                const option =
+                    event.target.closest(
+                        ".filter-option"
+                    );
+
+
+                if (
+                    !option
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    option.dataset.sort
+                ) {
+
+                    currentSort =
+                        option.dataset.sort;
+
+                }
+
+
+                if (
+                    option.dataset.platform
+                ) {
+
+                    currentPlatform =
+                        option.dataset.platform;
+
+                }
+
+
+                filterMenu
+                    .querySelectorAll(
+                        '.filter-option[data-sort]'
+                    )
+                    .forEach(
+                        function (item) {
+
+                            item.classList.toggle(
+                                "active",
+                                item.dataset.sort ===
+                                currentSort
+                            );
+
+                        }
+                    );
+
+
+                filterMenu
+                    .querySelectorAll(
+                        '.filter-option[data-platform]'
+                    )
+                    .forEach(
+                        function (item) {
+
+                            item.classList.toggle(
+                                "active",
+                                item.dataset.platform ===
+                                currentPlatform
+                            );
+
+                        }
+                    );
+
+
+                closeFilterMenu();
+
+
+                renderProducts();
+
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    !event.target.closest(
+                        ".search-box"
+                    )
+                ) {
+
+                    closeFilterMenu();
+
+                }
+
+            }
+        );
 
 
         /* =========================================================
@@ -4875,6 +4483,83 @@
         );
 
 
+        /* =========================================================
+           CATEGORY DROPDOWN
+           ========================================================= */
+
+        categoryToggle.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                const isOpen =
+                    categoryWrapper.classList.toggle(
+                        "open"
+                    );
+
+
+                categoryToggle.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    !categoryWrapper.contains(
+                        event.target
+                    )
+                ) {
+
+                    categoryWrapper.classList.remove(
+                        "open"
+                    );
+
+
+                    categoryToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+            }
+        );
+
+
+        document.querySelectorAll(
+            ".dropdown-menu a"
+        ).forEach(
+            function (link) {
+
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        categoryWrapper.classList.remove(
+                            "open"
+                        );
+
+
+                        categoryToggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
 
         /* =========================================================
            DETECT INITIAL FILTER
@@ -4882,13 +4567,18 @@
 
         function applyInitialFilter() {
 
-            if (!initialType) {
+            if (
+                !initialType
+            ) {
 
-                currentFilter = "all";
+                currentFilter =
+                    "all";
+
 
                 document.body.classList.remove(
                     "has-filter"
                 );
+
 
                 return;
 
@@ -4901,17 +4591,11 @@
                 );
 
 
-            /*
-             * Category filters hide the hero.
-             * Trending also behaves as a filtered page.
-             */
-
             document.body.classList.add(
                 "has-filter"
             );
 
         }
-
 
 
         /* =========================================================
@@ -4924,17 +4608,24 @@
 
                 if (
                     event.target &&
-                    event.target.tagName === "IMG"
+                    event.target.tagName ===
+                    "IMG"
                 ) {
 
                     if (
-                        event.target.dataset.fallbackApplied
+                        event.target.dataset
+                            .fallbackApplied
                     ) {
+
                         return;
+
                     }
 
-                    event.target.dataset.fallbackApplied =
+
+                    event.target.dataset
+                        .fallbackApplied =
                         "true";
+
 
                     event.target.src =
                         "cropped_circle_image.png";
@@ -4946,52 +4637,6 @@
         );
 
 
-
-        /* =========================================================
-           INITIALIZE FILTER UI
-           ========================================================= */
-
-        function initializeFilterUI() {
-
-            /*
-             * Default sort state:
-             * no price sorting selected.
-             */
-
-            filterOptions.forEach(
-                function (option) {
-
-                    option.classList.remove(
-                        "active"
-                    );
-
-                }
-            );
-
-
-            /*
-             * Default platform:
-             * All Platforms.
-             */
-
-            const allPlatformOption =
-                filterMenu.querySelector(
-                    '[data-platform="all"]'
-                );
-
-
-            if (allPlatformOption) {
-
-                allPlatformOption.classList.add(
-                    "active"
-                );
-
-            }
-
-        }
-
-
-
         /* =========================================================
            INITIALIZE
            ========================================================= */
@@ -5000,9 +4645,9 @@
 
             applyInitialFilter();
 
-            initializeFilterUI();
 
             await loadCategories();
+
 
             await loadProducts();
 
@@ -5011,17 +4656,8 @@
 
         initializeSite();
 
-
-
-        /* =========================================================
-           CONSOLE
-           ========================================================= */
-
-        console.log(
-            "VNR CHOICEZ — Premium Website Animation System Loaded."
-        );
-
     </script>
+
 
 </body>
 
