@@ -1,0 +1,5035 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="VNR CHOICEZ — Discover useful products, trending finds and curated Shopee picks."
+    >
+
+    <title>VNR CHOICEZ</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="cropped_circle_image.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="cropped_circle_image.png"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =========================================================
+           VNR CHOICEZ
+           MODERN EDITORIAL / CURATED DISCOVERY DESIGN
+           ========================================================= */
+
+        :root {
+            --sand: #CFC5B5;
+            --sand-soft: #E3DBCF;
+
+            --paper: #F0EBE3;
+            --white: #FAF8F4;
+
+            --charcoal: #171717;
+            --charcoal-soft: #222222;
+
+            --text: #24221F;
+            --text-soft: #68635B;
+            --text-muted: #938C82;
+
+            --champagne: #B69A6B;
+            --champagne-soft: rgba(182,154,107,0.15);
+
+            --line: #CFC6B9;
+            --line-soft: rgba(36,34,31,0.10);
+
+            --card: #FAF8F4;
+
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            background:
+                radial-gradient(
+                    circle at 50% -8%,
+                    rgba(255,255,255,0.48),
+                    transparent 34%
+                ),
+                linear-gradient(
+                    180deg,
+                    #E3DBCF 0%,
+                    #CFC5B5 46%,
+                    #D8CFC3 100%
+                );
+
+            color: var(--text);
+
+            font-family:
+                "Inter",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+
+        body::selection {
+            background: var(--champagne);
+            color: var(--white);
+        }
+
+
+        a,
+        button,
+        input {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        button,
+        a {
+            touch-action: manipulation;
+        }
+
+
+
+        /* =========================================================
+           HEADER
+           ========================================================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 42px;
+
+            background: rgba(23,23,23,0.96);
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            transition:
+                background 0.35s var(--ease),
+                box-shadow 0.35s var(--ease),
+                border-color 0.35s var(--ease);
+        }
+
+
+        header.scrolled {
+            background: rgba(23,23,23,0.985);
+
+            border-color:
+                rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.18);
+        }
+
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            color: #fff;
+
+            text-decoration: none;
+
+            font-size: 17px;
+            font-weight: 800;
+
+            letter-spacing: 1.7px;
+
+            transition:
+                transform 0.3s var(--ease),
+                opacity 0.3s var(--ease);
+        }
+
+
+        .logo:hover {
+            transform: translateY(-1px);
+            opacity: 0.88;
+        }
+
+
+        .logo img {
+            width: 34px;
+            height: 34px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            transition:
+                transform 0.45s var(--ease),
+                box-shadow 0.45s var(--ease);
+        }
+
+
+        .logo:hover img {
+            transform:
+                rotate(-5deg)
+                scale(1.06);
+
+            box-shadow:
+                0 0 22px rgba(182,154,107,0.16);
+        }
+
+
+
+        /* =========================================================
+           NAVIGATION
+           ========================================================= */
+
+        nav {
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+        }
+
+
+        nav a,
+        .category-toggle {
+            position: relative;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 40px;
+
+            padding: 0 14px;
+
+            color: #D8D5CE;
+
+            text-decoration: none;
+
+            background: transparent;
+
+            border: none;
+
+            font: inherit;
+            font-size: 14px;
+
+            cursor: pointer;
+
+            border-radius: 10px;
+
+            transition:
+                color 0.25s var(--ease),
+                background 0.25s var(--ease),
+                transform 0.25s var(--ease);
+        }
+
+
+        nav a:hover,
+        .category-toggle:hover {
+            color: #fff;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        nav a:active,
+        .category-toggle:active {
+            transform: scale(0.96);
+        }
+
+
+        .category-wrapper {
+            position: relative;
+        }
+
+
+        .category-toggle {
+            gap: 7px;
+        }
+
+
+        .arrow {
+            font-size: 10px;
+
+            transition:
+                transform 0.3s var(--ease);
+        }
+
+
+        .category-wrapper.open .arrow {
+            transform:
+                rotate(180deg);
+        }
+
+
+
+        /* =========================================================
+           DROPDOWN
+           ========================================================= */
+
+        .dropdown-menu {
+            position: absolute;
+
+            top: calc(100% + 12px);
+            right: 0;
+
+            min-width: 220px;
+
+            padding: 8px;
+
+            background:
+                rgba(28,28,28,0.98);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 22px 60px rgba(0,0,0,0.32),
+                inset 0 1px 0 rgba(255,255,255,0.04);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transform:
+                translateY(-8px)
+                scale(0.97);
+
+            transform-origin:
+                top right;
+
+            transition:
+                opacity 0.28s var(--ease),
+                transform 0.32s var(--ease),
+                visibility 0.28s;
+        }
+
+
+        .category-wrapper.open .dropdown-menu {
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+
+            width: 100%;
+
+            min-height: 40px;
+
+            padding: 0 12px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            color: #C8C4BC;
+
+            transform: none;
+        }
+
+
+        .dropdown-menu a:hover {
+            background:
+                rgba(182,154,107,0.12);
+
+            color: #fff;
+
+            transform:
+                translateX(3px);
+        }
+
+
+
+        /* =========================================================
+           MOBILE MENU BUTTON
+           ========================================================= */
+
+        .mobile-menu-btn {
+            display: none;
+
+            width: 42px;
+            height: 42px;
+
+            align-items: center;
+            justify-content: center;
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 11px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color: #fff;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s var(--ease),
+                transform 0.25s var(--ease);
+        }
+
+
+        .mobile-menu-btn:hover {
+            background:
+                rgba(255,255,255,0.08);
+        }
+
+
+        .mobile-menu-btn:active {
+            transform: scale(0.93);
+        }
+
+
+        .menu-lines {
+            width: 17px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .menu-lines span {
+            width: 100%;
+            height: 1.5px;
+
+            background: #fff;
+
+            border-radius: 10px;
+
+            transition:
+                transform 0.3s var(--ease),
+                opacity 0.25s var(--ease);
+        }
+
+
+        .mobile-menu-btn.active
+        .menu-lines span:nth-child(1) {
+            transform:
+                translateY(5.5px)
+                rotate(45deg);
+        }
+
+
+        .mobile-menu-btn.active
+        .menu-lines span:nth-child(2) {
+            opacity: 0;
+        }
+
+
+        .mobile-menu-btn.active
+        .menu-lines span:nth-child(3) {
+            transform:
+                translateY(-5.5px)
+                rotate(-45deg);
+        }
+
+
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .hero {
+            position: relative;
+
+            min-height: 460px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            padding: 85px 20px 78px;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 35%,
+                    rgba(182,154,107,0.11),
+                    transparent 31%
+                ),
+                linear-gradient(
+                    180deg,
+                    rgba(240,235,227,0.24),
+                    transparent
+                );
+        }
+
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            inset: -30%;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(182,154,107,0.07),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(182,154,107,0.035),
+                    transparent 40%
+                );
+
+            pointer-events: none;
+
+            animation:
+                heroGlow 7s ease-in-out infinite alternate;
+        }
+
+
+        .hero-content {
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 900px;
+        }
+
+
+        .hero-eyebrow {
+            margin-bottom: 17px;
+
+            color: var(--champagne);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            opacity: 0;
+
+            animation:
+                heroItem
+                0.8s
+                0.05s
+                var(--ease)
+                forwards;
+        }
+
+
+        .hero h1 {
+            position: relative;
+
+            display: inline-block;
+
+            padding: 42px 64px;
+
+            margin-bottom: 26px;
+
+            color: var(--charcoal);
+
+            font-family:
+                "Cormorant Garamond",
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size:
+                clamp(52px, 8vw, 94px);
+
+            line-height: 0.87;
+
+            letter-spacing: -2.7px;
+
+            font-weight: 600;
+
+            opacity: 0;
+
+            filter: blur(8px);
+
+            animation:
+                heroTitle
+                1s
+                0.15s
+                var(--ease)
+                forwards;
+        }
+
+
+        .hero h1::before {
+            content: none;
+        }
+
+
+        .hero h1::after {
+            content: "";
+
+            position: absolute;
+
+            top: 4px;
+            left: 50%;
+
+            width: 46px;
+            height: 2px;
+
+            transform:
+                translateX(-50%);
+
+            background:
+                var(--champagne);
+
+            pointer-events: none;
+        }
+
+
+        .hero p {
+            max-width: 630px;
+
+            margin: 0 auto;
+
+            color: var(--text-soft);
+
+            font-size: 15px;
+
+            line-height: 1.75;
+
+            opacity: 0;
+
+            animation:
+                heroItem
+                0.8s
+                0.38s
+                var(--ease)
+                forwards;
+        }
+
+
+
+        /* =========================================================
+           SEARCH
+           ========================================================= */
+
+        .search-section {
+            position: relative;
+            z-index: 1000;
+
+            width:
+                min(900px, calc(100% - 40px));
+
+            margin:
+                0 auto 70px;
+
+            opacity: 0;
+
+            transform:
+                translateY(20px);
+
+            animation:
+                sectionReveal
+                0.8s
+                0.48s
+                var(--ease)
+                forwards;
+        }
+
+
+        .search-box {
+            position: relative;
+        }
+
+
+        .search-box input {
+            width: 100%;
+
+            height: 60px;
+
+            padding:
+                0 58px 0 50px;
+
+            color: var(--text);
+
+            background:
+                rgba(250,248,244,0.96);
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 15px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(36,34,31,0.065);
+
+            transition:
+                border-color 0.3s var(--ease),
+                background 0.3s var(--ease),
+                box-shadow 0.35s var(--ease),
+                transform 0.35s var(--ease);
+        }
+
+
+        .search-box input::placeholder {
+            color: #9B958B;
+        }
+
+
+        .search-box input:hover {
+            border-color:
+                #C5BBAE;
+        }
+
+
+        .search-box:focus-within input {
+            background:
+                #FAF8F4;
+
+            border-color:
+                rgba(182,154,107,0.65);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(182,154,107,0.09),
+
+                0 16px 42px
+                rgba(36,34,31,0.10);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .search-icon {
+            position: absolute;
+
+            left: 19px;
+            top: 50%;
+
+            width: 15px;
+            height: 15px;
+
+            border:
+                1.6px solid
+                #9A958C;
+
+            border-radius: 50%;
+
+            transform:
+                translateY(-55%);
+
+            transition:
+                border-color 0.3s var(--ease),
+                transform 0.3s var(--ease);
+        }
+
+
+        .search-icon::after {
+            content: "";
+
+            position: absolute;
+
+            width: 6px;
+            height: 1.5px;
+
+            background:
+                #9A958C;
+
+            right: -5px;
+            bottom: -2px;
+
+            transform:
+                rotate(45deg);
+
+            transition:
+                background 0.3s var(--ease);
+        }
+
+
+        .search-box:focus-within
+        .search-icon {
+            border-color:
+                var(--champagne);
+
+            transform:
+                translateY(-55%)
+                scale(1.08);
+        }
+
+
+        .search-box:focus-within
+        .search-icon::after {
+            background:
+                var(--champagne);
+        }
+
+
+
+
+          /* =========================================================
+           FILTER BUTTON
+           ========================================================= */
+
+        .filter-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #706B63;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 5;
+            transform: translateY(-50%);
+            transition:
+                background 0.25s var(--ease),
+                color 0.25s var(--ease),
+                border-color 0.25s var(--ease),
+                transform 0.25s var(--ease);
+        }
+
+        .filter-icon {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            transition: transform 0.25s var(--ease);
+        }
+
+        .filter-button:hover {
+            color: var(--charcoal);
+            background: rgba(182,154,107,0.08);
+            border-color: rgba(182,154,107,0.18);
+            transform: translateY(-50%) scale(1.04);
+        }
+
+        .filter-button:focus-visible {
+            outline: none;
+            color: var(--charcoal);
+            background: rgba(182,154,107,0.10);
+            border-color: rgba(182,154,107,0.45);
+            box-shadow: 0 0 0 3px rgba(182,154,107,0.10);
+        }
+
+        .filter-button:active {
+            transform: translateY(-50%) scale(0.94);
+        }
+
+        .filter-button[aria-expanded="true"] {
+            color: var(--charcoal);
+            background: rgba(182,154,107,0.10);
+            border-color: rgba(182,154,107,0.28);
+        }
+
+        .filter-button[aria-expanded="true"] .filter-icon {
+            transform: scale(1.06);
+        }
+
+
+        .filter-menu {
+            position: absolute;
+
+            top: calc(100% + 10px);
+            right: 0;
+
+            width: 220px;
+
+            padding: 8px;
+
+            background:
+                rgba(28,28,28,0.98);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.24);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transform:
+                translateY(-8px)
+                scale(0.97);
+
+            transform-origin:
+                top right;
+
+            z-index: 9999;
+
+            transition:
+                opacity 0.25s var(--ease),
+                transform 0.3s var(--ease),
+                visibility 0.25s;
+        }
+
+
+        .filter-menu.open {
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .filter-menu-title {
+            padding:
+                8px 11px 6px;
+
+            color:
+                #8F8B84;
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+        }
+
+      .filter-option {
+            width: 100%;
+
+            min-height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 11px;
+
+            color:
+                #C8C4BC;
+
+            background:
+                transparent;
+
+            border:
+                none;
+
+            border-radius: 9px;
+
+            font-family:
+                "Inter",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s var(--ease),
+                color 0.2s var(--ease),
+                transform 0.2s var(--ease);
+        }
+
+
+        .filter-option:hover {
+            color:
+                #FFFFFF;
+
+            background:
+                rgba(182,154,107,0.12);
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .filter-option.active {
+            color:
+                #FFFFFF;
+
+            background:
+                rgba(182,154,107,0.16);
+        }
+
+
+        .filter-option-check {
+            color:
+                var(--champagne);
+
+            font-size: 12px;
+
+            opacity: 0;
+        }
+
+
+        .filter-option.active
+        .filter-option-check {
+            opacity: 1;
+        }
+
+
+
+        /* =========================================================
+           PRODUCTS SECTION
+           ========================================================= */
+
+        main {
+            width:
+                min(1180px, calc(100% - 48px));
+
+            margin:
+                0 auto 100px;
+        }
+
+
+        .section-header {
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 28px;
+
+            padding-bottom: 17px;
+
+            border-bottom:
+                1px solid var(--line-soft);
+        }
+
+
+        .section-heading {
+            color: var(--charcoal);
+
+            font-family:
+                "Cormorant Garamond",
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size:
+                clamp(30px, 4vw, 42px);
+
+            letter-spacing: -0.9px;
+
+            font-weight: 600;
+        }
+
+
+        .section-subheading {
+            margin-top: 7px;
+
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+
+        /* =========================================================
+           PRODUCT GRID
+           ========================================================= */
+
+        .products-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 18px;
+
+            align-items: stretch;
+        }
+
+
+
+        /* =========================================================
+           PRODUCT CARD
+           ========================================================= */
+
+        .product {
+            position: relative;
+
+            min-width: 0;
+
+            background:
+                var(--card);
+
+            border:
+                1px solid var(--line);
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
+            opacity: 0;
+
+            transform:
+                translateY(20px)
+                scale(0.985);
+
+            transition:
+                transform 0.4s var(--ease),
+                border-color 0.35s var(--ease),
+                box-shadow 0.4s var(--ease),
+                background 0.35s var(--ease);
+
+            animation:
+                productReveal
+                0.7s
+                var(--ease)
+                forwards;
+
+            animation-delay:
+                var(--delay, 0ms);
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        @media (hover: hover) {
+
+            .product:hover {
+                transform:
+                    translateY(-5px)
+                    scale(1.004);
+
+                background:
+                    #FFFFFF;
+
+                border-color:
+                    #C8BFB2;
+
+                box-shadow:
+                    0 18px 45px
+                    rgba(36,34,31,0.105);
+            }
+
+        }
+
+
+        .product-image-wrap {
+            position: relative;
+
+            aspect-ratio: 1 / 1;
+
+            background:
+                var(--sand-soft);
+
+            overflow: hidden;
+
+            flex-shrink: 0;
+        }
+
+
+        .product-image-wrap::after {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    transparent 20%,
+                    rgba(255,255,255,0.42) 48%,
+                    transparent 72%
+                );
+
+            transform:
+                translateX(-130%);
+
+            pointer-events: none;
+        }
+
+
+        @media (hover: hover) {
+
+            .product:hover
+            .product-image-wrap::after {
+                animation:
+                    imageShine
+                    0.8s
+                    var(--ease);
+            }
+
+        }
+
+
+        .product img {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform 0.65s var(--ease),
+                filter 0.45s var(--ease);
+        }
+
+
+        @media (hover: hover) {
+
+            .product:hover img {
+                transform:
+                    scale(1.035);
+
+                filter:
+                    brightness(1.015);
+            }
+
+        }
+
+
+
+        /* =========================================================
+           PRODUCT CONTENT
+           ========================================================= */
+
+        .product-content {
+            padding:
+                17px 17px 18px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            flex: 1;
+        }
+
+
+        .product-category {
+            margin-bottom: 7px;
+
+            color:
+                var(--champagne);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .product h3 {
+            margin-bottom: 8px;
+
+            color:
+                var(--text);
+
+            font-size: 15px;
+
+            line-height: 1.35;
+
+            font-weight: 700;
+        }
+
+
+        .product-description {
+            min-height: 40px;
+
+            height: 60px;
+
+            margin-bottom: 14px;
+
+            color:
+                var(--text-soft);
+
+            font-size: 12px;
+
+            line-height: 1.55;
+
+            overflow: hidden;
+
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 3;
+        }
+
+
+        .product-bottom {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-top: auto;
+        }
+
+
+        .product-price {
+            color:
+                var(--charcoal);
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            line-height: 1.35;
+
+            min-height: 19px;
+        }
+
+
+
+        /* =========================================================
+           PLATFORM LINKS
+           ========================================================= */
+
+        .product-platforms {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+
+            width: 100%;
+
+            margin-top: 9px;
+        }
+
+
+        .platform-button {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            width: 100%;
+
+            min-height: 36px;
+
+            padding:
+                0 12px;
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--charcoal);
+
+            border:
+                1px solid var(--charcoal);
+
+            border-radius: 9px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            transition:
+                transform 0.2s var(--ease),
+                background 0.25s var(--ease),
+                color 0.25s var(--ease),
+                border-color 0.25s var(--ease),
+                box-shadow 0.25s var(--ease);
+        }
+
+
+        .platform-button-name {
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        .platform-button-price {
+            margin-left: 8px;
+
+            white-space: nowrap;
+
+            opacity: 0.88;
+        }
+
+
+        @media (hover: hover) {
+
+            .platform-button:hover {
+                color:
+                    var(--charcoal);
+
+                background:
+                    transparent;
+
+                border-color:
+                    var(--champagne);
+
+                transform:
+                    translateY(-1px);
+
+                box-shadow:
+                    0 8px 20px
+                    rgba(36,34,31,0.08);
+            }
+
+        }
+
+
+        .platform-button:active {
+            transform:
+                scale(0.96);
+        }
+
+
+
+        /* =========================================================
+           BUY BUTTON
+           ========================================================= */
+
+        .buy-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 36px;
+
+            padding:
+                0 13px;
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--charcoal);
+
+            border:
+                1px solid var(--charcoal);
+
+            border-radius: 9px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            white-space: nowrap;
+
+            transition:
+                transform 0.2s var(--ease),
+                background 0.25s var(--ease),
+                color 0.25s var(--ease),
+                border-color 0.25s var(--ease),
+                box-shadow 0.25s var(--ease);
+        }
+
+
+        @media (hover: hover) {
+
+            .buy-button:hover {
+                color:
+                    var(--charcoal);
+
+                background:
+                    transparent;
+
+                border-color:
+                    var(--champagne);
+
+                transform:
+                    translateY(-1px);
+
+                box-shadow:
+                    0 8px 20px
+                    rgba(36,34,31,0.08);
+            }
+
+        }
+
+
+        .buy-button:active {
+            transform:
+                scale(0.94);
+        }
+
+
+
+        /* =========================================================
+           LOADING
+           ========================================================= */
+
+        .loading {
+            min-height: 220px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color:
+                var(--text-muted);
+
+            font-size: 13px;
+        }
+
+
+        .loading::after {
+            content: "";
+
+            width: 16px;
+            height: 16px;
+
+            margin-left: 10px;
+
+            border:
+                2px solid
+                rgba(36,34,31,0.12);
+
+            border-top-color:
+                var(--champagne);
+
+            border-radius: 50%;
+
+            animation:
+                spin
+                0.8s
+                linear
+                infinite;
+        }
+
+
+        .empty-state {
+            padding: 80px 20px;
+
+            text-align: center;
+
+            color:
+                var(--text-muted);
+
+            font-size: 14px;
+
+            animation:
+                fadeIn
+                0.5s
+                var(--ease);
+        }
+
+
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        footer {
+            position: relative;
+
+            padding:
+                65px 30px 35px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            background:
+                var(--charcoal);
+        }
+
+
+        footer::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            width: 48px;
+            height: 1px;
+
+            transform:
+                translateX(-50%);
+
+            background:
+                var(--champagne);
+
+            opacity: 0.65;
+        }
+
+
+        .footer-inner {
+            width:
+                min(1180px, 100%);
+
+            margin: 0 auto;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 30px;
+
+            text-align: center;
+        }
+
+
+        .footer-brand {
+            color:
+                #FFFFFF;
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .footer-text {
+            max-width: 420px;
+
+            margin-top: 9px;
+
+            color:
+                #918E87;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        .footer-copy {
+            margin-top: 45px;
+
+            color:
+                #66625B;
+
+            text-align: center;
+
+            font-size: 11px;
+        }
+
+
+
+        /* =========================================================
+           SCROLL REVEAL
+           ========================================================= */
+
+        .reveal {
+            opacity: 0;
+
+            transform:
+                translateY(20px);
+
+            transition:
+                opacity 0.8s var(--ease),
+                transform 0.8s var(--ease);
+        }
+
+
+        .reveal.visible {
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+
+        /* =========================================================
+           ANIMATIONS
+           ========================================================= */
+
+        @keyframes heroGlow {
+
+            from {
+                transform:
+                    scale(0.98);
+
+                opacity: 0.7;
+            }
+
+            to {
+                transform:
+                    scale(1.04);
+
+                opacity: 1;
+            }
+
+        }
+
+
+        @keyframes heroItem {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        @keyframes heroTitle {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(24px)
+                    scale(0.98);
+
+                filter:
+                    blur(10px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+                filter:
+                    blur(0);
+            }
+
+        }
+
+
+        @keyframes sectionReveal {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        @keyframes productReveal {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(20px)
+                    scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        @keyframes imageShine {
+
+            from {
+                transform:
+                    translateX(-130%);
+            }
+
+            to {
+                transform:
+                    translateX(130%);
+            }
+
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+
+        }
+
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @media (max-width: 900px) {
+
+            header {
+                padding:
+                    0 22px;
+            }
+
+
+            nav {
+                gap: 3px;
+            }
+
+
+            .products-grid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+        }
+
+
+
+        @media (max-width: 700px) {
+
+            header {
+                height: 66px;
+            }
+
+
+            .logo {
+                font-size: 15px;
+            }
+
+
+            .logo img {
+                width: 31px;
+                height: 31px;
+            }
+
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+
+            nav {
+                position: absolute;
+
+                top:
+                    calc(100% + 1px);
+
+                left: 0;
+                right: 0;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding:
+                    10px 15px 15px;
+
+                background:
+                    rgba(23,23,23,0.985);
+
+                border-bottom:
+                    1px solid
+                    rgba(255,255,255,0.08);
+
+                backdrop-filter:
+                    blur(20px);
+
+                -webkit-backdrop-filter:
+                    blur(20px);
+
+                opacity: 0;
+
+                visibility: hidden;
+
+                pointer-events: none;
+
+                transform:
+                    translateY(-8px);
+
+                transition:
+                    opacity 0.3s var(--ease),
+                    transform 0.35s var(--ease),
+                    visibility 0.3s;
+            }
+
+
+            nav.mobile-open {
+                opacity: 1;
+
+                visibility: visible;
+
+                pointer-events: auto;
+
+                transform:
+                    translateY(0);
+            }
+
+
+            nav a,
+            .category-toggle {
+                width: 100%;
+
+                justify-content:
+                    space-between;
+
+                min-height: 48px;
+
+                padding:
+                    0 13px;
+
+                border-radius: 10px;
+            }
+
+
+            .category-wrapper {
+                width: 100%;
+            }
+
+
+
+            /* =====================================================
+               CATEGORY DROPDOWN
+               CLOSED STATE TAKES ZERO SPACE
+               ===================================================== */
+
+            .dropdown-menu {
+                position: static;
+
+                width: 100%;
+
+                margin-top: 0;
+
+                padding: 0;
+
+                max-height: 0;
+
+                overflow: hidden;
+
+                box-shadow: none;
+
+                border-width: 0;
+
+                border-color: transparent;
+
+                opacity: 0;
+
+                visibility: hidden;
+
+                pointer-events: none;
+
+                transform:
+                    translateY(-5px)
+                    scale(0.99);
+
+                transition:
+                    opacity 0.28s var(--ease),
+                    transform 0.32s var(--ease),
+                    visibility 0.28s,
+                    max-height 0.35s var(--ease),
+                    margin-top 0.35s var(--ease),
+                    padding 0.35s var(--ease),
+                    border-color 0.35s var(--ease),
+                    border-width 0.35s var(--ease);
+            }
+
+
+            .category-wrapper.open
+            .dropdown-menu {
+                max-height: 600px;
+
+                margin-top: 4px;
+
+                padding: 4px;
+
+                opacity: 1;
+
+                visibility: visible;
+
+                pointer-events: auto;
+
+                border-width: 1px;
+
+                border-color:
+                    rgba(255,255,255,0.06);
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+
+
+            .hero {
+                min-height: 390px;
+
+                padding:
+                    68px 20px 58px;
+            }
+
+
+            .hero h1 {
+                letter-spacing:
+                    -2px;
+            }
+
+
+            .hero p {
+                font-size: 14px;
+            }
+
+
+            .search-section {
+                width:
+                    calc(100% - 30px);
+
+                margin-bottom:
+                    55px;
+            }
+
+
+            .search-box input {
+                padding:
+                    0 52px 0 50px;
+            }
+
+
+            .filter-button {
+                right: 7px;
+                width: 38px;
+                height: 38px;
+            }
+
+
+            .filter-menu {
+                width: 205px;
+
+                right: 0;
+            }
+
+
+            main {
+                width:
+                    calc(100% - 30px);
+
+                margin-bottom:
+                    75px;
+            }
+
+
+            .section-header {
+                align-items:
+                    flex-start;
+
+                margin-bottom:
+                    22px;
+            }
+
+
+            .products-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 12px;
+            }
+
+
+            .product {
+                border-radius:
+                    13px;
+            }
+
+
+            .product-content {
+                padding:
+                    13px;
+            }
+
+
+            .product h3 {
+                font-size:
+                    13px;
+            }
+
+
+            .product-description {
+                font-size:
+                    11px;
+
+                min-height:
+                    36px;
+
+                height:
+                    51px;
+            }
+
+
+            .product-bottom {
+                align-items:
+                    stretch;
+
+                flex-direction:
+                    column;
+
+                gap:
+                    9px;
+            }
+
+
+            .buy-button {
+                width:
+                    100%;
+            }
+
+
+            .platform-button {
+                min-height:
+                    34px;
+
+                font-size:
+                    9px;
+
+                padding:
+                    0 10px;
+            }
+
+
+            footer {
+                padding:
+                    50px 20px 28px;
+            }
+
+
+            .footer-inner {
+                flex-direction:
+                    column;
+
+                align-items:
+                    center;
+
+                text-align:
+                    center;
+            }
+
+        }
+
+
+
+        @media (max-width: 500px) {
+
+            .hero {
+                min-height:
+                    360px;
+            }
+
+
+            .hero-eyebrow {
+                font-size:
+                    9px;
+
+                letter-spacing:
+                    2.8px;
+            }
+
+
+            .hero h1 {
+                font-size:
+                    46px;
+
+                letter-spacing:
+                    -1.5px;
+
+                padding:
+                    32px 36px;
+            }
+
+
+            .hero h1::before {
+                inset:
+                    8px;
+            }
+
+
+            .hero h1::after {
+                top:
+                    2px;
+
+                width:
+                    36px;
+            }
+
+
+            .hero p {
+                font-size:
+                    13px;
+
+                line-height:
+                    1.65;
+            }
+
+
+            .search-box input {
+                height:
+                    54px;
+
+                font-size:
+                    13px;
+
+                padding:
+                    0 50px 0 46px;
+            }
+
+
+            .filter-button {
+                width:
+                    36px;
+
+                height:
+                    36px;
+
+                right:
+                    6px;
+            }
+
+
+            .filter-menu {
+                width:
+                    195px;
+            }
+
+
+            .section-heading {
+                font-size:
+                    26px;
+            }
+
+
+            .section-subheading {
+                font-size:
+                    11px;
+            }
+
+
+            .product-category {
+                font-size:
+                    8px;
+
+                letter-spacing:
+                    1.2px;
+            }
+
+
+            .product h3 {
+                font-size:
+                    12px;
+            }
+
+
+            .product-description {
+                font-size:
+                    10px;
+
+                height:
+                    46px;
+            }
+
+
+            .product-price {
+                font-size:
+                    12px;
+            }
+
+
+            .buy-button {
+                min-height:
+                    34px;
+
+                font-size:
+                    10px;
+            }
+
+
+            .platform-button {
+                min-height:
+                    33px;
+
+                font-size:
+                    8.5px;
+            }
+
+        }
+
+
+
+        /* =========================================================
+           TABLET / IPAD
+           ========================================================= */
+
+        @media (min-width: 701px)
+        and (max-width: 1100px) {
+
+            .products-grid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+
+            main {
+                width:
+                    calc(100% - 40px);
+            }
+
+        }
+
+
+
+        /* =========================================================
+           REDUCED MOTION
+           ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior:
+                    auto !important;
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+
+
+            .product,
+            .reveal {
+                opacity:
+                    1 !important;
+
+                transform:
+                    none !important;
+            }
+
+        }
+
+
+        /* =========================================================
+           NON-HOME PAGES
+           HIDE HERO ONLY WHEN A FILTER IS ACTIVE
+           ========================================================= */
+
+        body.has-filter .hero {
+            display: none;
+        }
+
+
+        body.has-filter .search-section {
+            margin-top: 42px;
+        }
+
+    
+        /* =========================================================
+           VNRCHOICEZ FUNCTIONAL LAYER FIX
+           Keep the existing design exactly as-is.
+           ========================================================= */
+
+        /* Header/dropdowns must sit above the search section,
+           including when ?type=trending is active. */
+        header {
+            z-index: 5000 !important;
+        }
+
+        .category-wrapper {
+            z-index: 5001 !important;
+        }
+
+        .category-wrapper .dropdown-menu {
+            z-index: 5002 !important;
+        }
+
+        /* FILTER MUST OPEN DOWNWARD.
+           The search box is 60px tall, so this explicit offset
+           prevents any earlier bottom-position rule from winning. */
+        .search-box {
+            overflow: visible !important;
+        }
+
+        .search-box .filter-menu {
+            top: 70px !important;
+            bottom: auto !important;
+            left: auto !important;
+            right: 0 !important;
+            z-index: 6000 !important;
+            transform-origin: top right !important;
+        }
+
+        @media (max-width: 700px) {
+            .search-box .filter-menu {
+                top: 70px !important;
+                bottom: auto !important;
+                right: 0 !important;
+            }
+        }
+
+</style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+    <header id="siteHeader">
+
+        <a
+            href="index.html"
+            class="logo"
+            aria-label="VNR Choicez Home"
+        >
+            <span>VNR CHOICEZ</span>
+        </a>
+
+
+        <button
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Open menu"
+            aria-expanded="false"
+            type="button"
+        >
+            <span class="menu-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </button>
+
+
+        <nav id="mainNav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="index.html?type=trending">
+                🔥Trending
+            </a>
+
+
+            <div
+                class="category-wrapper"
+                id="categoryWrapper"
+            >
+
+                <button
+                    class="category-toggle"
+                    id="categoryToggle"
+                    type="button"
+                    aria-expanded="false"
+                >
+                    Categories
+
+                    <span class="arrow">
+                        ▼
+                    </span>
+                </button>
+
+
+                <div
+                    class="dropdown-menu"
+                    id="categoryMenu"
+                >
+                    <!-- Categories generated by JavaScript -->
+                </div>
+
+            </div>
+
+
+            <a href="about.html">
+                About Us
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         HERO
+         ========================================================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-eyebrow">
+                VNR CHOICEZ
+            </div>
+
+            <h1>
+                FIND YOUR<br>
+                NEXT CHOICE.
+            </h1>
+
+            <p>
+                Discover useful products, trending finds and curated
+                Shopee picks selected by VNR CHOICEZ.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SEARCH
+         ========================================================= -->
+
+    <section class="search-section">
+
+        <div class="search-box">
+
+            <span class="search-icon"></span>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search products, categories or keywords..."
+                autocomplete="off"
+                aria-label="Search products"
+            >
+
+
+            <!-- =================================================
+                 FILTER BUTTON
+                 ================================================= -->
+
+            <button
+                class="filter-button"
+                id="filterButton"
+                type="button"
+                aria-label="Open filters"
+                title="Filter products"
+                aria-expanded="false"
+                aria-haspopup="true"
+            >
+                <svg class="filter-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M4 6h16M7 12h10M10 18h4" />
+                </svg>
+            </button>
+
+
+            <!-- =================================================
+                 FILTER MENU
+                 CATEGORY IS INTENTIONALLY NOT HERE
+                 ================================================= -->
+
+            <div
+                class="filter-menu"
+                id="filterMenu"
+            >
+
+                <div class="filter-menu-title">
+                    Sort by
+                </div>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-sort="low"
+                >
+                    <span>
+                        Price: Low → High
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-sort="high"
+                >
+                    <span>
+                        Price: High → Low
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <div class="filter-menu-title">
+                    Platform
+                </div>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="all"
+                >
+                    <span>
+                        All Platforms
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="Shopee"
+                >
+                    <span>
+                        Shopee
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="TikTok Shop"
+                >
+                    <span>
+                        TikTok Shop
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+
+                <button
+                    class="filter-option"
+                    type="button"
+                    data-platform="Lazada"
+                >
+                    <span>
+                        Lazada
+                    </span>
+
+                    <span class="filter-option-check">
+                        ✓
+                    </span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         PRODUCTS
+         ========================================================= -->
+
+    <main id="productsMain">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2
+                    class="section-heading"
+                    id="sectionHeading"
+                >
+                    All Products
+                </h2>
+
+                <p
+                    class="section-subheading"
+                    id="sectionSubheading"
+                >
+                    Curated picks by VNR CHOICEZ
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="productsContainer"
+            class="products-grid"
+        >
+
+            <div class="loading">
+                Loading products
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer id="about">
+
+        <div class="footer-inner">
+
+            <div>
+
+                <div class="footer-brand">
+                    VNR CHOICEZ
+                </div>
+
+                <p class="footer-text">
+                    Curated products, useful finds and Shopee
+                    recommendations. Discover your next choice
+                    with VNR CHOICEZ.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-copy">
+            © 2026 VNR CHOICEZ. All rights reserved.
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         SUPABASE
+         ========================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="config.js"></script>
+
+
+
+    <!-- =========================================================
+         MAIN JAVASCRIPT
+         ========================================================= -->
+
+    <script>
+
+        /* =========================================================
+           SUPABASE CHECK
+           ========================================================= */
+
+        if (
+            typeof supabaseClient === "undefined" ||
+            !supabaseClient
+        ) {
+
+            console.error(
+                "supabaseClient is not available. Check config.js"
+            );
+
+        }
+
+
+        /* =========================================================
+           DOM ELEMENTS
+           ========================================================= */
+
+        const productsContainer =
+            document.getElementById("productsContainer");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const sectionHeading =
+            document.getElementById("sectionHeading");
+
+        const sectionSubheading =
+            document.getElementById("sectionSubheading");
+
+        const categoryMenu =
+            document.getElementById("categoryMenu");
+
+        const categoryWrapper =
+            document.getElementById("categoryWrapper");
+
+        const categoryToggle =
+            document.getElementById("categoryToggle");
+
+        const mobileMenuBtn =
+            document.getElementById("mobileMenuBtn");
+
+        const mainNav =
+            document.getElementById("mainNav");
+
+        const siteHeader =
+            document.getElementById("siteHeader");
+
+
+        /* =========================================================
+           FILTER DOM ELEMENTS
+           ========================================================= */
+
+        const filterButton =
+            document.getElementById("filterButton");
+
+        const filterMenu =
+            document.getElementById("filterMenu");
+
+        const filterOptions =
+            document.querySelectorAll(".filter-option");
+
+
+        /* =========================================================
+           STATE
+           ========================================================= */
+
+        let allProducts = [];
+        let allCategories = [];
+
+        let currentFilter = "all";
+        let currentSearch = "";
+
+        let currentSort = "default";
+        let currentPlatform = "all";
+
+
+        /* =========================================================
+           CATEGORY DEFINITIONS
+           =========================================================
+           
+           The database may still contain the old names:
+           
+           Gadget & Tech
+           Random Useful Items
+           
+           They are displayed as:
+           
+           Electronics
+           Others
+           
+           This also keeps old database products working.
+           ========================================================= */
+
+        const CATEGORY_DEFINITIONS = [
+
+            {
+                display: "Fashion",
+                values: [
+                    "Fashion"
+                ]
+            },
+
+            {
+                display: "Accessories",
+                values: [
+                    "Accessories"
+                ]
+            },
+
+            {
+                display: "Beauty",
+                values: [
+                    "Beauty"
+                ]
+            },
+
+            {
+                display: "Fragrance",
+                values: [
+                    "Fragrance"
+                ]
+            },
+
+            {
+                display: "Home Items",
+                values: [
+                    "Home Items"
+                ]
+            },
+
+            {
+                display: "Cookery",
+                values: [
+                    "Cookery"
+                ]
+            },
+
+            {
+                display: "Electronics",
+                values: [
+                    "Electronics",
+                    "Gadget & Tech"
+                ]
+            },
+
+            {
+                display: "Gaming",
+                values: [
+                    "Gaming"
+                ]
+            },
+
+            {
+                display: "Sports",
+                values: [
+                    "Sports"
+                ]
+            },
+
+            {
+                display: "Others",
+                values: [
+                    "Others",
+                    "Random Useful Items"
+                ]
+            }
+
+        ];
+
+
+        /* =========================================================
+           URL PARAMETER
+           ========================================================= */
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const initialType =
+            urlParams.get("type");
+
+
+        /* =========================================================
+           HELPERS
+           ========================================================= */
+
+        function escapeHTML(value) {
+
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        function formatPrice(price) {
+
+            if (
+                price === null ||
+                price === undefined ||
+                price === ""
+            ) {
+                return "";
+            }
+
+            const numericPrice =
+                Number(price);
+
+            if (Number.isNaN(numericPrice)) {
+                return escapeHTML(price);
+            }
+
+            return `RM ${numericPrice.toFixed(2)}`;
+
+        }
+
+
+        function formatPriceRange(prices) {
+
+            const validPrices =
+                prices
+                    .map(function (price) {
+
+                        const numericPrice =
+                            Number(price);
+
+                        return Number.isFinite(numericPrice)
+                            ? numericPrice
+                            : null;
+
+                    })
+                    .filter(function (price) {
+
+                        return price !== null;
+
+                    });
+
+
+            if (!validPrices.length) {
+                return "";
+            }
+
+
+            const lowestPrice =
+                Math.min(...validPrices);
+
+            const highestPrice =
+                Math.max(...validPrices);
+
+
+            if (
+                lowestPrice === highestPrice
+            ) {
+
+                return formatPrice(
+                    lowestPrice
+                );
+
+            }
+
+
+            return `
+                ${formatPrice(lowestPrice)}
+                –
+                ${formatPrice(highestPrice)}
+            `;
+
+        }
+
+
+        function getProductCategory(product) {
+
+            return (
+                product.category_name ||
+                product.category ||
+                product.categories?.name ||
+                ""
+            );
+
+        }
+
+
+        function getProductImage(product) {
+
+            return (
+                product.image_url ||
+                product.image ||
+                product.product_image ||
+                "cropped_circle_image.png"
+            );
+
+        }
+
+
+        function getProductName(product) {
+
+            return (
+                product.name ||
+                product.product_name ||
+                "Unnamed Product"
+            );
+
+        }
+
+
+        function getProductDescription(product) {
+
+            return (
+                product.description ||
+                product.product_description ||
+                "Discover this product on VNR CHOICEZ."
+            );
+
+        }
+
+
+        function getProductLink(product) {
+
+            return (
+                product.affiliate_link ||
+                product.shopee_link ||
+                product.product_link ||
+                product.link ||
+                "#"
+            );
+
+        }
+
+
+
+        /* =========================================================
+           CATEGORY MATCHING
+           ========================================================= */
+
+        function getCategoryDefinition(
+            categoryName
+        ) {
+
+            if (!categoryName) {
+                return null;
+            }
+
+
+            const normalizedCategory =
+                String(categoryName)
+                    .toLowerCase()
+                    .trim();
+
+
+            return CATEGORY_DEFINITIONS.find(
+                function (definition) {
+
+                    return definition.values.some(
+                        function (value) {
+
+                            return (
+                                value
+                                    .toLowerCase()
+                                    .trim() ===
+                                normalizedCategory
+                            );
+
+                        }
+                    );
+
+                }
+            ) || null;
+
+        }
+
+
+        function productMatchesCategory(
+            product,
+            categoryName
+        ) {
+
+            const productCategory =
+                getProductCategory(product);
+
+
+            if (!productCategory) {
+                return false;
+            }
+
+
+            const definition =
+                getCategoryDefinition(
+                    categoryName
+                );
+
+
+            if (definition) {
+
+                const normalizedProductCategory =
+                    productCategory
+                        .toLowerCase()
+                        .trim();
+
+
+                return definition.values.some(
+                    function (value) {
+
+                        return (
+                            value
+                                .toLowerCase()
+                                .trim() ===
+                            normalizedProductCategory
+                        );
+
+                    }
+                );
+
+            }
+
+
+            return (
+                productCategory
+                    .toLowerCase()
+                    .trim() ===
+                categoryName
+                    .toLowerCase()
+                    .trim()
+            );
+
+        }
+
+
+
+        /* =========================================================
+           GET ACTIVE PRODUCT PLATFORMS
+           ========================================================= */
+
+        function getActiveProductPlatforms(product) {
+
+            if (
+                !Array.isArray(product.platforms)
+            ) {
+                return [];
+            }
+
+
+            return product.platforms.filter(
+                function (platform) {
+
+                    return (
+                        platform &&
+                        platform.is_active === true &&
+                        platform.affiliate_url
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================================
+           GET PRODUCT PRICE RANGE
+           MAIN PRICE + ACTIVE PLATFORM PRICES
+           ========================================================= */
+
+        function getProductPriceRange(
+            product,
+            activePlatforms
+        ) {
+
+            const prices = [];
+
+
+            /*
+             * Main/base product price.
+             */
+
+            if (
+                product.price !== null &&
+                product.price !== undefined &&
+                product.price !== ""
+            ) {
+
+                const mainPrice =
+                    Number(product.price);
+
+                if (
+                    Number.isFinite(mainPrice)
+                ) {
+
+                    prices.push(
+                        mainPrice
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Active platform prices only.
+             */
+
+            activePlatforms.forEach(
+                function (platform) {
+
+                    if (
+                        platform.price !== null &&
+                        platform.price !== undefined &&
+                        platform.price !== ""
+                    ) {
+
+                        const platformPrice =
+                            Number(platform.price);
+
+                        if (
+                            Number.isFinite(platformPrice)
+                        ) {
+
+                            prices.push(
+                                platformPrice
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            return formatPriceRange(
+                prices
+            );
+
+        }
+
+
+
+        /* =========================================================
+           GET PRODUCT SORT PRICE
+           ========================================================= */
+
+        function getProductSortPrice(product) {
+
+            const prices = [];
+
+
+            /*
+             * Main/base product price.
+             */
+
+            if (
+                product.price !== null &&
+                product.price !== undefined &&
+                product.price !== ""
+            ) {
+
+                const mainPrice =
+                    Number(product.price);
+
+                if (
+                    Number.isFinite(mainPrice)
+                ) {
+
+                    prices.push(
+                        mainPrice
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Active platform prices.
+             */
+
+            const activePlatforms =
+                getActiveProductPlatforms(
+                    product
+                );
+
+
+            activePlatforms.forEach(
+                function (platform) {
+
+                    if (
+                        platform.price !== null &&
+                        platform.price !== undefined &&
+                        platform.price !== ""
+                    ) {
+
+                        const platformPrice =
+                            Number(platform.price);
+
+                        if (
+                            Number.isFinite(platformPrice)
+                        ) {
+
+                            prices.push(
+                                platformPrice
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            if (!prices.length) {
+                return null;
+            }
+
+
+            /*
+             * Use the lowest available price
+             * as the product's sorting price.
+             */
+
+            return Math.min(
+                ...prices
+            );
+
+        }
+
+
+
+        /* =========================================================
+           PLATFORM MATCHING
+           ========================================================= */
+
+        function productMatchesPlatform(
+            product,
+            platformName
+        ) {
+
+            if (
+                !platformName ||
+                platformName === "all"
+            ) {
+
+                return true;
+
+            }
+
+
+            const activePlatforms =
+                getActiveProductPlatforms(
+                    product
+                );
+
+
+            return activePlatforms.some(
+                function (platform) {
+
+                    return (
+                        String(
+                            platform.platform || ""
+                        )
+                            .toLowerCase()
+                            .trim() ===
+                        platformName
+                            .toLowerCase()
+                            .trim()
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================================
+           HEADER SCROLL EFFECT
+           ========================================================= */
+
+        function handleHeaderScroll() {
+
+            if (window.scrollY > 15) {
+                siteHeader.classList.add("scrolled");
+            } else {
+                siteHeader.classList.remove("scrolled");
+            }
+
+        }
+
+        window.addEventListener(
+            "scroll",
+            handleHeaderScroll,
+            { passive: true }
+        );
+
+        handleHeaderScroll();
+
+
+
+        /* =========================================================
+           MOBILE MENU
+           ========================================================= */
+
+        mobileMenuBtn.addEventListener(
+            "click",
+            function () {
+
+                const isOpen =
+                    mainNav.classList.toggle("mobile-open");
+
+                mobileMenuBtn.classList.toggle(
+                    "active",
+                    isOpen
+                );
+
+                mobileMenuBtn.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           CATEGORY DROPDOWN
+           ========================================================= */
+
+        categoryToggle.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                const isOpen =
+                    categoryWrapper.classList.toggle("open");
+
+                categoryToggle.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           FILTER DROPDOWN
+           ========================================================= */
+
+        filterButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+                const isOpen =
+                    filterMenu.classList.toggle("open");
+
+                filterButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
+
+            }
+        );
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+
+                /*
+                 * Close category dropdown.
+                 */
+
+                if (
+                    !categoryWrapper.contains(event.target)
+                ) {
+
+                    categoryWrapper.classList.remove(
+                        "open"
+                    );
+
+                    categoryToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+
+                /*
+                 * Close filter dropdown.
+                 */
+
+                if (
+                    !filterMenu.contains(event.target) &&
+                    !filterButton.contains(event.target)
+                ) {
+
+                    filterMenu.classList.remove(
+                        "open"
+                    );
+
+                    filterButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           FILTER OPTIONS
+           ========================================================= */
+
+        filterOptions.forEach(
+            function (option) {
+
+                option.addEventListener(
+                    "click",
+                    function () {
+
+                        const selectedSort =
+                            this.dataset.sort;
+
+                        const selectedPlatform =
+                            this.dataset.platform;
+
+
+                        /*
+                         * SORT
+                         */
+
+                        if (selectedSort) {
+
+                            currentSort =
+                                selectedSort;
+
+
+                            filterOptions
+                                .forEach(
+                                    function (item) {
+
+                                        if (
+                                            item.dataset.sort
+                                        ) {
+
+                                            item.classList.toggle(
+                                                "active",
+                                                item.dataset.sort ===
+                                                currentSort
+                                            );
+
+                                        }
+
+                                    }
+                                );
+
+                        }
+
+
+                        /*
+                         * PLATFORM
+                         */
+
+                        if (selectedPlatform) {
+
+                            currentPlatform =
+                                selectedPlatform;
+
+
+                            filterOptions
+                                .forEach(
+                                    function (item) {
+
+                                        if (
+                                            item.dataset.platform
+                                        ) {
+
+                                            item.classList.toggle(
+                                                "active",
+                                                item.dataset.platform ===
+                                                currentPlatform
+                                            );
+
+                                        }
+
+                                    }
+                                );
+
+                        }
+
+
+                        /*
+                         * Re-render products.
+                         */
+
+                        renderProducts();
+
+
+                        /*
+                         * Close filter menu.
+                         */
+
+                        filterMenu.classList.remove(
+                            "open"
+                        );
+
+                        filterButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           CLOSE MOBILE MENU AFTER NAVIGATION
+           ========================================================= */
+
+        document.querySelectorAll(
+            "#mainNav a"
+        ).forEach(function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    mainNav.classList.remove(
+                        "mobile-open"
+                    );
+
+                    mobileMenuBtn.classList.remove(
+                        "active"
+                    );
+
+                    mobileMenuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        });
+
+
+
+        /* =========================================================
+           LOAD CATEGORIES
+           ========================================================= */
+
+        async function loadCategories() {
+
+            const fallbackCategories = [
+                "Fashion",
+                "Accessories",
+                "Beauty",
+                "Fragrance",
+                "Home Items",
+                "Cookery",
+                "Electronics",
+                "Gaming",
+                "Sports",
+                "Others"
+            ];
+
+
+            try {
+
+                /*
+                 * Keep the database check so the existing
+                 * Supabase structure is not disturbed.
+                 *
+                 * The website display itself uses the fixed
+                 * CATEGORY_DEFINITIONS order above.
+                 */
+
+                const {
+                    data,
+                    error
+                } = await supabaseClient
+                    .from("categories")
+                    .select("*");
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                /*
+                 * Always use the requested category order
+                 * and display names.
+                 *
+                 * Existing database names such as
+                 * "Gadget & Tech" and
+                 * "Random Useful Items" are handled
+                 * through CATEGORY_DEFINITIONS.
+                 */
+
+                if (
+                    Array.isArray(data)
+                ) {
+
+                    allCategories =
+                        fallbackCategories;
+
+                } else {
+
+                    allCategories =
+                        fallbackCategories;
+
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    "Could not load categories:",
+                    error
+                );
+
+                allCategories =
+                    fallbackCategories;
+
+            }
+
+
+            renderCategories();
+
+        }
+
+
+
+        /* =========================================================
+           RENDER CATEGORY MENU
+           ========================================================= */
+
+        function renderCategories() {
+
+            categoryMenu.innerHTML = "";
+
+
+            const allLink =
+                document.createElement("a");
+
+            allLink.href = "index.html";
+            allLink.textContent = "All Products";
+
+            allLink.addEventListener(
+                "click",
+                function () {
+
+                    categoryWrapper.classList.remove(
+                        "open"
+                    );
+
+                    categoryToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+            categoryMenu.appendChild(allLink);
+
+
+            /*
+             * Render categories in the exact requested order.
+             */
+
+            CATEGORY_DEFINITIONS.forEach(
+                function (definition) {
+
+                    const link =
+                        document.createElement("a");
+
+
+                    link.href =
+                        `?type=${encodeURIComponent(
+                            definition.display
+                        )}`;
+
+
+                    link.textContent =
+                        definition.display;
+
+
+                    link.addEventListener(
+                        "click",
+                        function () {
+
+                            categoryWrapper.classList.remove(
+                                "open"
+                            );
+
+                            categoryToggle.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+                        }
+                    );
+
+
+                    categoryMenu.appendChild(
+                        link
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================================
+           LOAD PRODUCTS
+           ========================================================= */
+
+        async function loadProducts() {
+
+            if (
+                typeof supabaseClient === "undefined" ||
+                !supabaseClient
+            ) {
+
+                productsContainer.innerHTML = `
+                    <div class="empty-state">
+                        Unable to connect to the product database.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            productsContainer.innerHTML = `
+                <div class="loading">
+                    Loading products
+                </div>
+            `;
+
+
+            try {
+
+                /* =================================================
+                   LOAD PUBLISHED PRODUCTS
+                   ================================================= */
+
+                const {
+                    data,
+                    error
+                } = await supabaseClient
+                    .from("products")
+                    .select("*")
+                    .eq("status", "published");
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                allProducts =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+
+                /* =================================================
+                   LOAD PLATFORM DATA
+                   ================================================= */
+
+                if (allProducts.length) {
+
+                    const productIds =
+                        allProducts
+                            .map(product => product.id)
+                            .filter(Boolean);
+
+
+                    if (productIds.length) {
+
+                        const {
+                            data: platformData,
+                            error: platformError
+                        } = await supabaseClient
+                            .from("product_platforms")
+                            .select(`
+                                id,
+                                product_id,
+                                platform,
+                                price,
+                                affiliate_url,
+                                is_active,
+                                created_at,
+                                updated_at
+                            `)
+                            .in(
+                                "product_id",
+                                productIds
+                            )
+                            .order(
+                                "created_at",
+                                {
+                                    ascending: true
+                                }
+                            );
+
+
+                        if (platformError) {
+
+                            /*
+                             * Do not break the entire website if the
+                             * platform table cannot be read.
+                             *
+                             * The existing products table remains the
+                             * fallback so old products continue to work.
+                             */
+
+                            console.warn(
+                                "Could not load product platforms:",
+                                platformError
+                            );
+
+                        } else {
+
+                            const platformsByProduct =
+                                {};
+
+
+                            (
+                                Array.isArray(platformData)
+                                    ? platformData
+                                    : []
+                            ).forEach(
+                                function (platform) {
+
+                                    const productId =
+                                        String(
+                                            platform.product_id
+                                        );
+
+
+                                    if (
+                                        !platformsByProduct[
+                                            productId
+                                        ]
+                                    ) {
+
+                                        platformsByProduct[
+                                            productId
+                                        ] = [];
+
+                                    }
+
+
+                                    platformsByProduct[
+                                        productId
+                                    ].push(
+                                        platform
+                                    );
+
+                                }
+                            );
+
+
+                            allProducts =
+                                allProducts.map(
+                                    function (product) {
+
+                                        return {
+                                            ...product,
+
+                                            platforms:
+                                                platformsByProduct[
+                                                    String(product.id)
+                                                ] || []
+                                        };
+
+                                    }
+                                );
+
+                        }
+
+                    }
+
+                }
+
+
+                renderProducts();
+
+            } catch (error) {
+
+                console.error(
+                    "Product loading error:",
+                    error
+                );
+
+
+                productsContainer.innerHTML = `
+                    <div class="empty-state">
+                        Unable to load products right now.
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           FILTER PRODUCTS
+           ========================================================= */
+
+        function getFilteredProducts() {
+
+            let products =
+                [...allProducts];
+
+
+            /* =====================================================
+               CATEGORY
+               ===================================================== */
+
+            if (
+                currentFilter &&
+                currentFilter !== "all"
+            ) {
+
+                const normalizedFilter =
+                    currentFilter
+                        .toLowerCase()
+                        .trim();
+
+
+                /*
+                 * Support both:
+                 *
+                 * ?type=trending
+                 * ?type=🔥trending
+                 */
+
+                if (
+                    normalizedFilter ===
+                    "trending" ||
+                    normalizedFilter ===
+                    "🔥trending"
+                ) {
+
+                    products =
+                        products.filter(
+                            product =>
+                                product.trending === true ||
+                                product.is_trending === true
+                        );
+
+                } else {
+
+                    products =
+                        products.filter(
+                            product => {
+
+                                return productMatchesCategory(
+                                    product,
+                                    currentFilter
+                                );
+
+                            }
+                        );
+
+                }
+
+            }
+
+
+
+            /* =====================================================
+               SEARCH
+               ===================================================== */
+
+            if (currentSearch) {
+
+                const query =
+                    currentSearch
+                        .toLowerCase()
+                        .trim();
+
+
+                products =
+                    products.filter(
+                        product => {
+
+                            const name =
+                                getProductName(
+                                    product
+                                ).toLowerCase();
+
+                            const description =
+                                getProductDescription(
+                                    product
+                                ).toLowerCase();
+
+                            const category =
+                                getProductCategory(
+                                    product
+                                ).toLowerCase();
+
+
+                            return (
+                                name.includes(query) ||
+                                description.includes(query) ||
+                                category.includes(query)
+                            );
+
+                        }
+                    );
+
+            }
+
+
+
+            /* =====================================================
+               PLATFORM
+               ===================================================== */
+
+            if (
+                currentPlatform &&
+                currentPlatform !== "all"
+            ) {
+
+                products =
+                    products.filter(
+                        product => {
+
+                            return productMatchesPlatform(
+                                product,
+                                currentPlatform
+                            );
+
+                        }
+                    );
+
+            }
+
+
+
+            /* =====================================================
+               PRICE SORT
+               ===================================================== */
+
+            if (
+                currentSort === "low" ||
+                currentSort === "high"
+            ) {
+
+                products.sort(
+                    function (a, b) {
+
+                        const priceA =
+                            getProductSortPrice(a);
+
+                        const priceB =
+                            getProductSortPrice(b);
+
+
+                        /*
+                         * Products without a price go to the end.
+                         */
+
+                        if (
+                            priceA === null &&
+                            priceB === null
+                        ) {
+                            return 0;
+                        }
+
+
+                        if (priceA === null) {
+                            return 1;
+                        }
+
+
+                        if (priceB === null) {
+                            return -1;
+                        }
+
+
+                        if (
+                            currentSort === "low"
+                        ) {
+
+                            return priceA - priceB;
+
+                        }
+
+
+                        return priceB - priceA;
+
+                    }
+                );
+
+            }
+
+
+            return products;
+
+        }
+
+
+
+        /* =========================================================
+           UPDATE SECTION TITLE
+           ========================================================= */
+
+        function updateSectionTitle() {
+
+            if (
+                currentFilter &&
+                (
+                    currentFilter.toLowerCase() ===
+                    "trending" ||
+                    currentFilter.toLowerCase() ===
+                    "🔥trending"
+                )
+            ) {
+
+                sectionHeading.textContent =
+                    "Trending";
+
+                sectionSubheading.textContent =
+                    "Popular picks from VNR CHOICEZ";
+
+                return;
+
+            }
+
+
+            if (
+                currentFilter &&
+                currentFilter !== "all"
+            ) {
+
+                const definition =
+                    getCategoryDefinition(
+                        currentFilter
+                    );
+
+
+                sectionHeading.textContent =
+                    definition
+                        ? definition.display
+                        : currentFilter;
+
+
+                sectionSubheading.textContent =
+                    "Curated picks by VNR CHOICEZ";
+
+                return;
+
+            }
+
+
+            sectionHeading.textContent =
+                "All Products";
+
+            sectionSubheading.textContent =
+                "Curated picks by VNR CHOICEZ";
+
+        }
+
+
+
+        /* =========================================================
+           RENDER PRODUCTS
+           ========================================================= */
+
+        function renderProducts() {
+
+            updateSectionTitle();
+
+
+            const products =
+                getFilteredProducts();
+
+
+            if (!products.length) {
+
+                productsContainer.innerHTML = `
+                    <div
+                        class="empty-state"
+                        style="grid-column: 1 / -1;"
+                    >
+                        No products found.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            productsContainer.innerHTML = "";
+
+
+            products.forEach(
+                function (product, index) {
+
+                    const card =
+                        document.createElement("article");
+
+                    card.className = "product";
+
+                    card.style.setProperty(
+                        "--delay",
+                        `${Math.min(index * 65, 650)}ms`
+                    );
+
+
+                    const image =
+                        escapeHTML(
+                            getProductImage(product)
+                        );
+
+                    const name =
+                        escapeHTML(
+                            getProductName(product)
+                        );
+
+                    const description =
+                        escapeHTML(
+                            getProductDescription(product)
+                        );
+
+                    const category =
+                        escapeHTML(
+                            getProductCategory(product)
+                        );
+
+
+
+                    /* =================================================
+                       PLATFORM DISPLAY
+                       ================================================= */
+
+                    const allActivePlatforms =
+                        getActiveProductPlatforms(
+                            product
+                        );
+
+
+                    /*
+                     * When a platform filter is selected,
+                     * only display the selected platform button.
+                     *
+                     * This makes the selected filter clear to users.
+                     */
+
+                    const activePlatforms =
+                        currentPlatform === "all"
+                            ? allActivePlatforms
+                            : allActivePlatforms.filter(
+                                function (platform) {
+
+                                    return (
+                                        String(
+                                            platform.platform || ""
+                                        )
+                                            .toLowerCase()
+                                            .trim() ===
+                                        currentPlatform
+                                            .toLowerCase()
+                                            .trim()
+                                    );
+
+                                }
+                            );
+
+
+                    /*
+                     * Price range remains based on the displayed
+                     * platform selection when a platform filter
+                     * is active.
+                     */
+
+                    const priceRange =
+                        getProductPriceRange(
+                            product,
+                            activePlatforms
+                        );
+
+
+                    let platformHTML = "";
+
+
+                    if (
+                        activePlatforms.length
+                    ) {
+
+                        platformHTML = `
+                            <div class="product-platforms">
+                                ${
+                                    activePlatforms
+                                        .map(
+                                            function (platform) {
+
+                                                const platformName =
+                                                    escapeHTML(
+                                                        platform.platform ||
+                                                        "View Product"
+                                                    );
+
+                                                const platformURL =
+                                                    escapeHTML(
+                                                        platform.affiliate_url ||
+                                                        "#"
+                                                    );
+
+                                                const platformPrice =
+                                                    formatPrice(
+                                                        platform.price
+                                                    );
+
+
+                                                return `
+                                                    <a
+                                                        class="platform-button"
+                                                        href="${platformURL}"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        aria-label="View on ${platformName}"
+                                                    >
+                                                        <span class="platform-button-name">
+                                                            View on ${platformName}
+                                                        </span>
+
+                                                        ${
+                                                            platformPrice
+                                                                ? `
+                                                                    <span class="platform-button-price">
+                                                                        ${platformPrice}
+                                                                    </span>
+                                                                  `
+                                                                : ""
+                                                        }
+                                                    </a>
+                                                `;
+
+                                            }
+                                        )
+                                        .join("")
+                                }
+                            </div>
+                        `;
+
+                    } else {
+
+                        /*
+                         * FALLBACK:
+                         *
+                         * If there are no platform records, preserve
+                         * the original VNR CHOICEZ behaviour exactly.
+                         */
+
+                        const link =
+                            escapeHTML(
+                                getProductLink(product)
+                            );
+
+                        const price =
+                            formatPrice(
+                                product.price
+                            );
+
+
+                        platformHTML = `
+                            <div class="product-bottom">
+
+                                ${
+                                    price
+                                        ? `
+                                            <div class="product-price">
+                                                ${price}
+                                            </div>
+                                          `
+                                        : `
+                                            <div></div>
+                                          `
+                                }
+
+
+                                <a
+                                    class="buy-button"
+                                    href="${link}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    View Product
+                                </a>
+
+                            </div>
+                        `;
+
+                    }
+
+
+
+                    /*
+                     * Platform products now have:
+                     *
+                     * 1. A calculated overall price range
+                     *    based on the selected/displayed platforms.
+                     *
+                     * 2. Platform-specific buttons underneath.
+                     *
+                     * The entire bottom section is kept at the bottom
+                     * of the product card by the flex layout.
+                     */
+
+                    const platformProductBottom =
+                        activePlatforms.length
+                            ? `
+                                <div class="product-bottom">
+
+                                    ${
+                                        priceRange
+                                            ? `
+                                                <div class="product-price">
+                                                    ${priceRange}
+                                                </div>
+                                              `
+                                            : `
+                                                <div></div>
+                                              `
+                                    }
+
+                                </div>
+
+                                ${platformHTML}
+                              `
+                            : platformHTML;
+
+
+                    card.innerHTML = `
+
+                        <div class="product-image-wrap">
+
+                            <img
+                                src="${image}"
+                                alt="${name}"
+                                loading="lazy"
+                                onerror="this.src='cropped_circle_image.png'"
+                            >
+
+                        </div>
+
+
+                        <div class="product-content">
+
+                            ${
+                                category
+                                    ? `
+                                        <div class="product-category">
+                                            ${category}
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+
+                            <h3>
+                                ${name}
+                            </h3>
+
+
+                            <div class="product-description">
+                                ${description}
+                            </div>
+
+
+                            ${platformProductBottom}
+
+                        </div>
+
+                    `;
+
+
+                    productsContainer.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+
+            /*
+             * Force browser to register the
+             * new cards before animation starts.
+             */
+
+            requestAnimationFrame(
+                function () {
+
+                    productsContainer
+                        .querySelectorAll(".product")
+                        .forEach(
+                            function (card) {
+
+                                card.style.animationPlayState =
+                                    "running";
+
+                            }
+                        );
+
+                }
+            );
+
+        }
+
+
+
+        /* =========================================================
+           SEARCH
+           ========================================================= */
+
+        let searchTimeout;
+
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                clearTimeout(
+                    searchTimeout
+                );
+
+
+                currentSearch =
+                    this.value;
+
+
+                /*
+                 * Tiny debounce so typing feels smooth
+                 * and does not constantly rebuild the grid.
+                 */
+
+                searchTimeout =
+                    setTimeout(
+                        function () {
+
+                            renderProducts();
+
+                        },
+                        120
+                    );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           DETECT INITIAL FILTER
+           ========================================================= */
+
+        function applyInitialFilter() {
+
+            if (!initialType) {
+
+                currentFilter = "all";
+
+                document.body.classList.remove(
+                    "has-filter"
+                );
+
+                return;
+
+            }
+
+
+            currentFilter =
+                decodeURIComponent(
+                    initialType
+                );
+
+
+            /*
+             * Category filters hide the hero.
+             * Trending also behaves as a filtered page.
+             */
+
+            document.body.classList.add(
+                "has-filter"
+            );
+
+        }
+
+
+
+        /* =========================================================
+           IMAGE PRELOAD / ERROR HANDLING
+           ========================================================= */
+
+        document.addEventListener(
+            "error",
+            function (event) {
+
+                if (
+                    event.target &&
+                    event.target.tagName === "IMG"
+                ) {
+
+                    if (
+                        event.target.dataset.fallbackApplied
+                    ) {
+                        return;
+                    }
+
+                    event.target.dataset.fallbackApplied =
+                        "true";
+
+                    event.target.src =
+                        "cropped_circle_image.png";
+
+                }
+
+            },
+            true
+        );
+
+
+
+        /* =========================================================
+           INITIALIZE FILTER UI
+           ========================================================= */
+
+        function initializeFilterUI() {
+
+            /*
+             * Default sort state:
+             * no price sorting selected.
+             */
+
+            filterOptions.forEach(
+                function (option) {
+
+                    option.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            /*
+             * Default platform:
+             * All Platforms.
+             */
+
+            const allPlatformOption =
+                filterMenu.querySelector(
+                    '[data-platform="all"]'
+                );
+
+
+            if (allPlatformOption) {
+
+                allPlatformOption.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           INITIALIZE
+           ========================================================= */
+
+        async function initializeSite() {
+
+            applyInitialFilter();
+
+            initializeFilterUI();
+
+            await loadCategories();
+
+            await loadProducts();
+
+        }
+
+
+        initializeSite();
+
+
+
+        /* =========================================================
+           CONSOLE
+           ========================================================= */
+
+        console.log(
+            "VNR CHOICEZ — Premium Website Animation System Loaded."
+        );
+
+    </script>
+
+</body>
+
+</html>
